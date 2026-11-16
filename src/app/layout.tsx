@@ -39,9 +39,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl" className={`${plusJakartaSans.variable} ${inter.variable}`}>
-      <body className="min-h-screen flex flex-col bg-white text-[#121212] selection:bg-[#FF4F00] selection:text-white">
+      <body className="min-h-screen flex flex-col bg-white text-[#121212] selection:bg-[#FF4F00] selection:text-white overflow-x-hidden">
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 w-full overflow-x-hidden">{children}</main>
         <Footer />
       </body>
     </html>
