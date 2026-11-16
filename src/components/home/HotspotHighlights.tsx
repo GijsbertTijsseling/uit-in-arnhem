@@ -6,26 +6,26 @@ import { Compass, ArrowRight } from 'lucide-react';
 const DISTRICTS = [
   {
     name: 'Modekwartier',
-    tagline: 'Creatieve ateliers, vintage & specialty coffee',
-    image: 'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=600&q=80',
+    tagline: 'Creatieve ateliers, vintage & design in Klarendal',
+    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/05/Street-Art-Tour-20230804_105441-scaled.jpg',
     slug: 'modekwartier',
   },
   {
     name: 'De 7straatjes',
     tagline: 'Historische straatjes vol unieke boetieks & proeverijen',
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80',
+    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/01/juune1-c-jonas-de-witte-vierkant-2959072273_2734816142.jpg',
     slug: '7straatjes',
   },
   {
     name: 'Park Sonsbeek',
     tagline: 'Watervallen, Witte Villa & weidse vergezichten',
-    image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80',
+    image: 'https://uitinarnhem.nl/wp-content/uploads/2020/08/Sonsbeekmarkt.jpg',
     slug: 'sonsbeek',
   },
   {
     name: 'De Rijnkade',
     tagline: 'Zwoele terrassen & culinair genieten aan het water',
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80',
+    image: 'https://uitinarnhem.nl/wp-content/uploads/2020/08/AM_VerlatenVrouwen_03-1-LRG-CROP.jpg',
     slug: 'rijnkade',
   },
 ];

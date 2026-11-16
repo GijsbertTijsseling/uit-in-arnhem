@@ -60,7 +60,7 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
   // Media
   const [heroImage, setHeroImage] = useState(
     initialEvent?.hero_image_url ||
-      'https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1200&q=80'
+      '/logo.png'
   );
 
   // Descriptions

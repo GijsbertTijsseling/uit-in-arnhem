@@ -17,6 +17,7 @@ import {
   Navigation,
 } from 'lucide-react';
 import { formatDateTime, formatDate, formatTime } from '@/lib/utils';
+import { formatRichContent } from '@/lib/contentRenderer';
 
 interface EventDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -120,9 +121,16 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
           {/* Event description */}
           <div className="pt-6 border-t border-zinc-200 prose prose-zinc max-w-none">
             <h3 className="font-heading font-black text-xl text-zinc-900 mb-4">Over dit evenement</h3>
-            <div className="space-y-4 text-zinc-700 leading-relaxed text-base sm:text-lg whitespace-pre-line">
-              {event.full_description}
-            </div>
+            <div
+              className="text-zinc-700 leading-relaxed text-base sm:text-lg
+                [&>p]:mb-4 [&>p]:leading-relaxed
+                [&>h2]:font-heading [&>h2]:font-black [&>h2]:text-xl [&>h2]:text-zinc-900 [&>h2]:mt-6 [&>h2]:mb-2
+                [&>h3]:font-heading [&>h3]:font-bold [&>h3]:text-lg [&>h3]:text-zinc-900 [&>h3]:mt-6 [&>h3]:mb-2
+                [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:my-4 [&>ul>li]:mb-1.5
+                [&>strong]:font-bold [&>strong]:text-zinc-900
+                [&>a]:text-[#FF4F00] [&>a]:underline [&>a]:font-medium hover:[&>a]:text-[#E04500]"
+              dangerouslySetInnerHTML={{ __html: formatRichContent(event.full_description, event.title) }}
+            />
           </div>
 
           {/* Calendar Export */}

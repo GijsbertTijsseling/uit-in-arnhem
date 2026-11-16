@@ -1,6 +1,5 @@
 import { createClient } from './client';
 import { Article, AgendaItem, UserProfile } from '@/types';
-import { MOCK_ARTICLES, MOCK_EVENTS } from '@/data/mockData';
 
 // Helper to sanitize html string to plain text for excerpts
 function cleanHtml(html: string): string {
@@ -14,13 +13,15 @@ export async function getArticles(): Promise<Article[]> {
     const { data, error } = await supabase
       .from('articles')
       .select('*, categories(name, slug)')
+      .eq('status', 'published')
       .order('published_at', { ascending: false });
 
-    if (error || !data || data.length === 0) {
-      return MOCK_ARTICLES;
+    if (error || !data) {
+      console.error('Error fetching articles:', error);
+      return [];
     }
 
-    const mapped = data.map((item: any) => ({
+    return data.map((item: any) => ({
       id: item.id || `art-${item.slug}`,
       slug: item.slug,
       title: item.title,
@@ -29,11 +30,11 @@ export async function getArticles(): Promise<Article[]> {
       featured_image_url:
         item.featured_image ||
         item.featured_image_url ||
-        'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80',
+        '/logo.png',
       gallery_image_urls: item.gallery_image_urls || [],
       author_id: item.author_id,
       author_name: item.author_name || 'Redactie Uit in Arnhem',
-      category: item.categories?.slug || item.category_slug || item.category || 'ontdekken',
+      category: item.categories?.slug || item.category_slug || item.category || 'nieuws',
       tags: item.tags || [],
       status: item.status || 'published',
       is_featured: !!item.is_featured,
@@ -43,21 +44,20 @@ export async function getArticles(): Promise<Article[]> {
       created_at: item.created_at || new Date().toISOString(),
       updated_at: item.updated_at,
     }));
-
-    // If our editorial mock articles aren't in Supabase yet, keep the top mock ones for curated hero layout
-    const unique = [
-      ...MOCK_ARTICLES.filter((m) => !mapped.some((item) => item.slug === m.slug)),
-      ...mapped,
-    ];
-    return unique;
   } catch (err) {
-    return MOCK_ARTICLES;
+    console.error('Failed to get articles:', err);
+    return [];
   }
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
   const articles = await getArticles();
-  const match = articles.find((a) => a.slug === slug || a.id === slug);
+  const lower = slug.toLowerCase();
+  const match = articles.find((a) => 
+    a.slug === slug || 
+    a.id === slug || 
+    a.slug.toLowerCase() === lower
+  );
   return match || null;
 }
 
@@ -69,29 +69,30 @@ export async function getEvents(): Promise<AgendaItem[]> {
       .select('*, event_categories(name, slug)')
       .order('start_date', { ascending: true });
 
-    if (error || !data || data.length === 0) {
-      return MOCK_EVENTS;
+    if (error || !data) {
+      console.error('Error fetching events:', error);
+      return [];
     }
 
-    const mapped = data.map((item: any) => ({
+    return data.map((item: any) => ({
       id: item.id || `evt-${item.slug}`,
       slug: item.slug,
       title: item.title,
       short_description: cleanHtml(item.short_description) || cleanHtml(item.description).slice(0, 140) + '...',
-      full_description: cleanHtml(item.description) || item.description || '',
+      full_description: item.description || '',
       hero_image_url:
         item.featured_image ||
         item.hero_image ||
         item.hero_image_url ||
-        'https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1200&q=80',
-      category: item.event_categories?.slug || item.category_slug || item.category || 'muziek',
+        '/logo.png',
+      category: item.event_categories?.slug || item.category_slug || item.category || 'cultuur',
       start_date: item.start_date,
       end_date: item.end_date,
       is_all_day: !!item.is_all_day,
       is_recurring: !!item.is_recurring,
       recurrence_rule: item.recurrence_rule,
       venue_name: item.venue_name || 'Arnhem',
-      venue_address: item.venue_address || 'Arnhem Centrum',
+      venue_address: item.venue_address || 'Arnhem',
       venue_city: item.venue_city || 'Arnhem',
       coordinates: item.coordinates,
       price_type: item.price_type || (item.price === 0 ? 'free' : 'paid'),
@@ -104,20 +105,20 @@ export async function getEvents(): Promise<AgendaItem[]> {
       created_at: item.created_at,
       updated_at: item.updated_at,
     }));
-
-    const unique = [
-      ...MOCK_EVENTS.filter((m) => !mapped.some((item) => item.slug === m.slug)),
-      ...mapped,
-    ];
-    return unique;
   } catch (err) {
-    return MOCK_EVENTS;
+    console.error('Failed to get events:', err);
+    return [];
   }
 }
 
 export async function getEventBySlug(slug: string): Promise<AgendaItem | null> {
   const events = await getEvents();
-  const match = events.find((e) => e.slug === slug || e.id === slug);
+  const lower = slug.toLowerCase();
+  const match = events.find((e) => 
+    e.slug === slug || 
+    e.id === slug || 
+    e.slug.toLowerCase() === lower
+  );
   return match || null;
 }
 

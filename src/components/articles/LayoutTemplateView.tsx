@@ -4,6 +4,7 @@ import { Article } from '@/types';
 import { ModularCtaBlock } from './ModularCtaBlock';
 import { Clock, Calendar, User, Tag, Share2, Bookmark } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
+import { formatRichContent } from '@/lib/contentRenderer';
 
 interface LayoutTemplateViewProps {
   article: Article;
@@ -11,9 +12,6 @@ interface LayoutTemplateViewProps {
 
 export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
   const template = article.layout_template || 'standard';
-
-  // Format paragraphs
-  const paragraphs = article.content.split('\n\n').filter(Boolean);
 
   return (
     <article className="w-full">
@@ -109,39 +107,19 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
 
       {/* ARTICLE BODY CONTENT */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="space-y-6 text-zinc-800 leading-relaxed text-base sm:text-lg">
-          {paragraphs.map((p, idx) => {
-            // Check if paragraph is markdown heading
-            if (p.startsWith('### ')) {
-              return (
-                <div key={idx} className="pt-6">
-                  {template === 'listicle' && (
-                    <span className="inline-block w-8 h-8 rounded-full bg-[#FF4F00] text-white text-center leading-8 font-black text-sm mr-3">
-                      {p.match(/^\d+/) || (idx % 6) + 1}
-                    </span>
-                  )}
-                  <h3 className="font-heading font-black text-2xl text-zinc-900 inline">
-                    {p.replace('### ', '')}
-                  </h3>
-                </div>
-              );
-            }
-
-            if (p.startsWith('*Adres:')) {
-              return (
-                <div key={idx} className="p-3 bg-zinc-50 rounded-xl border border-zinc-200 text-sm text-zinc-600 font-mono">
-                  📍 {p.replace(/\*/g, '')}
-                </div>
-              );
-            }
-
-            return (
-              <p key={idx} className="leading-relaxed">
-                {p}
-              </p>
-            );
-          })}
-        </div>
+        <div
+          className="prose prose-zinc prose-lg max-w-none text-zinc-800 leading-relaxed
+            [&>p]:mb-6 [&>p]:leading-relaxed
+            [&>h2]:font-heading [&>h2]:font-black [&>h2]:text-2xl [&>h2]:sm:text-3xl [&>h2]:text-zinc-900 [&>h2]:mt-10 [&>h2]:mb-4
+            [&>h3]:font-heading [&>h3]:font-bold [&>h3]:text-xl [&>h3]:text-zinc-900 [&>h3]:mt-8 [&>h3]:mb-3
+            [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:my-6 [&>ul>li]:mb-2
+            [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:my-6 [&>ol>li]:mb-2
+            [&>blockquote]:border-l-4 [&>blockquote]:border-[#FF4F00] [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:my-6 [&>blockquote]:text-zinc-700
+            [&>strong]:font-bold [&>strong]:text-zinc-900
+            [&>a]:text-[#FF4F00] [&>a]:underline [&>a]:font-medium hover:[&>a]:text-[#E04500]
+            [&>figure]:my-8 [&>figure>img]:rounded-2xl [&>figure>figcaption]:text-xs [&>figure>figcaption]:text-zinc-500 [&>figure>figcaption]:mt-2"
+          dangerouslySetInnerHTML={{ __html: formatRichContent(article.content, article.title) }}
+        />
 
         {/* Visual Gallery if template is visual_gallery or has gallery images */}
         {article.gallery_image_urls && article.gallery_image_urls.length > 0 && (

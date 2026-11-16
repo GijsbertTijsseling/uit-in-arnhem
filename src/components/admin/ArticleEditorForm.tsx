@@ -40,7 +40,7 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
   const [content, setContent] = useState(initialArticle?.content || '');
   const [featuredImage, setFeaturedImage] = useState(
     initialArticle?.featured_image_url ||
-      'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80'
+      '/logo.png'
   );
   const [status, setStatus] = useState<'draft' | 'published'>(
     initialArticle?.status === 'draft' ? 'draft' : 'published'

@@ -27,7 +27,7 @@ export function EventCard({ event }: EventCardProps) {
       {/* Image container */}
       <Link href={`/agenda/${event.slug}`} className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100">
         <Image
-          src={event.hero_image_url || 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=800&q=80'}
+          src={event.hero_image_url || '/logo.png'}
           alt={event.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
