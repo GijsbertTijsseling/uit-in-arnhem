@@ -1,0 +1,1474 @@
+[
+  {
+    "id": 14377,
+    "author": "11",
+    "status": "publish",
+    "date": "2026-11-11 12:34:05",
+    "date_utc": "2026-11-11 11:34:05",
+    "modified": "2026-11-11 12:34:05",
+    "modified_utc": "2026-11-11 11:34:05",
+    "url": "https://uitinarnhem.nl/organisator/3fm-serious-request/",
+    "organizer": "3FM Serious Request",
+    "slug": "3fm-serious-request",
+    "website": "https://www.npo3fm.nl/thema/serious-request",
+    "global_id": "uitinarnhem.nl?id=14377",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=14377"
+    ]
+  },
+  {
+    "id": 14235,
+    "author": "11",
+    "status": "publish",
+    "date": "2026-08-25 10:52:51",
+    "date_utc": "2026-08-25 08:52:51",
+    "modified": "2026-08-25 10:52:51",
+    "modified_utc": "2026-08-25 08:52:51",
+    "url": "https://uitinarnhem.nl/organisator/early-beats/",
+    "organizer": "Early Beats",
+    "slug": "early-beats",
+    "website": "http://www.earlybeats.nl/",
+    "global_id": "uitinarnhem.nl?id=14235",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=14235"
+    ]
+  },
+  {
+    "id": 14220,
+    "author": "11",
+    "status": "publish",
+    "date": "2026-08-25 09:55:20",
+    "date_utc": "2026-08-25 07:55:20",
+    "modified": "2026-08-25 09:55:20",
+    "modified_utc": "2026-08-25 07:55:20",
+    "url": "https://uitinarnhem.nl/organisator/flor-de-fango/",
+    "organizer": "Flor de Fango",
+    "slug": "flor-de-fango",
+    "phone": "026 4459 119",
+    "website": "flordefango.nl",
+    "global_id": "uitinarnhem.nl?id=14220",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=14220"
+    ]
+  },
+  {
+    "id": 14201,
+    "author": "11",
+    "status": "publish",
+    "date": "2026-07-14 12:03:42",
+    "date_utc": "2026-07-14 10:03:42",
+    "modified": "2026-07-14 12:03:42",
+    "modified_utc": "2026-07-14 10:03:42",
+    "url": "https://uitinarnhem.nl/organisator/airborne-freedom-run/",
+    "organizer": "Airborne Freedom Run",
+    "slug": "airborne-freedom-run",
+    "website": "https://airbornefreedomrun.nl/",
+    "global_id": "uitinarnhem.nl?id=14201",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=14201"
+    ]
+  },
+  {
+    "id": 14117,
+    "author": "11",
+    "status": "publish",
+    "date": "2026-03-17 16:15:57",
+    "date_utc": "2026-03-17 15:15:57",
+    "modified": "2026-03-17 16:15:57",
+    "modified_utc": "2026-03-17 15:15:57",
+    "url": "https://uitinarnhem.nl/organisator/henri-bloem-arnhem/",
+    "organizer": "Henri Bloem Arnhem",
+    "slug": "henri-bloem-arnhem",
+    "website": "www.henribloem.nl/henri-bloem-arnhem",
+    "global_id": "uitinarnhem.nl?id=14117",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=14117"
+    ]
+  },
+  {
+    "id": 9285,
+    "author": "21",
+    "status": "publish",
+    "date": "2025-06-21 14:09:55",
+    "date_utc": "2025-06-21 12:09:55",
+    "modified": "2025-06-21 14:09:55",
+    "modified_utc": "2025-06-21 12:09:55",
+    "url": "https://uitinarnhem.nl/organisator/alpha-city-run/",
+    "organizer": "Alpha City Run",
+    "slug": "alpha-city-run",
+    "website": "https://www.alphacityrun.com/",
+    "global_id": "uitinarnhem.nl?id=9285",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9285"
+    ]
+  },
+  {
+    "id": 11009,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-10-03 15:39:17",
+    "date_utc": "2024-10-03 13:39:17",
+    "modified": "2024-10-03 15:39:17",
+    "modified_utc": "2024-10-03 13:39:17",
+    "url": "https://uitinarnhem.nl/organisator/posttheater/",
+    "organizer": "posttheater",
+    "slug": "posttheater",
+    "website": "www.posttheater.nl",
+    "global_id": "uitinarnhem.nl?id=11009",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=11009"
+    ]
+  },
+  {
+    "id": 10985,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-10-01 17:46:36",
+    "date_utc": "2024-10-01 15:46:36",
+    "modified": "2024-10-01 17:46:36",
+    "modified_utc": "2024-10-01 15:46:36",
+    "url": "https://uitinarnhem.nl/organisator/go-short-2/",
+    "organizer": "Go Short",
+    "slug": "go-short-2",
+    "website": "www.goshort.nl",
+    "global_id": "uitinarnhem.nl?id=10985",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=10985"
+    ]
+  },
+  {
+    "id": 10983,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-10-01 17:46:35",
+    "date_utc": "2024-10-01 15:46:35",
+    "modified": "2024-10-01 17:46:35",
+    "modified_utc": "2024-10-01 15:46:35",
+    "url": "https://uitinarnhem.nl/organisator/go-short/",
+    "organizer": "Go Short",
+    "slug": "go-short",
+    "website": "www.goshort.nl",
+    "global_id": "uitinarnhem.nl?id=10983",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=10983"
+    ]
+  },
+  {
+    "id": 10855,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-09-27 12:36:45",
+    "date_utc": "2024-09-27 10:36:45",
+    "modified": "2024-09-27 12:36:45",
+    "modified_utc": "2024-09-27 10:36:45",
+    "url": "https://uitinarnhem.nl/organisator/vrijwilligerscentrale-arnhem/",
+    "organizer": "Vrijwilligerscentrale Arnhem",
+    "slug": "vrijwilligerscentrale-arnhem",
+    "website": "https://vrijwilligerscentralearnhem.nl/",
+    "global_id": "uitinarnhem.nl?id=10855",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=10855"
+    ]
+  },
+  {
+    "id": 10727,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-09-23 12:08:02",
+    "date_utc": "2024-09-23 10:08:02",
+    "modified": "2024-09-23 12:08:02",
+    "modified_utc": "2024-09-23 10:08:02",
+    "url": "https://uitinarnhem.nl/organisator/magnifiek-2/",
+    "organizer": "Magnifiek",
+    "slug": "magnifiek-2",
+    "website": "https://www.magnifiek-events.nl/",
+    "global_id": "uitinarnhem.nl?id=10727",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=10727"
+    ]
+  },
+  {
+    "id": 10721,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-09-23 12:08:01",
+    "date_utc": "2024-09-23 10:08:01",
+    "modified": "2024-09-23 12:08:01",
+    "modified_utc": "2024-09-23 10:08:01",
+    "url": "https://uitinarnhem.nl/organisator/magnifiek/",
+    "organizer": "Magnifiek",
+    "slug": "magnifiek",
+    "website": "https://www.magnifiek-events.nl/",
+    "global_id": "uitinarnhem.nl?id=10721",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=10721"
+    ]
+  },
+  {
+    "id": 10487,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-08-21 10:41:39",
+    "date_utc": "2024-08-21 08:41:39",
+    "modified": "2024-08-21 10:41:39",
+    "modified_utc": "2024-08-21 08:41:39",
+    "url": "https://uitinarnhem.nl/organisator/collectief-ludvik-3/",
+    "organizer": "Collectief Ludvik",
+    "slug": "collectief-ludvik-3",
+    "website": "https://www.collectiefludvik.com/",
+    "global_id": "uitinarnhem.nl?id=10487",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=10487"
+    ]
+  },
+  {
+    "id": 10485,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-08-21 10:41:39",
+    "date_utc": "2024-08-21 08:41:39",
+    "modified": "2024-08-21 10:41:39",
+    "modified_utc": "2024-08-21 08:41:39",
+    "url": "https://uitinarnhem.nl/organisator/collectief-ludvik-2/",
+    "organizer": "Collectief Ludvik",
+    "slug": "collectief-ludvik-2",
+    "website": "https://www.collectiefludvik.com/",
+    "global_id": "uitinarnhem.nl?id=10485",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=10485"
+    ]
+  },
+  {
+    "id": 10343,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-08-14 13:50:24",
+    "date_utc": "2024-08-14 11:50:24",
+    "modified": "2024-08-14 13:50:24",
+    "modified_utc": "2024-08-14 11:50:24",
+    "url": "https://uitinarnhem.nl/organisator/arnhem-klimaatbestendig/",
+    "organizer": "Arnhem Klimaatbestendig",
+    "slug": "arnhem-klimaatbestendig",
+    "website": "https://www.arnhemklimaatbestendig.nl/",
+    "global_id": "uitinarnhem.nl?id=10343",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=10343"
+    ]
+  },
+  {
+    "id": 10091,
+    "author": "23",
+    "status": "publish",
+    "date": "2024-07-28 11:12:35",
+    "date_utc": "2024-07-28 09:12:35",
+    "modified": "2024-07-28 11:12:35",
+    "modified_utc": "2024-07-28 09:12:35",
+    "url": "https://uitinarnhem.nl/organisator/sportbedrijf-arnhem/",
+    "organizer": "Sportbedrijf Arnhem",
+    "slug": "sportbedrijf-arnhem",
+    "phone": "026 377 5757",
+    "website": "https://www.sportbedrijfarnhem.nl/",
+    "global_id": "uitinarnhem.nl?id=10091",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=10091"
+    ]
+  },
+  {
+    "id": 9663,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-06-14 17:14:06",
+    "date_utc": "2024-06-14 15:14:06",
+    "modified": "2024-06-14 17:14:06",
+    "modified_utc": "2024-06-14 15:14:06",
+    "url": "https://uitinarnhem.nl/organisator/stockdagen-arnhem/",
+    "organizer": "Stockdagen Arnhem",
+    "slug": "stockdagen-arnhem",
+    "website": "https://stockdagen.nl/",
+    "global_id": "uitinarnhem.nl?id=9663",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9663"
+    ]
+  },
+  {
+    "id": 9641,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-06-14 16:04:31",
+    "date_utc": "2024-06-14 14:04:31",
+    "modified": "2024-06-14 16:04:31",
+    "modified_utc": "2024-06-14 14:04:31",
+    "url": "https://uitinarnhem.nl/organisator/casa-arnhem/",
+    "organizer": "CASA Arnhem",
+    "slug": "casa-arnhem",
+    "website": "https://casa-arnhem.nl",
+    "global_id": "uitinarnhem.nl?id=9641",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9641"
+    ]
+  },
+  {
+    "id": 9539,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-05-30 12:41:35",
+    "date_utc": "2024-05-30 10:41:35",
+    "modified": "2024-05-30 12:41:35",
+    "modified_utc": "2024-05-30 10:41:35",
+    "url": "https://uitinarnhem.nl/organisator/modekwartier/",
+    "organizer": "Modekwartier",
+    "slug": "modekwartier",
+    "website": "www.modekwartier.nl",
+    "global_id": "uitinarnhem.nl?id=9539",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9539"
+    ]
+  },
+  {
+    "id": 9433,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-05-08 11:30:03",
+    "date_utc": "2024-05-08 09:30:03",
+    "modified": "2024-05-08 11:30:03",
+    "modified_utc": "2024-05-08 09:30:03",
+    "url": "https://uitinarnhem.nl/organisator/arnhem-life/",
+    "organizer": "Arnhem Life",
+    "slug": "arnhem-life",
+    "website": "www.arnhemlife.nl",
+    "global_id": "uitinarnhem.nl?id=9433",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9433"
+    ]
+  },
+  {
+    "id": 9415,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-05-08 10:30:53",
+    "date_utc": "2024-05-08 08:30:53",
+    "modified": "2024-05-08 10:30:53",
+    "modified_utc": "2024-05-08 08:30:53",
+    "url": "https://uitinarnhem.nl/organisator/de-hollandsche-molen/",
+    "organizer": "De Hollandsche Molen",
+    "slug": "de-hollandsche-molen",
+    "website": "https://www.molens.nl/",
+    "global_id": "uitinarnhem.nl?id=9415",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9415"
+    ]
+  },
+  {
+    "id": 9325,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-25 11:05:46",
+    "date_utc": "2024-04-25 09:05:46",
+    "modified": "2024-04-25 11:05:46",
+    "modified_utc": "2024-04-25 09:05:46",
+    "url": "https://uitinarnhem.nl/organisator/knwu-2/",
+    "organizer": "KNWU",
+    "slug": "knwu-2",
+    "website": "https://www.knwu.nl/",
+    "global_id": "uitinarnhem.nl?id=9325",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9325"
+    ]
+  },
+  {
+    "id": 9323,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-25 11:05:45",
+    "date_utc": "2024-04-25 09:05:45",
+    "modified": "2024-04-25 11:05:45",
+    "modified_utc": "2024-04-25 09:05:45",
+    "url": "https://uitinarnhem.nl/organisator/knwu/",
+    "organizer": "KNWU",
+    "slug": "knwu",
+    "website": "https://www.knwu.nl/",
+    "global_id": "uitinarnhem.nl?id=9323",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9323"
+    ]
+  },
+  {
+    "id": 9315,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-25 10:43:59",
+    "date_utc": "2024-04-25 08:43:59",
+    "modified": "2024-04-25 10:43:59",
+    "modified_utc": "2024-04-25 08:43:59",
+    "url": "https://uitinarnhem.nl/organisator/mega-wandel-marathon-2/",
+    "organizer": "Mega Wandel Marathon",
+    "slug": "mega-wandel-marathon-2",
+    "website": "https://www.megawandelmarathon.nl/",
+    "global_id": "uitinarnhem.nl?id=9315",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9315"
+    ]
+  },
+  {
+    "id": 9313,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-25 10:43:59",
+    "date_utc": "2024-04-25 08:43:59",
+    "modified": "2024-04-25 10:43:59",
+    "modified_utc": "2024-04-25 08:43:59",
+    "url": "https://uitinarnhem.nl/organisator/mega-wandel-marathon/",
+    "organizer": "Mega Wandel Marathon",
+    "slug": "mega-wandel-marathon",
+    "website": "https://www.megawandelmarathon.nl/",
+    "global_id": "uitinarnhem.nl?id=9313",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9313"
+    ]
+  },
+  {
+    "id": 9289,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-25 10:03:20",
+    "date_utc": "2024-04-25 08:03:20",
+    "modified": "2024-04-25 10:03:20",
+    "modified_utc": "2024-04-25 08:03:20",
+    "url": "https://uitinarnhem.nl/organisator/alpha-city-run-2/",
+    "organizer": "Alpha City Run",
+    "slug": "alpha-city-run-2",
+    "website": "https://www.alphacityrun.com/",
+    "global_id": "uitinarnhem.nl?id=9289",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9289"
+    ]
+  },
+  {
+    "id": 9257,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-24 20:18:52",
+    "date_utc": "2024-04-24 18:18:52",
+    "modified": "2024-04-24 20:18:52",
+    "modified_utc": "2024-04-24 18:18:52",
+    "url": "https://uitinarnhem.nl/organisator/betcity-eredivisie-beach-3/",
+    "organizer": "Betcity Eredivisie Beach",
+    "slug": "betcity-eredivisie-beach-3",
+    "website": "https://eredivisiebeach.nl/",
+    "global_id": "uitinarnhem.nl?id=9257",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9257"
+    ]
+  },
+  {
+    "id": 9255,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-24 20:18:52",
+    "date_utc": "2024-04-24 18:18:52",
+    "modified": "2024-04-24 20:18:52",
+    "modified_utc": "2024-04-24 18:18:52",
+    "url": "https://uitinarnhem.nl/organisator/betcity-eredivisie-beach-2/",
+    "organizer": "Betcity Eredivisie Beach",
+    "slug": "betcity-eredivisie-beach-2",
+    "website": "https://eredivisiebeach.nl/",
+    "global_id": "uitinarnhem.nl?id=9255",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9255"
+    ]
+  },
+  {
+    "id": 9235,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-24 19:53:55",
+    "date_utc": "2024-04-24 17:53:55",
+    "modified": "2024-04-24 19:53:55",
+    "modified_utc": "2024-04-24 17:53:55",
+    "url": "https://uitinarnhem.nl/organisator/arnhem-proeft-2/",
+    "organizer": "Arnhem Proeft",
+    "slug": "arnhem-proeft-2",
+    "website": "https://arnhemproeft.nl/",
+    "global_id": "uitinarnhem.nl?id=9235",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9235"
+    ]
+  },
+  {
+    "id": 9191,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-24 16:11:02",
+    "date_utc": "2024-04-24 14:11:02",
+    "modified": "2024-04-24 16:11:02",
+    "modified_utc": "2024-04-24 14:11:02",
+    "url": "https://uitinarnhem.nl/organisator/monster-jam-2/",
+    "organizer": "Monster Jam",
+    "slug": "monster-jam-2",
+    "website": "https://www.monsterjam.com/",
+    "global_id": "uitinarnhem.nl?id=9191",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9191"
+    ]
+  },
+  {
+    "id": 9187,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-24 16:11:01",
+    "date_utc": "2024-04-24 14:11:01",
+    "modified": "2024-04-24 16:11:01",
+    "modified_utc": "2024-04-24 14:11:01",
+    "url": "https://uitinarnhem.nl/organisator/monster-jam/",
+    "organizer": "Monster Jam",
+    "slug": "monster-jam",
+    "website": "https://www.monsterjam.com/",
+    "global_id": "uitinarnhem.nl?id=9187",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9187"
+    ]
+  },
+  {
+    "id": 9121,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-24 15:35:51",
+    "date_utc": "2024-04-24 13:35:51",
+    "modified": "2024-04-24 15:35:51",
+    "modified_utc": "2024-04-24 13:35:51",
+    "url": "https://uitinarnhem.nl/organisator/trots-markt-3/",
+    "organizer": "Trots Markt",
+    "slug": "trots-markt-3",
+    "website": "https://trotsmarkt.nl/",
+    "global_id": "uitinarnhem.nl?id=9121",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9121"
+    ]
+  },
+  {
+    "id": 9119,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-24 15:35:51",
+    "date_utc": "2024-04-24 13:35:51",
+    "modified": "2024-04-24 15:35:51",
+    "modified_utc": "2024-04-24 13:35:51",
+    "url": "https://uitinarnhem.nl/organisator/trots-markt-2/",
+    "organizer": "Trots Markt",
+    "slug": "trots-markt-2",
+    "website": "https://trotsmarkt.nl/",
+    "global_id": "uitinarnhem.nl?id=9119",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9119"
+    ]
+  },
+  {
+    "id": 9107,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-24 15:20:59",
+    "date_utc": "2024-04-24 13:20:59",
+    "modified": "2024-04-24 15:20:59",
+    "modified_utc": "2024-04-24 13:20:59",
+    "url": "https://uitinarnhem.nl/organisator/free-your-mind-2/",
+    "organizer": "Free Your Mind",
+    "slug": "free-your-mind-2",
+    "website": "https://freeyourmindfestival.nl",
+    "global_id": "uitinarnhem.nl?id=9107",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9107"
+    ]
+  },
+  {
+    "id": 9105,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-24 15:20:58",
+    "date_utc": "2024-04-24 13:20:58",
+    "modified": "2024-04-24 15:20:58",
+    "modified_utc": "2024-04-24 13:20:58",
+    "url": "https://uitinarnhem.nl/organisator/free-your-mind/",
+    "organizer": "Free Your Mind",
+    "slug": "free-your-mind",
+    "website": "https://freeyourmindfestival.nl",
+    "global_id": "uitinarnhem.nl?id=9105",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9105"
+    ]
+  },
+  {
+    "id": 9049,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-04-23 13:07:43",
+    "date_utc": "2024-04-23 11:07:43",
+    "modified": "2024-04-23 13:07:43",
+    "modified_utc": "2024-04-23 11:07:43",
+    "url": "https://uitinarnhem.nl/organisator/natuurcentrum-arnhem/",
+    "organizer": "Natuurcentrum Arnhem",
+    "slug": "natuurcentrum-arnhem",
+    "website": "https://natuurcentrumarnhem.nl/",
+    "global_id": "uitinarnhem.nl?id=9049",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9049"
+    ]
+  },
+  {
+    "id": 9019,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-04-22 14:00:07",
+    "date_utc": "2024-04-22 12:00:07",
+    "modified": "2024-04-22 14:00:07",
+    "modified_utc": "2024-04-22 12:00:07",
+    "url": "https://uitinarnhem.nl/organisator/wijnspijs/",
+    "organizer": "WijnSpijs",
+    "slug": "wijnspijs",
+    "website": "https://www.wijnspijs.nl/culinaire-wandeling/",
+    "global_id": "uitinarnhem.nl?id=9019",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9019"
+    ]
+  },
+  {
+    "id": 9001,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-04-22 11:51:31",
+    "date_utc": "2024-04-22 09:51:31",
+    "modified": "2024-04-22 11:51:31",
+    "modified_utc": "2024-04-22 09:51:31",
+    "url": "https://uitinarnhem.nl/organisator/dwaallicht-producties/",
+    "organizer": "Dwaallicht Producties",
+    "slug": "dwaallicht-producties",
+    "global_id": "uitinarnhem.nl?id=9001",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=9001"
+    ]
+  },
+  {
+    "id": 8983,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-04-22 11:00:28",
+    "date_utc": "2024-04-22 09:00:28",
+    "modified": "2024-04-22 11:00:28",
+    "modified_utc": "2024-04-22 09:00:28",
+    "url": "https://uitinarnhem.nl/organisator/de-muziekmakerij/",
+    "organizer": "De Muziekmakerij",
+    "slug": "de-muziekmakerij",
+    "website": "https://www.demuziekmakerij.nl/",
+    "global_id": "uitinarnhem.nl?id=8983",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8983"
+    ]
+  },
+  {
+    "id": 8835,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-15 11:01:26",
+    "date_utc": "2024-04-15 09:01:26",
+    "modified": "2024-04-15 11:01:26",
+    "modified_utc": "2024-04-15 09:01:26",
+    "url": "https://uitinarnhem.nl/organisator/arnhem-electricity-week-3/",
+    "organizer": "Arnhem Electricity Week",
+    "slug": "arnhem-electricity-week-3",
+    "website": "https://arnhemelectricityweek.com/",
+    "global_id": "uitinarnhem.nl?id=8835",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8835"
+    ]
+  },
+  {
+    "id": 8833,
+    "author": "21",
+    "status": "publish",
+    "date": "2024-04-15 11:01:26",
+    "date_utc": "2024-04-15 09:01:26",
+    "modified": "2024-04-15 11:01:26",
+    "modified_utc": "2024-04-15 09:01:26",
+    "url": "https://uitinarnhem.nl/organisator/arnhem-electricity-week-2/",
+    "organizer": "Arnhem Electricity Week",
+    "slug": "arnhem-electricity-week-2",
+    "website": "https://arnhemelectricityweek.com/",
+    "global_id": "uitinarnhem.nl?id=8833",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8833"
+    ]
+  },
+  {
+    "id": 8783,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-04-08 12:20:43",
+    "date_utc": "2024-04-08 10:20:43",
+    "modified": "2024-04-08 12:20:43",
+    "modified_utc": "2024-04-08 10:20:43",
+    "url": "https://uitinarnhem.nl/organisator/docks-arnhem/",
+    "organizer": "Docks Arnhem",
+    "slug": "docks-arnhem",
+    "global_id": "uitinarnhem.nl?id=8783",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8783"
+    ]
+  },
+  {
+    "id": 8701,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-04-02 13:03:23",
+    "date_utc": "2024-04-02 11:03:23",
+    "modified": "2024-04-02 13:03:23",
+    "modified_utc": "2024-04-02 11:03:23",
+    "url": "https://uitinarnhem.nl/organisator/vitesse/",
+    "organizer": "Vitesse",
+    "slug": "vitesse",
+    "website": "https://www.vitesse.nl/supporters/ticketing/wedstrijden",
+    "global_id": "uitinarnhem.nl?id=8701",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8701"
+    ]
+  },
+  {
+    "id": 8685,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-04-02 12:50:57",
+    "date_utc": "2024-04-02 10:50:57",
+    "modified": "2024-04-02 12:50:57",
+    "modified_utc": "2024-04-02 10:50:57",
+    "url": "https://uitinarnhem.nl/organisator/collectie-de-groen/",
+    "organizer": "Collectie de Groen",
+    "slug": "collectie-de-groen",
+    "website": "https://www.collectiedegroen.nl/",
+    "global_id": "uitinarnhem.nl?id=8685",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8685"
+    ]
+  },
+  {
+    "id": 8675,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-04-02 12:19:41",
+    "date_utc": "2024-04-02 10:19:41",
+    "modified": "2024-04-02 12:19:41",
+    "modified_utc": "2024-04-02 10:19:41",
+    "url": "https://uitinarnhem.nl/organisator/vroeg-pieken/",
+    "organizer": "Vroeg Pieken",
+    "slug": "vroeg-pieken",
+    "website": "https://vroegpieken.com/over-ons",
+    "global_id": "uitinarnhem.nl?id=8675",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8675"
+    ]
+  },
+  {
+    "id": 8615,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-03-28 16:41:59",
+    "date_utc": "2024-03-28 15:41:59",
+    "modified": "2024-03-28 16:41:59",
+    "modified_utc": "2024-03-28 15:41:59",
+    "url": "https://uitinarnhem.nl/organisator/spijkerrok/",
+    "organizer": "Spijkerrok",
+    "slug": "spijkerrok",
+    "website": "www.spijkerrok.com",
+    "global_id": "uitinarnhem.nl?id=8615",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8615"
+    ]
+  },
+  {
+    "id": 8579,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-03-25 14:26:51",
+    "date_utc": "2024-03-25 13:26:51",
+    "modified": "2024-03-25 14:26:51",
+    "modified_utc": "2024-03-25 13:26:51",
+    "url": "https://uitinarnhem.nl/organisator/vrijmiboot/",
+    "organizer": "Vrijmiboot",
+    "slug": "vrijmiboot",
+    "global_id": "uitinarnhem.nl?id=8579",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8579"
+    ]
+  },
+  {
+    "id": 8571,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-03-25 13:56:21",
+    "date_utc": "2024-03-25 12:56:21",
+    "modified": "2024-03-25 13:56:21",
+    "modified_utc": "2024-03-25 12:56:21",
+    "url": "https://uitinarnhem.nl/organisator/jazz-in-arnhem/",
+    "organizer": "Jazz in Arnhem",
+    "slug": "jazz-in-arnhem",
+    "website": "www.jazzinarnhem.nl",
+    "global_id": "uitinarnhem.nl?id=8571",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8571"
+    ]
+  },
+  {
+    "id": 8435,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-03-20 15:12:36",
+    "date_utc": "2024-03-20 14:12:36",
+    "modified": "2024-03-20 15:12:36",
+    "modified_utc": "2024-03-20 14:12:36",
+    "url": "https://uitinarnhem.nl/organisator/zeldzaam-mooi-markt/",
+    "organizer": "Zeldzaam Mooi Markt",
+    "slug": "zeldzaam-mooi-markt",
+    "global_id": "uitinarnhem.nl?id=8435",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8435"
+    ]
+  },
+  {
+    "id": 8281,
+    "author": "11",
+    "status": "publish",
+    "date": "2024-03-11 12:31:19",
+    "date_utc": "2024-03-11 11:31:19",
+    "modified": "2024-03-11 12:31:19",
+    "modified_utc": "2024-03-11 11:31:19",
+    "url": "https://uitinarnhem.nl/organisator/theaterprojecten/",
+    "organizer": "Theaterprojecten",
+    "slug": "theaterprojecten",
+    "phone": "026 495 0744",
+    "website": "www.theaterprojecten.nl",
+    "email": "info@theaterprojecten.nl",
+    "global_id": "uitinarnhem.nl?id=8281",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=8281"
+    ]
+  },
+  {
+    "id": 7115,
+    "author": "11",
+    "status": "publish",
+    "date": "2021-09-14 12:27:56",
+    "date_utc": "2021-09-14 10:27:56",
+    "modified": "2021-09-14 12:27:56",
+    "modified_utc": "2021-09-14 10:27:56",
+    "url": "https://uitinarnhem.nl/organisator/wijvenkraam/",
+    "organizer": "Wijvenkraam",
+    "slug": "wijvenkraam",
+    "website": "www.wijvenkraam.nl",
+    "global_id": "uitinarnhem.nl?id=7115",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=7115"
+    ]
+  },
+  {
+    "id": 7101,
+    "author": "11",
+    "status": "publish",
+    "date": "2021-09-06 15:52:17",
+    "date_utc": "2021-09-06 13:52:17",
+    "modified": "2021-09-06 15:52:17",
+    "modified_utc": "2021-09-06 13:52:17",
+    "url": "https://uitinarnhem.nl/organisator/airborne-museum-oosterbeek/",
+    "organizer": "Airborne Museum Oosterbeek",
+    "slug": "airborne-museum-oosterbeek",
+    "website": "www.airbornemuseum.nl",
+    "global_id": "uitinarnhem.nl?id=7101",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=7101"
+    ]
+  },
+  {
+    "id": 7085,
+    "author": "11",
+    "status": "publish",
+    "date": "2021-09-06 14:50:25",
+    "date_utc": "2021-09-06 12:50:25",
+    "modified": "2021-09-06 14:50:25",
+    "modified_utc": "2021-09-06 12:50:25",
+    "url": "https://uitinarnhem.nl/organisator/open-monumentendag-arnhem/",
+    "organizer": "Open Monumentendag Arnhem",
+    "slug": "open-monumentendag-arnhem",
+    "website": "www.openmonumentendagarnhem.nl",
+    "email": "openmonumentendagarnhem@gmail.com",
+    "global_id": "uitinarnhem.nl?id=7085",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=7085"
+    ]
+  },
+  {
+    "id": 6991,
+    "author": "11",
+    "status": "publish",
+    "date": "2021-08-24 09:27:30",
+    "date_utc": "2021-08-24 07:27:30",
+    "modified": "2021-08-24 09:27:30",
+    "modified_utc": "2021-08-24 07:27:30",
+    "url": "https://uitinarnhem.nl/organisator/go-short-filmfestival/",
+    "organizer": "Go Short Filmfestival",
+    "slug": "go-short-filmfestival",
+    "phone": "024 6636789",
+    "website": "www.goshort.nl",
+    "global_id": "uitinarnhem.nl?id=6991",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6991"
+    ]
+  },
+  {
+    "id": 6883,
+    "author": "11",
+    "status": "publish",
+    "date": "2021-08-13 12:57:26",
+    "date_utc": "2021-08-13 10:57:26",
+    "modified": "2021-08-13 12:57:26",
+    "modified_utc": "2021-08-13 10:57:26",
+    "url": "https://uitinarnhem.nl/organisator/hoogte80-festival/",
+    "organizer": "Hoogte80 Festival",
+    "slug": "hoogte80-festival",
+    "website": "https:h80festival.nl/",
+    "global_id": "uitinarnhem.nl?id=6883",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6883"
+    ]
+  },
+  {
+    "id": 6819,
+    "author": "11",
+    "status": "publish",
+    "date": "2021-08-09 11:30:34",
+    "date_utc": "2021-08-09 09:30:34",
+    "modified": "2021-08-09 11:33:37",
+    "modified_utc": "2021-08-09 09:33:37",
+    "url": "https://uitinarnhem.nl/organisator/watermuseum/",
+    "organizer": "Watermuseum",
+    "slug": "watermuseum",
+    "phone": "0264452548",
+    "website": "https://watermuseum.nl/",
+    "global_id": "uitinarnhem.nl?id=6819",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6819"
+    ]
+  },
+  {
+    "id": 6745,
+    "author": "11",
+    "status": "publish",
+    "date": "2021-07-29 20:35:17",
+    "date_utc": "2021-07-29 18:35:17",
+    "modified": "2021-07-29 20:35:17",
+    "modified_utc": "2021-07-29 18:35:17",
+    "url": "https://uitinarnhem.nl/organisator/sprookjesfestival-2/",
+    "organizer": "Sprookjesfestival",
+    "slug": "sprookjesfestival-2",
+    "website": "www.sprookjesfestival.nl",
+    "global_id": "uitinarnhem.nl?id=6745",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6745"
+    ]
+  },
+  {
+    "id": 6741,
+    "author": "11",
+    "status": "publish",
+    "date": "2021-07-29 20:35:17",
+    "date_utc": "2021-07-29 18:35:17",
+    "modified": "2021-07-29 20:35:17",
+    "modified_utc": "2021-07-29 18:35:17",
+    "url": "https://uitinarnhem.nl/organisator/sprookjesfestival/",
+    "organizer": "Sprookjesfestival",
+    "slug": "sprookjesfestival",
+    "website": "www.sprookjesfestival.nl",
+    "global_id": "uitinarnhem.nl?id=6741",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6741"
+    ]
+  },
+  {
+    "id": 6723,
+    "author": "11",
+    "status": "publish",
+    "date": "2021-07-28 20:54:48",
+    "date_utc": "2021-07-28 18:54:48",
+    "modified": "2021-07-28 20:54:48",
+    "modified_utc": "2021-07-28 18:54:48",
+    "url": "https://uitinarnhem.nl/organisator/tuin-de-lage-oorsprong-oosterbeek-2/",
+    "organizer": "Tuin de Lage Oorsprong, Oosterbeek",
+    "slug": "tuin-de-lage-oorsprong-oosterbeek-2",
+    "website": "www.tuindelageoorsprong.nl",
+    "email": "info@tuindelageoorsprong.nl",
+    "global_id": "uitinarnhem.nl?id=6723",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6723"
+    ]
+  },
+  {
+    "id": 6681,
+    "author": "11",
+    "status": "publish",
+    "date": "2021-07-27 12:49:29",
+    "date_utc": "2021-07-27 10:49:29",
+    "modified": "2021-07-27 12:49:29",
+    "modified_utc": "2021-07-27 10:49:29",
+    "url": "https://uitinarnhem.nl/organisator/theatergezelschap-stadsavonturen/",
+    "organizer": "Theatergezelschap Stadsavonturen",
+    "slug": "theatergezelschap-stadsavonturen",
+    "phone": "0302467911",
+    "website": "www.Stadsavonturen.nl",
+    "email": "info@stadsavonturen.nl",
+    "global_id": "uitinarnhem.nl?id=6681",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6681"
+    ]
+  },
+  {
+    "id": 6443,
+    "author": "11",
+    "status": "publish",
+    "date": "2021-06-09 15:47:14",
+    "date_utc": "2021-06-09 13:47:14",
+    "modified": "2021-06-09 15:47:14",
+    "modified_utc": "2021-06-09 13:47:14",
+    "url": "https://uitinarnhem.nl/organisator/de-nieuwe-oost/",
+    "organizer": "De NIeuwe Oost",
+    "slug": "de-nieuwe-oost",
+    "website": "www.denieuweoost.nl",
+    "global_id": "uitinarnhem.nl?id=6443",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6443"
+    ]
+  },
+  {
+    "id": 6165,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-10-20 16:33:11",
+    "date_utc": "2020-10-20 14:33:11",
+    "modified": "2020-10-20 16:33:11",
+    "modified_utc": "2020-10-20 14:33:11",
+    "url": "https://uitinarnhem.nl/organisator/museum-arnhem/",
+    "organizer": "Museum Arnhem",
+    "slug": "museum-arnhem",
+    "phone": "026 303 1400",
+    "website": "www.museumarnhem.nl",
+    "global_id": "uitinarnhem.nl?id=6165",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6165"
+    ]
+  },
+  {
+    "id": 6107,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-10-05 14:08:10",
+    "date_utc": "2020-10-05 12:08:10",
+    "modified": "2020-10-05 14:08:10",
+    "modified_utc": "2020-10-05 12:08:10",
+    "url": "https://uitinarnhem.nl/organisator/muziektheater-de-plaats/",
+    "organizer": "Muziektheater de Plaats",
+    "slug": "muziektheater-de-plaats",
+    "phone": "026-4454667",
+    "website": "https://muziektheaterdeplaats.nl/",
+    "email": "info@theaterdeplaats.nl",
+    "global_id": "uitinarnhem.nl?id=6107",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6107"
+    ]
+  },
+  {
+    "id": 6053,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-09-29 15:45:18",
+    "date_utc": "2020-09-29 13:45:18",
+    "modified": "2020-09-29 15:45:18",
+    "modified_utc": "2020-09-29 13:45:18",
+    "url": "https://uitinarnhem.nl/organisator/museum-bronbeek-4/",
+    "organizer": "Museum Bronbeek",
+    "slug": "museum-bronbeek-4",
+    "phone": "+31 26 376 3555",
+    "website": "https://www.defensie.nl/onderwerpen/bronbeek",
+    "email": "loket.bronbeek@mindef.nl",
+    "global_id": "uitinarnhem.nl?id=6053",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6053"
+    ]
+  },
+  {
+    "id": 6065,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-09-29 14:53:19",
+    "date_utc": "2020-09-29 12:53:19",
+    "modified": "2020-09-29 14:53:19",
+    "modified_utc": "2020-09-29 12:53:19",
+    "url": "https://uitinarnhem.nl/organisator/museum-bronbeek-3/",
+    "organizer": "Museum Bronbeek",
+    "slug": "museum-bronbeek-3",
+    "phone": "+31 26 376 3555",
+    "website": "https://www.defensie.nl/onderwerpen/bronbeek",
+    "email": "loket.bronbeek@mindef.nl",
+    "global_id": "uitinarnhem.nl?id=6065",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6065"
+    ]
+  },
+  {
+    "id": 6061,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-09-29 14:53:18",
+    "date_utc": "2020-09-29 12:53:18",
+    "modified": "2020-09-29 14:53:18",
+    "modified_utc": "2020-09-29 12:53:18",
+    "url": "https://uitinarnhem.nl/organisator/museum-bronbeek-2/",
+    "organizer": "Museum Bronbeek",
+    "slug": "museum-bronbeek-2",
+    "phone": "+31 26 376 3555",
+    "website": "https://www.defensie.nl/onderwerpen/bronbeek",
+    "email": "loket.bronbeek@mindef.nl",
+    "global_id": "uitinarnhem.nl?id=6061",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=6061"
+    ]
+  },
+  {
+    "id": 5793,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-08-25 11:48:35",
+    "date_utc": "2020-08-25 09:48:35",
+    "modified": "2020-08-25 11:48:35",
+    "modified_utc": "2020-08-25 09:48:35",
+    "url": "https://uitinarnhem.nl/organisator/sonsbeekmarkt/",
+    "organizer": "Sonsbeekmarkt",
+    "slug": "sonsbeekmarkt",
+    "website": "https://sonsbeekmarkt.nl/",
+    "global_id": "uitinarnhem.nl?id=5793",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5793"
+    ]
+  },
+  {
+    "id": 5769,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-08-17 19:18:49",
+    "date_utc": "2020-08-17 17:18:49",
+    "modified": "2020-08-17 19:18:49",
+    "modified_utc": "2020-08-17 17:18:49",
+    "url": "https://uitinarnhem.nl/organisator/ruimtekoers/",
+    "organizer": "Ruimtekoers",
+    "slug": "ruimtekoers",
+    "website": "www.ruimtekoers.nl",
+    "global_id": "uitinarnhem.nl?id=5769",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5769"
+    ]
+  },
+  {
+    "id": 5753,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-08-17 17:26:18",
+    "date_utc": "2020-08-17 15:26:18",
+    "modified": "2020-08-17 17:26:18",
+    "modified_utc": "2020-08-17 15:26:18",
+    "url": "https://uitinarnhem.nl/organisator/introdans-3/",
+    "organizer": "Introdans",
+    "slug": "introdans-3",
+    "website": "www.introdans.nl",
+    "global_id": "uitinarnhem.nl?id=5753",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5753"
+    ]
+  },
+  {
+    "id": 5655,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-07-15 10:54:56",
+    "date_utc": "2020-07-15 08:54:56",
+    "modified": "2020-07-15 10:54:56",
+    "modified_utc": "2020-07-15 08:54:56",
+    "url": "https://uitinarnhem.nl/organisator/made-in-arnhem/",
+    "organizer": "Made in Arnhem",
+    "slug": "made-in-arnhem",
+    "website": "www.madeinarnhem.nl",
+    "global_id": "uitinarnhem.nl?id=5655",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5655"
+    ]
+  },
+  {
+    "id": 5525,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-07-01 11:11:42",
+    "date_utc": "2020-07-01 09:11:42",
+    "modified": "2020-07-01 11:11:42",
+    "modified_utc": "2020-07-01 09:11:42",
+    "url": "https://uitinarnhem.nl/organisator/phion/",
+    "organizer": "Phion",
+    "slug": "phion",
+    "phone": "085 023 02 60",
+    "website": "www.phion.nl",
+    "global_id": "uitinarnhem.nl?id=5525",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5525"
+    ]
+  },
+  {
+    "id": 5501,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-06-30 11:52:17",
+    "date_utc": "2020-06-30 09:52:17",
+    "modified": "2020-06-30 11:52:17",
+    "modified_utc": "2020-06-30 09:52:17",
+    "url": "https://uitinarnhem.nl/organisator/theater-het-hof/",
+    "organizer": "Theater Het Hof",
+    "slug": "theater-het-hof",
+    "phone": "026 351 4436",
+    "website": "www.theaterhethof.nl",
+    "global_id": "uitinarnhem.nl?id=5501",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5501"
+    ]
+  },
+  {
+    "id": 5287,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-03-02 13:32:50",
+    "date_utc": "2020-03-02 12:32:50",
+    "modified": "2020-03-02 13:32:50",
+    "modified_utc": "2020-03-02 12:32:50",
+    "url": "https://uitinarnhem.nl/organisator/het-gelders-orkest/",
+    "organizer": "Het Gelders Orkest",
+    "slug": "het-gelders-orkest",
+    "phone": "+31 26 789 0130",
+    "website": "www.geldersorkest.nl",
+    "global_id": "uitinarnhem.nl?id=5287",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5287"
+    ]
+  },
+  {
+    "id": 5104,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-02-03 13:35:45",
+    "date_utc": "2020-02-03 12:35:45",
+    "modified": "2020-02-03 13:35:45",
+    "modified_utc": "2020-02-03 12:35:45",
+    "url": "https://uitinarnhem.nl/organisator/focus-filmtheater/",
+    "organizer": "Focus Filmtheater",
+    "slug": "focus-filmtheater",
+    "phone": "088 190 0666",
+    "website": "https://www.focusarnhem.nl/",
+    "global_id": "uitinarnhem.nl?id=5104",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5104"
+    ]
+  },
+  {
+    "id": 5012,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-01-29 16:28:46",
+    "date_utc": "2020-01-29 15:28:46",
+    "modified": "2020-01-29 16:28:46",
+    "modified_utc": "2020-01-29 15:28:46",
+    "url": "https://uitinarnhem.nl/organisator/rozet/",
+    "organizer": "Rozet",
+    "slug": "rozet",
+    "website": "www.rozet.nl",
+    "global_id": "uitinarnhem.nl?id=5012",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5012"
+    ]
+  },
+  {
+    "id": 5007,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-01-29 16:21:46",
+    "date_utc": "2020-01-29 15:21:46",
+    "modified": "2020-01-29 16:21:46",
+    "modified_utc": "2020-01-29 15:21:46",
+    "url": "https://uitinarnhem.nl/organisator/theater-aan-de-rijn-2/",
+    "organizer": "Theater aan de Rijn",
+    "slug": "theater-aan-de-rijn-2",
+    "phone": "026 303 3420",
+    "website": "https://www.theateraanderijn.nl",
+    "global_id": "uitinarnhem.nl?id=5007",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5007"
+    ]
+  },
+  {
+    "id": 5005,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-01-29 16:21:46",
+    "date_utc": "2020-01-29 15:21:46",
+    "modified": "2020-01-29 16:21:46",
+    "modified_utc": "2020-01-29 15:21:46",
+    "url": "https://uitinarnhem.nl/organisator/theater-aan-de-rijn/",
+    "organizer": "Theater aan de Rijn",
+    "slug": "theater-aan-de-rijn",
+    "phone": "026 303 3420",
+    "website": "https://www.theateraanderijn.nl",
+    "global_id": "uitinarnhem.nl?id=5005",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5005"
+    ]
+  },
+  {
+    "id": 5000,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-01-29 16:12:01",
+    "date_utc": "2020-01-29 15:12:01",
+    "modified": "2020-01-29 16:12:01",
+    "modified_utc": "2020-01-29 15:12:01",
+    "url": "https://uitinarnhem.nl/organisator/introdans-2/",
+    "organizer": "Introdans",
+    "slug": "introdans-2",
+    "phone": "026 351 2111",
+    "website": "www.introdans.nl",
+    "global_id": "uitinarnhem.nl?id=5000",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=5000"
+    ]
+  },
+  {
+    "id": 4998,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-01-29 16:12:01",
+    "date_utc": "2020-01-29 15:12:01",
+    "modified": "2020-01-29 16:12:01",
+    "modified_utc": "2020-01-29 15:12:01",
+    "url": "https://uitinarnhem.nl/organisator/introdans/",
+    "organizer": "Introdans",
+    "slug": "introdans",
+    "phone": "026 351 2111",
+    "website": "www.introdans.nl",
+    "global_id": "uitinarnhem.nl?id=4998",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=4998"
+    ]
+  },
+  {
+    "id": 4994,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-01-29 16:04:03",
+    "date_utc": "2020-01-29 15:04:03",
+    "modified": "2020-01-29 16:04:03",
+    "modified_utc": "2020-01-29 15:04:03",
+    "url": "https://uitinarnhem.nl/organisator/musis-en-stadstheater/",
+    "organizer": "Musis en Stadstheater",
+    "slug": "musis-en-stadstheater",
+    "phone": "026 372 0720",
+    "website": "www.musisenstadstheater.nl",
+    "global_id": "uitinarnhem.nl?id=4994",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=4994"
+    ]
+  },
+  {
+    "id": 4984,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-01-29 15:39:22",
+    "date_utc": "2020-01-29 14:39:22",
+    "modified": "2020-01-29 15:39:22",
+    "modified_utc": "2020-01-29 14:39:22",
+    "url": "https://uitinarnhem.nl/organisator/storytrail-2/",
+    "organizer": "StoryTrail",
+    "slug": "storytrail-2",
+    "phone": "030- 2467 911",
+    "website": "www.StoryTrail.nl/stadswandeling/arnhem",
+    "global_id": "uitinarnhem.nl?id=4984",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=4984"
+    ]
+  },
+  {
+    "id": 4982,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-01-29 15:39:22",
+    "date_utc": "2020-01-29 14:39:22",
+    "modified": "2020-01-29 15:39:22",
+    "modified_utc": "2020-01-29 14:39:22",
+    "url": "https://uitinarnhem.nl/organisator/storytrail/",
+    "organizer": "StoryTrail",
+    "slug": "storytrail",
+    "phone": "030- 2467 911",
+    "website": "www.StoryTrail.nl/stadswandeling/arnhem",
+    "global_id": "uitinarnhem.nl?id=4982",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=4982"
+    ]
+  },
+  {
+    "id": 4977,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-01-29 15:24:41",
+    "date_utc": "2020-01-29 14:24:41",
+    "modified": "2020-01-29 15:24:41",
+    "modified_utc": "2020-01-29 14:24:41",
+    "url": "https://uitinarnhem.nl/organisator/luxor-live-2/",
+    "organizer": "Luxor Live",
+    "slug": "luxor-live-2",
+    "phone": "026 351 1660",
+    "website": "www.luxorlive.nl",
+    "global_id": "uitinarnhem.nl?id=4977",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=4977"
+    ]
+  },
+  {
+    "id": 4975,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-01-29 15:24:40",
+    "date_utc": "2020-01-29 14:24:40",
+    "modified": "2020-01-29 15:24:40",
+    "modified_utc": "2020-01-29 14:24:40",
+    "url": "https://uitinarnhem.nl/organisator/luxor-live/",
+    "organizer": "Luxor Live",
+    "slug": "luxor-live",
+    "phone": "026 351 1660",
+    "website": "www.luxorlive.nl",
+    "global_id": "uitinarnhem.nl?id=4975",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=4975"
+    ]
+  },
+  {
+    "id": 4654,
+    "author": "11",
+    "status": "publish",
+    "date": "2020-01-28 11:31:53",
+    "date_utc": "2020-01-28 10:31:53",
+    "modified": "2020-01-28 11:31:53",
+    "modified_utc": "2020-01-28 10:31:53",
+    "url": "https://uitinarnhem.nl/organisator/4654/",
+    "slug": "4654",
+    "website": "https://www.musisenstadstheater.nl/programma/othello/2903",
+    "global_id": "uitinarnhem.nl?id=4654",
+    "global_id_lineage": [
+      "uitinarnhem.nl?id=4654"
+    ]
+  }
+]

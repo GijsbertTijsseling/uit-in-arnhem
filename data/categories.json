@@ -1,0 +1,1087 @@
+[
+  {
+    "id": 611,
+    "count": 0,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/wijken-2/7-straatjes/",
+    "name": "7 straatjes",
+    "slug": "7-straatjes",
+    "taxonomy": "category",
+    "parent": 347,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>7 straatjes Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/wijken-2/7-straatjes/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"7 straatjes Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/wijken-2/7-straatjes/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/7-straatjes/#webpage\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/7-straatjes/\",\"name\":\"7 straatjes Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/wijken-2/7-straatjes/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/wijken-2/7-straatjes/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/7-straatjes/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/\",\"name\":\"Wijken\"}},{\"@type\":\"ListItem\",\"position\":3,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/7-straatjes/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/7-straatjes/\",\"name\":\"7 straatjes\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/611"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/347"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=611"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 1,
+    "count": 12,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/altijd/",
+    "name": "altijd",
+    "slug": "altijd",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>altijd Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/altijd/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"altijd Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/altijd/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/altijd/#webpage\",\"url\":\"https://uitinarnhem.nl/category/altijd/\",\"name\":\"altijd Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/altijd/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/altijd/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/altijd/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/altijd/\",\"url\":\"https://uitinarnhem.nl/category/altijd/\",\"name\":\"altijd\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/1"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=1"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 605,
+    "count": 1,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/wijken-2/binnenstad/",
+    "name": "Binnenstad",
+    "slug": "binnenstad",
+    "taxonomy": "category",
+    "parent": 347,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Binnenstad Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/wijken-2/binnenstad/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Binnenstad Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/wijken-2/binnenstad/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/binnenstad/#webpage\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/binnenstad/\",\"name\":\"Binnenstad Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/wijken-2/binnenstad/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/wijken-2/binnenstad/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/binnenstad/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/\",\"name\":\"Wijken\"}},{\"@type\":\"ListItem\",\"position\":3,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/binnenstad/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/binnenstad/\",\"name\":\"Binnenstad\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/605"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/347"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=605"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 104,
+    "count": 36,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/nieuws/blog/",
+    "name": "Blog",
+    "slug": "blog",
+    "taxonomy": "category",
+    "parent": 82,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Blog Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/nieuws/blog/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Blog Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/nieuws/blog/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/blog/#webpage\",\"url\":\"https://uitinarnhem.nl/category/nieuws/blog/\",\"name\":\"Blog Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/nieuws/blog/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/nieuws/blog/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/blog/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/\",\"url\":\"https://uitinarnhem.nl/category/nieuws/\",\"name\":\"Nieuws\"}},{\"@type\":\"ListItem\",\"position\":3,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/blog/\",\"url\":\"https://uitinarnhem.nl/category/nieuws/blog/\",\"name\":\"Blog\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/104"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/82"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=104"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 363,
+    "count": 2,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/buiten/",
+    "name": "Buiten",
+    "slug": "buiten",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Buiten Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/buiten/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Buiten Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/buiten/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/buiten/#webpage\",\"url\":\"https://uitinarnhem.nl/category/buiten/\",\"name\":\"Buiten Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/buiten/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/buiten/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/buiten/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/buiten/\",\"url\":\"https://uitinarnhem.nl/category/buiten/\",\"name\":\"Buiten\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/363"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=363"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 349,
+    "count": 17,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/cultuur/",
+    "name": "Cultuur",
+    "slug": "cultuur",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Cultuur Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/cultuur/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Cultuur Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/cultuur/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/cultuur/#webpage\",\"url\":\"https://uitinarnhem.nl/category/cultuur/\",\"name\":\"Cultuur Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/cultuur/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/cultuur/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/cultuur/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/cultuur/\",\"url\":\"https://uitinarnhem.nl/category/cultuur/\",\"name\":\"Cultuur\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/349"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=349"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 83,
+    "count": 8,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/nieuws/de-eerste-keer/",
+    "name": "De eerste keer",
+    "slug": "de-eerste-keer",
+    "taxonomy": "category",
+    "parent": 82,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>De eerste keer Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/nieuws/de-eerste-keer/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"De eerste keer Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/nieuws/de-eerste-keer/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/de-eerste-keer/#webpage\",\"url\":\"https://uitinarnhem.nl/category/nieuws/de-eerste-keer/\",\"name\":\"De eerste keer Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/nieuws/de-eerste-keer/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/nieuws/de-eerste-keer/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/de-eerste-keer/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/\",\"url\":\"https://uitinarnhem.nl/category/nieuws/\",\"name\":\"Nieuws\"}},{\"@type\":\"ListItem\",\"position\":3,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/de-eerste-keer/\",\"url\":\"https://uitinarnhem.nl/category/nieuws/de-eerste-keer/\",\"name\":\"De eerste keer\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/83"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/82"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=83"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 345,
+    "count": 1,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/drinken/",
+    "name": "Drinken",
+    "slug": "drinken",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Drinken Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://www.uitinarnhem.nl/category/drinken/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Drinken Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://www.uitinarnhem.nl/category/drinken/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://www.uitinarnhem.nl/category/drinken/#webpage\",\"url\":\"https://www.uitinarnhem.nl/category/drinken/\",\"name\":\"Drinken Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://www.uitinarnhem.nl/category/drinken/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://www.uitinarnhem.nl/category/drinken/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://www.uitinarnhem.nl/category/drinken/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://www.uitinarnhem.nl/category/drinken/\",\"url\":\"https://www.uitinarnhem.nl/category/drinken/\",\"name\":\"Drinken\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/345"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=345"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 343,
+    "count": 32,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/eten/",
+    "name": "Eten",
+    "slug": "eten",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Eten Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/eten/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Eten Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/eten/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/eten/#webpage\",\"url\":\"https://uitinarnhem.nl/category/eten/\",\"name\":\"Eten Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/eten/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/eten/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/eten/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/eten/\",\"url\":\"https://uitinarnhem.nl/category/eten/\",\"name\":\"Eten\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/343"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=343"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 351,
+    "count": 13,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/evenementen/",
+    "name": "Evenementen",
+    "slug": "evenementen",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Evenementen Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/evenementen/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Evenementen Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/evenementen/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/evenementen/#webpage\",\"url\":\"https://uitinarnhem.nl/category/evenementen/\",\"name\":\"Evenementen Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/evenementen/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/evenementen/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/evenementen/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/evenementen/\",\"url\":\"https://uitinarnhem.nl/category/evenementen/\",\"name\":\"Evenementen\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/351"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=351"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 357,
+    "count": 0,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/filmtips/",
+    "name": "Filmtips",
+    "slug": "filmtips",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Filmtips Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/filmtips/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Filmtips Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/filmtips/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/filmtips/#webpage\",\"url\":\"https://uitinarnhem.nl/category/filmtips/\",\"name\":\"Filmtips Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/filmtips/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/filmtips/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/filmtips/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/filmtips/\",\"url\":\"https://uitinarnhem.nl/category/filmtips/\",\"name\":\"Filmtips\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/357"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=357"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 597,
+    "count": 1,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/hotspots/",
+    "name": "Hotspots",
+    "slug": "hotspots",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Hotspots Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://www.uitinarnhem.nl/category/hotspots/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Hotspots Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://www.uitinarnhem.nl/category/hotspots/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://www.uitinarnhem.nl/category/hotspots/#webpage\",\"url\":\"https://www.uitinarnhem.nl/category/hotspots/\",\"name\":\"Hotspots Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://www.uitinarnhem.nl/category/hotspots/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://www.uitinarnhem.nl/category/hotspots/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://www.uitinarnhem.nl/category/hotspots/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://www.uitinarnhem.nl/category/hotspots/\",\"url\":\"https://www.uitinarnhem.nl/category/hotspots/\",\"name\":\"Hotspots\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/597"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=597"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 365,
+    "count": 61,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/nieuws/interview/",
+    "name": "Interview",
+    "slug": "interview",
+    "taxonomy": "category",
+    "parent": 82,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Interview Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/nieuws/interview/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Interview Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/nieuws/interview/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/interview/#webpage\",\"url\":\"https://uitinarnhem.nl/category/nieuws/interview/\",\"name\":\"Interview Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/nieuws/interview/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/nieuws/interview/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/interview/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/\",\"url\":\"https://uitinarnhem.nl/category/nieuws/\",\"name\":\"Nieuws\"}},{\"@type\":\"ListItem\",\"position\":3,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/interview/\",\"url\":\"https://uitinarnhem.nl/category/nieuws/interview/\",\"name\":\"Interview\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/365"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/82"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=365"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 361,
+    "count": 5,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/kids/",
+    "name": "Kids",
+    "slug": "kids",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Kids Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/kids/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Kids Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/kids/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/kids/#webpage\",\"url\":\"https://uitinarnhem.nl/category/kids/\",\"name\":\"Kids Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/kids/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/kids/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/kids/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/kids/\",\"url\":\"https://uitinarnhem.nl/category/kids/\",\"name\":\"Kids\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/361"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=361"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 607,
+    "count": 0,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/wijken-2/klarendal/",
+    "name": "Klarendal",
+    "slug": "klarendal",
+    "taxonomy": "category",
+    "parent": 347,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Klarendal Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/wijken-2/klarendal/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Klarendal Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/wijken-2/klarendal/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/klarendal/#webpage\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/klarendal/\",\"name\":\"Klarendal Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/wijken-2/klarendal/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/wijken-2/klarendal/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/klarendal/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/\",\"name\":\"Wijken\"}},{\"@type\":\"ListItem\",\"position\":3,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/klarendal/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/klarendal/\",\"name\":\"Klarendal\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/607"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/347"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=607"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 603,
+    "count": 0,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/wijken-2/korenkwartier/",
+    "name": "Korenkwartier",
+    "slug": "korenkwartier",
+    "taxonomy": "category",
+    "parent": 347,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Korenkwartier Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/wijken-2/korenkwartier/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Korenkwartier Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/wijken-2/korenkwartier/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/korenkwartier/#webpage\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/korenkwartier/\",\"name\":\"Korenkwartier Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/wijken-2/korenkwartier/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/wijken-2/korenkwartier/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/korenkwartier/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/\",\"name\":\"Wijken\"}},{\"@type\":\"ListItem\",\"position\":3,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/korenkwartier/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/korenkwartier/\",\"name\":\"Korenkwartier\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/603"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/347"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=603"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 355,
+    "count": 8,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/lijstjes/",
+    "name": "Lijstjes",
+    "slug": "lijstjes",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Lijstjes Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/lijstjes/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Lijstjes Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/lijstjes/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/lijstjes/#webpage\",\"url\":\"https://uitinarnhem.nl/category/lijstjes/\",\"name\":\"Lijstjes Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/lijstjes/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/lijstjes/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/lijstjes/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/lijstjes/\",\"url\":\"https://uitinarnhem.nl/category/lijstjes/\",\"name\":\"Lijstjes\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/355"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=355"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 82,
+    "count": 84,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/nieuws/",
+    "name": "Nieuws",
+    "slug": "nieuws",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Nieuws Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/nieuws/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Nieuws Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/nieuws/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/#webpage\",\"url\":\"https://uitinarnhem.nl/category/nieuws/\",\"name\":\"Nieuws Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/nieuws/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/nieuws/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/\",\"url\":\"https://uitinarnhem.nl/category/nieuws/\",\"name\":\"Nieuws\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/82"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=82"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 613,
+    "count": 0,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/wijken-2/sonsbeek/",
+    "name": "Sonsbeek",
+    "slug": "sonsbeek",
+    "taxonomy": "category",
+    "parent": 347,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Sonsbeek Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/wijken-2/sonsbeek/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Sonsbeek Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/wijken-2/sonsbeek/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/sonsbeek/#webpage\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/sonsbeek/\",\"name\":\"Sonsbeek Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/wijken-2/sonsbeek/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/wijken-2/sonsbeek/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/sonsbeek/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/\",\"name\":\"Wijken\"}},{\"@type\":\"ListItem\",\"position\":3,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/sonsbeek/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/sonsbeek/\",\"name\":\"Sonsbeek\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/613"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/347"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=613"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 609,
+    "count": 0,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/wijken-2/spijkerkwartier/",
+    "name": "Spijkerkwartier",
+    "slug": "spijkerkwartier",
+    "taxonomy": "category",
+    "parent": 347,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Spijkerkwartier Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/wijken-2/spijkerkwartier/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Spijkerkwartier Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/wijken-2/spijkerkwartier/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/spijkerkwartier/#webpage\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/spijkerkwartier/\",\"name\":\"Spijkerkwartier Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/wijken-2/spijkerkwartier/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/wijken-2/spijkerkwartier/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/spijkerkwartier/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/\",\"name\":\"Wijken\"}},{\"@type\":\"ListItem\",\"position\":3,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/spijkerkwartier/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/spijkerkwartier/\",\"name\":\"Spijkerkwartier\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/609"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/347"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=609"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 79,
+    "count": 70,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/uitgelicht/",
+    "name": "UITgelicht",
+    "slug": "uitgelicht",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>UITgelicht Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/uitgelicht/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"UITgelicht Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/uitgelicht/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/uitgelicht/#webpage\",\"url\":\"https://uitinarnhem.nl/category/uitgelicht/\",\"name\":\"UITgelicht Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/uitgelicht/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/uitgelicht/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/uitgelicht/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/uitgelicht/\",\"url\":\"https://uitinarnhem.nl/category/uitgelicht/\",\"name\":\"UITgelicht\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/79"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=79"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 359,
+    "count": 164,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/uittips/",
+    "name": "Uittips",
+    "slug": "uittips",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Uittips Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://www.uitinarnhem.nl/category/uittips/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Uittips Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://www.uitinarnhem.nl/category/uittips/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://www.uitinarnhem.nl/category/uittips/#webpage\",\"url\":\"https://www.uitinarnhem.nl/category/uittips/\",\"name\":\"Uittips Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://www.uitinarnhem.nl/category/uittips/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://www.uitinarnhem.nl/category/uittips/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://www.uitinarnhem.nl/category/uittips/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://www.uitinarnhem.nl/category/uittips/\",\"url\":\"https://www.uitinarnhem.nl/category/uittips/\",\"name\":\"Uittips\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/359"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=359"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 101,
+    "count": 4,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/nieuws/vlogs/",
+    "name": "Vlogs",
+    "slug": "vlogs",
+    "taxonomy": "category",
+    "parent": 82,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Vlogs Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/nieuws/vlogs/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Vlogs Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/nieuws/vlogs/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/vlogs/#webpage\",\"url\":\"https://uitinarnhem.nl/category/nieuws/vlogs/\",\"name\":\"Vlogs Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/nieuws/vlogs/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/nieuws/vlogs/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/vlogs/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/\",\"url\":\"https://uitinarnhem.nl/category/nieuws/\",\"name\":\"Nieuws\"}},{\"@type\":\"ListItem\",\"position\":3,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/nieuws/vlogs/\",\"url\":\"https://uitinarnhem.nl/category/nieuws/vlogs/\",\"name\":\"Vlogs\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/101"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/82"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=101"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 347,
+    "count": 2,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/wijken-2/",
+    "name": "Wijken",
+    "slug": "wijken-2",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Wijken Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/wijken-2/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Wijken Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/wijken-2/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/#webpage\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/\",\"name\":\"Wijken Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/wijken-2/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/wijken-2/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/wijken-2/\",\"url\":\"https://uitinarnhem.nl/category/wijken-2/\",\"name\":\"Wijken\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/347"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=347"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 177,
+    "count": 5,
+    "description": "",
+    "link": "https://uitinarnhem.nl/category/winacties/",
+    "name": "Winacties",
+    "slug": "winacties",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Winacties Archieven - Uit in Arnhem</title>\n<link rel=\"canonical\" href=\"https://uitinarnhem.nl/category/winacties/\" />\n<meta property=\"og:locale\" content=\"nl_NL\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Winacties Archieven - Uit in Arnhem\" />\n<meta property=\"og:url\" content=\"https://uitinarnhem.nl/category/winacties/\" />\n<meta property=\"og:site_name\" content=\"Uit in Arnhem\" />\n<meta name=\"twitter:card\" content=\"summary\" />\n<meta name=\"twitter:site\" content=\"@uitinarnhem\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://uitinarnhem.nl/#organization\",\"name\":\"UIT in Arnhem\",\"url\":\"https://uitinarnhem.nl/\",\"sameAs\":[\"https://nl-nl.facebook.com/uitinarnhem/\",\"https://www.instagram.com/uitinarnhem/\",\"https://www.youtube.com/channel/UCF6J4-fBx9A75RXNaBBhaKw\",\"https://twitter.com/uitinarnhem\"],\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://uitinarnhem.nl/#logo\",\"inLanguage\":\"nl\",\"url\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"contentUrl\":\"https://uitinarnhem.nl/wp-content/uploads/2017/05/logo-UITin-New-Oranje.png\",\"width\":875,\"height\":299,\"caption\":\"UIT in Arnhem\"},\"image\":{\"@id\":\"https://uitinarnhem.nl/#logo\"}},{\"@type\":\"WebSite\",\"@id\":\"https://uitinarnhem.nl/#website\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Uit in Arnhem\",\"description\":\"UITagenda voor Arnhem en omgeving\",\"publisher\":{\"@id\":\"https://uitinarnhem.nl/#organization\"},\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":\"https://uitinarnhem.nl/?s={search_term_string}\",\"query-input\":\"required name=search_term_string\"}],\"inLanguage\":\"nl\"},{\"@type\":\"CollectionPage\",\"@id\":\"https://uitinarnhem.nl/category/winacties/#webpage\",\"url\":\"https://uitinarnhem.nl/category/winacties/\",\"name\":\"Winacties Archieven - Uit in Arnhem\",\"isPartOf\":{\"@id\":\"https://uitinarnhem.nl/#website\"},\"breadcrumb\":{\"@id\":\"https://uitinarnhem.nl/category/winacties/#breadcrumb\"},\"inLanguage\":\"nl\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://uitinarnhem.nl/category/winacties/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://uitinarnhem.nl/category/winacties/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/\",\"url\":\"https://uitinarnhem.nl/\",\"name\":\"Home\"}},{\"@type\":\"ListItem\",\"position\":2,\"item\":{\"@type\":\"WebPage\",\"@id\":\"https://uitinarnhem.nl/category/winacties/\",\"url\":\"https://uitinarnhem.nl/category/winacties/\",\"name\":\"Winacties\"}}]}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "_links": {
+      "self": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories/177"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/taxonomies/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://uitinarnhem.nl/wp-json/wp/v2/posts?categories=177"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+]

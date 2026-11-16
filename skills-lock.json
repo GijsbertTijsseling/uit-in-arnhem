@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "skills": {
+    "api-design-principles": {
+      "source": "rmyndharis/antigravity-skills",
+      "commit": "2ee2cf79b99035fbdabdfe0b1057034195e7571e",
+      "sourceType": "github",
+      "skillPath": "skills/api-design-principles/SKILL.md",
+      "computedHash": "4a2734f5fd2db1137432c33a5816d936974ac6e369bc4a7417c5407c1fda2deb"
+    },
+    "backend-architect": {
+      "source": "rmyndharis/antigravity-skills",
+      "commit": "2ee2cf79b99035fbdabdfe0b1057034195e7571e",
+      "sourceType": "github",
+      "skillPath": "skills/backend-architect/SKILL.md",
+      "computedHash": "8e19429dd80f13687434a985c1b5bccbebed3a361f48107942d55c8238f32f10"
+    },
+    "firecrawl": {
+      "source": "firecrawl/cli",
+      "commit": "a2f903361a997840940c9d89bc969539f1434832",
+      "sourceType": "github",
+      "skillPath": "skills/firecrawl/SKILL.md",
+      "computedHash": "968d601a4015b995d8b226b48b5fad9454073be83a15eb278ffb942904483a67"
+    },
+    "grill-me": {
+      "source": "mattpocock/skills",
+      "commit": "5863806dd4e15c63174bee4e7515a4256792ecfa",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/grill-me/SKILL.md",
+      "computedHash": "ab1acb9fbd9eaee03da254abb8a8de228d1e7a07475fe959da4a5eefa34ea4b9"
+    }
+  }
+}
