@@ -10,12 +10,13 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-zinc-800">
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="relative h-12 w-48 brightness-0 invert">
+            <div className="relative flex items-center h-12 brightness-0 invert">
               <Image
                 src="/logo.png"
                 alt="Uit in Arnhem"
-                fill
-                className="object-contain object-left"
+                width={190}
+                height={50}
+                className="h-10 sm:h-12 w-auto max-w-[200px] object-contain object-left"
               />
             </div>
             <p className="text-sm text-zinc-400 max-w-sm leading-relaxed">
