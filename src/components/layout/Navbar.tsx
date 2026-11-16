@@ -67,15 +67,6 @@ export function Navbar() {
               <PlusCircle className="w-4 h-4" />
               <span>Evenement Aanmelden</span>
             </Link>
-
-            <Link
-              href="/admin"
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 transition-colors border border-zinc-200"
-              title="Redactie Dashboard"
-            >
-              <Shield className="w-3.5 h-3.5 text-zinc-500" />
-              <span>Redactie</span>
-            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -124,14 +115,6 @@ export function Navbar() {
             >
               <PlusCircle className="w-4 h-4" />
               Evenement Aanmelden
-            </Link>
-            <Link
-              href="/admin"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-semibold text-zinc-600 bg-zinc-100 text-center hover:bg-zinc-200"
-            >
-              <Shield className="w-4 h-4 text-zinc-500" />
-              Redactie CMS Dashboard
             </Link>
           </div>
         </div>

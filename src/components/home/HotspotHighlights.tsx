@@ -32,7 +32,7 @@ const DISTRICTS = [
 
 export function HotspotHighlights() {
   return (
-    <section className="my-16">
+    <section id="wijken" className="my-16 scroll-mt-24">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF4F00] mb-2">
