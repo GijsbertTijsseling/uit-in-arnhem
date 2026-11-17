@@ -106,9 +106,9 @@ export function InteractiveDistrictMap({
       )}
 
       {/* Interactive SVG Canvas */}
-      <div className="relative w-full aspect-960/700 max-w-5xl mx-auto">
+      <div className="relative w-full aspect-960/720 max-w-5xl mx-auto">
         <svg
-          viewBox="0 0 960 700"
+          viewBox="0 0 960 720"
           className="w-full h-full drop-shadow-sm transition-all duration-300 overflow-visible"
           role="region"
           aria-label="Interactieve kaart van Arnhemse wijken"
@@ -150,7 +150,7 @@ export function InteractiveDistrictMap({
           </defs>
 
           {/* Background Map Grid */}
-          <rect width="960" height="700" fill="url(#map-grid)" rx="24" />
+          <rect width="960" height="720" fill="url(#map-grid)" rx="24" />
 
           {/* Compass / North indicator in top right */}
           <g transform="translate(900, 45)" className="opacity-40 pointer-events-none">
