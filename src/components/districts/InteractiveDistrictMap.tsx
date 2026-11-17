@@ -168,76 +168,6 @@ export function InteractiveDistrictMap({
           </g>
 
           {/* ==================================================== */}
-          {/* WATERWAY: Nederrijn (Organische rivierkronkeling) */}
-          {/* ==================================================== */}
-          <g className="river-group pointer-events-none">
-            {/* River water bed with realistic S-curve meander */}
-            <path
-              d={RHINE_RIVER.path}
-              fill="url(#rhine-gradient)"
-              stroke="#7DD3FC"
-              strokeWidth="2"
-              className="transition-opacity duration-300"
-            />
-
-            {/* River Label */}
-            <text
-              x={RHINE_RIVER.labelPoint.x}
-              y={RHINE_RIVER.labelPoint.y}
-              className="text-[11px] font-semibold italic fill-sky-950/70 tracking-widest pointer-events-none select-none"
-              style={{ letterSpacing: '0.2em' }}
-            >
-              ∼ NEDERRIJN ∼
-            </text>
-
-            {/* Arnhem Bridges crossing the river */}
-            {RHINE_RIVER.bridges.map((bridge) => {
-              const midX = (bridge.x1 + bridge.x2) / 2;
-              const midY = (bridge.y1 + bridge.y2) / 2;
-              const isFrost = bridge.name.includes('John Frost');
-
-              return (
-                <g key={bridge.name} className="bridge-marker">
-                  {/* Bridge Line */}
-                  <line
-                    x1={bridge.x1}
-                    y1={bridge.y1}
-                    x2={bridge.x2}
-                    y2={bridge.y2}
-                    stroke={isFrost ? '#DC2626' : '#334155'}
-                    strokeWidth={isFrost ? 4.5 : 3.5}
-                    strokeLinecap="round"
-                  />
-                  {/* Bridge deck stripes */}
-                  <line
-                    x1={bridge.x1}
-                    y1={bridge.y1}
-                    x2={bridge.x2}
-                    y2={bridge.y2}
-                    stroke="#FFFFFF"
-                    strokeWidth={1}
-                    strokeDasharray="2 2"
-                  />
-                  {/* Bridge Label */}
-                  <text
-                    x={midX}
-                    y={midY - 8}
-                    textAnchor="middle"
-                    className={`text-[9px] font-bold ${
-                      isFrost
-                        ? 'fill-red-900 bg-white font-extrabold'
-                        : 'fill-slate-700'
-                    }`}
-                    style={{ textShadow: '0 1px 2px #FFFFFF' }}
-                  >
-                    {bridge.name}
-                  </text>
-                </g>
-              );
-            })}
-          </g>
-
-          {/* ==================================================== */}
           {/* DISTRICTS POLYGONS (Organische, speelse CBS-vormen) */}
           {/* ==================================================== */}
           {DISTRICTS.map((district) => {
@@ -267,7 +197,7 @@ export function InteractiveDistrictMap({
                 <path
                   d={district.svgPath}
                   fill={isHovered || isSelected ? district.hoverColor : district.color}
-                  fillOpacity={isHovered || isSelected ? 0.95 : 0.85}
+                  fillOpacity={isHovered || isSelected ? 0.98 : 0.88}
                   stroke={isHovered || isSelected ? '#FFFFFF' : district.accentColor}
                   strokeWidth={isHovered || isSelected ? 3.5 : 1.8}
                   strokeDasharray={isHovered || isSelected ? undefined : '5 3'}
@@ -277,7 +207,7 @@ export function InteractiveDistrictMap({
                   className="transition-all duration-250 ease-out"
                   style={{
                     opacity: isDimmed ? 0.45 : 1,
-                    transform: isHovered ? 'scale(1.006)' : 'scale(1)',
+                    transform: isHovered ? 'scale(1.008)' : 'scale(1)',
                     transformOrigin: `${district.centerPoint.x}px ${district.centerPoint.y}px`,
                   }}
                 />
@@ -345,6 +275,74 @@ export function InteractiveDistrictMap({
               </g>
             );
           })}
+
+          {/* ==================================================== */}
+          {/* WATERWAY: Nederrijn (Duidelijk tussen de wijken) */}
+          {/* ==================================================== */}
+          <g className="river-group pointer-events-none">
+            {/* Brede rivierbedding die prominent tussen de wijken loopt */}
+            <path
+              d={RHINE_RIVER.path}
+              fill="url(#rhine-gradient)"
+              stroke="#0284C7"
+              strokeWidth="2"
+              className="transition-opacity duration-300 shadow-inner"
+            />
+
+            {/* River Label */}
+            <text
+              x={RHINE_RIVER.labelPoint.x}
+              y={RHINE_RIVER.labelPoint.y}
+              className="text-[11px] font-extrabold italic fill-blue-950/80 tracking-widest pointer-events-none select-none"
+              style={{ letterSpacing: '0.22em' }}
+            >
+              ∼ NEDERRIJN ∼
+            </text>
+
+            {/* Arnhemse Bruggen die de noord- en zuidkant overspannen */}
+            {RHINE_RIVER.bridges.map((bridge) => {
+              const midX = (bridge.x1 + bridge.x2) / 2;
+              const midY = (bridge.y1 + bridge.y2) / 2;
+              const isFrost = bridge.name.includes('John Frost');
+
+              return (
+                <g key={bridge.name} className="bridge-marker">
+                  {/* Bridge Line */}
+                  <line
+                    x1={bridge.x1}
+                    y1={bridge.y1}
+                    x2={bridge.x2}
+                    y2={bridge.y2}
+                    stroke={isFrost ? '#DC2626' : '#1E293B'}
+                    strokeWidth={isFrost ? 5 : 4}
+                    strokeLinecap="round"
+                  />
+                  {/* Bridge deck stripes */}
+                  <line
+                    x1={bridge.x1}
+                    y1={bridge.y1}
+                    x2={bridge.x2}
+                    y2={bridge.y2}
+                    stroke="#FFFFFF"
+                    strokeWidth={1.2}
+                    strokeDasharray="2 2"
+                  />
+                  {/* Bridge Label */}
+                  <text
+                    x={midX + 8}
+                    y={midY + 3}
+                    textAnchor="start"
+                    className={`text-[9.5px] font-extrabold ${
+                      isFrost ? 'fill-red-800' : 'fill-slate-800'
+                    }`}
+                    style={{ textShadow: '0 1px 3px rgba(255,255,255,0.95), 0 0 6px #FFFFFF' }}
+                  >
+                    {bridge.name}
+                  </text>
+                </g>
+              );
+            })}
+          </g>
 
           {/* ==================================================== */}
           {/* FLOATING PILL TOOLTIP (I amsterdam style: "Wijknaam →") */}
