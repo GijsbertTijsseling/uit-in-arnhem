@@ -112,7 +112,7 @@ export function Footer() {
                 <Link href="/admin" className="hover:text-white transition-colors">Redactie Inloggen</Link>
               </li>
               <li>
-                <Link href="/over-ons#contact" className="hover:text-white transition-colors">Contact & Adverteren</Link>
+                <Link href="/contact" className="hover:text-white transition-colors">Contact & Adverteren</Link>
               </li>
               <li>
                 <Link href="/over-ons#privacy" className="hover:text-white transition-colors">Privacy & Colofon</Link>

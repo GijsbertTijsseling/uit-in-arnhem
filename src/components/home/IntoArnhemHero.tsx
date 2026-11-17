@@ -1,163 +1,73 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Article } from '@/types';
-import { formatDate } from '@/lib/utils';
-import {
-  Calendar,
-  Sparkles,
-  BookOpen,
-  Coffee,
-  Compass,
-  ArrowRight,
-  Flame,
-  MapPin,
-  Clock,
-} from 'lucide-react';
+import { Calendar, Compass, BookOpen, MapPin, Sparkles } from 'lucide-react';
 
-interface IntoArnhemHeroProps {
-  featuredArticle?: Article;
-  totalEventsCount: number;
-}
-
-export function IntoArnhemHero({ featuredArticle, totalEventsCount }: IntoArnhemHeroProps) {
+export function IntoArnhemHero() {
   const quickLinks = [
-    {
-      label: 'Uitagenda',
-      href: '#agenda',
-      icon: Calendar,
-      badge: `${totalEventsCount}+ items`,
-      color: 'bg-zinc-900 text-white hover:bg-[#FF4F00]',
-    },
-    {
-      label: 'Weekendtips',
-      href: '/agenda?filter=weekend',
-      icon: Sparkles,
-      badge: 'Vrij – Zo',
-      color: 'bg-[#FFF3ED] text-[#FF4F00] hover:bg-[#FFE5D6] border border-[#FF4F00]/20',
-    },
-    {
-      label: 'Verhalen',
-      href: '#verhalen',
-      icon: BookOpen,
-      badge: 'Redactie',
-      color: 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200',
-    },
-    {
-      label: 'Eten & Drinken',
-      href: '/artikelen?category=eten-drinken',
-      icon: Coffee,
-      badge: 'Hotspots',
-      color: 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200',
-    },
-    {
-      label: 'Wijken van Arnhem',
-      href: '#wijken',
-      icon: Compass,
-      badge: 'Ontdek',
-      color: 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200',
-    },
+    { label: 'Uitagenda', href: '#agenda', icon: Calendar },
+    { label: 'Zien & Doen', href: '/zien-en-doen', icon: Sparkles },
+    { label: 'Verhalen', href: '#verhalen', icon: BookOpen },
+    { label: 'Wijken & Sfeer', href: '#wijken', icon: Compass },
+    { label: 'Plan je bezoek', href: '/plan-je-bezoek', icon: MapPin },
   ];
 
   return (
-    <section className="relative pt-4 sm:pt-8 pb-12 border-b border-zinc-200/80">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        {/* Left Column: Bold Into Arnhem Manifesto & Quick Navigation */}
-        <div className="lg:col-span-7 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF3ED] border border-[#FF4F00]/25 text-[#FF4F00] text-xs font-bold uppercase tracking-wider">
-            <span className="w-2 h-2 rounded-full bg-[#FF4F00] animate-pulse" />
-            <span>Stadsgids voor de Rijnstad</span>
-          </div>
+    <section className="relative w-full rounded-3xl overflow-hidden shadow-2xl bg-zinc-950 text-white min-h-[520px] sm:min-h-[580px] flex items-end p-6 sm:p-12 lg:p-16 border border-zinc-800">
+      {/* Background Image: Iconic John Frostbrug over the Rhine */}
+      <Image
+        src="/images/bridge_uiterwaarden.jpg"
+        alt="De iconische John Frostbrug over de Nederrijn in Arnhem"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center opacity-70"
+      />
 
-          <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-zinc-950 tracking-tight leading-[1.05]">
-            Ontdek wat er bruist in{' '}
-            <span className="text-[#FF4F00] relative inline-block">
-              Arnhem.
-              <span className="absolute left-0 -bottom-1 sm:-bottom-2 w-full h-1.5 sm:h-2 bg-[#FF4F00]/20 rounded-full" />
-            </span>
-          </h1>
+      {/* Atmospheric dark gradient overlays for maximum contrast and elegance */}
+      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/65 to-zinc-950/25 pointer-events-none" />
+      <div className="absolute inset-0 bg-radial from-transparent via-transparent to-zinc-950/50 pointer-events-none" />
 
-          <p className="text-zinc-600 text-lg sm:text-xl font-normal leading-relaxed max-w-2xl">
-            Jouw onafhankelijke gids voor live muziek, theater, exposities, verborgen koffiebars en de mooiste verhalen van locals uit Arnhem.
-          </p>
-
-          {/* Quick Category Discovery Pills (Into Nijmegen Style) */}
-          <div className="pt-2">
-            <div className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-3">
-              Direct naar:
-            </div>
-            <div className="flex flex-wrap gap-2.5">
-              {quickLinks.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold tracking-tight transition-all duration-200 shadow-sm active:scale-95 ${item.color}`}
-                  >
-                    <Icon className="w-4 h-4 shrink-0" />
-                    <span>{item.label}</span>
-                    <span className="text-[10px] font-semibold opacity-75 ml-0.5">
-                      • {item.badge}
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
+      {/* Hero Content */}
+      <div className="relative z-10 max-w-4xl space-y-6">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold uppercase tracking-wider">
+          <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
+          <span>Stadsgids voor Arnhem</span>
         </div>
 
-        {/* Right Column: Hero Visual Feature Card (Top Story) */}
-        {featuredArticle && (
-          <div className="lg:col-span-5">
-            <div className="relative group rounded-3xl overflow-hidden shadow-2xl bg-zinc-950 aspect-[4/5] sm:aspect-[16/11] lg:aspect-[4/5] flex flex-col justify-end p-6 sm:p-8 border border-zinc-800">
-              <Image
-                src={featuredArticle.featured_image_url}
-                alt={featuredArticle.title}
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 42vw"
-                className="object-cover opacity-80 group-hover:scale-105 group-hover:opacity-90 transition-all duration-700 ease-out"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent pointer-events-none" />
+        <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-white tracking-tight leading-[1.06]">
+          Ontdek wat er bruist in{' '}
+          <span className="text-[#FF4F00] relative inline-block">
+            Arnhem.
+            <span className="absolute left-0 -bottom-1 sm:-bottom-2 w-full h-1.5 sm:h-2 bg-[#FF4F00]/30 rounded-full" />
+          </span>
+        </h1>
 
-              <div className="relative z-10 space-y-3">
-                <div className="flex items-center gap-2">
-                  <span className="bg-[#FF4F00] text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
-                    <Flame className="w-3 h-3 fill-white" />
-                    <span>Uitgelicht Verhaal</span>
-                  </span>
-                  <span className="text-xs text-zinc-300 font-medium">
-                    {formatDate(featuredArticle.published_at)}
-                  </span>
-                </div>
+        <p className="text-zinc-200 text-base sm:text-xl font-normal leading-relaxed max-w-2xl">
+          Jouw gids voor concerten, theater, exposities, verborgen terrassen en de mooiste verhalen uit de Rijnstad.
+        </p>
 
-                <h2 className="font-heading font-black text-2xl sm:text-3xl text-white leading-tight group-hover:text-[#FF4F00] transition-colors">
-                  <Link href={`/artikelen/${featuredArticle.slug}`}>
-                    {featuredArticle.title}
-                  </Link>
-                </h2>
-
-                <p className="text-zinc-300 text-sm line-clamp-2 leading-relaxed font-normal">
-                  {featuredArticle.excerpt}
-                </p>
-
-                <div className="pt-2 flex items-center justify-between">
-                  <span className="text-xs text-zinc-400">
-                    Door {featuredArticle.author_name || 'Redactie'}
-                  </span>
-                  <Link
-                    href={`/artikelen/${featuredArticle.slug}`}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-zinc-950 text-xs font-bold uppercase tracking-wider hover:bg-[#FF4F00] hover:text-white transition-all shadow-md group-hover:translate-x-1"
-                  >
-                    <span>Lezen</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </div>
-            </div>
+        {/* Calm, uniform quick-links */}
+        <div className="pt-2 space-y-3">
+          <div className="text-xs font-bold uppercase tracking-wider text-zinc-300">
+            Snel navigeren naar:
           </div>
-        )}
+          <div className="flex flex-wrap gap-2.5">
+            {quickLinks.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-[#FF4F00] hover:border-[#FF4F00] border border-white/20 backdrop-blur-md transition-all shadow-sm active:scale-95"
+                >
+                  <Icon className="w-4 h-4 text-white/90 shrink-0" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -14,10 +14,12 @@ export function Navbar() {
   const isAdmin = pathname.startsWith('/admin');
 
   const navLinks = [
-    { href: '/agenda', label: 'Agenda', icon: Calendar },
-    { href: '/artikelen', label: 'Artikelen', icon: BookOpen },
-    { href: '/artikelen?category=ontdekken', label: 'Hotspots', icon: Compass },
-    { href: '/over-ons', label: 'Over Arnhem' },
+    { href: '/agenda', label: 'Uitagenda' },
+    { href: '/zien-en-doen', label: 'Zien en doen' },
+    { href: '/plan-je-bezoek', label: 'Plan je bezoek' },
+    { href: '/artikelen', label: 'Nieuws' },
+    { href: '/over-ons', label: 'Over ons' },
+    { href: '/contact', label: 'Contact' },
   ];
 
   return (
@@ -99,9 +101,8 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-zinc-800 hover:bg-zinc-50 hover:text-[#FF4F00]"
+                className="flex items-center px-4 py-3 rounded-xl text-base font-semibold text-zinc-800 hover:bg-zinc-50 hover:text-[#FF4F00]"
               >
-                {link.icon && <link.icon className="w-5 h-5 text-zinc-400" />}
                 {link.label}
               </Link>
             ))}
