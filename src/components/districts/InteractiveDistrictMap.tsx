@@ -310,6 +310,10 @@ export function InteractiveDistrictMap({
               const midX = (bridge.x1 + bridge.x2) / 2;
               const midY = (bridge.y1 + bridge.y2) / 2;
               const isFrost = bridge.name.includes('John Frost');
+              const isLeft = bridge.labelAlign === 'left';
+              const labelX = isLeft ? midX - 8 : midX + 8;
+              const labelY = midY + (bridge.labelOffsetY ?? 3);
+              const textAnchor = isLeft ? 'end' : 'start';
 
               return (
                 <g key={bridge.name} className="bridge-marker">
@@ -335,9 +339,9 @@ export function InteractiveDistrictMap({
                   />
                   {/* Bridge Label */}
                   <text
-                    x={midX + 8}
-                    y={midY + 3}
-                    textAnchor="start"
+                    x={labelX}
+                    y={labelY}
+                    textAnchor={textAnchor}
                     className={`text-[9.5px] font-extrabold ${
                       isFrost ? 'fill-red-800' : 'fill-slate-800'
                     }`}
