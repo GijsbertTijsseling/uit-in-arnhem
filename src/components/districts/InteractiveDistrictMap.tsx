@@ -76,7 +76,7 @@ export function InteractiveDistrictMap({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full bg-linear-to-b from-stone-50/60 via-white to-stone-50/60 rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden select-none p-4 sm:p-6 lg:p-8 ${className}`}
+      className={`relative w-full bg-linear-to-b from-stone-50/70 via-white to-stone-50/70 rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden select-none p-4 sm:p-6 lg:p-8 ${className}`}
     >
       {/* Header Info (I amsterdam style clean typography) */}
       {(title || subtitle) && (
@@ -132,9 +132,9 @@ export function InteractiveDistrictMap({
 
             {/* River water gradient */}
             <linearGradient id="rhine-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#93C5FD" />
-              <stop offset="45%" stopColor="#60A5FA" />
-              <stop offset="100%" stopColor="#38BDF8" />
+              <stop offset="0%" stopColor="#BAE6FD" stopOpacity="0.85" />
+              <stop offset="45%" stopColor="#7DD3FC" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.85" />
             </linearGradient>
 
             {/* Subtle paper grid pattern */}
@@ -168,29 +168,29 @@ export function InteractiveDistrictMap({
           </g>
 
           {/* ==================================================== */}
-          {/* WATERWAY: Nederrijn (Duidelijk tussen de wijken) */}
+          {/* WATERWAY: Nederrijn (Organische rivierkronkeling) */}
           {/* ==================================================== */}
           <g className="river-group pointer-events-none">
-            {/* Brede, heldere rivierbedding zonder stippellijn */}
+            {/* River water bed with realistic S-curve meander */}
             <path
               d={RHINE_RIVER.path}
               fill="url(#rhine-gradient)"
-              stroke="#2563EB"
-              strokeWidth="1.5"
-              className="transition-opacity duration-300 shadow-inner"
+              stroke="#7DD3FC"
+              strokeWidth="2"
+              className="transition-opacity duration-300"
             />
 
             {/* River Label */}
             <text
               x={RHINE_RIVER.labelPoint.x}
               y={RHINE_RIVER.labelPoint.y}
-              className="text-[11px] font-bold italic fill-blue-950/80 tracking-widest pointer-events-none select-none"
-              style={{ letterSpacing: '0.22em' }}
+              className="text-[11px] font-semibold italic fill-sky-950/70 tracking-widest pointer-events-none select-none"
+              style={{ letterSpacing: '0.2em' }}
             >
               ∼ NEDERRIJN ∼
             </text>
 
-            {/* Arnhemse Bruggen die de noord- en zuidkant overspannen */}
+            {/* Arnhem Bridges crossing the river */}
             {RHINE_RIVER.bridges.map((bridge) => {
               const midX = (bridge.x1 + bridge.x2) / 2;
               const midY = (bridge.y1 + bridge.y2) / 2;
@@ -204,8 +204,8 @@ export function InteractiveDistrictMap({
                     y1={bridge.y1}
                     x2={bridge.x2}
                     y2={bridge.y2}
-                    stroke={isFrost ? '#DC2626' : '#1E293B'}
-                    strokeWidth={isFrost ? 5 : 4}
+                    stroke={isFrost ? '#DC2626' : '#334155'}
+                    strokeWidth={isFrost ? 4.5 : 3.5}
                     strokeLinecap="round"
                   />
                   {/* Bridge deck stripes */}
@@ -215,18 +215,20 @@ export function InteractiveDistrictMap({
                     x2={bridge.x2}
                     y2={bridge.y2}
                     stroke="#FFFFFF"
-                    strokeWidth={1.2}
+                    strokeWidth={1}
                     strokeDasharray="2 2"
                   />
                   {/* Bridge Label */}
                   <text
-                    x={midX + 8}
-                    y={midY + 3}
-                    textAnchor="start"
-                    className={`text-[9.5px] font-extrabold ${
-                      isFrost ? 'fill-red-800' : 'fill-slate-800'
+                    x={midX}
+                    y={midY - 8}
+                    textAnchor="middle"
+                    className={`text-[9px] font-bold ${
+                      isFrost
+                        ? 'fill-red-900 bg-white font-extrabold'
+                        : 'fill-slate-700'
                     }`}
-                    style={{ textShadow: '0 1px 3px rgba(255,255,255,0.95), 0 0 6px #FFFFFF' }}
+                    style={{ textShadow: '0 1px 2px #FFFFFF' }}
                   >
                     {bridge.name}
                   </text>
@@ -236,7 +238,7 @@ export function InteractiveDistrictMap({
           </g>
 
           {/* ==================================================== */}
-          {/* DISTRICTS POLYGONS (Met donkere lijnen die wit oplichten bij hover) */}
+          {/* DISTRICTS POLYGONS (Organische, speelse CBS-vormen) */}
           {/* ==================================================== */}
           {DISTRICTS.map((district) => {
             const isHovered = hoveredSlug === district.slug;
@@ -261,11 +263,11 @@ export function InteractiveDistrictMap({
                   }
                 }}
               >
-                {/* District Multi-Polygon Path (buitengrenzen + interne sub-lijnen) */}
+                {/* District Perimeter & Multi-Polygon Path (donkere lijnen die wit oplichten bij hover) */}
                 <path
                   d={district.svgPath}
                   fill={isHovered || isSelected ? district.hoverColor : district.color}
-                  fillOpacity={isHovered || isSelected ? 0.98 : 0.88}
+                  fillOpacity={isHovered || isSelected ? 0.95 : 0.85}
                   stroke={isHovered || isSelected ? '#FFFFFF' : district.accentColor}
                   strokeWidth={isHovered || isSelected ? 3.5 : 1.8}
                   strokeDasharray={isHovered || isSelected ? undefined : '5 3'}
@@ -275,7 +277,7 @@ export function InteractiveDistrictMap({
                   className="transition-all duration-250 ease-out"
                   style={{
                     opacity: isDimmed ? 0.45 : 1,
-                    transform: isHovered ? 'scale(1.008)' : 'scale(1)',
+                    transform: isHovered ? 'scale(1.006)' : 'scale(1)',
                     transformOrigin: `${district.centerPoint.x}px ${district.centerPoint.y}px`,
                   }}
                 />
