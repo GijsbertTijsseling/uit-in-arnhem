@@ -82,12 +82,14 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
         ],
       },
       {
-        title: 'Shoppen & Wijken',
+        title: 'Wijken van Arnhem',
         items: [
-          { label: 'Modekwartier Klarendal', href: '/artikelen/nieuwe-conceptstore-opent-deuren-in-modekwartier' },
-          { label: 'Klimaatroute Spijkerkwartier', href: '/artikelen/loop-mee-met-de-klimaatroute-door-het-spijkerkwartier-in-arnhem' },
-          { label: 'De 7straatjes & Binnenstad', href: '/artikelen?category=winkelen' },
-          { label: 'Complete stadsgids Arnhem', href: '/zien-en-doen' },
+          { label: 'Alle wijken & interactieve kaart', href: '/wijken', badge: 'Interactief' },
+          { label: 'Centrum & Binnenstad', href: '/wijken/centrum' },
+          { label: 'Modekwartier & Klarendal', href: '/wijken/modekwartier' },
+          { label: 'Spijkerkwartier', href: '/wijken/spijkerkwartier' },
+          { label: 'Sonsbeek & Parken', href: '/wijken/sonsbeek' },
+          { label: 'Arnhem-West & Museumkwartier', href: '/wijken/arnhem-west' },
         ],
       },
       {

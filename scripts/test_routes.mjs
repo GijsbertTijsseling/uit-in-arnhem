@@ -13,6 +13,9 @@ const routesToTest = [
   { path: '/admin/agenda/new', name: 'Admin New Agenda Item', expectedText: 'Nieuw agenda item' },
   { path: '/admin/users', name: 'Admin Users', expectedText: 'Gebruikers' },
   { path: '/over-ons', name: 'Over Ons', expectedText: 'Over Uit in Arnhem' },
+  { path: '/wijken', name: 'Wijken Hub Page', expectedText: 'Wijken van' },
+  { path: '/wijken/centrum', name: 'Wijk Centrum Detail', expectedText: 'Centrum &amp; Binnenstad' },
+  { path: '/wijken/modekwartier', name: 'Wijk Modekwartier Detail', expectedText: 'Modekwartier &amp; Klarendal' },
 ];
 
 async function verifyRoutes() {

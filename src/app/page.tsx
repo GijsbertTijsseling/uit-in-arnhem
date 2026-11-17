@@ -5,6 +5,7 @@ import { EventCard } from '@/components/agenda/EventCard';
 import { ArticleCard } from '@/components/articles/ArticleCard';
 import { NewsletterCta } from '@/components/common/NewsletterCta';
 import { HotspotHighlights } from '@/components/home/HotspotHighlights';
+import { WijkMapSection } from '@/components/home/WijkMapSection';
 import { IntoArnhemHero } from '@/components/home/IntoArnhemHero';
 import { SocialMediaBlock } from '@/components/home/SocialMediaBlock';
 import { HomePageClient } from '@/components/home/HomePageClient';
@@ -105,7 +106,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 5. WIJKEN & SFEER VAN ARNHEM */}
+      {/* 5. INTERACTIEVE WIJKKAART & ONTDEK ARNHEM PER WIJK */}
+      <WijkMapSection />
+
+      {/* 6. WIJKEN & SFEER VAN ARNHEM */}
       <HotspotHighlights />
 
       {/* 6. VOLG ONS OP SOCIAL MEDIA (Instagram Community) */}

@@ -11,47 +11,47 @@ const DISTRICTS = [
     slug: 'modekwartier',
   },
   {
-    name: 'De 7straatjes',
-    tagline: 'Historische straatjes vol unieke boetieks & proeverijen',
+    name: 'Centrum & Binnenstad',
+    tagline: 'Historische 7straatjes, boetieks, terrassen & Korenmarkt',
     image: 'https://uitinarnhem.nl/wp-content/uploads/2024/01/juune1-c-jonas-de-witte-vierkant-2959072273_2734816142.jpg',
-    slug: '7straatjes',
+    slug: 'centrum',
   },
   {
-    name: 'Park Sonsbeek',
-    tagline: 'Watervallen, Witte Villa & weidse vergezichten',
+    name: 'Sonsbeek & Parken',
+    tagline: 'Watervallen, Witte Villa, Zypendaal & glooiende velden',
     image: 'https://uitinarnhem.nl/wp-content/uploads/2020/08/Sonsbeekmarkt.jpg',
     slug: 'sonsbeek',
   },
   {
-    name: 'De Rijnkade',
-    tagline: 'Zwoele terrassen & culinair genieten aan het water',
+    name: 'Spijkerkwartier',
+    tagline: 'Statige 19e-eeuwse herenhuizen, binnentuinen & fijne horeca',
     image: 'https://uitinarnhem.nl/wp-content/uploads/2020/08/AM_VerlatenVrouwen_03-1-LRG-CROP.jpg',
-    slug: 'rijnkade',
+    slug: 'spijkerkwartier',
   },
 ];
 
 export function HotspotHighlights() {
   return (
-    <section id="wijken" className="my-16 scroll-mt-24">
+    <section id="buurten" className="my-16 scroll-mt-24">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF4F00] mb-2">
             <Compass className="w-4 h-4" />
-            <span>Wijken & Sfeer</span>
+            <span>Wijken in de kijker</span>
           </div>
           <h2 className="font-heading font-black text-2xl sm:text-3xl text-zinc-900 tracking-tight">
-            Ontdek Arnhem per wijk
+            Verken de sfeer van de stad
           </h2>
           <p className="text-zinc-600 text-sm mt-1">
-            Iedere buurt in Arnhem heeft zijn eigen karakter, verhalen en verborgen favorieten.
+            Ontdek de karakteristieke buurten en duik direct in de lokale gidsen.
           </p>
         </div>
 
         <Link
-          href="/artikelen?category=ontdekken"
+          href="/wijken"
           className="text-xs font-bold text-[#FF4F00] hover:text-[#E04500] uppercase tracking-wider inline-flex items-center gap-1 group"
         >
-          Bekijk alle wijktips <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          Alle 8 wijken bekijken <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
 
@@ -59,7 +59,7 @@ export function HotspotHighlights() {
         {DISTRICTS.map((item) => (
           <Link
             key={item.slug}
-            href={`/artikelen?tag=${item.slug}`}
+            href={`/wijken/${item.slug}`}
             className="group relative rounded-2xl overflow-hidden aspect-4/5 flex flex-col justify-end p-6 bg-zinc-900 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
             <Image

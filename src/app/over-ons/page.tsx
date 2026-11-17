@@ -1,16 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  Heart, 
-  Sparkles, 
-  Mail, 
-  MapPin, 
-  Compass, 
-  Calendar, 
-  Camera, 
-  UtensilsCrossed, 
-  Music, 
+import {
+  Heart,
+  Sparkles,
+  Mail,
+  MapPin,
+  Compass,
+  Calendar,
+  Camera,
+  UtensilsCrossed,
+  Music,
   ArrowRight,
   Send,
   Users
