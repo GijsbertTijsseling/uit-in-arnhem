@@ -6,14 +6,10 @@ import Link from 'next/link';
 import {
   DISTRICTS,
   RHINE_RIVER,
-  TOPOGRAPHY_PARKS,
-  RAILWAY_TRACKS,
-  RAILWAY_STATIONS,
-  TOPOGRAPHY_LANDMARKS,
   District,
   getDistrictBySlug,
 } from '@/data/districtsData';
-import { ArrowRight, Compass, Layers, Map as MapIcon, Sparkles } from 'lucide-react';
+import { ArrowRight, Compass } from 'lucide-react';
 
 interface InteractiveDistrictMapProps {
   activeSlug?: string;
@@ -43,7 +39,6 @@ export function InteractiveDistrictMap({
   const [selectedSlug, setSelectedSlug] = useState<string | null>(
     activeSlug || null
   );
-  const [showUnderlayMap, setShowUnderlayMap] = useState<boolean>(true);
   const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(
     null
   );
@@ -81,9 +76,9 @@ export function InteractiveDistrictMap({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full bg-linear-to-b from-stone-50/80 via-white to-stone-50/80 rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden select-none p-4 sm:p-6 lg:p-8 ${className}`}
+      className={`relative w-full bg-linear-to-b from-stone-50/60 via-white to-stone-50/60 rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden select-none p-4 sm:p-6 lg:p-8 ${className}`}
     >
-      {/* Header Info (I amsterdam style clean typography + layer toggle) */}
+      {/* Header Info (I amsterdam style clean typography) */}
       {(title || subtitle) && (
         <div className="mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
@@ -103,26 +98,9 @@ export function InteractiveDistrictMap({
             )}
           </div>
 
-          {/* Toggle Map Underlay (Topografie & Rijn kronkel) */}
-          <div className="flex items-center gap-2 self-start md:self-auto">
-            <button
-              type="button"
-              onClick={() => setShowUnderlayMap(!showUnderlayMap)}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
-                showUnderlayMap
-                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100'
-                  : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-50'
-              }`}
-              title="Schakel de achtergrondkaart met de Nederrijn, parken en spoorlijnen in of uit"
-            >
-              <Layers className="w-3.5 h-3.5" />
-              <span>Topografie: {showUnderlayMap ? 'Aan' : 'Uit'}</span>
-            </button>
-
-            <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-neutral-500 bg-white/90 backdrop-blur-xs px-3 py-1.5 rounded-full border border-stone-200 shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Beweeg of klik op een wijk</span>
-            </div>
+          <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-neutral-500 bg-white/90 backdrop-blur-xs px-3 py-1.5 rounded-full border border-stone-200 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Beweeg of klik op een wijk</span>
           </div>
         </div>
       )}
@@ -154,15 +132,9 @@ export function InteractiveDistrictMap({
 
             {/* River water gradient */}
             <linearGradient id="rhine-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#BAE6FD" stopOpacity="0.85" />
-              <stop offset="45%" stopColor="#7DD3FC" stopOpacity="0.95" />
-              <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.85" />
-            </linearGradient>
-
-            {/* Park forest pattern */}
-            <linearGradient id="park-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#DCFCE7" stopOpacity="0.85" />
-              <stop offset="100%" stopColor="#BBF7D0" stopOpacity="0.65" />
+              <stop offset="0%" stopColor="#93C5FD" />
+              <stop offset="45%" stopColor="#60A5FA" />
+              <stop offset="100%" stopColor="#38BDF8" />
             </linearGradient>
 
             {/* Subtle paper grid pattern */}
@@ -196,171 +168,75 @@ export function InteractiveDistrictMap({
           </g>
 
           {/* ==================================================== */}
-          {/* UNDERLAY MAP: Real Geography (Water, Parks, Railway) */}
+          {/* WATERWAY: Nederrijn (Duidelijk tussen de wijken) */}
           {/* ==================================================== */}
-          {showUnderlayMap && (
-            <g className="underlay-map-group pointer-events-none transition-opacity duration-300">
-              {/* 1. GREEN PARKS (Sonsbeek, Klarenbeek, Angerenstein, Meinerswijk) */}
-              <g className="parks-layer">
-                {TOPOGRAPHY_PARKS.map((park) => (
-                  <g key={park.name}>
-                    <path
-                      d={park.path}
-                      fill="url(#park-gradient)"
-                      stroke="#86EFAC"
-                      strokeWidth="1.2"
-                      className="transition-all duration-300"
-                    />
-                    <text
-                      x={park.labelPoint.x}
-                      y={park.labelPoint.y}
-                      textAnchor="middle"
-                      className="text-[10px] font-medium fill-emerald-900/60 italic tracking-wide"
-                    >
-                      {park.name}
-                    </text>
-                  </g>
-                ))}
-              </g>
+          <g className="river-group pointer-events-none">
+            {/* Brede, duidelijke rivierbedding zonder stippellijn */}
+            <path
+              d={RHINE_RIVER.path}
+              fill="url(#rhine-gradient)"
+              stroke="#2563EB"
+              strokeWidth="1.5"
+              className="transition-opacity duration-300 shadow-inner"
+            />
 
-              {/* 2. RAILWAY NETWORK (Tracks, Centraal Station, Velperpoort) */}
-              <g className="railway-layer opacity-60">
-                {RAILWAY_TRACKS.map((track, idx) => (
-                  <React.Fragment key={idx}>
-                    {/* Railway bed */}
-                    <path
-                      d={track}
-                      fill="none"
-                      stroke="#CBD5E1"
-                      strokeWidth="3.5"
-                      strokeLinecap="round"
-                    />
-                    {/* Railway ties */}
-                    <path
-                      d={track}
-                      fill="none"
-                      stroke="#64748B"
-                      strokeWidth="2"
-                      strokeDasharray="4 4"
-                    />
-                  </React.Fragment>
-                ))}
+            {/* River Label */}
+            <text
+              x={RHINE_RIVER.labelPoint.x}
+              y={RHINE_RIVER.labelPoint.y}
+              className="text-[11px] font-bold italic fill-blue-950/80 tracking-widest pointer-events-none select-none"
+              style={{ letterSpacing: '0.22em' }}
+            >
+              ∼ NEDERRIJN ∼
+            </text>
 
-                {/* Train Station Nodes */}
-                {RAILWAY_STATIONS.map((st) => (
-                  <g key={st.name} transform={`translate(${st.x}, ${st.y})`}>
-                    <circle cx="0" cy="0" r="4.5" fill="#FFFFFF" stroke="#475569" strokeWidth="2" />
-                    <text
-                      x={st.labelAlign === 'right' ? 8 : 0}
-                      y={st.labelAlign === 'top' ? -8 : 12}
-                      textAnchor={st.labelAlign === 'right' ? 'start' : 'middle'}
-                      className="text-[9px] font-semibold fill-slate-700"
-                    >
-                      {st.name}
-                    </text>
-                  </g>
-                ))}
-              </g>
+            {/* Arnhemse Bruggen die de noord- en zuidkant overspannen */}
+            {RHINE_RIVER.bridges.map((bridge) => {
+              const midX = (bridge.x1 + bridge.x2) / 2;
+              const midY = (bridge.y1 + bridge.y2) / 2;
+              const isFrost = bridge.name.includes('John Frost');
 
-              {/* 3. REALISTIC NEDERRIJN RIVER RIBBON (Curving Meander) */}
-              <g className="river-layer">
-                {/* River water bed with realistic S-curve meander */}
-                <path
-                  d={RHINE_RIVER.path}
-                  fill="url(#rhine-gradient)"
-                  stroke="#7DD3FC"
-                  strokeWidth="2"
-                  className="transition-opacity duration-300"
-                />
-
-                {/* Center stream wave flow line */}
-                <path
-                  d={RHINE_RIVER.centerline}
-                  fill="none"
-                  stroke="#FFFFFF"
-                  strokeWidth="1.8"
-                  strokeDasharray="8 8"
-                  strokeOpacity="0.6"
-                />
-
-                {/* River Label */}
-                <text
-                  x={RHINE_RIVER.labelPoint.x}
-                  y={RHINE_RIVER.labelPoint.y}
-                  className="text-[11px] font-semibold italic fill-sky-950/70 tracking-widest pointer-events-none select-none"
-                  style={{ letterSpacing: '0.2em' }}
-                >
-                  ∼ NEDERRIJN ∼
-                </text>
-
-                {/* Arnhem Bridges crossing the river */}
-                {RHINE_RIVER.bridges.map((bridge) => {
-                  const midX = (bridge.x1 + bridge.x2) / 2;
-                  const midY = (bridge.y1 + bridge.y2) / 2;
-                  const isFrost = bridge.name.includes('John Frost');
-
-                  return (
-                    <g key={bridge.name} className="bridge-marker">
-                      {/* Bridge Line */}
-                      <line
-                        x1={bridge.x1}
-                        y1={bridge.y1}
-                        x2={bridge.x2}
-                        y2={bridge.y2}
-                        stroke={isFrost ? '#DC2626' : '#334155'}
-                        strokeWidth={isFrost ? 4.5 : 3.5}
-                        strokeLinecap="round"
-                      />
-                      {/* Bridge deck stripes */}
-                      <line
-                        x1={bridge.x1}
-                        y1={bridge.y1}
-                        x2={bridge.x2}
-                        y2={bridge.y2}
-                        stroke="#FFFFFF"
-                        strokeWidth={1}
-                        strokeDasharray="2 2"
-                      />
-                      {/* Bridge Label */}
-                      <text
-                        x={midX}
-                        y={midY - 8}
-                        textAnchor="middle"
-                        className={`text-[9px] font-bold ${
-                          isFrost
-                            ? 'fill-red-900 bg-white font-extrabold'
-                            : 'fill-slate-700'
-                        }`}
-                        style={{ textShadow: '0 1px 2px #FFFFFF' }}
-                      >
-                        {bridge.name}
-                      </text>
-                    </g>
-                  );
-                })}
-              </g>
-
-              {/* 4. NOTABLE LANDMARK PINS */}
-              <g className="landmarks-layer opacity-70">
-                {TOPOGRAPHY_LANDMARKS.map((lm) => (
-                  <g key={lm.name} transform={`translate(${lm.x}, ${lm.y})`}>
-                    <circle cx="0" cy="0" r="2.5" fill="#475569" />
-                    <text
-                      x="0"
-                      y="-5"
-                      textAnchor="middle"
-                      className="text-[8.5px] font-medium fill-stone-600"
-                    >
-                      {lm.label}
-                    </text>
-                  </g>
-                ))}
-              </g>
-            </g>
-          )}
+              return (
+                <g key={bridge.name} className="bridge-marker">
+                  {/* Bridge Line */}
+                  <line
+                    x1={bridge.x1}
+                    y1={bridge.y1}
+                    x2={bridge.x2}
+                    y2={bridge.y2}
+                    stroke={isFrost ? '#DC2626' : '#1E293B'}
+                    strokeWidth={isFrost ? 5 : 4}
+                    strokeLinecap="round"
+                  />
+                  {/* Bridge deck stripes */}
+                  <line
+                    x1={bridge.x1}
+                    y1={bridge.y1}
+                    x2={bridge.x2}
+                    y2={bridge.y2}
+                    stroke="#FFFFFF"
+                    strokeWidth={1.2}
+                    strokeDasharray="2 2"
+                  />
+                  {/* Bridge Label */}
+                  <text
+                    x={midX + 8}
+                    y={midY + 3}
+                    textAnchor="start"
+                    className={`text-[9.5px] font-extrabold ${
+                      isFrost ? 'fill-red-800' : 'fill-slate-800'
+                    }`}
+                    style={{ textShadow: '0 1px 3px rgba(255,255,255,0.95), 0 0 6px #FFFFFF' }}
+                  >
+                    {bridge.name}
+                  </text>
+                </g>
+              );
+            })}
+          </g>
 
           {/* ==================================================== */}
-          {/* DISTRICTS POLYGONS (CBS Official-Based Geometries) */}
+          {/* DISTRICTS POLYGONS (I amsterdam styling) */}
           {/* ==================================================== */}
           {DISTRICTS.map((district) => {
             const isHovered = hoveredSlug === district.slug;
@@ -389,14 +265,8 @@ export function InteractiveDistrictMap({
                 <path
                   d={district.svgPath}
                   fill={isHovered || isSelected ? district.hoverColor : district.color}
-                  fillOpacity={
-                    isHovered || isSelected
-                      ? 0.95
-                      : showUnderlayMap
-                      ? 0.72
-                      : 0.9
-                  }
-                  stroke={isHovered || isSelected ? '#FFFFFF' : district.accentColor}
+                  fillOpacity={isHovered || isSelected ? 0.98 : 0.88}
+                  stroke={isHovered || isSelected ? '#FFFFFF' : '#1E293B'}
                   strokeWidth={isHovered || isSelected ? 3.5 : 1.8}
                   strokeDasharray={isHovered || isSelected ? undefined : '5 3'}
                   strokeLinejoin="round"
@@ -405,10 +275,24 @@ export function InteractiveDistrictMap({
                   className="transition-all duration-250 ease-out"
                   style={{
                     opacity: isDimmed ? 0.45 : 1,
-                    transform: isHovered ? 'scale(1.006)' : 'scale(1)',
+                    transform: isHovered ? 'scale(1.008)' : 'scale(1)',
                     transformOrigin: `${district.centerPoint.x}px ${district.centerPoint.y}px`,
                   }}
                 />
+
+                {/* Subtiele interne stippellijnen (zoals in I amsterdam en Arnhem-Noord) */}
+                {district.innerLines?.map((lineD, lIdx) => (
+                  <path
+                    key={lIdx}
+                    d={lineD}
+                    fill="none"
+                    stroke="#475569"
+                    strokeWidth="1.2"
+                    strokeDasharray="3 3"
+                    strokeOpacity={isHovered ? 0.8 : 0.45}
+                    className="pointer-events-none"
+                  />
+                ))}
 
                 {/* District Center Anchor & Label */}
                 <g
@@ -447,7 +331,7 @@ export function InteractiveDistrictMap({
                     className={`font-bold tracking-tight transition-all duration-200 ${
                       isHovered
                         ? 'text-[13px] fill-neutral-950 font-black'
-                        : 'text-[11px] fill-neutral-900'
+                        : 'text-[11px] fill-neutral-900 font-extrabold'
                     }`}
                     style={{
                       textShadow:
@@ -462,7 +346,7 @@ export function InteractiveDistrictMap({
                     x="0"
                     y="18"
                     textAnchor="middle"
-                    className="text-[9px] font-medium fill-neutral-700"
+                    className="text-[9px] font-semibold fill-neutral-700"
                     style={{
                       textShadow: '0 1px 2px #FFFFFF',
                     }}
