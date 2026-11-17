@@ -106,9 +106,9 @@ export function InteractiveDistrictMap({
       )}
 
       {/* Interactive SVG Canvas */}
-      <div className="relative w-full aspect-960/680 max-w-5xl mx-auto">
+      <div className="relative w-full aspect-960/700 max-w-5xl mx-auto">
         <svg
-          viewBox="0 0 960 680"
+          viewBox="0 0 960 700"
           className="w-full h-full drop-shadow-sm transition-all duration-300 overflow-visible"
           role="region"
           aria-label="Interactieve kaart van Arnhemse wijken"
@@ -150,7 +150,7 @@ export function InteractiveDistrictMap({
           </defs>
 
           {/* Background Map Grid */}
-          <rect width="960" height="680" fill="url(#map-grid)" rx="24" />
+          <rect width="960" height="700" fill="url(#map-grid)" rx="24" />
 
           {/* Compass / North indicator in top right */}
           <g transform="translate(900, 45)" className="opacity-40 pointer-events-none">
@@ -165,6 +165,21 @@ export function InteractiveDistrictMap({
             >
               N
             </text>
+          </g>
+
+          {/* ==================================================== */}
+          {/* WATERWAY BED: Nederrijn (Organische wijk-polygon)    */}
+          {/* ==================================================== */}
+          <g className="river-bed pointer-events-none">
+            {/* Rivierbedding als een wijk-vlak die perfect tussen noord en zuid ligt */}
+            <path
+              d={RHINE_RIVER.path}
+              fill="url(#rhine-gradient)"
+              stroke="#0284C7"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+              className="transition-opacity duration-300"
+            />
           </g>
 
           {/* ==================================================== */}
@@ -277,18 +292,9 @@ export function InteractiveDistrictMap({
           })}
 
           {/* ==================================================== */}
-          {/* WATERWAY: Nederrijn (Duidelijk tussen de wijken) */}
+          {/* RIVER OVERLAYS: Label & Bruggen over de Nederrijn    */}
           {/* ==================================================== */}
-          <g className="river-group pointer-events-none">
-            {/* Brede rivierbedding die prominent tussen de wijken loopt */}
-            <path
-              d={RHINE_RIVER.path}
-              fill="url(#rhine-gradient)"
-              stroke="#0284C7"
-              strokeWidth="2"
-              className="transition-opacity duration-300 shadow-inner"
-            />
-
+          <g className="river-overlays pointer-events-none">
             {/* River Label */}
             <text
               x={RHINE_RIVER.labelPoint.x}
