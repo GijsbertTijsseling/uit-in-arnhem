@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Clock, Sparkles, Calendar, AlertCircle } from 'lucide-react';
@@ -25,53 +27,55 @@ export function EventCard({ event }: EventCardProps) {
   const hasMultipleDates = event.performances && event.performances.length > 1;
 
   // Detect portrait theater posters (e.g. Posttheater / Ticketmatic)
-  const isPortrait =
+  const initialIsPortrait =
     event.source === 'posttheater' ||
     Boolean(event.hero_image_url?.includes('ticketmatic')) ||
     Boolean(event.hero_image_url?.includes('portrait'));
 
+  const [isPortrait, setIsPortrait] = useState(initialIsPortrait);
+
   return (
     <Link
       href={`/agenda/${event.slug}`}
-      className={`group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200/80 hover:border-zinc-300 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${isCancelled ? 'opacity-70 grayscale-30' : ''
-        }`}
+      className={`group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200/80 hover:border-zinc-300 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
+        isCancelled ? 'opacity-70 grayscale-30' : ''
+      }`}
     >
-      {/* Image container: 16:9 ratio */}
-      <div className="relative aspect-16/9 w-full overflow-hidden bg-zinc-950">
-        {isPortrait ? (
-          <>
-            {/* Ambient blurred backdrop that fills the card banner for portrait posters */}
-            <div className="absolute inset-0 overflow-hidden">
-              <Image
-                src={event.hero_image_url || '/logo.png'}
-                alt=""
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover scale-110 blur-xl opacity-50 brightness-75 transition-transform duration-500 group-hover:scale-125"
-                aria-hidden="true"
-              />
-              <div className="absolute inset-0 bg-black/20" />
-            </div>
-
-            {/* Foreground sharp portrait image: 100% visible, never cut off */}
+      {/* Image container: 16:9 ratio with light background */}
+      <div className="relative aspect-16/9 w-full overflow-hidden bg-zinc-100">
+        {/* Ambient blurred backdrop that preserves full top-to-bottom colors */}
+        {isPortrait && (
+          <div className="absolute -inset-4 overflow-hidden pointer-events-none">
             <Image
               src={event.hero_image_url || '/logo.png'}
-              alt={event.title}
+              alt=""
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-contain relative z-10 transition-transform duration-500 group-hover:scale-105 drop-shadow-md"
+              className="object-fill blur-2xl scale-115 opacity-80 brightness-105 saturate-110 transition-transform duration-500 group-hover:scale-125"
+              aria-hidden="true"
             />
-          </>
-        ) : (
-          /* Standard landscape image (Musis, Luxor): full-bleed edge to edge */
-          <Image
-            src={event.hero_image_url || '/logo.png'}
-            alt={event.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+            <div className="absolute inset-0 bg-white/5" />
+          </div>
         )}
+
+        {/* Foreground sharp image */}
+        <Image
+          src={event.hero_image_url || '/logo.png'}
+          alt={event.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          onLoad={(e) => {
+            const img = e.currentTarget;
+            if (img.naturalHeight > img.naturalWidth) {
+              setIsPortrait(true);
+            }
+          }}
+          className={`${
+            isPortrait
+              ? 'object-contain relative z-10 drop-shadow-[0_0_15px_rgba(0,0,0,0.18)]'
+              : 'object-cover'
+          } transition-transform duration-500 group-hover:scale-105`}
+        />
 
         {/* Date sticker - High z-index to stay above foreground image */}
         <div className="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-sm rounded-xl px-3 py-1.5 shadow-md flex flex-col items-center justify-center border border-zinc-100 text-center min-w-13">
