@@ -1,4 +1,33 @@
 /**
+ * Helper function to safely strip a <div> and all its nested children
+ * matching any class name pattern.
+ */
+function stripDivWithClass(html: string, classPattern: string): string {
+  let output = html;
+  let match;
+  const regex = new RegExp(`<div[^>]*class=["'][^"']*\\b(?:${classPattern})\\b[^"']*["'][^>]*>`, 'i');
+  while ((match = output.match(regex)) !== null) {
+    const startIndex = match.index!;
+    let depth = 1;
+    let curr = startIndex + match[0].length;
+    while (depth > 0 && curr < output.length) {
+      const nextOpen = output.indexOf('<div', curr);
+      const nextClose = output.indexOf('</div>', curr);
+      if (nextClose === -1) break;
+      if (nextOpen !== -1 && nextOpen < nextClose) {
+        depth++;
+        curr = nextOpen + 4;
+      } else {
+        depth--;
+        curr = nextClose + 6;
+      }
+    }
+    output = output.substring(0, startIndex) + output.substring(curr);
+  }
+  return output;
+}
+
+/**
  * Helper to clean and format legacy WordPress article and event content
  * into clean, responsive HTML with embedded videos and figures.
  */
@@ -20,7 +49,12 @@ export function formatRichContent(rawContent: string, title: string = ''): strin
     }
   }
 
-  // 2. Transform [vc_video link="..."] to responsive YouTube / Vimeo embed
+  // 2. Strip social share / like / tweet widgets (e.g. Luxor Live share buttons)
+  content = stripDivWithClass(content, 'share|social-share|socials|fb-like-button|tw-like-button');
+  content = content.replace(/<a[^>]*href=["'][^"']*(?:facebook\.com\/sharer|twitter\.com\/share|whatsapp:\/\/send)[^"']*["'][^>]*>[\s\S]*?<\/a>/gi, '');
+  content = content.replace(/<a[^>]*class=["'][^"']*\b(?:wa|fb|tw)\b[^"']*["'][^>]*>[\s\S]*?<\/a>/gi, '');
+
+  // 3. Transform [vc_video link="..."] to responsive YouTube / Vimeo embed
   content = content.replace(/\[vc_video[^\]]*link=["'”]([^"'”\s]+)["'”][^\]]*\]/gi, (match, url) => {
     const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]+)/);
     if (ytMatch) {
@@ -33,13 +67,22 @@ export function formatRichContent(rawContent: string, title: string = ''): strin
     return '';
   });
 
-  // 3. Transform [caption ...]...[/caption]
+  // Transform owl-video carousel links (e.g. Luxor video carousels) into responsive YouTube embeds
+  content = content.replace(/<a[^>]*class=["'][^"']*\bowl-video\b[^"']*["'][^>]*href=["']([^"']+)["'][^>]*>[\s\S]*?<\/a>/gi, (match, url) => {
+    const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]+)/);
+    if (ytMatch) {
+      return `<div class="my-8 aspect-video w-full rounded-2xl overflow-hidden shadow-lg border border-zinc-200"><iframe class="w-full h-full" src="https://www.youtube.com/embed/${ytMatch[1]}" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+    }
+    return '';
+  });
+
+  // 4. Transform [caption ...]...[/caption]
   content = content.replace(/\[caption[^\]]*\]([\s\S]*?)\[\/caption\]/gi, '<figure class="my-6 rounded-2xl overflow-hidden shadow-md bg-zinc-50 border border-zinc-100">$1</figure>');
 
-  // 4. Strip all other vc_* and thb_* shortcodes
+  // 5. Strip all other vc_* and thb_* shortcodes
   content = content.replace(/\[\/?(?:vc_|thb_)[^\]]*\]/gi, '');
 
-  // 5. Strip redundant initial <h1> or <h2> if it matches the title or is at the very beginning
+  // 6. Strip redundant initial <h1> or <h2> if it matches the title or is at the very beginning
   if (title) {
     const escapedTitle = title.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const titleRegex = new RegExp(`^\\s*<h[12][^>]*>\\s*${escapedTitle}\\s*<\\/h[12]>\\s*`, 'i');

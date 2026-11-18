@@ -134,6 +134,10 @@ class LuxorAdapter(BaseAdapter):
                 # 3. Content and Descriptions
                 content_el = d_soup.select_one(".content")
                 if content_el:
+                    # Strip social share widgets and like/tweet/share links
+                    for el in content_el.select(".share, .social-share, .socials, .fb-like-button, .tw-like-button, a.wa, a.fb, a.tw, [class*='share'], [class*='like-button'], a[href*='facebook.com/sharer'], a[href*='twitter.com/share'], a[href*='whatsapp://send']"):
+                        el.decompose()
+
                     intro_p = content_el.select_one("p.intro") or content_el.select_one("p")
                     if intro_p and intro_p.text.strip():
                         short_desc = self.clean_text(intro_p.text)
