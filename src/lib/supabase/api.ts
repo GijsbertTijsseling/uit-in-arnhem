@@ -109,7 +109,7 @@ export async function getEvents(options: { includePast?: boolean } = {}): Promis
       price_from: item.price_from ?? item.price ?? 0,
       price_to: item.price_to,
       ticket_url: item.ticket_url,
-      organizer_name: item.organizer_name || 'Organisatie Arnhem',
+      organizer_name: item.organizer_name || undefined,
       status: item.status || 'published',
       is_highlight: !!item.is_highlight,
       created_at: item.created_at,
