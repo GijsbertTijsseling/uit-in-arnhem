@@ -23,6 +23,17 @@ export function Navbar() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  // Close dropdown when scrolling
+  useEffect(() => {
+    const handleScroll = () => {
+      if (activeDropdown) {
+        setActiveDropdown(null);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [activeDropdown]);
+
   const handleMouseEnter = (label: string) => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
@@ -52,13 +63,15 @@ export function Navbar() {
   };
 
   const currentSection = NAVIGATION_MENU.find((s) => s.label === activeDropdown);
+  const isDropdownOpen = !!(currentSection && currentSection.columns && currentSection.columns.length > 0);
 
   return (
-    <header
-      className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-zinc-200 transition-all"
-      onMouseLeave={handleMouseLeave}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <header
+        className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-zinc-200 transition-all"
+        onMouseLeave={handleMouseLeave}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link
@@ -239,19 +252,6 @@ export function Navbar() {
                 </div>
               )}
             </div>
-
-            {/* Bottom bar of dropdown with quick jump to main section page */}
-            <div className="mt-6 pt-4 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
-              <span>{currentSection.description}</span>
-              <Link
-                href={currentSection.href}
-                onClick={() => setActiveDropdown(null)}
-                className="font-bold text-[#FF4F00] hover:underline inline-flex items-center gap-1"
-              >
-                <span>Bekijk alle {currentSection.label.toLowerCase()}</span>
-                <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
           </div>
         </div>
       )}
@@ -331,5 +331,18 @@ export function Navbar() {
         </div>
       )}
     </header>
-  );
+
+    {/* Subtle backdrop blur over the rest of the site when dropdown or mobile menu is open */}
+    <div
+      className={`fixed inset-0 top-20 bg-black/20 backdrop-blur-xs z-40 transition-opacity duration-200 ${
+        isDropdownOpen || mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+      }`}
+      onClick={() => {
+        setActiveDropdown(null);
+        setMobileMenuOpen(false);
+      }}
+      aria-hidden="true"
+    />
+  </>
+);
 }
