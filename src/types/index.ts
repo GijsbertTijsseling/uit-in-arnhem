@@ -13,7 +13,7 @@ export interface CtaBlock {
   button_url: string;
 }
 
-export type LayoutTemplate = 'standard' | 'editorial_story' | 'visual_gallery' | 'listicle';
+export type LayoutTemplate = 'standard' | 'editorial_story' | 'visual_gallery' | 'listicle' | 'split_header';
 
 export interface Article {
   id: string;

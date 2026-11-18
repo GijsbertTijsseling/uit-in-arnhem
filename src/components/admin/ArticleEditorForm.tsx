@@ -445,6 +445,7 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
             <div className="space-y-2">
               {[
                 { id: 'standard', label: 'Standaard Redactioneel', desc: 'Klassieke editorial stijl met sidebar' },
+                { id: 'split_header', label: 'Portret / Split Header', desc: 'Ideaal voor interviews en staande foto\'s (2-koloms)' },
                 { id: 'editorial_story', label: 'Groot Magazine Verhaal', desc: 'Brede hero header met meeslepende layout' },
                 { id: 'listicle', label: 'Toplijst / Hotspots', desc: 'Genummerde lijstjes (bijv. 5x terras)' },
                 { id: 'visual_gallery', label: 'Beeldreportage', desc: 'Fotografische fotogalerij layout' },

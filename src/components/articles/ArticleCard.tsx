@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Clock, ArrowRight } from 'lucide-react';
@@ -11,6 +13,8 @@ interface ArticleCardProps {
 }
 
 export function ArticleCard({ article, featured = false }: ArticleCardProps) {
+  const [isPortrait, setIsPortrait] = useState(false);
+
   // Reading time estimate
   const words = article.content ? article.content.split(/\s+/).length : 200;
   const readMinutes = Math.max(1, Math.ceil(words / 200));
@@ -19,15 +23,38 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
     return (
       <article className="group relative rounded-3xl overflow-hidden bg-zinc-950 text-white shadow-xl grid grid-cols-1 lg:grid-cols-12 min-h-120">
         {/* Image col */}
-        <div className="lg:col-span-7 relative min-h-75 lg:min-h-full overflow-hidden">
+        <div className="lg:col-span-7 relative min-h-75 lg:min-h-full overflow-hidden bg-zinc-950 flex items-center justify-center">
+          {/* Ambient blur background for portrait images */}
+          {isPortrait && (
+            <div className="absolute -inset-6 overflow-hidden pointer-events-none">
+              <Image
+                src={article.featured_image_url}
+                alt=""
+                fill
+                aria-hidden="true"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="object-cover blur-xl scale-125 opacity-70 brightness-90 saturate-150"
+              />
+              <div className="absolute inset-0 bg-black/20" />
+            </div>
+          )}
+
           <Image
             src={article.featured_image_url}
             alt={article.title}
             fill
             sizes="(max-width: 1024px) 100vw, 60vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            onLoad={(e) => {
+              const img = e.currentTarget;
+              if (img.naturalHeight > img.naturalWidth) {
+                setIsPortrait(true);
+              }
+            }}
+            className={`${
+              isPortrait ? 'object-contain relative z-10 drop-shadow-2xl' : 'object-cover'
+            } transition-transform duration-700 group-hover:scale-105`}
           />
-          <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-zinc-950/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-zinc-950/80 via-transparent to-transparent pointer-events-none z-10" />
         </div>
 
         {/* Content col */}
@@ -77,16 +104,45 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
 
   return (
     <article className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200/80 hover:border-zinc-300 hover:shadow-lg transition-all duration-300">
-      <Link href={`/artikelen/${article.slug}`} className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100">
+      <Link
+        href={`/artikelen/${article.slug}`}
+        className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100 block"
+      >
+        {/* Ambient Blur Layer if portrait: uses object-fill so the top (sky/bridge) and bottom (bricks/water) 
+            are preserved rather than zoomed into the dark torso by object-cover */}
+        {isPortrait && (
+          <div className="absolute -inset-4 overflow-hidden pointer-events-none">
+            <Image
+              src={article.featured_image_url}
+              alt=""
+              fill
+              aria-hidden="true"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-fill blur-2xl scale-115 opacity-80 brightness-105 saturate-110"
+            />
+            <div className="absolute inset-0 bg-white/5" />
+          </div>
+        )}
+
         <Image
           src={article.featured_image_url}
           alt={article.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          onLoad={(e) => {
+            const img = e.currentTarget;
+            if (img.naturalHeight > img.naturalWidth) {
+              setIsPortrait(true);
+            }
+          }}
+          className={`${
+            isPortrait
+              ? 'object-contain relative z-10 drop-shadow-[0_0_15px_rgba(0,0,0,0.18)]'
+              : 'object-cover'
+          } transition-transform duration-500 group-hover:scale-105`}
         />
-        <div className="absolute top-3 left-3">
-          <span className="bg-white/90 backdrop-blur-sm text-zinc-900 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-zinc-100">
+        <div className="absolute top-3 left-3 z-20">
+          <span className="bg-white/90 backdrop-blur-sm text-zinc-900 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-zinc-100 shadow-xs">
             {article.category}
           </span>
         </div>

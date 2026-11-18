@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Article } from '@/types';
 import { ModularCtaBlock } from './ModularCtaBlock';
@@ -12,6 +14,29 @@ interface LayoutTemplateViewProps {
 
 export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
   const template = article.layout_template || 'standard';
+  const [isPortrait, setIsPortrait] = useState<boolean>(false);
+  const [aspectRatio, setAspectRatio] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!article.featured_image_url) return;
+    const img = new window.Image();
+    img.src = article.featured_image_url;
+    if (img.complete && img.naturalHeight > 0) {
+      const portrait = img.naturalHeight > img.naturalWidth;
+      setIsPortrait(portrait);
+      setAspectRatio(img.naturalWidth / img.naturalHeight);
+    } else {
+      img.onload = () => {
+        const portrait = img.naturalHeight > img.naturalWidth;
+        setIsPortrait(portrait);
+        setAspectRatio(img.naturalWidth / img.naturalHeight);
+      };
+    }
+  }, [article.featured_image_url]);
+
+  const showSplitHeader =
+    template === 'split_header' ||
+    (template !== 'editorial_story' && isPortrait);
 
   return (
     <article className="w-full">
@@ -54,8 +79,74 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
         </div>
       )}
 
-      {/* 2. STANDARD / LISTICLE / VISUAL GALLERY HEADER */}
-      {template !== 'editorial_story' && (
+      {/* 2. OPTION C: SPLIT HEADER (FOR PORTRAIT IMAGES & INTERVIEWS) */}
+      {showSplitHeader && (
+        <header className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Column: Vertical Portrait Image */}
+            <div className="md:col-span-5 order-2 md:order-1 flex justify-center">
+              <div
+                className="relative w-full max-w-sm sm:max-w-md rounded-3xl overflow-hidden shadow-2xl bg-zinc-100 ring-1 ring-zinc-900/10 group"
+                style={{
+                  aspectRatio: aspectRatio ? `${aspectRatio}` : '2/3',
+                  maxHeight: '640px',
+                }}
+              >
+                <Image
+                  src={article.featured_image_url}
+                  alt={article.title}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                  className="object-contain sm:object-cover transition-transform duration-700 group-hover:scale-102"
+                />
+                <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-3xl pointer-events-none" />
+              </div>
+            </div>
+
+            {/* Right Column: Article Details */}
+            <div className="md:col-span-7 order-1 md:order-2 flex flex-col justify-center">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="bg-[#FF4F00] text-white text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-xs">
+                  {article.category}
+                </span>
+                <span className="text-xs text-zinc-500 font-medium">
+                  Gepubliceerd op {formatDate(article.published_at)}
+                </span>
+              </div>
+
+              <h1 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-zinc-950 leading-[1.15] tracking-tight">
+                {article.title}
+              </h1>
+
+              <p className="text-zinc-600 text-lg sm:text-xl mt-5 leading-relaxed font-normal">
+                {article.excerpt}
+              </p>
+
+              <div className="flex flex-wrap items-center justify-between gap-4 mt-8 pt-6 border-t border-zinc-200 text-xs text-zinc-500">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#FFF3ED] text-[#FF4F00] flex items-center justify-center font-bold text-sm shadow-inner">
+                    {article.author_name ? article.author_name[0] : 'R'}
+                  </div>
+                  <div>
+                    <p className="font-bold text-zinc-900 text-sm">{article.author_name || 'Redactie Uit in Arnhem'}</p>
+                    <p className="text-xs text-zinc-500">Cultuur & Lifestyle redacteur</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="px-3.5 py-1.5 bg-zinc-100 rounded-full text-zinc-700 font-semibold text-xs">
+                    {template === 'listicle' ? 'Topselectie' : template === 'visual_gallery' ? 'Beeldreportage' : 'Portret & Interview'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+      )}
+
+      {/* 3. STANDARD / LISTICLE / VISUAL GALLERY HEADER (LANDSCAPE IMAGES) */}
+      {!showSplitHeader && template !== 'editorial_story' && (
         <header className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
           <div className="flex items-center gap-2 mb-4">
             <span className="bg-[#FF4F00] text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">

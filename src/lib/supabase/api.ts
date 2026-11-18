@@ -8,6 +8,32 @@ function cleanHtml(html: string): string {
   return html.replace(/<[^>]*>/g, '').replace(/\[[^\]]*\]/g, '').trim();
 }
 
+function mapArticleItem(item: any): Article {
+  return {
+    id: item.id || `art-${item.slug}`,
+    slug: item.slug,
+    title: item.title,
+    excerpt: cleanHtml(item.excerpt) || cleanHtml(item.content).slice(0, 160) + '...',
+    content: item.content || '',
+    featured_image_url:
+      item.featured_image ||
+      item.featured_image_url ||
+      '/logo.png',
+    gallery_image_urls: item.gallery_image_urls || [],
+    author_id: item.author_id,
+    author_name: item.author_name || 'Redactie Uit in Arnhem',
+    category: item.categories?.slug || item.category_slug || item.category || 'nieuws',
+    tags: item.tags || [],
+    status: item.status || 'published',
+    is_featured: !!item.is_featured,
+    layout_template: item.layout_template || 'standard',
+    cta_block: item.cta_block,
+    published_at: item.published_at || item.created_at || new Date().toISOString(),
+    created_at: item.created_at || new Date().toISOString(),
+    updated_at: item.updated_at,
+  };
+}
+
 export async function getArticles(): Promise<Article[]> {
   try {
     const supabase = createClient();
@@ -22,29 +48,7 @@ export async function getArticles(): Promise<Article[]> {
       return [];
     }
 
-    return data.map((item: any) => ({
-      id: item.id || `art-${item.slug}`,
-      slug: item.slug,
-      title: item.title,
-      excerpt: cleanHtml(item.excerpt) || cleanHtml(item.content).slice(0, 160) + '...',
-      content: item.content || '',
-      featured_image_url:
-        item.featured_image ||
-        item.featured_image_url ||
-        '/logo.png',
-      gallery_image_urls: item.gallery_image_urls || [],
-      author_id: item.author_id,
-      author_name: item.author_name || 'Redactie Uit in Arnhem',
-      category: item.categories?.slug || item.category_slug || item.category || 'nieuws',
-      tags: item.tags || [],
-      status: item.status || 'published',
-      is_featured: !!item.is_featured,
-      layout_template: item.layout_template || 'standard',
-      cta_block: item.cta_block,
-      published_at: item.published_at || item.created_at || new Date().toISOString(),
-      created_at: item.created_at || new Date().toISOString(),
-      updated_at: item.updated_at,
-    }));
+    return data.map(mapArticleItem);
   } catch (err) {
     console.error('Failed to get articles:', err);
     return [];
@@ -52,14 +56,34 @@ export async function getArticles(): Promise<Article[]> {
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  const articles = await getArticles();
-  const lower = slug.toLowerCase();
-  const match = articles.find((a) =>
-    a.slug === slug ||
-    a.id === slug ||
-    a.slug.toLowerCase() === lower
-  );
-  return match || null;
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('articles')
+      .select('*, categories(name, slug)')
+      .or(`slug.eq.${slug},id.eq.${slug}`)
+      .maybeSingle();
+
+    if (data) {
+      return mapArticleItem(data);
+    }
+
+    // Try case-insensitive lookup
+    const { data: ciData } = await supabase
+      .from('articles')
+      .select('*, categories(name, slug)')
+      .ilike('slug', slug)
+      .maybeSingle();
+
+    if (ciData) {
+      return mapArticleItem(ciData);
+    }
+
+    return null;
+  } catch (err) {
+    console.error('Failed to get article by slug:', err);
+    return null;
+  }
 }
 
 export async function getEvents(options: { includePast?: boolean } = {}): Promise<AgendaItem[]> {
