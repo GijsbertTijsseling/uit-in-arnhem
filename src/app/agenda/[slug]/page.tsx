@@ -160,6 +160,13 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
         {/* Right Column: Venue, Time & Ticket Widget */}
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-zinc-50 border border-zinc-200/90 rounded-3xl p-6 sm:p-8 space-y-6 sticky top-28 shadow-sm">
+            {/* Status Alert if Cancelled */}
+            {event.status === 'cancelled' && (
+              <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold">
+                ⚠️ Let op: Dit evenement is geannuleerd of verwijderd bij de organisator.
+              </div>
+            )}
+
             {/* Ticket & Price box */}
             <div className="pb-6 border-b border-zinc-200">
               <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Entree</span>
@@ -167,7 +174,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                 {isFree ? 'Gratis entree' : `€${event.price_from?.toFixed(2)}`}
               </div>
 
-              {event.ticket_url ? (
+              {event.ticket_url && event.status !== 'cancelled' ? (
                 <a
                   href={event.ticket_url}
                   target="_blank"
@@ -175,15 +182,67 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                   className="mt-3.5 w-full flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold transition-colors shadow-xs"
                 >
                   <Globe className="w-3.5 h-3.5" />
-                  <span>Bezoek website</span>
+                  <span>Bestel tickets bij {event.venue_name}</span>
                   <ExternalLink className="w-3 h-3 opacity-60 ml-0.5" />
                 </a>
+              ) : event.status === 'cancelled' ? (
+                <div className="mt-3.5 w-full py-2.5 px-4 rounded-xl bg-zinc-200 text-zinc-600 text-xs font-medium text-center">
+                  Tickets niet meer beschikbaar
+                </div>
               ) : (
                 <div className="mt-3.5 w-full py-2.5 px-4 rounded-xl bg-zinc-100 text-zinc-600 text-xs font-medium text-center">
                   Vrije inloop / Geen ticket vereist
                 </div>
               )}
             </div>
+
+            {/* Multi-performance Schedule List */}
+            {event.performances && event.performances.length > 1 && (
+              <div className="pb-6 border-b border-zinc-200 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-800 flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-[#FF4F00]" />
+                    Alle Speeldata ({event.performances.length})
+                  </span>
+                </div>
+                <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+                  {event.performances.map((perf, idx) => {
+                    const pDate = new Date(perf.start_date);
+                    return (
+                      <div
+                        key={idx}
+                        className="p-2.5 rounded-xl bg-white border border-zinc-200/80 text-xs flex items-center justify-between gap-2"
+                      >
+                        <div>
+                          <div className="font-bold text-zinc-900">
+                            {formatDate(perf.start_date)}
+                          </div>
+                          <div className="text-[11px] text-zinc-500">
+                            {formatTime(perf.start_date)} uur {perf.venue_sublocation ? `• ${perf.venue_sublocation}` : ''}
+                          </div>
+                        </div>
+
+                        {perf.is_sold_out ? (
+                          <span className="text-[10px] font-bold text-zinc-400 bg-zinc-100 px-2 py-0.5 rounded-full uppercase">
+                            Uitverkocht
+                          </span>
+                        ) : perf.ticket_url ? (
+                          <a
+                            href={perf.ticket_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-[#FF4F00] text-white text-[10px] font-bold uppercase tracking-wider transition-colors shrink-0"
+                          >
+                            <span>Tickets</span>
+                            <ExternalLink className="w-2.5 h-2.5 opacity-70" />
+                          </a>
+                        ) : null}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Date & Time details */}
             <div className="space-y-4 text-sm">

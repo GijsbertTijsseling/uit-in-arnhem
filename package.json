@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "scrape": "python3 scraper/main.py",
+    "scrape:dry": "python3 scraper/main.py --dry-run"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

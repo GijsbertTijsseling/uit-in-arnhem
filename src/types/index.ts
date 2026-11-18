@@ -65,6 +65,14 @@ export interface Location {
   updated_at?: string;
 }
 
+export interface EventPerformance {
+  start_date: string;
+  end_date?: string | null;
+  ticket_url?: string;
+  is_sold_out?: boolean;
+  venue_sublocation?: string;
+}
+
 export interface AgendaItem {
   id: string;
   slug: string;
@@ -91,10 +99,60 @@ export interface AgendaItem {
   ticket_url?: string;
   organizer_id?: string;
   organizer_name?: string;
-  status: 'submitted' | 'approved' | 'rejected' | 'published';
+  status: 'submitted' | 'approved' | 'rejected' | 'published' | 'missing' | 'cancelled';
   is_highlight: boolean;
+  source?: string;
+  source_id?: string;
+  source_url?: string;
+  production_id?: string;
+  performances?: EventPerformance[];
+  is_manually_edited?: boolean;
+  manual_override_fields?: string[];
+  missing_count?: number;
+  missing_since?: string | null;
+  last_synced_at?: string | null;
   created_at?: string;
   updated_at?: string;
+}
+
+export interface AgendaSource {
+  id: string;
+  name: string;
+  slug: string;
+  url: string;
+  adapter_type: string;
+  default_venue_name: string;
+  default_venue_address: string;
+  default_venue_city: string;
+  default_category_slug: string;
+  is_active: boolean;
+  is_running: boolean;
+  locked_at?: string | null;
+  sync_frequency: string;
+  last_run_at?: string | null;
+  last_run_status?: 'success' | 'warning' | 'error' | null;
+  last_run_message?: string | null;
+  total_events_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AgendaSyncLog {
+  id: string;
+  source_id?: string;
+  source_slug: string;
+  started_at: string;
+  completed_at?: string | null;
+  status: 'running' | 'success' | 'warning' | 'error';
+  items_scraped: number;
+  items_inserted: number;
+  items_updated: number;
+  items_missing: number;
+  items_cancelled: number;
+  items_skipped: number;
+  error_message?: string | null;
+  log_details?: Record<string, any>;
+  created_at: string;
 }
 
 export type UserRole = 'admin' | 'editor' | 'contributor';

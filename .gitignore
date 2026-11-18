@@ -17,6 +17,9 @@
 # misc
 .DS_Store
 *.pem
+# python venv
+.venv/
+scraper/.venv/
 __pycache__/
 *.py[cod]
 .agent

@@ -1,5 +1,5 @@
 import { createClient } from './client';
-import { Article, AgendaItem, UserProfile, Location } from '@/types';
+import { Article, AgendaItem, UserProfile, Location, AgendaSource, AgendaSyncLog } from '@/types';
 import { LOCATIONS_CATALOG, getLocationFromCatalog } from '@/data/locationsData';
 
 // Helper to sanitize html string to plain text for excerpts
@@ -119,6 +119,16 @@ export async function getEvents(options: { includePast?: boolean } = {}): Promis
         organizer_name: item.organizer_name || undefined,
         status: item.status || 'published',
         is_highlight: !!item.is_highlight,
+        source: item.source || 'manual',
+        source_id: item.source_id,
+        source_url: item.source_url,
+        production_id: item.production_id,
+        performances: item.performances || [],
+        is_manually_edited: !!item.is_manually_edited,
+        manual_override_fields: item.manual_override_fields || [],
+        missing_count: item.missing_count || 0,
+        missing_since: item.missing_since,
+        last_synced_at: item.last_synced_at,
         created_at: item.created_at,
         updated_at: item.updated_at,
       };
@@ -299,6 +309,9 @@ export async function saveEventToSupabase(event: Partial<AgendaItem>): Promise<{
     ticket_url: event.ticket_url,
     status: event.status || 'published',
     is_highlight: event.is_highlight ?? false,
+    // Mark as manually edited so automated scraping preserves editorial customizations
+    is_manually_edited: true,
+    manual_override_fields: ['title', 'description', 'short_description', 'featured_image'],
   };
 
   if (event.id && !event.id.startsWith('evt-') && isNaN(Number(event.id))) {
@@ -309,11 +322,98 @@ export async function saveEventToSupabase(event: Partial<AgendaItem>): Promise<{
       .select();
     return { data, error };
   } else {
+    payload.source = 'manual';
     const { data, error } = await supabase
       .from('events')
       .insert([payload])
       .select();
     return { data, error };
+  }
+}
+
+// Agenda Sources Management APIs
+export async function getAgendaSources(): Promise<AgendaSource[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('agenda_sources')
+      .select('*')
+      .order('name', { ascending: true });
+
+    if (error || !data) {
+      console.warn('Failed to load agenda sources from database:', error?.message);
+      return [];
+    }
+
+    return data;
+  } catch (err) {
+    console.error('getAgendaSources failed:', err);
+    return [];
+  }
+}
+
+export async function saveAgendaSource(source: Partial<AgendaSource>): Promise<{ data: any; error: any }> {
+  const supabase = createClient();
+  const payload: any = {
+    name: source.name,
+    slug: source.slug,
+    url: source.url,
+    adapter_type: source.adapter_type || 'generic_jsonld',
+    default_venue_name: source.default_venue_name,
+    default_venue_address: source.default_venue_address,
+    default_venue_city: source.default_venue_city || 'Arnhem',
+    default_category_slug: source.default_category_slug || 'cultuur',
+    sync_frequency: source.sync_frequency || 'bi-weekly',
+    is_active: source.is_active ?? true,
+  };
+
+  if (source.id && !source.id.endsWith('-source')) {
+    const { data, error } = await supabase
+      .from('agenda_sources')
+      .update(payload)
+      .eq('id', source.id)
+      .select();
+    return { data, error };
+  } else {
+    const { data, error } = await supabase
+      .from('agenda_sources')
+      .insert([payload])
+      .select();
+    return { data, error };
+  }
+}
+
+export async function toggleAgendaSource(id: string, is_active: boolean): Promise<{ data: any; error: any }> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('agenda_sources')
+    .update({ is_active })
+    .eq('id', id)
+    .select();
+  return { data, error };
+}
+
+export async function getAgendaSyncLogs(sourceSlug?: string): Promise<AgendaSyncLog[]> {
+  try {
+    const supabase = createClient();
+    let query = supabase
+      .from('agenda_sync_logs')
+      .select('*')
+      .order('started_at', { ascending: false })
+      .limit(50);
+
+    if (sourceSlug) {
+      query = query.eq('source_slug', sourceSlug);
+    }
+
+    const { data, error } = await query;
+    if (error || !data) {
+      return [];
+    }
+    return data;
+  } catch (err) {
+    console.error('getAgendaSyncLogs error:', err);
+    return [];
   }
 }
 

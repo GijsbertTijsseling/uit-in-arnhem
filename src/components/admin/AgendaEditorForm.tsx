@@ -177,6 +177,8 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
       full_description: fullDesc,
       is_highlight: isHighlight,
       status: status === 'draft' ? 'submitted' : 'published',
+      is_manually_edited: true,
+      manual_override_fields: ['title', 'description', 'short_description', 'featured_image'],
     };
 
     try {

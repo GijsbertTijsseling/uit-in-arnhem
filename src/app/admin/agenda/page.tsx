@@ -22,13 +22,23 @@ export default async function AdminAgendaListPage() {
           </p>
         </div>
 
-        <Link
-          href="/admin/agenda/new"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm self-start sm:self-auto"
-        >
-          <PlusCircle className="w-4 h-4" />
-          <span>Nieuw Evenement Toevoegen</span>
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/admin/agenda/bronnen"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-bold transition-colors shadow-xs"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-[#FF4F00]" />
+            <span>Scraper & Bronnen</span>
+          </Link>
+
+          <Link
+            href="/admin/agenda/new"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm self-start sm:self-auto"
+          >
+            <PlusCircle className="w-4 h-4" />
+            <span>Nieuw Evenement Toevoegen</span>
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-3xl border border-zinc-200/90 shadow-xs overflow-hidden">
@@ -98,9 +108,8 @@ export default async function AdminAgendaListPage() {
 
                     <td className="py-4 px-4">
                       <span
-                        className={`px-2.5 py-1 rounded-full font-bold text-[10px] uppercase tracking-wider ${
-                          isFree ? 'bg-emerald-50 text-emerald-700' : 'bg-zinc-100 text-zinc-800'
-                        }`}
+                        className={`px-2.5 py-1 rounded-full font-bold text-[10px] uppercase tracking-wider ${isFree ? 'bg-emerald-50 text-emerald-700' : 'bg-zinc-100 text-zinc-800'
+                          }`}
                       >
                         {isFree ? 'Gratis' : `€${evt.price_from?.toFixed(2)}`}
                       </span>
