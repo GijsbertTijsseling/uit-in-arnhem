@@ -214,34 +214,20 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                 {isFree ? 'Gratis entree' : `€${event.price_from?.toFixed(2)}`}
               </div>
 
-              {event.ticket_url && event.status !== 'cancelled' ? (
-                <div className="mt-3.5 space-y-2">
-                  <a
-                    href={event.ticket_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold transition-colors shadow-xs text-center"
-                  >
-                    <Globe className="w-3.5 h-3.5 shrink-0" />
-                    <span>{event.price_type === 'paid' ? `Bestel tickets bij ${event.venue_name || 'locatie'}` : 'Naar website'}</span>
-                    <ExternalLink className="w-3 h-3 opacity-60 ml-0.5 shrink-0" />
-                  </a>
-
-                  {event.source_url && event.source_url !== event.ticket_url && (
-                    <a
-                      href={event.source_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center gap-1 text-[11px] font-semibold text-zinc-500 hover:text-[#FF4F00] transition-colors py-1 text-center"
-                    >
-                      <span>Bekijk voorstelling op {event.venue_name || 'website'}</span>
-                      <ExternalLink className="w-2.5 h-2.5 opacity-60 shrink-0" />
-                    </a>
-                  )}
-                </div>
+              {(event.ticket_url || event.source_url) && event.status !== 'cancelled' ? (
+                <a
+                  href={event.ticket_url || event.source_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3.5 w-full flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold transition-colors shadow-xs text-center"
+                >
+                  <Globe className="w-3.5 h-3.5 shrink-0" />
+                  <span>Naar website</span>
+                  <ExternalLink className="w-3 h-3 opacity-60 ml-0.5 shrink-0" />
+                </a>
               ) : event.status === 'cancelled' ? (
                 <div className="mt-3.5 w-full py-2.5 px-4 rounded-xl bg-zinc-200 text-zinc-600 text-xs font-medium text-center">
-                  Tickets niet meer beschikbaar
+                  Niet meer beschikbaar
                 </div>
               ) : (
                 <div className="mt-3.5 w-full py-2.5 px-4 rounded-xl bg-zinc-100 text-zinc-600 text-xs font-medium text-center">
