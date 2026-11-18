@@ -114,7 +114,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
           {/* Title & Category */}
           <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center gap-2">
               <span className="bg-[#FFF3ED] text-[#FF4F00] text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-[#FF4F00]/20">
                 {event.category}
               </span>
@@ -124,17 +124,6 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
               >
                 {isFree ? 'Gratis Toegang' : `Vanaf €${event.price_from?.toFixed(2)}`}
               </span>
-
-              {targetLocationSlug && (
-                <Link
-                  href={`/locatie/${targetLocationSlug}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 hover:bg-[#FFF3ED] text-zinc-800 hover:text-[#FF4F00] border border-zinc-200 hover:border-[#FF4F00]/30 text-xs font-bold transition-all group"
-                >
-                  <Building2 className="w-3.5 h-3.5 text-[#FF4F00]" />
-                  <span>Locatie: {event.venue_name}</span>
-                  <ExternalLink className="w-3 h-3 text-zinc-400 group-hover:text-[#FF4F00] transition-colors" />
-                </Link>
-              )}
             </div>
 
             <h1 className="font-heading font-black text-3xl sm:text-5xl text-zinc-950 tracking-tight leading-tight">
@@ -213,50 +202,35 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                 </div>
               </div>
 
-              {/* Venue & Location Card */}
-              <div className="p-4 rounded-2xl bg-zinc-50 border border-zinc-200/90 space-y-3">
-                <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-xl bg-white border border-zinc-200 text-[#FF4F00] shrink-0 shadow-2xs">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
-                      Locatie & Zaal
-                    </div>
-                    {targetLocationSlug ? (
-                      <Link
-                        href={`/locatie/${targetLocationSlug}`}
-                        className="group inline-flex items-center gap-1.5 font-bold text-zinc-900 hover:text-[#FF4F00] transition-colors mt-0.5"
-                      >
-                        <span className="text-base font-black underline decoration-zinc-300 group-hover:decoration-[#FF4F00]">
-                          {event.venue_name}
-                        </span>
-                        <ExternalLink className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#FF4F00] transition-colors shrink-0" />
-                      </Link>
-                    ) : (
-                      <div className="text-base font-bold text-zinc-900 mt-0.5">{event.venue_name}</div>
-                    )}
-                    {event.venue_address && (
-                      <div className="text-xs text-zinc-600 mt-0.5">{event.venue_address}</div>
-                    )}
-                    {event.venue_city && (
-                      <div className="text-xs text-zinc-400">{event.venue_city}</div>
-                    )}
-                  </div>
+              {/* Venue & Location */}
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-xl bg-white border border-zinc-200 text-[#FF4F00] shrink-0">
+                  <MapPin className="w-5 h-5" />
                 </div>
-
-                {targetLocationSlug && (
-                  <Link
-                    href={`/locatie/${targetLocationSlug}`}
-                    className="w-full py-2 px-3 rounded-xl bg-white hover:bg-[#FFF3ED] border border-zinc-200/90 hover:border-[#FF4F00]/30 text-xs font-bold text-zinc-800 hover:text-[#FF4F00] flex items-center justify-between transition-all shadow-2xs group"
-                  >
-                    <span className="flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5 text-[#FF4F00]" />
-                      <span>Bekijk locatie & programma</span>
-                    </span>
-                    <ChevronRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#FF4F00] group-hover:translate-x-0.5 transition-all" />
-                  </Link>
-                )}
+                <div className="flex-1 min-w-0">
+                  <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
+                    Locatie & Zaal
+                  </div>
+                  {targetLocationSlug ? (
+                    <Link
+                      href={`/locatie/${targetLocationSlug}`}
+                      className="group inline-flex items-center gap-1.5 font-bold text-zinc-900 hover:text-[#FF4F00] transition-colors mt-0.5"
+                    >
+                      <span className="text-base font-black group-hover:underline">
+                        {event.venue_name}
+                      </span>
+                      <ExternalLink className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#FF4F00] transition-colors shrink-0" />
+                    </Link>
+                  ) : (
+                    <div className="text-base font-bold text-zinc-900 mt-0.5">{event.venue_name}</div>
+                  )}
+                  {event.venue_address && (
+                    <div className="text-xs text-zinc-600 mt-0.5">{event.venue_address}</div>
+                  )}
+                  {event.venue_city && (
+                    <div className="text-xs text-zinc-400">{event.venue_city}</div>
+                  )}
+                </div>
               </div>
 
               {/* Mini Map preview */}
