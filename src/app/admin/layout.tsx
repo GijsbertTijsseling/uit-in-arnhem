@@ -9,6 +9,7 @@ import {
   FileText,
   Calendar,
   Users,
+  MapPin,
   PlusCircle,
   ExternalLink,
   LogOut,
@@ -51,6 +52,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: '/admin', label: 'Overzicht', icon: LayoutDashboard },
     { href: '/admin/articles', label: 'Artikelen', icon: FileText },
     { href: '/admin/agenda', label: 'Agenda & Events', icon: Calendar },
+    { href: '/admin/locaties', label: 'Vaste Locaties', icon: MapPin },
     { href: '/admin/users', label: 'Rollen & Gebruikers', icon: Users },
   ];
 

@@ -46,6 +46,25 @@ export type EventCategory =
   | 'sport-outdoor'
   | 'eten-drinken-markten';
 
+export interface Location {
+  id?: string;
+  slug: string;
+  name: string;
+  address?: string;
+  postal_code?: string;
+  city?: string;
+  country?: string;
+  phone?: string;
+  website?: string;
+  email?: string;
+  description?: string;
+  featured_image?: string;
+  coordinates?: { lat: number; lng: number };
+  is_verified?: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface AgendaItem {
   id: string;
   slug: string;
@@ -62,6 +81,9 @@ export interface AgendaItem {
   venue_name: string;
   venue_address: string;
   venue_city: string;
+  location_id?: string | null;
+  location_slug?: string | null;
+  location?: Location | null;
   coordinates?: { lat: number; lng: number };
   price_type: 'free' | 'paid' | 'donation';
   price_from?: number | null;

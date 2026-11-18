@@ -52,6 +52,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       {
         title: 'Doen & Ontdekken',
         items: [
+          { label: 'Vaste podia & locaties', href: '/locaties' },
           { label: '10x Gratis dingen om te doen', href: '/artikelen/gratis-dingen-doen-arnhem' },
           { label: 'Wat te doen met kinderen', href: '/artikelen/wat-te-doen-in-arnhem-met-kinderen-de-leukste-uitjes-voor-het-hele-gezin' },
           { label: 'Gratis evenement aanmelden', href: '/admin/agenda/new' },
