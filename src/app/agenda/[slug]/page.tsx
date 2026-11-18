@@ -176,12 +176,16 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
             <h3 className="font-heading font-black text-xl text-zinc-900 mb-4">Over dit evenement</h3>
             <div
               className="text-zinc-700 leading-relaxed text-base sm:text-lg
-                [&>p]:mb-4 [&>p]:leading-relaxed
-                [&>h2]:font-heading [&>h2]:font-black [&>h2]:text-xl [&>h2]:text-zinc-900 [&>h2]:mt-6 [&>h2]:mb-2
-                [&>h3]:font-heading [&>h3]:font-bold [&>h3]:text-lg [&>h3]:text-zinc-900 [&>h3]:mt-6 [&>h3]:mb-2
-                [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:my-4 [&>ul>li]:mb-1.5
-                [&>strong]:font-bold [&>strong]:text-zinc-900
-                [&>a]:text-[#FF4F00] [&>a]:underline [&>a]:font-medium hover:[&>a]:text-[#E04500]"
+                [&_p.intro]:font-bold [&_p.intro]:text-lg [&_p.intro]:sm:text-xl [&_p.intro]:text-zinc-950 [&_p.intro]:leading-snug [&_p.intro]:mb-6
+                [&_p]:mb-4 [&_p]:leading-relaxed
+                [&_h2]:font-heading [&_h2]:font-black [&_h2]:text-2xl [&_h2]:text-zinc-950 [&_h2]:mt-8 [&_h2]:mb-3
+                [&_h3]:font-heading [&_h3]:font-black [&_h3]:text-xl [&_h3]:text-zinc-950 [&_h3]:mt-8 [&_h3]:mb-3
+                [&_h4]:font-heading [&_h4]:font-black [&_h4]:text-lg [&_h4]:text-zinc-950 [&_h4]:mt-6 [&_h4]:mb-2
+                [&_h5]:font-heading [&_h5]:font-black [&_h5]:text-lg [&_h5]:text-zinc-950 [&_h5]:mt-6 [&_h5]:mb-2
+                [&_h6]:font-heading [&_h6]:font-bold [&_h6]:text-base [&_h6]:text-zinc-950 [&_h6]:mt-4 [&_h6]:mb-1
+                [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:my-4 [&_ul_li]:mb-1.5
+                [&_strong]:font-bold [&_strong]:text-zinc-950
+                [&_a]:text-[#FF4F00] [&_a]:underline [&_a]:font-medium hover:[&_a]:text-[#E04500]"
               dangerouslySetInnerHTML={{ __html: formatRichContent(event.full_description, event.title) }}
             />
           </div>
