@@ -47,3 +47,30 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Uit in Arnhem - Brand links in editorial and prose text */
+.prose {
+  --tw-prose-links: #FF4F00;
+}
+
+.prose a,
+.prose-zinc a,
+.prose-lg a,
+article p a,
+main p a:not([class*="bg-"]):not([class*="btn"]):not([class*="rounded-full"]) {
+  color: #FF4F00 !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(255, 79, 0, 0.45) !important;
+  text-underline-offset: 3px !important;
+  font-weight: 600;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.prose a:hover,
+.prose-zinc a:hover,
+.prose-lg a:hover,
+article p a:hover,
+main p a:not([class*="bg-"]):not([class*="btn"]):not([class*="rounded-full"]):hover {
+  color: #E04500 !important;
+  text-decoration-color: #E04500 !important;
+}

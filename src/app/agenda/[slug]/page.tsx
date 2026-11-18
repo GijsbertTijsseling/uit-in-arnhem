@@ -185,7 +185,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                 [&_h6]:font-heading [&_h6]:font-bold [&_h6]:text-base [&_h6]:text-zinc-950 [&_h6]:mt-4 [&_h6]:mb-1
                 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:my-4 [&_ul_li]:mb-1.5
                 [&_strong]:font-bold [&_strong]:text-zinc-950
-                [&_a]:text-[#FF4F00] [&_a]:underline [&_a]:font-medium hover:[&_a]:text-[#E04500]"
+                [&_a]:text-[#FF4F00] [&_a]:underline [&_a]:decoration-[#FF4F00]/50 [&_a]:font-semibold hover:[&_a]:text-[#E04500] hover:[&_a]:decoration-[#E04500]"
               dangerouslySetInnerHTML={{ __html: formatRichContent(event.full_description, event.title) }}
             />
           </div>

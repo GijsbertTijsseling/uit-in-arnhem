@@ -116,5 +116,26 @@ export function formatRichContent(rawContent: string, title: string = ''): strin
       .join('\n');
   }
 
+  // 8. Style links in rich content with Uit in Arnhem brand orange
+  content = content.replace(/<a\b([^>]*)>/gi, (match, attrs) => {
+    let newAttrs = attrs;
+    // Add target="_blank" and rel="noopener noreferrer" for external links if not already present
+    if (/href=["']https?:\/\//i.test(newAttrs) && !newAttrs.includes('target=')) {
+      newAttrs += ' target="_blank" rel="noopener noreferrer"';
+    }
+    // Inject brand orange styling classes
+    if (/class=["']/i.test(newAttrs)) {
+      newAttrs = newAttrs.replace(
+        /class=["']([^"']*)["']/i,
+        (m: string, cls: string) =>
+          `class="${cls} text-[#FF4F00] font-semibold underline decoration-[#FF4F00]/50 hover:decoration-[#E04500] hover:text-[#E04500] transition-colors"`
+      );
+    } else {
+      newAttrs +=
+        ' class="text-[#FF4F00] font-semibold underline decoration-[#FF4F00]/50 hover:decoration-[#E04500] hover:text-[#E04500] transition-colors"';
+    }
+    return `<a${newAttrs}>`;
+  });
+
   return content.trim();
 }
