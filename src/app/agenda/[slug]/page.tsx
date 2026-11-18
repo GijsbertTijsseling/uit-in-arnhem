@@ -59,6 +59,15 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
     `${event.venue_name}, ${event.venue_address}, ${event.venue_city}`
   )}`;
 
+  const mapQuery =
+    event.coordinates?.lat && event.coordinates?.lng
+      ? `${event.coordinates.lat},${event.coordinates.lng}`
+      : `${event.venue_name}, ${event.venue_address || ''}, ${event.venue_city || 'Arnhem'}`;
+
+  const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(
+    mapQuery
+  )}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       {/* Back button */}
@@ -212,6 +221,29 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                   )}
                 </div>
               </a>
+
+              {/* Mini Map preview */}
+              <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-zinc-200/90 shadow-2xs group">
+                <iframe
+                  title={`Kaart van ${event.venue_name}`}
+                  src={mapEmbedUrl}
+                  className="w-full h-full border-0 pointer-events-none filter saturate-90 contrast-95 group-hover:filter-none transition-all"
+                  loading="lazy"
+                />
+                {/* Clickable overlay to open Google Maps */}
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Open locatie in Google Maps"
+                  className="absolute inset-0 bg-transparent flex items-end justify-end p-2 group-hover:bg-black/5 transition-colors"
+                >
+                  <span className="bg-white/95 hover:bg-white text-zinc-800 text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-sm border border-zinc-200/90 backdrop-blur-xs flex items-center gap-1 transition-transform group-hover:scale-105">
+                    <span>Open kaart</span>
+                    <ExternalLink className="w-3 h-3 text-[#FF4F00]" />
+                  </span>
+                </a>
+              </div>
 
               {/* Organizer (only if known and distinct from venue) */}
               {event.organizer_name &&
