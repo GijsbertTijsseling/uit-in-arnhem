@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { getEvents } from '@/lib/supabase/api';
+import { getAllEventsForAdmin } from '@/lib/supabase/api';
 import { AgendaEditorForm } from '@/components/admin/AgendaEditorForm';
 
 interface EditAgendaPageProps {
@@ -9,7 +9,7 @@ interface EditAgendaPageProps {
 
 export default async function EditAgendaPage({ params }: EditAgendaPageProps) {
   const { id } = await params;
-  const events = await getEvents();
+  const events = await getAllEventsForAdmin();
   const event = events.find((e) => e.id === id || e.slug === id);
 
   if (!event) {

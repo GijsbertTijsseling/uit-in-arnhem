@@ -6,8 +6,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AgendaItem, EventCategory, Location } from '@/types';
 import { EVENT_CATEGORIES } from '@/data/mockData';
-import { uploadImageToSupabase, saveEventToSupabase, getLocations } from '@/lib/supabase/api';
+import { uploadImageToSupabase, saveEventToSupabase, saveLocationToSupabase, getLocations } from '@/lib/supabase/api';
 import { LOCATIONS_CATALOG } from '@/data/locationsData';
+import { LocationCombobox } from '@/components/admin/LocationCombobox';
 import {
   Save,
   Upload,
@@ -69,8 +70,8 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
   const [endDate, setEndDate] = useState(defaultEnd);
 
   // Venue
-  const [venueName, setVenueName] = useState(initialEvent?.venue_name || 'Luxor Live');
-  const [venueAddress, setVenueAddress] = useState(initialEvent?.venue_address || 'Willemsplein 10');
+  const [venueName, setVenueName] = useState(initialEvent?.venue_name || '');
+  const [venueAddress, setVenueAddress] = useState(initialEvent?.venue_address || '');
   const [venueCity, setVenueCity] = useState(initialEvent?.venue_city || 'Arnhem');
 
   // Pricing & Tickets
@@ -78,14 +79,15 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
     initialEvent?.price_type || 'paid'
   );
   const [price, setPrice] = useState<string>(
-    initialEvent?.price_from !== undefined ? String(initialEvent.price_from) : '15.00'
+    initialEvent?.price_from !== undefined ? String(initialEvent.price_from) : ''
   );
   const [ticketUrl, setTicketUrl] = useState(initialEvent?.ticket_url || '');
 
   // Media
   const [heroImage, setHeroImage] = useState(
-    initialEvent?.hero_image_url ||
-    '/logo.png'
+    initialEvent?.hero_image_url && initialEvent.hero_image_url !== '/logo.png'
+      ? initialEvent.hero_image_url
+      : ''
   );
 
   // Descriptions
@@ -102,19 +104,18 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
   const [uploadingImage, setUploadingImage] = useState(false);
   const [saving, setSaving] = useState(false);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [saveAsNewLocation, setSaveAsNewLocation] = useState(false);
 
-  const handleLocationSelect = (slug: string) => {
-    setSelectedLocationSlug(slug);
-    if (!slug) return;
-    const loc = locationsList.find((l) => l.slug === slug);
-    if (loc) {
-      setVenueName(loc.name);
-      setVenueAddress(loc.address || '');
-      setVenueCity(loc.city || 'Arnhem');
-      if (isNew && (!heroImage || heroImage === '/logo.png') && loc.featured_image) {
-        setHeroImage(loc.featured_image);
-      }
+  const handleLocationSelect = (loc: Location | null) => {
+    if (!loc) {
+      setSelectedLocationSlug('');
+      return;
     }
+    setSelectedLocationSlug(loc.slug);
+    setSaveAsNewLocation(false);
+    setVenueName(loc.name);
+    setVenueAddress(loc.address || '');
+    setVenueCity(loc.city || 'Arnhem');
   };
 
   const handleTitleChange = (newTitle: string) => {
@@ -156,7 +157,35 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
     setSaving(true);
     setFeedback(null);
 
-    const matchedLoc = locationsList.find((l) => l.slug === selectedLocationSlug);
+    let locationId = initialEvent?.location_id || null;
+    let locationSlug = selectedLocationSlug || null;
+
+    if (selectedLocationSlug) {
+      const matchedLoc = locationsList.find((l) => l.slug === selectedLocationSlug);
+      locationId = matchedLoc?.id || locationId;
+    } else if (saveAsNewLocation && venueName.trim()) {
+      try {
+        const newSlug = venueName
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)+/g, '');
+        const newLocationRes = await saveLocationToSupabase({
+          name: venueName.trim(),
+          slug: newSlug,
+          address: venueAddress.trim(),
+          city: venueCity.trim() || 'Arnhem',
+          featured_image: heroImage !== '/logo.png' ? heroImage : undefined,
+          is_verified: true,
+        });
+        if (newLocationRes.data && newLocationRes.data[0]) {
+          locationId = newLocationRes.data[0].id;
+          locationSlug = newLocationRes.data[0].slug;
+        }
+      } catch (locErr) {
+        console.warn('Could not auto-save new location:', locErr);
+      }
+    }
+
     const eventPayload: Partial<AgendaItem> = {
       id: initialEvent?.id,
       title,
@@ -167,12 +196,12 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
       venue_name: venueName,
       venue_address: venueAddress,
       venue_city: venueCity,
-      location_id: matchedLoc?.id || initialEvent?.location_id || null,
-      location_slug: selectedLocationSlug || null,
+      location_id: locationId,
+      location_slug: locationSlug,
       price_type: priceType,
       price_from: priceType === 'free' ? 0 : parseFloat(price) || 0,
       ticket_url: ticketUrl,
-      hero_image_url: heroImage,
+      hero_image_url: heroImage.trim() || '/logo.png',
       short_description: shortDesc,
       full_description: fullDesc,
       is_highlight: isHighlight,
@@ -229,8 +258,8 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
       {feedback && (
         <div
           className={`p-4 rounded-2xl text-xs flex items-center gap-2 ${feedback.type === 'success'
-              ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
-              : 'bg-amber-50 border border-amber-200 text-amber-800'
+            ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
+            : 'bg-amber-50 border border-amber-200 text-amber-800'
             }`}
         >
           {feedback.type === 'success' ? (
@@ -360,67 +389,26 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
 
           {/* Venue & Location */}
           <div className="bg-white p-6 rounded-3xl border border-zinc-200/90 shadow-xs space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#FF4F00]" />
-                <h3 className="font-heading font-black text-sm uppercase tracking-wider text-zinc-800">
-                  Podium & Locatie
-                </h3>
-              </div>
-              <Link
-                href="/admin/locaties/new"
-                target="_blank"
-                className="text-xs font-bold text-[#FF4F00] hover:underline flex items-center gap-1"
-              >
-                <span>+ Nieuwe vaste locatie</span>
-              </Link>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-[#FF4F00]" />
+              <h3 className="font-heading font-black text-sm uppercase tracking-wider text-zinc-800">
+                Podium & Locatie
+              </h3>
             </div>
 
-            {/* Fast selector dropdown */}
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-1.5">
-                Kies een vaste locatie (Adres & info automatisch ingevuld)
-              </label>
-              <select
-                value={selectedLocationSlug}
-                onChange={(e) => handleLocationSelect(e.target.value)}
-                className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-2xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FF4F00] focus:bg-white"
-              >
-                <option value="">-- Handmatige invoer of selecteer vaste locatie --</option>
-                <optgroup label="Vaste Locaties in Arnhem">
-                  {locationsList.map((loc) => (
-                    <option key={loc.slug} value={loc.slug}>
-                      {loc.name} {loc.address ? `• ${loc.address}` : ''}
-                    </option>
-                  ))}
-                </optgroup>
-              </select>
-            </div>
-
-            {/* Linked badge feedback */}
-            {selectedLocationSlug && (
-              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center justify-between text-xs text-emerald-800">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
-                  <span>
-                    Gekoppeld aan <strong>{venueName}</strong>. Adres en kaart worden automatisch gekoppeld.
-                  </span>
-                </div>
-                <Link
-                  href={`/locatie/${selectedLocationSlug}`}
-                  target="_blank"
-                  className="font-bold underline text-emerald-900 shrink-0 ml-2 flex items-center gap-1"
-                >
-                  <span>Locatiepagina</span>
-                  <ExternalLink className="w-3 h-3" />
-                </Link>
-              </div>
-            )}
+            {/* Searchable Combobox for Locations */}
+            <LocationCombobox
+              locations={locationsList}
+              selectedSlug={selectedLocationSlug}
+              onSelect={handleLocationSelect}
+              label="Vaste locatie kiezen"
+              placeholder="Zoek op naam of adres (bijv. Luxor, Molenplaats)..."
+            />
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
               <div className="sm:col-span-1">
                 <label className="block text-xs font-bold text-zinc-600 mb-1.5">
-                  Podium / Zaal *
+                  Locatie / Venue *
                 </label>
                 <input
                   type="text"
@@ -429,7 +417,7 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
                     setVenueName(e.target.value);
                   }}
                   required
-                  placeholder="Bijv. Koepelgevangenis"
+                  placeholder="Bijv. Luxor Live, Musis, Park Sonsbeek..."
                   className="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-200 rounded-2xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#FF4F00]"
                 />
               </div>
@@ -461,6 +449,19 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
                 />
               </div>
             </div>
+
+            {/* Checkbox: Opslaan als nieuwe locatie (alleen bij handmatige invoer) */}
+            {!selectedLocationSlug && (
+              <label className="flex items-center gap-2 text-xs font-semibold text-zinc-700 cursor-pointer pt-1">
+                <input
+                  type="checkbox"
+                  checked={saveAsNewLocation}
+                  onChange={(e) => setSaveAsNewLocation(e.target.checked)}
+                  className="rounded text-[#FF4F00] focus:ring-[#FF4F00] w-4 h-4 cursor-pointer"
+                />
+                <span>Opslaan als nieuwe vaste locatie in Arnhem</span>
+              </label>
+            )}
           </div>
         </div>
 
@@ -541,12 +542,14 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
             )}
 
             <div>
-              <label className="block text-xs font-bold text-zinc-600 mb-1.5">Ticket URL</label>
+              <label className="block text-xs font-bold text-zinc-600 mb-1.5">
+                Event URL (of Ticketlink)
+              </label>
               <input
                 type="url"
                 value={ticketUrl}
                 onChange={(e) => setTicketUrl(e.target.value)}
-                placeholder="https://luxorlive.nl/tickets/..."
+                placeholder="https://... (link naar evenement of tickets)"
                 className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-mono"
               />
             </div>
@@ -565,9 +568,11 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
               {heroImage ? (
                 <Image src={heroImage} alt="Voorvertoning" fill className="object-cover" />
               ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center text-zinc-400 text-xs">
-                  <ImageIcon className="w-8 h-8 mb-1" />
-                  <span>Geen foto</span>
+                <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-zinc-50/80 text-zinc-400">
+                  <div className="relative w-32 h-10 opacity-30 mb-2">
+                    <Image src="/logo.png" alt="Uit in Arnhem" fill className="object-contain" />
+                  </div>
+                  <span className="text-[11px] text-zinc-400">Standaard Uit in Arnhem logo</span>
                 </div>
               )}
             </div>

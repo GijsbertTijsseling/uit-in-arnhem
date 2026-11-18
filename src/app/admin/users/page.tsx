@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { UserProfile, UserRole } from '@/types';
-import { Users, UserPlus, Shield, CheckCircle2, ShieldCheck, Edit, Mail } from 'lucide-react';
+import { Users, UserPlus, Shield, CheckCircle2, ShieldCheck, Edit, Mail, Lock } from 'lucide-react';
 
 const INITIAL_USERS: UserProfile[] = [
   {
@@ -44,11 +45,22 @@ const INITIAL_USERS: UserProfile[] = [
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<UserProfile[]>(INITIAL_USERS);
+  const [userRole, setUserRole] = useState<string>('admin');
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [inviteName, setInviteName] = useState('');
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteRole, setInviteRole] = useState<UserRole>('editor');
   const [successMsg, setSuccessMsg] = useState('');
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('uit_arnhem_user');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed.role) setUserRole(parsed.role);
+      }
+    } catch {}
+  }, []);
 
   const handleRoleChange = (userId: string, newRole: UserRole) => {
     setUsers((prev) =>
@@ -77,6 +89,31 @@ export default function AdminUsersPage() {
     setSuccessMsg(`Uitnodiging verzonden naar ${inviteEmail}!`);
     setTimeout(() => setSuccessMsg(''), 3000);
   };
+
+  if (userRole !== 'admin') {
+    return (
+      <div className="bg-white rounded-3xl border border-zinc-200 p-8 sm:p-12 text-center max-w-xl mx-auto space-y-4 my-12 shadow-sm">
+        <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto">
+          <Lock className="w-7 h-7" />
+        </div>
+        <h2 className="text-xl sm:text-2xl font-heading font-black text-zinc-950">
+          Toegang Uitsluitend voor Beheerders
+        </h2>
+        <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed">
+          Het aanmaken en beheren van gebruikersaccounts, uitnodigingen en systeemrollen is voorbehouden aan beheerders.
+          Als redactielid kun je artikelen schrijven, agenda-items beheren en binnengekomen evenement-inzendingen goedkeuren.
+        </p>
+        <div className="pt-2">
+          <Link
+            href="/admin"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF4F00] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#E04500] transition-colors"
+          >
+            ← Terug naar Dashboard
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

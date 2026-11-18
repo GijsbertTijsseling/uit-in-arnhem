@@ -18,6 +18,7 @@ import {
   Calendar,
   Eye,
   Sliders,
+  Lock,
 } from 'lucide-react';
 import { AgendaSource, AgendaSyncLog } from '@/types';
 
@@ -27,6 +28,17 @@ export default function AdminAgendaSourcesPage() {
   const [loading, setLoading] = useState(true);
   const [syncingId, setSyncingId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error' | 'info'; message: string } | null>(null);
+  const [userRole, setUserRole] = useState<string>('admin');
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('uit_arnhem_user');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed.role) setUserRole(parsed.role);
+      }
+    } catch {}
+  }, []);
 
   // New source form state
   const [showAddModal, setShowAddModal] = useState(false);
@@ -147,6 +159,31 @@ export default function AdminAgendaSourcesPage() {
       setFeedback({ type: 'error', message: err.message || 'Fout bij opslaan.' });
     }
   };
+
+  if (userRole !== 'admin') {
+    return (
+      <div className="bg-white rounded-3xl border border-zinc-200 p-8 sm:p-12 text-center max-w-xl mx-auto space-y-4 my-12 shadow-sm">
+        <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto">
+          <Lock className="w-7 h-7" />
+        </div>
+        <h2 className="text-xl sm:text-2xl font-heading font-black text-zinc-950">
+          Toegang Uitsluitend voor Beheerders
+        </h2>
+        <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed">
+          Het configureren van data-scrapers en externe podia-koppelingen is voorbehouden aan beheerders.
+          Als redactielid kun je artikelen publiceren, agenda-items beheren en binnengekomen aanmeldingen keuren.
+        </p>
+        <div className="pt-2">
+          <Link
+            href="/admin/agenda"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF4F00] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#E04500] transition-colors"
+          >
+            ← Naar Agenda & Inzendingen
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">

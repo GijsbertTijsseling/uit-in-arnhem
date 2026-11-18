@@ -17,6 +17,7 @@ import {
   Menu,
   X,
   Layers,
+  Lock,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
@@ -51,10 +52,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const navItems = [
     { href: '/admin', label: 'Overzicht', icon: LayoutDashboard },
     { href: '/admin/articles', label: 'Artikelen', icon: FileText },
-    { href: '/admin/agenda', label: 'Agenda & Events', icon: Calendar },
-    { href: '/admin/agenda/bronnen', label: 'Agenda Bronnen', icon: Layers },
+    { href: '/admin/agenda', label: 'Agenda & Inzendingen', icon: Calendar },
     { href: '/admin/locaties', label: 'Vaste Locaties', icon: MapPin },
-    { href: '/admin/users', label: 'Rollen & Gebruikers', icon: Users },
+    { href: '/admin/agenda/bronnen', label: 'Agenda Bronnen', icon: Layers, adminOnly: true },
+    { href: '/admin/users', label: 'Rollen & Gebruikers', icon: Users, adminOnly: true },
   ];
 
   return (
@@ -113,19 +114,32 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <nav className="space-y-1 pt-4 border-t border-zinc-800">
             {navItems.map((item) => {
               const active = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href));
+              const isRestricted = item.adminOnly && userRole !== 'admin';
+
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-colors ${
+                  className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-colors ${
                     active
                       ? 'bg-zinc-800 text-[#FF4F00]'
+                      : isRestricted
+                      ? 'text-zinc-600 hover:text-zinc-400 hover:bg-zinc-900'
                       : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
                   }`}
                 >
-                  <item.icon className="w-4 h-4" />
-                  <span>{item.label}</span>
+                  <div className="flex items-center gap-3">
+                    <item.icon className="w-4 h-4 shrink-0" />
+                    <span>{item.label}</span>
+                  </div>
+
+                  {item.adminOnly && (
+                    <span className="flex items-center gap-1 text-[9px] uppercase px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-semibold tracking-wider">
+                      {isRestricted ? <Lock className="w-2.5 h-2.5 text-zinc-500" /> : null}
+                      Admin
+                    </span>
+                  )}
                 </Link>
               );
             })}
@@ -135,13 +149,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* User profile & Logout */}
         <div className="p-4 m-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-3">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#FF4F00] text-white font-bold text-xs flex items-center justify-center">
-              {userRole === 'admin' ? 'A' : 'E'}
+            <div className="w-8 h-8 rounded-full bg-[#FF4F00] text-white font-bold text-xs flex items-center justify-center shrink-0">
+              {userRole === 'admin' ? 'A' : 'R'}
             </div>
             <div className="truncate">
               <div className="text-xs font-bold text-white truncate">{userEmail}</div>
-              <div className="text-[10px] text-[#FF4F00] font-semibold uppercase">
-                {userRole === 'admin' ? 'Beheerder' : 'Redacteur'}
+              <div className="text-[10px] text-[#FF4F00] font-semibold uppercase tracking-wider">
+                {userRole === 'admin' ? 'Beheerder (Volledig)' : 'Redactielid (Editor)'}
               </div>
             </div>
           </div>

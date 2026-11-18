@@ -100,7 +100,11 @@ export interface AgendaItem {
   ticket_url?: string;
   organizer_id?: string;
   organizer_name?: string;
-  status: 'submitted' | 'approved' | 'rejected' | 'published' | 'missing' | 'cancelled';
+  contact_name?: string;
+  contact_email?: string;
+  contact_phone?: string;
+  submission_notes?: string;
+  status: 'draft' | 'submitted' | 'approved' | 'rejected' | 'published' | 'missing' | 'cancelled';
   is_highlight: boolean;
   source?: string;
   source_id?: string;

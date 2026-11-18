@@ -78,6 +78,22 @@ export default function LoginPage() {
           </p>
         </div>
 
+        {/* Public Submitter Callout */}
+        <div className="p-4 rounded-2xl bg-[#FFF3ED] border border-[#FF4F00]/25 text-xs text-zinc-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="space-y-0.5">
+            <span className="font-bold text-zinc-900 block">Organisator of artiest in Arnhem?</span>
+            <span className="text-zinc-600 text-[11px]">
+              Voor het gratis aanmelden van een evenement heb je géén CMS-account nodig.
+            </span>
+          </div>
+          <Link
+            href="/agenda/aanmelden"
+            className="shrink-0 inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-[11px] font-bold uppercase tracking-wider transition-colors shadow-xs"
+          >
+            Aanmelden →
+          </Link>
+        </div>
+
         {errorMsg && (
           <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
@@ -149,14 +165,14 @@ export default function LoginPage() {
               type="button"
               className="py-2.5 px-3 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold rounded-xl transition-colors cursor-pointer text-center"
             >
-              👑 Als Beheerder
+              Als Beheerder
             </button>
             <button
               onClick={() => handleQuickDemoLogin('editor')}
               type="button"
               className="py-2.5 px-3 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold rounded-xl transition-colors cursor-pointer text-center"
             >
-              ✍️ Als Redacteur
+              Als Redacteur
             </button>
           </div>
         </div>

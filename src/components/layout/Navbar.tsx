@@ -146,7 +146,7 @@ export function Navbar() {
           {/* Action CTAs */}
           <div className="hidden sm:flex items-center space-x-3">
             <Link
-              href="/admin/agenda/new"
+              href="/agenda/aanmelden"
               onClick={() => setActiveDropdown(null)}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#FF4F00] text-white hover:bg-[#E04500] transition-all shadow-sm hover:shadow-md transform active:scale-95"
             >
@@ -158,7 +158,7 @@ export function Navbar() {
           {/* Mobile menu button */}
           <div className="flex md:hidden items-center space-x-2">
             <Link
-              href="/admin/agenda/new"
+              href="/agenda/aanmelden"
               className="inline-flex items-center justify-center p-2 rounded-full bg-[#FF4F00] text-white"
               title="Evenement Aanmelden"
             >
@@ -320,7 +320,7 @@ export function Navbar() {
 
           <div className="pt-4 border-t border-zinc-100 flex flex-col gap-2">
             <Link
-              href="/admin/agenda/new"
+              href="/agenda/aanmelden"
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-bold uppercase tracking-wider bg-[#FF4F00] text-white text-center shadow"
             >

@@ -163,6 +163,90 @@ export async function getEvents(options: { includePast?: boolean } = {}): Promis
   }
 }
 
+export async function getAllEventsForAdmin(options: { status?: string } = {}): Promise<AgendaItem[]> {
+  try {
+    const supabase = createClient();
+    let query = supabase
+      .from('events')
+      .select('*, event_categories(name, slug), locations(id, slug, name, address, postal_code, city, website, coordinates, featured_image)')
+      .order('created_at', { ascending: false });
+
+    if (options.status) {
+      query = query.eq('status', options.status);
+    }
+
+    const { data, error } = await query;
+    if (error || !data) {
+      console.error('Error fetching admin events:', error);
+      return [];
+    }
+
+    return data.map((item: any) => {
+      const loc = item.locations || (item.venue_name ? getLocationFromCatalog(item.venue_name) : null);
+      let contactInfo: any = {};
+      if (Array.isArray(item.performances)) {
+        const sub = item.performances.find((p: any) => p && p.type === 'submission_contact');
+        if (sub) {
+          contactInfo = sub;
+        }
+      }
+
+      return {
+        id: item.id || `evt-${item.slug}`,
+        slug: item.slug,
+        title: item.title,
+        short_description: cleanHtml(item.short_description) || cleanHtml(item.description).slice(0, 140) + '...',
+        full_description: item.description || '',
+        hero_image_url:
+          item.featured_image ||
+          item.hero_image ||
+          item.hero_image_url ||
+          loc?.featured_image ||
+          '/logo.png',
+        category: item.event_categories?.slug || item.category_slug || item.category || 'cultuur',
+        start_date: item.start_date,
+        end_date: item.end_date,
+        is_all_day: !!item.is_all_day,
+        is_recurring: !!item.is_recurring,
+        recurrence_rule: item.recurrence_rule,
+        venue_name: item.venue_name || loc?.name || 'Arnhem',
+        venue_address: item.venue_address || loc?.address || 'Arnhem',
+        venue_city: item.venue_city || loc?.city || 'Arnhem',
+        location_id: item.location_id || loc?.id || null,
+        location_slug: loc?.slug || null,
+        location: loc || null,
+        coordinates: item.coordinates || loc?.coordinates,
+        price_type: item.price_type || (item.price === 0 ? 'free' : 'paid'),
+        price_from: item.price_from ?? item.price ?? 0,
+        price_to: item.price_to,
+        ticket_url: item.ticket_url,
+        organizer_name: contactInfo.contact_name || item.organizer_name || undefined,
+        contact_name: contactInfo.contact_name || undefined,
+        contact_email: contactInfo.contact_email || (item.source === 'external_submission' ? item.source_url : undefined),
+        contact_phone: contactInfo.contact_phone || undefined,
+        submission_notes: contactInfo.submission_notes || undefined,
+        status: item.status || 'published',
+        is_highlight: !!item.is_highlight,
+        source: item.source || 'manual',
+        source_id: item.source_id,
+        source_url: item.source_url,
+        production_id: item.production_id,
+        performances: item.performances || [],
+        is_manually_edited: !!item.is_manually_edited,
+        manual_override_fields: item.manual_override_fields || [],
+        missing_count: item.missing_count || 0,
+        missing_since: item.missing_since,
+        last_synced_at: item.last_synced_at,
+        created_at: item.created_at,
+        updated_at: item.updated_at,
+      };
+    });
+  } catch (err) {
+    console.error('Failed to get admin events:', err);
+    return [];
+  }
+}
+
 export async function getEventBySlug(slug: string): Promise<AgendaItem | null> {
   const events = await getEvents({ includePast: true });
   const lower = slug.toLowerCase();
@@ -187,24 +271,36 @@ export async function getLocations(): Promise<Location[]> {
       return LOCATIONS_CATALOG;
     }
 
-    return data.map((item: any) => ({
-      id: item.id,
-      slug: item.slug,
-      name: item.name,
-      address: item.address || '',
-      postal_code: item.postal_code || '',
-      city: item.city || 'Arnhem',
-      country: item.country || 'Nederland',
-      phone: item.phone || '',
-      website: item.website || '',
-      email: item.email || '',
-      description: item.description || '',
-      featured_image: item.featured_image || '/logo.png',
-      coordinates: item.coordinates,
-      is_verified: !!item.is_verified,
-      created_at: item.created_at,
-      updated_at: item.updated_at,
-    }));
+    // Deduplicate by name/slug to safeguard against duplicates
+    const seen = new Set<string>();
+    const result: Location[] = [];
+
+    for (const item of data) {
+      const key = (item.name || item.slug || '').trim().toLowerCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+
+      result.push({
+        id: item.id,
+        slug: item.slug,
+        name: item.name,
+        address: item.address || '',
+        postal_code: item.postal_code || '',
+        city: item.city || 'Arnhem',
+        country: item.country || 'Nederland',
+        phone: item.phone || '',
+        website: item.website || '',
+        email: item.email || '',
+        description: item.description || '',
+        featured_image: item.featured_image || '/logo.png',
+        coordinates: item.coordinates,
+        is_verified: !!item.is_verified,
+        created_at: item.created_at,
+        updated_at: item.updated_at,
+      });
+    }
+
+    return result;
   } catch (err) {
     console.error('Failed to get locations from supabase:', err);
     return LOCATIONS_CATALOG;
@@ -352,6 +448,104 @@ export async function saveEventToSupabase(event: Partial<AgendaItem>): Promise<{
       .insert([payload])
       .select();
     return { data, error };
+  }
+}
+
+export async function submitPublicEvent(event: {
+  title: string;
+  category: string;
+  start_date: string;
+  end_date?: string | null;
+  venue_name: string;
+  venue_address?: string;
+  venue_city?: string;
+  location_id?: string | null;
+  price_type: 'free' | 'paid' | 'donation';
+  price_from?: number | null;
+  ticket_url?: string;
+  hero_image_url?: string;
+  short_description: string;
+  full_description: string;
+  contact_name: string;
+  contact_email: string;
+  contact_phone?: string;
+  submission_notes?: string;
+}): Promise<{ data: any; error: any }> {
+  const supabase = createClient();
+  
+  // Safe unique slug
+  const baseSlug = (event.title || 'evenement')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+  const timestamp = Date.now().toString().slice(-5);
+  const slug = `${baseSlug}-${timestamp}`;
+
+  const performances = [
+    {
+      type: 'submission_contact',
+      contact_name: event.contact_name,
+      contact_email: event.contact_email,
+      contact_phone: event.contact_phone || '',
+      submission_notes: event.submission_notes || '',
+      submitted_at: new Date().toISOString(),
+    }
+  ];
+
+  const payload: any = {
+    title: event.title,
+    slug,
+    description: event.full_description,
+    short_description: event.short_description,
+    featured_image: event.hero_image_url || '/logo.png',
+    start_date: event.start_date,
+    end_date: event.end_date || null,
+    venue_name: event.venue_name,
+    venue_address: event.venue_address || 'Arnhem',
+    venue_city: event.venue_city || 'Arnhem',
+    location_id: event.location_id || null,
+    price_type: event.price_type,
+    price: event.price_from || 0,
+    ticket_url: event.ticket_url || null,
+    status: 'submitted', // ALWAYS submitted for external submissions
+    source: 'external_submission',
+    source_url: event.contact_email,
+    performances,
+    is_highlight: false,
+    is_manually_edited: true,
+  };
+
+  const { data, error } = await supabase
+    .from('events')
+    .insert([payload])
+    .select();
+
+  return { data, error };
+}
+
+export async function updateEventStatus(
+  eventId: string,
+  newStatus: 'published' | 'rejected' | 'draft' | 'submitted'
+): Promise<{ success: boolean; error?: any }> {
+  try {
+    const supabase = createClient();
+    const { error } = await supabase
+      .from('events')
+      .update({
+        status: newStatus,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', eventId);
+
+    if (error) {
+      console.error('Failed to update event status in supabase:', error);
+      return { success: false, error };
+    }
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: err.message || err };
   }
 }
 

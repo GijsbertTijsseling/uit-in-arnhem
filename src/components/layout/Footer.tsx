@@ -103,13 +103,13 @@ export function Footer() {
                 <Link href="/over-ons" className="hover:text-white transition-colors">Over Uit in Arnhem</Link>
               </li>
               <li>
-                <Link href="/admin/agenda/new" className="inline-flex items-center gap-1 text-[#FF4F00] hover:underline font-medium">
+                <Link href="/agenda/aanmelden" className="inline-flex items-center gap-1 text-[#FF4F00] hover:underline font-medium">
                   Evenement Insturen
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
               </li>
               <li>
-                <Link href="/admin" className="hover:text-white transition-colors">Redactie Inloggen</Link>
+                <Link href="/login" className="hover:text-white transition-colors">Redactie Inloggen</Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-white transition-colors">Contact & Adverteren</Link>

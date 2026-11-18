@@ -139,7 +139,7 @@ export default function ContactPage() {
               Organiseer je een concert, expositie, markt of voorstelling in Arnhem? Meld je evenement gratis aan voor onze culturele uitagenda.
             </p>
             <Link
-              href="/admin/agenda/new"
+              href="/agenda/aanmelden"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF4F00] text-white font-bold text-xs uppercase tracking-wider hover:bg-[#E04500] transition-colors"
             >
               <span>Evenement Aanmelden</span>

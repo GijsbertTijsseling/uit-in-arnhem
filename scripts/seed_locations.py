@@ -107,14 +107,21 @@ def main():
 
     locations_list = []
     seen_slugs = set()
+    seen_names = set()
 
     for v in venues_raw:
-        slug = v.get("slug")
-        if not slug or slug in seen_slugs:
+        raw_slug = v.get("slug")
+        if not raw_slug:
             continue
-        seen_slugs.add(slug)
+        # Normalize trailing WordPress duplicate suffixes (-2, -3)
+        slug = re.sub(r'-\d+$', '', raw_slug)
 
         name = clean_text(v.get("venue") or v.get("name") or slug)
+        norm_name = name.lower()
+        if slug in seen_slugs or norm_name in seen_names:
+            continue
+        seen_slugs.add(slug)
+        seen_names.add(norm_name)
         address = clean_text(v.get("address"))
         postal_code = clean_text(v.get("zip"))
         city = clean_text(v.get("city") or "Arnhem")

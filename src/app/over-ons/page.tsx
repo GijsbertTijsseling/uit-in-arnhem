@@ -279,7 +279,7 @@ export default function AboutPage() {
                 </p>
                 <div className="pt-2">
                   <Link
-                    href="/admin/agenda/new"
+                    href="/agenda/aanmelden"
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF4F00] hover:text-white transition-colors"
                   >
                     <span>Event nu aanmelden</span>

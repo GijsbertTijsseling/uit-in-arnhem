@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Article, LayoutTemplate, CtaBlock } from '@/types';
+import { Article, LayoutTemplate, CtaBlock, Location } from '@/types';
 import { ARTICLE_CATEGORIES } from '@/data/mockData';
-import { uploadImageToSupabase, saveArticleToSupabase } from '@/lib/supabase/api';
+import { uploadImageToSupabase, saveArticleToSupabase, getLocations } from '@/lib/supabase/api';
+import { LOCATIONS_CATALOG } from '@/data/locationsData';
+import { LocationCombobox } from '@/components/admin/LocationCombobox';
 import {
   Save,
   Upload,
@@ -58,6 +60,41 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
   const [uploadingImage, setUploadingImage] = useState(false);
   const [saving, setSaving] = useState(false);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
+  // Locations state
+  const [locationsList, setLocationsList] = useState<Location[]>(LOCATIONS_CATALOG);
+  const [selectedLocationSlug, setSelectedLocationSlug] = useState<string>('');
+
+  useEffect(() => {
+    getLocations().then((res) => {
+      if (res && res.length > 0) {
+        setLocationsList(res);
+      }
+    });
+  }, []);
+
+  const handleLocationSelect = (loc: Location | null) => {
+    if (!loc) {
+      setSelectedLocationSlug('');
+      return;
+    }
+    setSelectedLocationSlug(loc.slug);
+  };
+
+  const handleInsertLocationIntoContent = (loc: Location) => {
+    const addressBlock = `\n\n📍 **${loc.name}**\n${loc.address ? `*Adres:* ${loc.address}${loc.city ? `, ${loc.city}` : ''}\n` : ''}${loc.website ? `*Website:* [${loc.name}](${loc.website})\n` : ''}`;
+    setContent((prev) => prev + addressBlock);
+    setFeedback({ type: 'success', message: `Locatie "${loc.name}" ingevoegd in artikeltekst!` });
+  };
+
+  const handleApplyLocationToCta = (loc: Location) => {
+    setEnableCta(true);
+    setCtaHeading(`Bezoek ${loc.name}`);
+    setCtaDesc(loc.description || `Ontdek ${loc.name} aan ${loc.address || 'Arnhem'}.`);
+    setCtaBtnLabel('Meer informatie');
+    setCtaBtnUrl(loc.website || `/locatie/${loc.slug}`);
+    setFeedback({ type: 'success', message: `CTA blok automatisch gevuld met gegevens van "${loc.name}"!` });
+  };
 
   // Auto-slug generator
   const handleTitleChange = (newTitle: string) => {
@@ -491,6 +528,64 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
                 </option>
               ))}
             </select>
+          </div>
+
+          {/* Location / Spot linking */}
+          <div className="bg-white p-6 rounded-3xl border border-zinc-200/90 shadow-xs space-y-4">
+            <h3 className="font-heading font-black text-sm uppercase tracking-wider text-zinc-800">
+              Locatie / Spot Koppelen (Optioneel)
+            </h3>
+            <LocationCombobox
+              locations={locationsList}
+              selectedSlug={selectedLocationSlug}
+              onSelect={handleLocationSelect}
+              label=""
+              placeholder="Zoek locatie of hotspot..."
+              helpText="Selecteer een Arnhemse locatie om gegevens direct in te voegen."
+            />
+
+            {selectedLocationSlug && (() => {
+              const loc = locationsList.find((l) => l.slug === selectedLocationSlug);
+              if (!loc) return null;
+              return (
+                <div className="space-y-2 pt-2 border-t border-zinc-100">
+                  <div className="text-[11px] font-bold text-zinc-600 uppercase tracking-wider">
+                    Snelle acties voor {loc.name}:
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleInsertLocationIntoContent(loc)}
+                      className="w-full text-left px-3 py-2 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-800 transition-colors flex items-center justify-between cursor-pointer"
+                    >
+                      <span>📍 Voeg adresblok in artikeltekst</span>
+                      <span className="text-[10px] text-[#FF4F00] font-bold">+ Invoegen</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleApplyLocationToCta(loc)}
+                      className="w-full text-left px-3 py-2 bg-orange-50/70 hover:bg-orange-100/70 border border-[#FF4F00]/20 rounded-xl text-xs font-semibold text-zinc-800 transition-colors flex items-center justify-between cursor-pointer"
+                    >
+                      <span>✨ Vul artikel CTA-blok automatisch</span>
+                      <span className="text-[10px] text-[#FF4F00] font-bold">+ CTA</span>
+                    </button>
+                    {loc.featured_image && loc.featured_image !== '/logo.png' && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFeaturedImage(loc.featured_image!);
+                          setFeedback({ type: 'success', message: 'Locatie-afbeelding ingesteld als hoofdafbeelding!' });
+                        }}
+                        className="w-full text-left px-3 py-2 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-800 transition-colors flex items-center justify-between cursor-pointer"
+                      >
+                        <span>🖼️ Gebruik locatiefoto als cover</span>
+                        <span className="text-[10px] text-zinc-500 font-bold">Instellen</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
           </div>
 
           {/* Featured Image & Supabase Media Upload */}

@@ -56,14 +56,14 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
           { label: 'Vaste podia & locaties', href: '/locaties' },
           { label: '10x Gratis dingen om te doen', href: '/artikelen/gratis-dingen-doen-arnhem' },
           { label: 'Wat te doen met kinderen', href: '/artikelen/wat-te-doen-in-arnhem-met-kinderen-de-leukste-uitjes-voor-het-hele-gezin' },
-          { label: 'Gratis evenement aanmelden', href: '/admin/agenda/new' },
+          { label: 'Gratis evenement aanmelden', href: '/agenda/aanmelden' },
         ],
       },
     ],
     featuredCta: {
       title: 'Zelf een evenement?',
       description: 'Meld je concert, expo, voorstelling of workshop gratis aan voor onze culturele uitagenda.',
-      href: '/admin/agenda/new',
+      href: '/agenda/aanmelden',
       buttonText: 'Evenement aanmelden',
       imageUrl: 'https://uitinarnhem.nl/wp-content/uploads/2026/11/55002413960_8f66c3aa22_o-2-1.jpg',
     },
@@ -215,7 +215,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
         title: 'Samenwerken',
         items: [
           { label: 'Samenwerken & Adverteren', href: '/over-ons#samenwerken' },
-          { label: 'Gratis evenement aanmelden', href: '/admin/agenda/new' },
+          { label: 'Gratis evenement aanmelden', href: '/agenda/aanmelden' },
           { label: 'Word onderdeel van de redactie', href: '/over-ons#vacature' },
         ],
       },
@@ -223,7 +223,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
         title: 'Contact',
         items: [
           { label: 'Contactformulier', href: '/contact' },
-          { label: 'Redactie CMS Login', href: '/admin' },
+          { label: 'Redactie CMS Login', href: '/login' },
         ],
       },
     ],
@@ -251,7 +251,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       {
         title: 'Samenwerken',
         items: [
-          { label: 'Gratis evenement insturen', href: '/admin/agenda/new' },
+          { label: 'Gratis evenement insturen', href: '/agenda/aanmelden' },
           { label: 'Adverteren & Partners', href: '/over-ons#samenwerken' },
         ],
       },

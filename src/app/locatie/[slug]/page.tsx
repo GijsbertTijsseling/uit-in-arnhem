@@ -247,7 +247,7 @@ export default async function LocationDetailPage({ params }: PageProps) {
 
             <div className="flex items-center gap-2">
               <Link
-                href="/admin/agenda/new"
+                href="/agenda/aanmelden"
                 className="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors"
               >
                 <span>Evenement toevoegen</span>
@@ -404,7 +404,7 @@ export default async function LocationDetailPage({ params }: PageProps) {
               </p>
               <div className="pt-2 flex items-center justify-center gap-3">
                 <Link
-                  href="/admin/agenda/new"
+                  href="/agenda/aanmelden"
                   className="px-5 py-2.5 bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold rounded-xl transition-colors shadow-sm"
                 >
                   Evenement Aanmelden
