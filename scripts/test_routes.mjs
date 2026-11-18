@@ -1,7 +1,7 @@
 const routesToTest = [
   { path: '/', name: 'Home Page', expectedText: 'Uit in Arnhem' },
   { path: '/agenda', name: 'Agenda Overview', expectedText: 'Agenda' },
-  { path: '/agenda/focus-op-het-dak-wintereditie-wind-river', name: 'Agenda Detail', expectedText: 'Focus op het dak' },
+  { path: '/agenda/nieuwjaarsconcert-orkest-phion-in-musis', name: 'Agenda Detail', expectedText: 'Nieuwjaarsconcert' },
   { path: '/artikelen', name: 'Artikelen Overview', expectedText: 'Artikelen' },
   { path: '/artikelen/gratis-dingen-doen-arnhem', name: 'Article Detail (DB)', expectedText: 'Gratis dingen om te doen' },
   { path: '/login', name: 'Login Page', expectedText: 'Inloggen' },
