@@ -30,14 +30,28 @@ export function EventCard({ event }: EventCardProps) {
       className={`group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200/80 hover:border-zinc-300 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${isCancelled ? 'opacity-70 grayscale-30' : ''
         }`}
     >
-      {/* Image container */}
-      <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100">
+      {/* Image container with Smart Backdrop Blur */}
+      <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-950">
+        {/* Ambient blurred backdrop that fills the card banner */}
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src={event.hero_image_url || '/logo.png'}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover scale-110 blur-xl opacity-50 brightness-75 transition-transform duration-500 group-hover:scale-125"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-black/20" />
+        </div>
+
+        {/* Foreground sharp image: 100% visible, never cut off */}
         <Image
           src={event.hero_image_url || '/logo.png'}
           alt={event.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          className="object-contain relative z-10 transition-transform duration-500 group-hover:scale-105 drop-shadow-md"
         />
 
         {/* Date sticker */}
