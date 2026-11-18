@@ -222,7 +222,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                   className="mt-3.5 w-full flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold transition-colors shadow-xs"
                 >
                   <Globe className="w-3.5 h-3.5" />
-                  <span>Bestel tickets bij {event.venue_name}</span>
+                  <span>Naar website</span>
                   <ExternalLink className="w-3 h-3 opacity-60 ml-0.5" />
                 </a>
               ) : event.status === 'cancelled' ? (
