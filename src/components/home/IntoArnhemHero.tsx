@@ -30,11 +30,6 @@ export function IntoArnhemHero() {
 
       {/* Hero Content */}
       <div className="relative z-10 max-w-4xl space-y-6">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold uppercase tracking-wider">
-          <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
-          <span>Stadsgids voor Arnhem</span>
-        </div>
-
         <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-white tracking-tight leading-[1.06]">
           Ontdek wat er bruist in{' '}
           <span className="text-[#FF4F00] relative inline-block">

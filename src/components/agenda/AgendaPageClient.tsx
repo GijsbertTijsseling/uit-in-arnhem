@@ -150,33 +150,30 @@ export function AgendaPageClient({
             <button
               onClick={() => setPriceFilter('all')}
               type="button"
-              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${
-                priceFilter === 'all'
+              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${priceFilter === 'all'
                   ? 'bg-white text-zinc-900 shadow-xs'
                   : 'text-zinc-600 hover:text-zinc-900'
-              }`}
+                }`}
             >
               Alles
             </button>
             <button
               onClick={() => setPriceFilter('free')}
               type="button"
-              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${
-                priceFilter === 'free'
+              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${priceFilter === 'free'
                   ? 'bg-emerald-600 text-white shadow-xs'
                   : 'text-zinc-600 hover:text-zinc-900'
-              }`}
+                }`}
             >
               Gratis
             </button>
             <button
               onClick={() => setPriceFilter('paid')}
               type="button"
-              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${
-                priceFilter === 'paid'
+              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${priceFilter === 'paid'
                   ? 'bg-zinc-900 text-white shadow-xs'
                   : 'text-zinc-600 hover:text-zinc-900'
-              }`}
+                }`}
             >
               Tickets
             </button>
@@ -211,11 +208,10 @@ export function AgendaPageClient({
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 type="button"
-                className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                  active
+                className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${active
                     ? 'bg-zinc-900 text-white'
                     : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
-                }`}
+                  }`}
               >
                 {cat.label}
               </button>

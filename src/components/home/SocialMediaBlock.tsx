@@ -66,10 +66,6 @@ export function SocialMediaBlock() {
         {/* Header with Call to Action */}
         <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-zinc-800/80">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/90 text-[#FF4F00] text-xs font-bold uppercase tracking-wider mb-3 border border-zinc-700">
-              <InstagramIcon className="w-3.5 h-3.5" />
-              <span>Volg de community</span>
-            </div>
             <h2 className="font-heading font-black text-3xl sm:text-5xl text-white tracking-tight">
               Arnhem door jouw ogen
             </h2>

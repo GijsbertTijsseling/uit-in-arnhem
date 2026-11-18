@@ -109,11 +109,10 @@ export function DateFilterStrip({
                   }
                 }}
                 type="button"
-                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-150 cursor-pointer ${
-                  active
+                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-150 cursor-pointer ${active
                     ? 'bg-[#FF4F00] text-white shadow-sm ring-2 ring-[#FF4F00]/20'
                     : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
-                }`}
+                  }`}
               >
                 {item.label}
               </button>
@@ -126,11 +125,10 @@ export function DateFilterStrip({
               <button
                 type="button"
                 onClick={() => setIsOpen((prev) => !prev)}
-                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-150 inline-flex items-center gap-1.5 cursor-pointer ${
-                  isCustomActive || selectedFilter === 'custom'
+                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-150 inline-flex items-center gap-1.5 cursor-pointer ${isCustomActive || selectedFilter === 'custom'
                     ? 'bg-[#FF4F00] text-white shadow-sm ring-2 ring-[#FF4F00]/20'
                     : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
-                }`}
+                  }`}
               >
                 <CalendarDays className="w-3.5 h-3.5" />
                 <span>{isCustomActive ? getRangeLabel() : 'Datum kiezen'}</span>

@@ -21,11 +21,6 @@ export function NewsletterCta() {
       <div className="absolute -left-16 -bottom-16 w-64 h-64 rounded-full bg-black/10 blur-2xl pointer-events-none" />
 
       <div className="relative z-10 max-w-2xl mx-auto text-center space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-          <Mail className="w-3.5 h-3.5" />
-          <span>Arnhemse Weekendtips</span>
-        </div>
-
         <h2 className="font-heading font-black text-2xl sm:text-4xl text-white tracking-tight leading-tight">
           Mis nooit meer wat er bruist in Arnhem
         </h2>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Compass, Sparkles, MapPin, ArrowRight, Calendar, Coffee, Landmark, Trees } from 'lucide-react';
+import { Sparkles, MapPin, ArrowRight, Calendar, Coffee, Landmark, Trees } from 'lucide-react';
 import { HotspotHighlights } from '@/components/home/HotspotHighlights';
 
 export const metadata = {
@@ -49,10 +49,6 @@ export default function ZienEnDoenPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
       {/* Page Header */}
       <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF3ED] text-[#FF4F00] text-xs font-bold uppercase tracking-wider border border-[#FF4F00]/20">
-          <Compass className="w-4 h-4" />
-          <span>Stadsgids Arnhem</span>
-        </div>
         <h1 className="font-heading font-black text-4xl sm:text-6xl text-zinc-950 tracking-tight leading-tight">
           Zien en doen in Arnhem
         </h1>

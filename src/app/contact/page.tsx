@@ -22,10 +22,6 @@ export default function ContactPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
       {/* Header */}
       <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF3ED] text-[#FF4F00] text-xs font-bold uppercase tracking-wider border border-[#FF4F00]/20">
-          <Mail className="w-4 h-4" />
-          <span>Contact & Redactie</span>
-        </div>
         <h1 className="font-heading font-black text-4xl sm:text-6xl text-zinc-950 tracking-tight leading-tight">
           Contact opnemen met Uit in Arnhem
         </h1>

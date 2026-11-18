@@ -9,11 +9,6 @@ export function WijkMapSection() {
       {/* Section Header inspired by I amsterdam */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div className="max-w-3xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-100 text-[#FF4F00] border border-orange-200/60 shadow-xs">
-            <Compass className="w-3.5 h-3.5" />
-            <span>Wijken van Arnhem</span>
-          </div>
-
           <h2 className="font-heading font-black text-2xl sm:text-4xl text-zinc-900 tracking-tight leading-tight">
             Zoek wat er te doen is in jouw buurt of ontdek Arnhem per wijk
           </h2>

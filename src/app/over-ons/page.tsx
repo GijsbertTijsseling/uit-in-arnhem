@@ -95,11 +95,6 @@ export default function AboutPage() {
       {/* Hero Header */}
       <section className="relative overflow-hidden bg-gradient-to-b from-stone-100 via-stone-50 to-white pt-16 pb-20 border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#FF4F00] bg-[#FFF3ED] border border-[#FF4F00]/20 px-4 py-1.5 rounded-full shadow-sm">
-            <Heart className="w-3.5 h-3.5 fill-[#FF4F00]" />
-            <span>Voor en door Arnhemmers</span>
-          </div>
-
           <h1 className="font-heading font-black text-4xl sm:text-6xl text-zinc-950 tracking-tight leading-tight">
             Wij zijn <span className="text-[#FF4F00]">UIT in Arnhem</span>
           </h1>
@@ -168,9 +163,6 @@ export default function AboutPage() {
       {/* Het Team Section */}
       <section id="team" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF4F00] bg-[#FFF3ED] px-3.5 py-1 rounded-full">
-            <span>De gezichten achter het platform</span>
-          </div>
           <h2 className="font-heading font-black text-3xl sm:text-4xl text-zinc-950 tracking-tight">
             Het team van UIT in Arnhem
           </h2>
@@ -233,10 +225,6 @@ export default function AboutPage() {
             className="bg-gradient-to-br from-[#FF4F00] to-[#E04500] text-white rounded-3xl p-8 shadow-sm flex flex-col justify-between space-y-6 relative overflow-hidden"
           >
             <div className="space-y-4 relative z-10">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Doe mee</span>
-              </div>
               <h3 className="font-heading font-black text-2xl sm:text-3xl text-white">
                 Jij? Word onderdeel van de redactie!
               </h3>

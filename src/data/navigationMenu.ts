@@ -35,7 +35,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
           { label: 'Volledige agenda', href: '/agenda' },
           { label: 'Vandaag in Arnhem', href: '/agenda?filter=vandaag' },
           { label: 'Morgen te doen', href: '/agenda?filter=morgen' },
-          { label: 'Dit weekend in Arnhem', href: '/agenda?filter=weekend', badge: 'Populair' },
+          { label: 'Dit weekend in Arnhem', href: '/agenda?filter=weekend' },
           { label: 'Deze week', href: '/agenda?filter=this_week' },
         ],
       },
@@ -52,9 +52,9 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       {
         title: 'Doen & Ontdekken',
         items: [
-          { label: '10x Gratis dingen om te doen', href: '/artikelen/gratis-dingen-doen-arnhem', badge: 'Tip' },
+          { label: '10x Gratis dingen om te doen', href: '/artikelen/gratis-dingen-doen-arnhem' },
           { label: 'Wat te doen met kinderen', href: '/artikelen/wat-te-doen-in-arnhem-met-kinderen-de-leukste-uitjes-voor-het-hele-gezin' },
-          { label: 'Gratis evenement aanmelden', href: '/admin/agenda/new', badge: 'Gratis' },
+          { label: 'Gratis evenement aanmelden', href: '/admin/agenda/new' },
         ],
       },
     ],
@@ -84,7 +84,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       {
         title: 'Wijken van Arnhem',
         items: [
-          { label: 'Alle wijken & interactieve kaart', href: '/wijken', badge: 'Interactief' },
+          { label: 'Alle wijken & interactieve kaart', href: '/wijken' },
           { label: 'Centrum & Binnenstad', href: '/wijken/centrum' },
           { label: 'Modekwartier & Klarendal', href: '/wijken/modekwartier' },
           { label: 'Spijkerkwartier', href: '/wijken/spijkerkwartier' },
@@ -105,7 +105,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       {
         title: 'Activiteiten & Natuur',
         items: [
-          { label: '10x Gratis dingen om te doen', href: '/artikelen/gratis-dingen-doen-arnhem', badge: 'Populair' },
+          { label: '10x Gratis dingen om te doen', href: '/artikelen/gratis-dingen-doen-arnhem' },
           { label: 'Wat te doen met kinderen', href: '/artikelen/wat-te-doen-in-arnhem-met-kinderen-de-leukste-uitjes-voor-het-hele-gezin' },
           { label: 'Cirque de la Liberté Rijnoever', href: '/artikelen/cirque-de-la-liberte' },
           { label: 'Op ontdekking met Arnhem Life', href: '/artikelen/op-ontdekkingstocht-door-arnhem-met-petra-van-arnhem-life' },
@@ -167,7 +167,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
         title: 'Verhalen & Dossiers',
         items: [
           { label: 'Alle artikelen & verhalen', href: '/artikelen' },
-          { label: '3FM Serious Request Glazen Huis', href: '/artikelen/14382', badge: 'Uitgelicht' },
+          { label: '3FM Serious Request Glazen Huis', href: '/artikelen/14382' },
           { label: 'Arnhemse Stadsprijs helden', href: '/artikelen/arnhemse-stadsprijs' },
           { label: 'Vrijwilligers in the spotlight', href: '/artikelen/vrijwilliger-in-the-spotlight-sjaak-van-gestel' },
         ],
@@ -184,7 +184,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       {
         title: 'Doe mee',
         items: [
-          { label: 'Vacature redacteur Uit in Arnhem', href: '/artikelen/vacature-redacteur-bij-uit-in-arnhem', badge: 'Vacature' },
+          { label: 'Vacature redacteur Uit in Arnhem', href: '/artikelen/vacature-redacteur-bij-uit-in-arnhem' },
           { label: 'Tip de redactie', href: '/contact' },
         ],
       },

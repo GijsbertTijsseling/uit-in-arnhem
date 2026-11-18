@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Train, Car, Bed, Info, MapPin, Bike, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
+import { Train, Car, Bed, Info, Bike, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
 
 export const metadata = {
   title: 'Plan je bezoek aan Arnhem | Uit in Arnhem',
@@ -40,10 +40,6 @@ export default function PlanJeBezoekPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
       {/* Header */}
       <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF3ED] text-[#FF4F00] text-xs font-bold uppercase tracking-wider border border-[#FF4F00]/20">
-          <MapPin className="w-4 h-4" />
-          <span>Praktische Gids</span>
-        </div>
         <h1 className="font-heading font-black text-4xl sm:text-6xl text-zinc-950 tracking-tight leading-tight">
           Plan je bezoek aan Arnhem
         </h1>
@@ -63,9 +59,6 @@ export default function PlanJeBezoekPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         <div className="relative z-10 max-w-2xl">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#FF4F00] bg-black/60 px-3 py-1 rounded-full mb-3 inline-block">
-            Welkom in Arnhem
-          </span>
           <h2 className="font-heading font-black text-2xl sm:text-4xl text-white">
             Creatief, groen en gastvrij aan de Rijn
           </h2>

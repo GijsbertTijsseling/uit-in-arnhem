@@ -194,11 +194,6 @@ export function Navbar() {
                             className="text-sm font-medium text-zinc-700 hover:text-[#FF4F00] hover:translate-x-1 transition-all inline-flex items-center gap-1.5 py-0.5 group"
                           >
                             <span className="group-hover:text-[#FF4F00]">{item.label}</span>
-                            {item.badge && (
-                              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#FFF3ED] text-[#FF4F00] border border-[#FF4F00]/20">
-                                {item.badge}
-                              </span>
-                            )}
                           </Link>
                         </li>
                       ))}
@@ -311,11 +306,6 @@ export function Navbar() {
                                 className="text-sm font-medium text-zinc-600 hover:text-zinc-900 py-1 pl-1 flex items-center justify-between"
                               >
                                 <span>{item.label}</span>
-                                {item.badge && (
-                                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#FFF3ED] text-[#FF4F00]">
-                                    {item.badge}
-                                  </span>
-                                )}
                               </Link>
                             ))}
                           </div>

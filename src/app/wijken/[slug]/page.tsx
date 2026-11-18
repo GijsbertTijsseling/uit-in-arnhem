@@ -171,9 +171,6 @@ export default async function DistrictDetailPage({
           <div className="relative z-10 p-6 sm:p-10 lg:p-12 max-w-4xl space-y-4">
             {/* Badges */}
             <div className="flex flex-wrap items-center gap-2">
-              <span className="bg-[#FF4F00] text-white text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-                Wijk
-              </span>
               <span className="bg-white/90 backdrop-blur-sm text-zinc-900 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                 {district.vibe}
               </span>
