@@ -39,6 +39,7 @@ export interface Article {
 export type EventCategory =
   | 'muziek'
   | 'theater-dans'
+  | 'comedy'
   | 'film'
   | 'festival'
   | 'kunst-expo'

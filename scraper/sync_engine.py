@@ -84,7 +84,7 @@ class SyncEngine:
                     adapter_type="posttheater",
                     default_venue_name="Posttheater",
                     default_venue_address="Rosendaalsestraat 27",
-                    default_category_slug="theater-dans",
+                    default_category_slug="comedy",
                 ),
             ]
 

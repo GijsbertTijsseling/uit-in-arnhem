@@ -37,9 +37,8 @@ export function EventCard({ event }: EventCardProps) {
   return (
     <Link
       href={`/agenda/${event.slug}`}
-      className={`group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200/80 hover:border-zinc-300 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
-        isCancelled ? 'opacity-70 grayscale-30' : ''
-      }`}
+      className={`group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200/80 hover:border-zinc-300 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${isCancelled ? 'opacity-70 grayscale-30' : ''
+        }`}
     >
       {/* Image container: 16:9 ratio with light background */}
       <div className="relative aspect-16/9 w-full overflow-hidden bg-zinc-100">
@@ -70,11 +69,10 @@ export function EventCard({ event }: EventCardProps) {
               setIsPortrait(true);
             }
           }}
-          className={`${
-            isPortrait
+          className={`${isPortrait
               ? 'object-contain relative z-10 drop-shadow-[0_0_15px_rgba(0,0,0,0.18)]'
               : 'object-cover'
-          } transition-transform duration-500 group-hover:scale-105`}
+            } transition-transform duration-500 group-hover:scale-105`}
         />
 
         {/* Date sticker - High z-index to stay above foreground image */}
@@ -111,8 +109,8 @@ export function EventCard({ event }: EventCardProps) {
 
           <span
             className={`text-xs font-bold px-2.5 py-1 rounded-lg shadow-sm ${isFree
-                ? 'bg-emerald-500 text-white'
-                : 'bg-white/95 backdrop-blur-sm text-zinc-900 border border-zinc-200'
+              ? 'bg-emerald-500 text-white'
+              : 'bg-white/95 backdrop-blur-sm text-zinc-900 border border-zinc-200'
               }`}
           >
             {isFree ? 'Gratis' : `Vanaf €${event.price_from?.toFixed(2) || '–'}`}

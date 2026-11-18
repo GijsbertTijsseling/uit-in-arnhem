@@ -44,6 +44,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
         items: [
           { label: 'Concerten & Live muziek', href: '/agenda?category=muziek' },
           { label: 'Theater & Dans', href: '/agenda?category=theater-dans' },
+          { label: 'Comedy & Cabaret', href: '/agenda?category=comedy' },
           { label: 'Exposities & Musea', href: '/agenda?category=kunst-expo' },
           { label: 'Film in Focus Cinema', href: '/agenda?category=film' },
           { label: 'Festivals & Markten', href: '/agenda?category=festival' },

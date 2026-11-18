@@ -13,6 +13,7 @@ export const EVENT_CATEGORIES = [
   { id: 'all', label: 'Alles' },
   { id: 'muziek', label: 'Muziek & Concerten' },
   { id: 'theater-dans', label: 'Theater & Dans' },
+  { id: 'comedy', label: 'Comedy & Cabaret' },
   { id: 'film', label: 'Film' },
   { id: 'festival', label: 'Festivals' },
   { id: 'kunst-expo', label: 'Kunst & Expo' },

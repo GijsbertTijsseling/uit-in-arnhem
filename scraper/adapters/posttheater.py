@@ -132,6 +132,20 @@ class PosttheaterAdapter(BaseAdapter):
                     # Already seen
                     continue
 
+                # Smart category assignment for Posttheater: primarily Comedy & Cabaret
+                title_lower = full_title.lower()
+                desc_lower = (show_title or "").lower()
+                text_corpus = f"{title_lower} {desc_lower}"
+
+                if any(k in text_corpus for k in ["sprookjesfestival", "jeugd", "kinderen", "familie", "(8+)", "(5+)"]):
+                    cat_slug = "kinderen-familie"
+                elif any(k in text_corpus for k in ["the wieners", "abbey road", "soul & the city", "weather the storm", "parelvissers", "concert"]):
+                    cat_slug = "muziek"
+                elif any(k in text_corpus for k in ["podiumpoëzie", "poëzie"]):
+                    cat_slug = "theater-dans"
+                else:
+                    cat_slug = "comedy"
+
                 event = ScrapedEvent(
                     source=self.config.slug,
                     source_id=unique_id,
@@ -146,7 +160,7 @@ class PosttheaterAdapter(BaseAdapter):
                     venue_city=self.config.default_venue_city,
                     price_type="paid",
                     ticket_url=ticket_link,
-                    category_slug="theater-dans",
+                    category_slug=cat_slug,
                     production_id=prod_key,
                     performances=[performance],
                 )

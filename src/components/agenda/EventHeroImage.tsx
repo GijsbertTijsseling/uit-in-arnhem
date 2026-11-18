@@ -47,11 +47,10 @@ export function EventHeroImage({
             setIsPortrait(true);
           }
         }}
-        className={`${
-          isPortrait
+        className={`${isPortrait
             ? 'object-contain relative z-10 drop-shadow-[0_0_20px_rgba(0,0,0,0.18)]'
             : 'object-cover'
-        } transition-transform duration-500`}
+          } transition-transform duration-500`}
       />
 
       {children && <div className="relative z-20">{children}</div>}

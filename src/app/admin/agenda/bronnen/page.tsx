@@ -404,6 +404,7 @@ export default function AdminAgendaSourcesPage() {
                   >
                     <option value="muziek">Muziek</option>
                     <option value="theater-dans">Theater & Dans</option>
+                    <option value="comedy">Comedy & Cabaret</option>
                     <option value="film">Film</option>
                     <option value="festival">Festival</option>
                     <option value="kunst-expo">Kunst & Expo</option>
