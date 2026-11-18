@@ -2,9 +2,17 @@ import json
 from datetime import datetime, timezone, timedelta
 from typing import List, Optional, Dict, Any, Set
 from slugify import slugify
+
+try:
+    import psycopg2
+    from psycopg2.extras import RealDictCursor
+    HAS_PSYCOPG2 = True
+except ImportError:
+    HAS_PSYCOPG2 = False
+
 from supabase import create_client, Client
 
-from scraper.config import SUPABASE_URL, SUPABASE_KEY, logger
+from scraper.config import SUPABASE_URL, SUPABASE_KEY, DATABASE_URL, logger
 from scraper.models import ScrapedEvent, SourceConfig, SyncReport
 from scraper.adapters import get_adapter
 
@@ -12,25 +20,44 @@ class SyncEngine:
     def __init__(self, dry_run: bool = False):
         self.dry_run = dry_run
         self.client: Optional[Client] = None
+        self.use_postgres = bool(DATABASE_URL and HAS_PSYCOPG2)
         self.categories_map: Dict[str, str] = {}  # slug -> uuid
 
         if not self.dry_run:
-            if not SUPABASE_URL or not SUPABASE_KEY:
-                raise ValueError("SUPABASE_URL and SUPABASE_KEY must be configured for live sync")
-            self.client = create_client(SUPABASE_URL, SUPABASE_KEY)
-            self._load_categories()
+            if self.use_postgres:
+                logger.info("SyncEngine using direct PostgreSQL connection (psycopg2)")
+                self._load_categories_postgres()
+            elif SUPABASE_URL and SUPABASE_KEY:
+                logger.info("SyncEngine using Supabase PostgREST client")
+                self.client = create_client(SUPABASE_URL, SUPABASE_KEY)
+                self._load_categories_supabase()
+            else:
+                raise ValueError("DATABASE_URL or SUPABASE_URL + SUPABASE_KEY must be configured for live sync")
 
-    def _load_categories(self):
+    def _get_pg_conn(self):
+        return psycopg2.connect(DATABASE_URL)
+
+    def _load_categories_postgres(self):
+        try:
+            with self._get_pg_conn() as conn:
+                with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                    cur.execute("SELECT id, slug FROM public.event_categories;")
+                    rows = cur.fetchall()
+                    for cat in rows:
+                        self.categories_map[cat["slug"]] = str(cat["id"])
+        except Exception as e:
+            logger.warning(f"Failed to prefetch event categories via PostgreSQL: {e}")
+
+    def _load_categories_supabase(self):
         try:
             res = self.client.table("event_categories").select("id, slug").execute()
             for cat in res.data:
-                self.categories_map[cat["slug"]] = cat["id"]
+                self.categories_map[cat["slug"]] = str(cat["id"])
         except Exception as e:
             logger.warning(f"Failed to prefetch event categories from Supabase: {e}")
 
     def get_active_sources(self) -> List[SourceConfig]:
-        if self.dry_run or not self.client:
-            # Fallback to local default test sources
+        if self.dry_run:
             return [
                 SourceConfig(
                     name="Musis & Stadstheater Arnhem",
@@ -61,51 +88,85 @@ class SyncEngine:
                 ),
             ]
 
-        res = self.client.table("agenda_sources").select("*").eq("is_active", True).execute()
-        sources = []
-        for row in res.data:
-            sources.append(
+        if self.use_postgres:
+            with self._get_pg_conn() as conn:
+                with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                    cur.execute("SELECT * FROM public.agenda_sources WHERE is_active = true ORDER BY name ASC;")
+                    rows = cur.fetchall()
+                    return [
+                        SourceConfig(
+                            id=str(r.get("id")),
+                            name=r.get("name"),
+                            slug=r.get("slug"),
+                            url=r.get("url"),
+                            adapter_type=r.get("adapter_type"),
+                            default_venue_name=r.get("default_venue_name") or r.get("name"),
+                            default_venue_address=r.get("default_venue_address") or "Arnhem",
+                            default_venue_city=r.get("default_venue_city") or "Arnhem",
+                            default_category_slug=r.get("default_category_slug") or "cultuur",
+                            is_active=r.get("is_active", True),
+                            sync_frequency=r.get("sync_frequency") or "bi-weekly",
+                            total_events_count=r.get("total_events_count") or 0,
+                        )
+                        for r in rows
+                    ]
+        else:
+            res = self.client.table("agenda_sources").select("*").eq("is_active", True).execute()
+            return [
                 SourceConfig(
-                    id=row.get("id"),
-                    name=row.get("name"),
-                    slug=row.get("slug"),
-                    url=row.get("url"),
-                    adapter_type=row.get("adapter_type"),
-                    default_venue_name=row.get("default_venue_name") or row.get("name"),
-                    default_venue_address=row.get("default_venue_address") or "Arnhem",
-                    default_venue_city=row.get("default_venue_city") or "Arnhem",
-                    default_category_slug=row.get("default_category_slug") or "cultuur",
-                    is_active=row.get("is_active", True),
-                    sync_frequency=row.get("sync_frequency") or "bi-weekly",
-                    total_events_count=row.get("total_events_count") or 0,
+                    id=str(r.get("id")),
+                    name=r.get("name"),
+                    slug=r.get("slug"),
+                    url=r.get("url"),
+                    adapter_type=r.get("adapter_type"),
+                    default_venue_name=r.get("default_venue_name") or r.get("name"),
+                    default_venue_address=r.get("default_venue_address") or "Arnhem",
+                    default_venue_city=r.get("default_venue_city") or "Arnhem",
+                    default_category_slug=r.get("default_category_slug") or "cultuur",
+                    is_active=r.get("is_active", True),
+                    sync_frequency=r.get("sync_frequency") or "bi-weekly",
+                    total_events_count=r.get("total_events_count") or 0,
                 )
-            )
-        return sources
+                for r in res.data
+            ]
 
     def sync_source(self, source: SourceConfig, limit: Optional[int] = None) -> SyncReport:
         started_at = datetime.now(timezone.utc)
         report = SyncReport(source_slug=source.slug, started_at=started_at)
         logger.info(f"=== Starting synchronization for: {source.name} ({source.slug}) ===")
 
-        # 1. Run Lock / Idempotency Check
-        if not self.dry_run and self.client and source.id:
+        # 1. Idempotency Run Lock Check
+        if not self.dry_run and source.id:
             try:
-                # Check lock
-                res = self.client.table("agenda_sources").select("is_running, locked_at").eq("id", source.id).single().execute()
-                if res.data and res.data.get("is_running"):
-                    locked_at_str = res.data.get("locked_at")
-                    if locked_at_str:
-                        locked_time = datetime.fromisoformat(locked_at_str.replace("Z", "+00:00"))
-                        if datetime.now(timezone.utc) - locked_time < timedelta(minutes=15):
-                            logger.warning(f"Source {source.slug} is already running (locked at {locked_time}). Skipping run.")
-                            report.status = "warning"
-                            report.error_message = "Source is currently locked by another running process."
-                            return report
-                # Set lock
-                self.client.table("agenda_sources").update({
-                    "is_running": True,
-                    "locked_at": started_at.isoformat(),
-                }).eq("id", source.id).execute()
+                if self.use_postgres:
+                    with self._get_pg_conn() as conn:
+                        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                            cur.execute("SELECT is_running, locked_at FROM public.agenda_sources WHERE id = %s;", (source.id,))
+                            row = cur.fetchone()
+                            if row and row.get("is_running") and row.get("locked_at"):
+                                locked_time = row["locked_at"]
+                                if datetime.now(timezone.utc) - locked_time < timedelta(minutes=15):
+                                    logger.warning(f"Source {source.slug} is already running (locked at {locked_time}). Skipping run.")
+                                    report.status = "warning"
+                                    report.error_message = "Source is currently locked by another running process."
+                                    return report
+                            cur.execute("UPDATE public.agenda_sources SET is_running = true, locked_at = %s WHERE id = %s;", (started_at, source.id))
+                            conn.commit()
+                elif self.client:
+                    res = self.client.table("agenda_sources").select("is_running, locked_at").eq("id", source.id).single().execute()
+                    if res.data and res.data.get("is_running"):
+                        locked_str = res.data.get("locked_at")
+                        if locked_str:
+                            locked_time = datetime.fromisoformat(locked_str.replace("Z", "+00:00"))
+                            if datetime.now(timezone.utc) - locked_time < timedelta(minutes=15):
+                                logger.warning(f"Source {source.slug} is already running. Skipping run.")
+                                report.status = "warning"
+                                report.error_message = "Source is currently locked by another running process."
+                                return report
+                    self.client.table("agenda_sources").update({
+                        "is_running": True,
+                        "locked_at": started_at.isoformat(),
+                    }).eq("id", source.id).execute()
             except Exception as e:
                 logger.warning(f"Could not verify or set source lock for {source.slug}: {e}")
 
@@ -135,7 +196,7 @@ class SyncEngine:
         report.max_scraped_date = max_date
         logger.info(f"Scraped date range: {min_date.date()} to {max_date.date()} ({len(scraped_events)} items)")
 
-        if self.dry_run or not self.client:
+        if self.dry_run:
             logger.info(f"[DRY-RUN] Scraped {len(scraped_events)} events for {source.slug}. Database writes skipped.")
             report.status = "success"
             report.items_inserted = len(scraped_events)
@@ -154,16 +215,29 @@ class SyncEngine:
             report.status = "warning"
             report.error_message = f"Anomaly: only {len(scraped_events)} events found (previous: {previous_count}). Deactivations skipped."
 
-        # 4. Fetch existing events from Supabase for this source
-        existing_res = (
-            self.client.table("events")
-            .select("id, slug, source, source_id, content_hash, is_manually_edited, manual_override_fields, status, missing_count, title, description, start_date")
-            .eq("source", source.slug)
-            .execute()
-        )
-        existing_map: Dict[str, Dict[str, Any]] = {
-            row["source_id"]: row for row in existing_res.data if row.get("source_id")
-        }
+        # 4. Fetch existing events from database for this source
+        existing_map: Dict[str, Dict[str, Any]] = {}
+        if self.use_postgres:
+            with self._get_pg_conn() as conn:
+                with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                    cur.execute(
+                        "SELECT id, slug, source, source_id, content_hash, is_manually_edited, "
+                        "manual_override_fields, status, missing_count, title, description, start_date "
+                        "FROM public.events WHERE source = %s;",
+                        (source.slug,)
+                    )
+                    rows = cur.fetchall()
+                    for r in rows:
+                        if r.get("source_id"):
+                            existing_map[r["source_id"]] = dict(r)
+        else:
+            existing_res = (
+                self.client.table("events")
+                .select("id, slug, source, source_id, content_hash, is_manually_edited, manual_override_fields, status, missing_count, title, description, start_date")
+                .eq("source", source.slug)
+                .execute()
+            )
+            existing_map = {row["source_id"]: row for row in existing_res.data if row.get("source_id")}
 
         scraped_ids: Set[str] = set()
 
@@ -173,7 +247,6 @@ class SyncEngine:
             content_hash = event.compute_content_hash()
             existing = existing_map.get(event.source_id)
 
-            # Category ID resolution
             cat_id = self.categories_map.get(event.category_slug) or self.categories_map.get(source.default_category_slug)
 
             performances_data = [
@@ -190,142 +263,185 @@ class SyncEngine:
             if not existing:
                 # INSERT NEW EVENT
                 base_slug = slugify(f"{event.title}-{event.start_date.strftime('%Y%m%d')}")
-                insert_payload = {
-                    "slug": base_slug,
-                    "title": event.title,
-                    "short_description": event.short_description or event.title,
-                    "description": event.description or "",
-                    "featured_image": event.hero_image_url,
-                    "start_date": event.start_date.isoformat(),
-                    "end_date": event.end_date.isoformat() if event.end_date else None,
-                    "venue_name": event.venue_name,
-                    "venue_address": event.venue_address,
-                    "venue_city": event.venue_city,
-                    "price_type": event.price_type,
-                    "price": event.price,
-                    "ticket_url": event.ticket_url,
-                    "category_id": cat_id,
-                    "status": "published",
-                    "source": event.source,
-                    "source_id": event.source_id,
-                    "source_url": event.source_url,
-                    "production_id": event.production_id,
-                    "performances": performances_data,
-                    "content_hash": content_hash,
-                    "is_manually_edited": False,
-                    "manual_override_fields": [],
-                    "missing_count": 0,
-                    "last_synced_at": started_at.isoformat(),
-                }
-                try:
-                    self.client.table("events").insert(insert_payload).execute()
-                    report.items_inserted += 1
-                except Exception as e:
-                    # Retry with unique slug suffix if duplicate slug collision
-                    logger.warning(f"Insert failed for {event.title} (slug: {base_slug}), retrying with unique suffix: {e}")
-                    insert_payload["slug"] = f"{base_slug}-{event.source_id[:6]}"
+                if self.use_postgres:
+                    with self._get_pg_conn() as conn:
+                        with conn.cursor() as cur:
+                            try:
+                                cur.execute(
+                                    """
+                                    INSERT INTO public.events (
+                                        slug, title, short_description, description, featured_image,
+                                        start_date, end_date, venue_name, venue_address, venue_city,
+                                        price_type, price, ticket_url, category_id, status, source,
+                                        source_id, source_url, production_id, performances, content_hash,
+                                        is_manually_edited, manual_override_fields, missing_count, last_synced_at
+                                    ) VALUES (
+                                        %s, %s, %s, %s, %s,
+                                        %s, %s, %s, %s, %s,
+                                        %s, %s, %s, %s, %s, %s,
+                                        %s, %s, %s, %s, %s,
+                                        %s, %s, %s, %s
+                                    );
+                                    """,
+                                    (
+                                        base_slug, event.title, event.short_description or event.title, event.description or "", event.hero_image_url,
+                                        event.start_date, event.end_date, event.venue_name, event.venue_address, event.venue_city,
+                                        event.price_type, event.price, event.ticket_url, cat_id, "published", event.source,
+                                        event.source_id, event.source_url, event.production_id, json.dumps(performances_data), content_hash,
+                                        False, [], 0, started_at
+                                    )
+                                )
+                                conn.commit()
+                                report.items_inserted += 1
+                            except Exception as e:
+                                conn.rollback()
+                                # Retry with unique slug suffix
+                                unique_slug = f"{base_slug}-{event.source_id[:6]}"
+                                try:
+                                    cur.execute(
+                                        """
+                                        INSERT INTO public.events (
+                                            slug, title, short_description, description, featured_image,
+                                            start_date, end_date, venue_name, venue_address, venue_city,
+                                            price_type, price, ticket_url, category_id, status, source,
+                                            source_id, source_url, production_id, performances, content_hash,
+                                            is_manually_edited, manual_override_fields, missing_count, last_synced_at
+                                        ) VALUES (
+                                            %s, %s, %s, %s, %s,
+                                            %s, %s, %s, %s, %s,
+                                            %s, %s, %s, %s, %s, %s,
+                                            %s, %s, %s, %s, %s,
+                                            %s, %s, %s, %s
+                                        );
+                                        """,
+                                        (
+                                            unique_slug, event.title, event.short_description or event.title, event.description or "", event.hero_image_url,
+                                            event.start_date, event.end_date, event.venue_name, event.venue_address, event.venue_city,
+                                            event.price_type, event.price, event.ticket_url, cat_id, "published", event.source,
+                                            event.source_id, event.source_url, event.production_id, json.dumps(performances_data), content_hash,
+                                            False, [], 0, started_at
+                                        )
+                                    )
+                                    conn.commit()
+                                    report.items_inserted += 1
+                                except Exception as e2:
+                                    logger.error(f"Permanent insert error for {event.title}: {e2}")
+                elif self.client:
+                    # Supabase PostgREST insert
+                    payload = {
+                        "slug": base_slug, "title": event.title, "short_description": event.short_description,
+                        "description": event.description, "featured_image": event.hero_image_url,
+                        "start_date": event.start_date.isoformat(), "end_date": event.end_date.isoformat() if event.end_date else None,
+                        "venue_name": event.venue_name, "venue_address": event.venue_address, "venue_city": event.venue_city,
+                        "price_type": event.price_type, "price": event.price, "ticket_url": event.ticket_url,
+                        "category_id": cat_id, "status": "published", "source": event.source, "source_id": event.source_id,
+                        "source_url": event.source_url, "production_id": event.production_id, "performances": performances_data,
+                        "content_hash": content_hash, "is_manually_edited": False, "manual_override_fields": [], "missing_count": 0,
+                        "last_synced_at": started_at.isoformat()
+                    }
                     try:
-                        self.client.table("events").insert(insert_payload).execute()
+                        self.client.table("events").insert(payload).execute()
                         report.items_inserted += 1
-                    except Exception as e2:
-                        logger.error(f"Permanent insert error for {event.title}: {e2}")
+                    except Exception as e:
+                        payload["slug"] = f"{base_slug}-{event.source_id[:6]}"
+                        try:
+                            self.client.table("events").insert(payload).execute()
+                            report.items_inserted += 1
+                        except Exception as e2:
+                            logger.error(f"Insert failed for {event.title}: {e2}")
             else:
                 # EXISTING EVENT
                 existing_hash = existing.get("content_hash")
                 is_manually_edited = existing.get("is_manually_edited", False)
                 overrides = set(existing.get("manual_override_fields") or [])
 
-                # Did the content change or was it previously marked missing/cancelled?
                 needs_update = False
-                update_payload = {
-                    "last_synced_at": started_at.isoformat(),
-                    "performances": performances_data,
-                    "ticket_url": event.ticket_url,
-                }
-
-                # Auto-recover if previously missing or cancelled
-                if existing.get("status") in ["missing", "cancelled"]:
-                    update_payload["status"] = "published"
-                    update_payload["missing_count"] = 0
-                    update_payload["missing_since"] = None
+                new_status = "published" if existing.get("status") in ["missing", "cancelled"] else existing.get("status", "published")
+                if new_status != existing.get("status"):
                     needs_update = True
 
-                if existing_hash != content_hash:
-                    needs_update = True
-                    update_payload["content_hash"] = content_hash
+                title_to_set = existing.get("title") if (is_manually_edited and "title" in overrides) else event.title
+                desc_to_set = existing.get("description") if (is_manually_edited and "description" in overrides) else event.description
+                img_to_set = existing.get("featured_image") if (is_manually_edited and "featured_image" in overrides) else event.hero_image_url
 
-                    # Respect manual overrides on editorial fields
-                    if "title" not in overrides and not (is_manually_edited and overrides):
-                        update_payload["title"] = event.title
-                    if "description" not in overrides and not (is_manually_edited and overrides):
-                        update_payload["description"] = event.description
-                        update_payload["short_description"] = event.short_description
-                    if "featured_image" not in overrides and event.hero_image_url:
-                        update_payload["featured_image"] = event.hero_image_url
-                    if "category_id" not in overrides and cat_id:
-                        update_payload["category_id"] = cat_id
-
-                    update_payload["start_date"] = event.start_date.isoformat()
-                    update_payload["end_date"] = event.end_date.isoformat() if event.end_date else None
-                    update_payload["venue_name"] = event.venue_name
-                    update_payload["venue_address"] = event.venue_address
-                    update_payload["price"] = event.price
-                    update_payload["price_type"] = event.price_type
-
-                if needs_update:
-                    try:
-                        self.client.table("events").update(update_payload).eq("id", existing["id"]).execute()
+                if existing_hash != content_hash or needs_update:
+                    if self.use_postgres:
+                        with self._get_pg_conn() as conn:
+                            with conn.cursor() as cur:
+                                cur.execute(
+                                    """
+                                    UPDATE public.events SET
+                                        title = %s, description = %s, featured_image = %s,
+                                        start_date = %s, end_date = %s, venue_name = %s, venue_address = %s,
+                                        price = %s, price_type = %s, ticket_url = %s, performances = %s,
+                                        content_hash = %s, status = %s, missing_count = 0, missing_since = NULL,
+                                        last_synced_at = %s, updated_at = NOW()
+                                    WHERE id = %s;
+                                    """,
+                                    (
+                                        title_to_set, desc_to_set, img_to_set,
+                                        event.start_date, event.end_date, event.venue_name, event.venue_address,
+                                        event.price, event.price_type, event.ticket_url, json.dumps(performances_data),
+                                        content_hash, new_status, started_at, existing["id"]
+                                    )
+                                )
+                                conn.commit()
+                                report.items_updated += 1
+                    elif self.client:
+                        self.client.table("events").update({
+                            "title": title_to_set, "description": desc_to_set, "featured_image": img_to_set,
+                            "start_date": event.start_date.isoformat(), "end_date": event.end_date.isoformat() if event.end_date else None,
+                            "venue_name": event.venue_name, "venue_address": event.venue_address, "price": event.price,
+                            "price_type": event.price_type, "ticket_url": event.ticket_url, "performances": performances_data,
+                            "content_hash": content_hash, "status": new_status, "missing_count": 0, "missing_since": None,
+                            "last_synced_at": started_at.isoformat()
+                        }).eq("id", existing["id"]).execute()
                         report.items_updated += 1
-                    except Exception as e:
-                        logger.error(f"Update failed for event ID {existing.get('id')}: {e}")
                 else:
                     report.items_skipped += 1
 
         # 6. Missing & Cancelled Reconciliation
-        now_iso = datetime.now(timezone.utc).isoformat()
         if not skip_reconciliation:
+            now_dt = datetime.now(timezone.utc)
             for source_id, existing in existing_map.items():
                 if source_id not in scraped_ids:
-                    # Check if event is in future and within the scraped range
-                    ev_date_str = existing.get("start_date")
-                    if not ev_date_str:
+                    ev_date = existing.get("start_date")
+                    if not ev_date:
                         continue
-                    try:
-                        ev_date = datetime.fromisoformat(ev_date_str.replace("Z", "+00:00"))
-                    except Exception:
-                        continue
+                    if isinstance(ev_date, str):
+                        try:
+                            ev_date = datetime.fromisoformat(ev_date.replace("Z", "+00:00"))
+                        except Exception:
+                            continue
 
-                    # Only evaluate events that are strictly within the scraped date range and in the future
-                    if ev_date >= datetime.now(timezone.utc) and min_date <= ev_date <= max_date:
-                        curr_missing_count = existing.get("missing_count", 0)
+                    if ev_date.tzinfo is None:
+                        ev_date = ev_date.replace(tzinfo=timezone.utc)
+
+                    if ev_date >= now_dt and min_date <= ev_date <= max_date:
+                        curr_missing = existing.get("missing_count", 0)
                         curr_status = existing.get("status", "published")
 
                         if curr_status == "published":
-                            # Step 1: Mark as missing (1st confirmation)
-                            try:
-                                self.client.table("events").update({
-                                    "status": "missing",
-                                    "missing_count": 1,
-                                    "missing_since": started_at.isoformat(),
-                                    "last_synced_at": started_at.isoformat(),
-                                }).eq("id", existing["id"]).execute()
-                                report.items_missing += 1
-                                logger.info(f"Event marked as MISSING: {existing.get('title')} ({source_id})")
-                            except Exception as e:
-                                logger.error(f"Failed to set missing for {existing.get('id')}: {e}")
+                            if self.use_postgres:
+                                with self._get_pg_conn() as conn:
+                                    with conn.cursor() as cur:
+                                        cur.execute("UPDATE public.events SET status = 'missing', missing_count = 1, missing_since = %s, last_synced_at = %s WHERE id = %s;", (started_at, started_at, existing["id"]))
+                                        conn.commit()
+                            elif self.client:
+                                self.client.table("events").update({"status": "missing", "missing_count": 1, "missing_since": started_at.isoformat(), "last_synced_at": started_at.isoformat()}).eq("id", existing["id"]).execute()
+                            report.items_missing += 1
+                            logger.info(f"Event marked as MISSING: {existing.get('title')} ({source_id})")
 
-                        elif curr_status == "missing" and curr_missing_count >= 1:
-                            # Step 2: Mark as cancelled (2nd consecutive confirmation)
-                            try:
-                                self.client.table("events").update({
-                                    "status": "cancelled",
-                                    "missing_count": curr_missing_count + 1,
-                                    "last_synced_at": started_at.isoformat(),
-                                }).eq("id", existing["id"]).execute()
-                                report.items_cancelled += 1
-                                logger.info(f"Event marked as CANCELLED (confirmed absent): {existing.get('title')} ({source_id})")
-                            except Exception as e:
-                                logger.error(f"Failed to set cancelled for {existing.get('id')}: {e}")
+                        elif curr_status == "missing" and curr_missing >= 1:
+                            if self.use_postgres:
+                                with self._get_pg_conn() as conn:
+                                    with conn.cursor() as cur:
+                                        cur.execute("UPDATE public.events SET status = 'cancelled', missing_count = %s, last_synced_at = %s WHERE id = %s;", (curr_missing + 1, started_at, existing["id"]))
+                                        conn.commit()
+                            elif self.client:
+                                self.client.table("events").update({"status": "cancelled", "missing_count": curr_missing + 1, "last_synced_at": started_at.isoformat()}).eq("id", existing["id"]).execute()
+                            report.items_cancelled += 1
+                            logger.info(f"Event marked as CANCELLED (confirmed absent): {existing.get('title')} ({source_id})")
 
         if report.status != "warning":
             report.status = "success"
@@ -343,41 +459,56 @@ class SyncEngine:
             f"Skipped={report.items_skipped} (Status: {report.status}) ==="
         )
 
-        if not self.dry_run and self.client and source.id:
-            # Update agenda_sources table
-            try:
-                self.client.table("agenda_sources").update({
-                    "is_running": False,
-                    "locked_at": None,
-                    "last_run_at": report.completed_at.isoformat(),
-                    "last_run_status": report.status,
-                    "last_run_message": report.error_message or f"{report.items_scraped} gescraped, {report.items_inserted} nieuw, {report.items_updated} bijgewerkt.",
-                    "total_events_count": report.items_scraped,
-                }).eq("id", source.id).execute()
-            except Exception as e:
-                logger.error(f"Failed to update source stats for {source.slug}: {e}")
-
-            # Write to agenda_sync_logs table
-            try:
-                self.client.table("agenda_sync_logs").insert({
-                    "source_id": source.id,
-                    "source_slug": source.slug,
-                    "started_at": report.started_at.isoformat(),
-                    "completed_at": report.completed_at.isoformat(),
-                    "status": report.status,
-                    "items_scraped": report.items_scraped,
-                    "items_inserted": report.items_inserted,
-                    "items_updated": report.items_updated,
-                    "items_missing": report.items_missing,
-                    "items_cancelled": report.items_cancelled,
-                    "items_skipped": report.items_skipped,
-                    "error_message": report.error_message,
-                    "log_details": {
-                        "duration_seconds": duration,
-                        "min_date": report.min_scraped_date.isoformat() if report.min_scraped_date else None,
-                        "max_date": report.max_scraped_date.isoformat() if report.max_scraped_date else None,
-                    }
-                }).execute()
-            except Exception as e:
-                logger.error(f"Failed to write sync log for {source.slug}: {e}")
-
+        msg = report.error_message or f"{report.items_scraped} gescraped, {report.items_inserted} nieuw, {report.items_updated} bijgewerkt."
+        if not self.dry_run and source.id:
+            if self.use_postgres:
+                try:
+                    with self._get_pg_conn() as conn:
+                        with conn.cursor() as cur:
+                            cur.execute(
+                                """
+                                UPDATE public.agenda_sources SET
+                                    is_running = false, locked_at = NULL, last_run_at = %s,
+                                    last_run_status = %s, last_run_message = %s, total_events_count = %s
+                                WHERE id = %s;
+                                """,
+                                (report.completed_at, report.status, msg, report.items_scraped, source.id)
+                            )
+                            cur.execute(
+                                """
+                                INSERT INTO public.agenda_sync_logs (
+                                    source_id, source_slug, started_at, completed_at, status,
+                                    items_scraped, items_inserted, items_updated, items_missing,
+                                    items_cancelled, items_skipped, error_message, log_details
+                                ) VALUES (
+                                    %s, %s, %s, %s, %s,
+                                    %s, %s, %s, %s,
+                                    %s, %s, %s, %s
+                                );
+                                """,
+                                (
+                                    source.id, source.slug, report.started_at, report.completed_at, report.status,
+                                    report.items_scraped, report.items_inserted, report.items_updated, report.items_missing,
+                                    report.items_cancelled, report.items_skipped, report.error_message,
+                                    json.dumps({"duration_seconds": duration})
+                                )
+                            )
+                            conn.commit()
+                except Exception as e:
+                    logger.error(f"Failed to record run stats via PostgreSQL: {e}")
+            elif self.client:
+                try:
+                    self.client.table("agenda_sources").update({
+                        "is_running": False, "locked_at": None, "last_run_at": report.completed_at.isoformat(),
+                        "last_run_status": report.status, "last_run_message": msg, "total_events_count": report.items_scraped
+                    }).eq("id", source.id).execute()
+                    self.client.table("agenda_sync_logs").insert({
+                        "source_id": source.id, "source_slug": source.slug, "started_at": report.started_at.isoformat(),
+                        "completed_at": report.completed_at.isoformat(), "status": report.status,
+                        "items_scraped": report.items_scraped, "items_inserted": report.items_inserted,
+                        "items_updated": report.items_updated, "items_missing": report.items_missing,
+                        "items_cancelled": report.items_cancelled, "items_skipped": report.items_skipped,
+                        "error_message": report.error_message, "log_details": {"duration_seconds": duration}
+                    }).execute()
+                except Exception as e:
+                    logger.error(f"Failed to record run stats via Supabase client: {e}")

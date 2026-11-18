@@ -54,6 +54,7 @@ ALTER TABLE public.events
 
 -- Kolommen toevoegen aan events voor scraper tracking, hashing, multi-date en overrides
 ALTER TABLE public.events
+  ADD COLUMN IF NOT EXISTS short_description TEXT,
   ADD COLUMN IF NOT EXISTS source TEXT DEFAULT 'manual',
   ADD COLUMN IF NOT EXISTS source_id TEXT,
   ADD COLUMN IF NOT EXISTS source_url TEXT,

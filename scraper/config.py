@@ -31,6 +31,11 @@ SUPABASE_KEY = (
     or os.getenv("SUPABASE_SERVICE_KEY")
     or os.getenv("NEXT_PUBLIC_SUPABASE_ANON_KEY")
 )
+DATABASE_URL = (
+    os.getenv("DATABASE_URL")
+    or os.getenv("SUPABASE_DB_URL")
+    or "postgresql://postgres:ZZzr336rEG4T04Su@db.ldvclkymaiopytbkjulp.supabase.co:5432/postgres"
+)
 
 USER_AGENT = os.getenv(
     "SCRAPER_USER_AGENT",
