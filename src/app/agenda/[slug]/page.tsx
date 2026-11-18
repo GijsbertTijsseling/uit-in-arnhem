@@ -81,6 +81,11 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
     addressQuery
   )}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 
+  const isPortrait =
+    event.source === 'posttheater' ||
+    Boolean(event.hero_image_url?.includes('ticketmatic')) ||
+    Boolean(event.hero_image_url?.includes('portrait'));
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       {/* Back button */}
@@ -98,29 +103,43 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* Left Column: Media & Full Story */}
         <div className="lg:col-span-8 space-y-8">
-          {/* Hero Image with Smart Backdrop Blur */}
+          {/* Hero Image */}
           <div className="relative aspect-16/9 w-full rounded-3xl overflow-hidden shadow-lg bg-zinc-950">
-            {/* Blurred ambient background that fills the entire 16:9 banner */}
-            <div className="absolute inset-0 overflow-hidden">
+            {isPortrait ? (
+              <>
+                {/* Blurred ambient background for portrait theater posters */}
+                <div className="absolute inset-0 overflow-hidden">
+                  <Image
+                    src={event.hero_image_url}
+                    alt=""
+                    fill
+                    priority
+                    className="object-cover scale-110 blur-2xl opacity-50 brightness-75 transition-all"
+                    aria-hidden="true"
+                  />
+                  <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
+                </div>
+
+                {/* Foreground sharp portrait image contained without any cropping */}
+                <Image
+                  src={event.hero_image_url}
+                  alt={event.title}
+                  fill
+                  priority
+                  className="object-contain relative z-10 drop-shadow-xl"
+                />
+              </>
+            ) : (
+              /* Standard landscape widescreen image (Musis, Luxor): full bleed */
               <Image
                 src={event.hero_image_url}
-                alt=""
+                alt={event.title}
                 fill
                 priority
-                className="object-cover scale-110 blur-2xl opacity-50 brightness-75 transition-all"
-                aria-hidden="true"
+                className="object-cover"
               />
-              <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
-            </div>
+            )}
 
-            {/* Foreground sharp image contained without any cropping */}
-            <Image
-              src={event.hero_image_url}
-              alt={event.title}
-              fill
-              priority
-              className="object-contain relative z-10 drop-shadow-xl"
-            />
             {event.is_highlight && (
               <div className="absolute top-4 left-4 z-20 bg-[#FF4F00] text-white px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide flex items-center gap-1.5 shadow-lg">
                 <Sparkles className="w-3.5 h-3.5" />

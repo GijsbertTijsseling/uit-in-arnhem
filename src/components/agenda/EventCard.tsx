@@ -24,38 +24,57 @@ export function EventCard({ event }: EventCardProps) {
   const isCancelled = event.status === 'cancelled';
   const hasMultipleDates = event.performances && event.performances.length > 1;
 
+  // Detect portrait theater posters (e.g. Posttheater / Ticketmatic)
+  const isPortrait =
+    event.source === 'posttheater' ||
+    Boolean(event.hero_image_url?.includes('ticketmatic')) ||
+    Boolean(event.hero_image_url?.includes('portrait'));
+
   return (
     <Link
       href={`/agenda/${event.slug}`}
       className={`group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200/80 hover:border-zinc-300 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${isCancelled ? 'opacity-70 grayscale-30' : ''
         }`}
     >
-      {/* Image container with Smart Backdrop Blur */}
-      <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-950">
-        {/* Ambient blurred backdrop that fills the card banner */}
-        <div className="absolute inset-0 overflow-hidden">
+      {/* Image container: 16:9 ratio */}
+      <div className="relative aspect-16/9 w-full overflow-hidden bg-zinc-950">
+        {isPortrait ? (
+          <>
+            {/* Ambient blurred backdrop that fills the card banner for portrait posters */}
+            <div className="absolute inset-0 overflow-hidden">
+              <Image
+                src={event.hero_image_url || '/logo.png'}
+                alt=""
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover scale-110 blur-xl opacity-50 brightness-75 transition-transform duration-500 group-hover:scale-125"
+                aria-hidden="true"
+              />
+              <div className="absolute inset-0 bg-black/20" />
+            </div>
+
+            {/* Foreground sharp portrait image: 100% visible, never cut off */}
+            <Image
+              src={event.hero_image_url || '/logo.png'}
+              alt={event.title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-contain relative z-10 transition-transform duration-500 group-hover:scale-105 drop-shadow-md"
+            />
+          </>
+        ) : (
+          /* Standard landscape image (Musis, Luxor): full-bleed edge to edge */
           <Image
             src={event.hero_image_url || '/logo.png'}
-            alt=""
+            alt={event.title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover scale-110 blur-xl opacity-50 brightness-75 transition-transform duration-500 group-hover:scale-125"
-            aria-hidden="true"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-black/20" />
-        </div>
+        )}
 
-        {/* Foreground sharp image: 100% visible, never cut off */}
-        <Image
-          src={event.hero_image_url || '/logo.png'}
-          alt={event.title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-contain relative z-10 transition-transform duration-500 group-hover:scale-105 drop-shadow-md"
-        />
-
-        {/* Date sticker */}
-        <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm rounded-xl px-3 py-1.5 shadow-md flex flex-col items-center justify-center border border-zinc-100 text-center min-w-13">
+        {/* Date sticker - High z-index to stay above foreground image */}
+        <div className="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-sm rounded-xl px-3 py-1.5 shadow-md flex flex-col items-center justify-center border border-zinc-100 text-center min-w-13">
           <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider leading-none">
             {month}
           </span>
@@ -69,20 +88,20 @@ export function EventCard({ event }: EventCardProps) {
 
         {/* Highlight or Cancelled badge */}
         {isCancelled ? (
-          <div className="absolute top-3 right-3 bg-zinc-900/90 text-white px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide flex items-center gap-1 shadow-md">
+          <div className="absolute top-3 right-3 z-30 bg-zinc-900/90 text-white px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide flex items-center gap-1 shadow-md">
             <AlertCircle className="w-3 h-3 text-rose-400" />
             <span>Afgelast</span>
           </div>
         ) : event.is_highlight ? (
-          <div className="absolute top-3 right-3 bg-[#FF4F00] text-white px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide flex items-center gap-1 shadow-md">
+          <div className="absolute top-3 right-3 z-30 bg-[#FF4F00] text-white px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide flex items-center gap-1 shadow-md">
             <Sparkles className="w-3 h-3" />
             <span>Tip van de Redactie</span>
           </div>
         ) : null}
 
-        {/* Price & Category tags bottom */}
-        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-          <span className="bg-black/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg uppercase tracking-wider">
+        {/* Price & Category tags bottom - High z-index so tags never disappear behind image */}
+        <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between pointer-events-none">
+          <span className="bg-black/80 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm">
             {event.category}
           </span>
 
