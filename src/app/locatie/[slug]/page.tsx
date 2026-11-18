@@ -129,11 +129,6 @@ export default async function LocationDetailPage({ params }: PageProps) {
             {/* Left Col: Location Info */}
             <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF3ED] border border-[#FF4F00]/20 text-[#FF4F00] text-xs font-bold uppercase tracking-wider mb-3">
-                  <Building2 className="w-3.5 h-3.5" />
-                  <span>Vaste Locatie in Arnhem</span>
-                </div>
-
                 <h1 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-zinc-950 tracking-tight leading-tight">
                   {location.name}
                 </h1>
@@ -151,15 +146,6 @@ export default async function LocationDetailPage({ params }: PageProps) {
                         {location.postal_code ? `, ${location.postal_code}` : ''}{' '}
                         {location.country || 'Nederland'}
                       </div>
-                      <a
-                        href={googleMapsDirectionsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#FF4F00] hover:underline mt-1"
-                      >
-                        <Navigation className="w-3 h-3" />
-                        <span>Get Directions / Routebeschrijving</span>
-                      </a>
                     </div>
                   </div>
 
