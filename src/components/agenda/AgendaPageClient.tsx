@@ -21,6 +21,8 @@ export function AgendaPageClient({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
   const [selectedDateFilter, setSelectedDateFilter] = useState(defaultFilter);
+  const [customStartDate, setCustomStartDate] = useState('');
+  const [customEndDate, setCustomEndDate] = useState('');
   const [priceFilter, setPriceFilter] = useState<'all' | 'free' | 'paid'>('all');
 
   const filteredEvents = useMemo(() => {
@@ -98,10 +100,25 @@ export function AgendaPageClient({
         endOfNextWeek.setDate(endOfNextWeek.getDate() + 7);
         return eDate > nextWeek && eDate <= endOfNextWeek;
       }
+      if (selectedDateFilter === 'custom') {
+        if (!customStartDate && !customEndDate) return true;
+
+        const startBoundary = customStartDate ? new Date(customStartDate + 'T00:00:00') : null;
+        const endBoundary = customEndDate ? new Date(customEndDate + 'T23:59:59.999') : null;
+
+        if (startBoundary && endBoundary) {
+          return eDate <= endBoundary && eEndDate >= startBoundary;
+        } else if (startBoundary) {
+          return eEndDate >= startBoundary;
+        } else if (endBoundary) {
+          return eDate <= endBoundary;
+        }
+        return true;
+      }
 
       return true;
     });
-  }, [initialEvents, selectedCategory, selectedDateFilter, priceFilter, searchQuery]);
+  }, [initialEvents, selectedCategory, selectedDateFilter, customStartDate, customEndDate, priceFilter, searchQuery]);
 
   return (
     <div className="space-y-8">
@@ -169,7 +186,20 @@ export function AgendaPageClient({
         {/* Date Filter Strip */}
         <DateFilterStrip
           selectedFilter={selectedDateFilter}
-          onSelectFilter={setSelectedDateFilter}
+          onSelectFilter={(filter) => {
+            setSelectedDateFilter(filter);
+            if (filter !== 'custom') {
+              setCustomStartDate('');
+              setCustomEndDate('');
+            }
+          }}
+          startDate={customStartDate}
+          endDate={customEndDate}
+          onDateRangeChange={(start, end) => {
+            setCustomStartDate(start);
+            setCustomEndDate(end);
+            setSelectedDateFilter('custom');
+          }}
         />
 
         {/* Category Pills */}
@@ -201,16 +231,18 @@ export function AgendaPageClient({
           {filteredEvents.length === 1 ? 'evenement gevonden' : 'evenementen gevonden'}
         </p>
 
-        {(selectedCategory !== 'all' || selectedDateFilter !== 'all' || priceFilter !== 'all' || searchQuery) && (
+        {(selectedCategory !== 'all' || selectedDateFilter !== 'all' || priceFilter !== 'all' || searchQuery || customStartDate || customEndDate) && (
           <button
             onClick={() => {
               setSelectedCategory('all');
               setSelectedDateFilter('all');
               setPriceFilter('all');
               setSearchQuery('');
+              setCustomStartDate('');
+              setCustomEndDate('');
             }}
             type="button"
-            className="text-xs font-bold text-[#FF4F00] hover:underline"
+            className="text-xs font-bold text-[#FF4F00] hover:underline cursor-pointer"
           >
             Filters wissen
           </button>

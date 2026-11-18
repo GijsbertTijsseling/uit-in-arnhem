@@ -13,6 +13,8 @@ interface HomePageClientProps {
 
 export function HomePageClient({ initialEvents }: HomePageClientProps) {
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   const filteredEvents = useMemo(() => {
     const today = new Date();
@@ -72,9 +74,25 @@ export function HomePageClient({ initialEvents }: HomePageClientProps) {
         return eDate > nextWeek && eDate <= endOfNextWeek;
       }
 
+      if (selectedFilter === 'custom') {
+        if (!startDate && !endDate) return true;
+
+        const startBoundary = startDate ? new Date(startDate + 'T00:00:00') : null;
+        const endBoundary = endDate ? new Date(endDate + 'T23:59:59.999') : null;
+
+        if (startBoundary && endBoundary) {
+          return eDate <= endBoundary && eEndDate >= startBoundary;
+        } else if (startBoundary) {
+          return eEndDate >= startBoundary;
+        } else if (endBoundary) {
+          return eDate <= endBoundary;
+        }
+        return true;
+      }
+
       return true;
     });
-  }, [initialEvents, selectedFilter]);
+  }, [initialEvents, selectedFilter, startDate, endDate]);
 
   const displayList = filteredEvents.slice(0, 6);
 
@@ -83,7 +101,20 @@ export function HomePageClient({ initialEvents }: HomePageClientProps) {
       {/* Date Filter Bar */}
       <DateFilterStrip
         selectedFilter={selectedFilter}
-        onSelectFilter={setSelectedFilter}
+        onSelectFilter={(filter) => {
+          setSelectedFilter(filter);
+          if (filter !== 'custom') {
+            setStartDate('');
+            setEndDate('');
+          }
+        }}
+        startDate={startDate}
+        endDate={endDate}
+        onDateRangeChange={(start, end) => {
+          setStartDate(start);
+          setEndDate(end);
+          setSelectedFilter('custom');
+        }}
       />
 
       {/* Events Grid */}
