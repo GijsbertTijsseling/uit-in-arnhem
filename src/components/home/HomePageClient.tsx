@@ -41,23 +41,29 @@ export function HomePageClient({ initialEvents }: HomePageClientProps) {
     return initialEvents.filter((event) => {
       const eDate = new Date(event.start_date);
       if (isNaN(eDate.getTime())) return true;
+      const eEndDate = event.end_date ? new Date(event.end_date) : eDate;
+
+      // Base filter: hide events that have already ended before today
+      if (eEndDate < today && eDate < today) {
+        return false;
+      }
 
       if (selectedFilter === 'today') {
         const endOfToday = new Date(today);
         endOfToday.setHours(23, 59, 59, 999);
-        return eDate >= today && eDate <= endOfToday;
+        return (eDate >= today && eDate <= endOfToday) || (eDate <= today && eEndDate >= today);
       }
 
       if (selectedFilter === 'tomorrow') {
-        return eDate >= tomorrow && eDate <= endOfTomorrow;
+        return (eDate >= tomorrow && eDate <= endOfTomorrow) || (eDate <= tomorrow && eEndDate >= tomorrow);
       }
 
       if (selectedFilter === 'weekend') {
-        return eDate >= friday && eDate <= sunday;
+        return (eDate >= friday && eDate <= sunday) || (eDate <= sunday && eEndDate >= friday);
       }
 
       if (selectedFilter === 'this_week') {
-        return eDate >= today && eDate <= nextWeek;
+        return (eDate >= today && eDate <= nextWeek) || (eDate <= nextWeek && eEndDate >= today);
       }
 
       if (selectedFilter === 'next_week') {

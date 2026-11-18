@@ -8,7 +8,7 @@ import { formatDate, formatTime } from '@/lib/utils';
 export const revalidate = 0;
 
 export default async function AdminAgendaListPage() {
-  const events = await getEvents();
+  const events = await getEvents({ includePast: true });
 
   return (
     <div className="space-y-6">

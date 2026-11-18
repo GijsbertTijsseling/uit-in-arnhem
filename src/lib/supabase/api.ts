@@ -61,13 +61,23 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
   return match || null;
 }
 
-export async function getEvents(): Promise<AgendaItem[]> {
+export async function getEvents(options: { includePast?: boolean } = {}): Promise<AgendaItem[]> {
   try {
     const supabase = createClient();
-    const { data, error } = await supabase
+    let query = supabase
       .from('events')
       .select('*, event_categories(name, slug)')
+      .eq('status', 'published')
       .order('start_date', { ascending: true });
+
+    if (!options.includePast) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const todayIso = today.toISOString();
+      query = query.or(`end_date.gte.${todayIso},and(end_date.is.null,start_date.gte.${todayIso})`);
+    }
+
+    const { data, error } = await query;
 
     if (error || !data) {
       console.error('Error fetching events:', error);
@@ -112,7 +122,7 @@ export async function getEvents(): Promise<AgendaItem[]> {
 }
 
 export async function getEventBySlug(slug: string): Promise<AgendaItem | null> {
-  const events = await getEvents();
+  const events = await getEvents({ includePast: true });
   const lower = slug.toLowerCase();
   const match = events.find((e) => 
     e.slug === slug || 

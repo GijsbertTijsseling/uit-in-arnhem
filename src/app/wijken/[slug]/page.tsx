@@ -100,8 +100,15 @@ export default async function DistrictDetailPage({
   // Only display authentic articles that belong to this district (no unrelated fallback)
   const displayedArticles = relatedArticles.slice(0, 6);
 
-  // Filter events strictly for this district based on authentic venues and tags
+  // Filter events strictly for this district based on authentic venues and tags (only current & upcoming)
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+
   const relatedEvents = allEvents.filter((event) => {
+    const eDate = new Date(event.start_date);
+    const eEndDate = event.end_date ? new Date(event.end_date) : eDate;
+    if (eEndDate < startOfToday && eDate < startOfToday) return false;
+
     const venue = (event.venue_name || '').toLowerCase();
     const address = (event.venue_address || '').toLowerCase();
     const title = (event.title || '').toLowerCase();

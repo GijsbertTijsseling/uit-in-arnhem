@@ -69,23 +69,29 @@ export function AgendaPageClient({
         if (!matchesTitle && !matchesDesc && !matchesVenue) return false;
       }
 
-      // 4. Date filter
+      // 4. Date filter: must be current or in the future
       const eDate = new Date(item.start_date);
       if (isNaN(eDate.getTime())) return true;
+      const eEndDate = item.end_date ? new Date(item.end_date) : eDate;
+
+      // Base filter: hide events that have already ended before today
+      if (eEndDate < today && eDate < today) {
+        return false;
+      }
 
       if (selectedDateFilter === 'today') {
         const endOfToday = new Date(today);
         endOfToday.setHours(23, 59, 59, 999);
-        return eDate >= today && eDate <= endOfToday;
+        return (eDate >= today && eDate <= endOfToday) || (eDate <= today && eEndDate >= today);
       }
       if (selectedDateFilter === 'tomorrow') {
-        return eDate >= tomorrow && eDate <= endOfTomorrow;
+        return (eDate >= tomorrow && eDate <= endOfTomorrow) || (eDate <= tomorrow && eEndDate >= tomorrow);
       }
       if (selectedDateFilter === 'weekend') {
-        return eDate >= friday && eDate <= sunday;
+        return (eDate >= friday && eDate <= sunday) || (eDate <= sunday && eEndDate >= friday);
       }
       if (selectedDateFilter === 'this_week') {
-        return eDate >= today && eDate <= nextWeek;
+        return (eDate >= today && eDate <= nextWeek) || (eDate <= nextWeek && eEndDate >= today);
       }
       if (selectedDateFilter === 'next_week') {
         const endOfNextWeek = new Date(nextWeek);
