@@ -193,56 +193,45 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                 </div>
               </div>
 
-              {/* Venue & Location (Clickable to Google Maps) */}
-              <a
-                href={googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Bekijk locatie in Google Maps"
-                className="flex items-start gap-3 group p-2.5 -m-2.5 rounded-2xl hover:bg-white hover:shadow-xs border border-transparent hover:border-zinc-200 transition-all cursor-pointer"
-              >
-                <div className="p-2 rounded-xl bg-white border border-zinc-200 text-[#FF4F00] group-hover:border-[#FF4F00]/40 group-hover:text-[#FF4F00] transition-colors shrink-0">
+              {/* Venue & Location */}
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-xl bg-white border border-zinc-200 text-[#FF4F00] shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
-                <div className="min-w-0">
-                  <div className="font-bold text-zinc-900 group-hover:text-[#FF4F00] transition-colors inline-flex items-center gap-1.5">
-                    <span>{event.venue_name}</span>
-                    <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-70 transition-opacity" />
-                  </div>
+                <div>
+                  <div className="font-bold text-zinc-900">{event.venue_name}</div>
                   {event.venue_address && (
-                    <div className="text-zinc-600 mt-0.5 group-hover:text-zinc-800 transition-colors">
-                      {event.venue_address}
-                    </div>
+                    <div className="text-zinc-600 mt-0.5">{event.venue_address}</div>
                   )}
                   {event.venue_city && (
-                    <div className="text-xs text-zinc-400 group-hover:text-zinc-500 transition-colors">
-                      {event.venue_city}
-                    </div>
+                    <div className="text-xs text-zinc-400 mt-0.5">{event.venue_city}</div>
                   )}
                 </div>
-              </a>
+              </div>
 
               {/* Mini Map preview */}
-              <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-zinc-200/90 shadow-2xs group">
-                <iframe
-                  title={`Kaart van ${event.venue_name}`}
-                  src={mapEmbedUrl}
-                  className="w-full h-full border-0 pointer-events-none filter saturate-90 contrast-95 group-hover:filter-none transition-all"
-                  loading="lazy"
-                />
-                {/* Clickable overlay to open Google Maps */}
-                <a
-                  href={googleMapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Open locatie in Google Maps"
-                  className="absolute inset-0 bg-transparent flex items-end justify-end p-2 group-hover:bg-black/5 transition-colors"
-                >
-                  <span className="bg-white/95 hover:bg-white text-zinc-800 text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-sm border border-zinc-200/90 backdrop-blur-xs flex items-center gap-1 transition-transform group-hover:scale-105">
-                    <span>Open kaart</span>
-                    <ExternalLink className="w-3 h-3 text-[#FF4F00]" />
-                  </span>
-                </a>
+              <div className="pt-2">
+                <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-zinc-200/90 shadow-2xs group">
+                  <iframe
+                    title={`Kaart van ${event.venue_name}`}
+                    src={mapEmbedUrl}
+                    className="w-full h-full border-0 pointer-events-none filter saturate-90 contrast-95 group-hover:filter-none transition-all"
+                    loading="lazy"
+                  />
+                  {/* Clickable overlay to open Google Maps */}
+                  <a
+                    href={googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Open locatie in Google Maps"
+                    className="absolute inset-0 bg-transparent flex items-end justify-end p-2 group-hover:bg-black/5 transition-colors"
+                  >
+                    <span className="bg-white/95 hover:bg-white text-zinc-800 text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-sm border border-zinc-200/90 backdrop-blur-xs flex items-center gap-1 transition-transform group-hover:scale-105">
+                      <span>Open kaart</span>
+                      <ExternalLink className="w-3 h-3 text-[#FF4F00]" />
+                    </span>
+                  </a>
+                </div>
               </div>
 
               {/* Organizer (only if known and distinct from venue) */}
