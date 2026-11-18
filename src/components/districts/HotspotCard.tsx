@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { HighlightItem } from '@/data/districtsData';
 import {
   Coffee,
@@ -8,6 +9,9 @@ import {
   Sparkles,
   MapPin,
   Lightbulb,
+  BookOpen,
+  Calendar,
+  ArrowRight,
 } from 'lucide-react';
 
 interface HotspotCardProps {
@@ -51,18 +55,64 @@ export function HotspotCard({ highlight, accentColor = '#FF4F00' }: HotspotCardP
     }
   };
 
+  const getSourceIcon = (sourceType: HighlightItem['sourceType']) => {
+    switch (sourceType) {
+      case 'article':
+        return <BookOpen className="w-3 h-3 text-[#FF4F00]" />;
+      case 'agenda':
+        return <Calendar className="w-3 h-3 text-[#FF4F00]" />;
+      case 'locatie':
+        return <MapPin className="w-3 h-3 text-[#FF4F00]" />;
+      default:
+        return <BookOpen className="w-3 h-3 text-[#FF4F00]" />;
+    }
+  };
+
+  const getSourceLabel = (sourceType: HighlightItem['sourceType']) => {
+    switch (sourceType) {
+      case 'article':
+        return 'Bron: Artikel';
+      case 'agenda':
+        return 'Bron: Uitagenda';
+      case 'locatie':
+        return 'Bron: Officiële Locatie';
+      default:
+        return 'Bron: Uit in Arnhem';
+    }
+  };
+
+  const getActionLabel = (sourceType: HighlightItem['sourceType']) => {
+    switch (sourceType) {
+      case 'article':
+        return 'Lees het artikel';
+      case 'agenda':
+        return 'Bekijk in agenda';
+      case 'locatie':
+        return 'Bekijk locatie & programma';
+      default:
+        return 'Ontdekken';
+    }
+  };
+
   return (
-    <div className="flex flex-col bg-white rounded-2xl p-5 sm:p-6 border border-zinc-200/80 hover:border-zinc-300 hover:shadow-lg transition-all duration-300">
-      {/* Category header */}
+    <div className="flex flex-col bg-white rounded-2xl p-5 sm:p-6 border border-zinc-200/80 hover:border-zinc-300 hover:shadow-lg transition-all duration-300 group">
+      {/* Category header & Source badge */}
       <div className="flex items-center justify-between gap-2 mb-3">
         <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-zinc-600 bg-zinc-100 px-2.5 py-1 rounded-full">
           {getCategoryIcon(highlight.category)}
           <span>{getCategoryLabel(highlight.category)}</span>
         </span>
+
+        {highlight.sourceType && (
+          <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-zinc-500 bg-zinc-50 border border-zinc-200/70 px-2 py-0.5 rounded-md">
+            {getSourceIcon(highlight.sourceType)}
+            <span>{getSourceLabel(highlight.sourceType)}</span>
+          </span>
+        )}
       </div>
 
       {/* Title */}
-      <h3 className="font-heading font-black text-lg sm:text-xl text-zinc-900 mb-2 leading-snug">
+      <h3 className="font-heading font-black text-lg sm:text-xl text-zinc-900 mb-2 leading-snug group-hover:text-[#FF4F00] transition-colors">
         {highlight.name}
       </h3>
 
@@ -82,13 +132,25 @@ export function HotspotCard({ highlight, accentColor = '#FF4F00' }: HotspotCardP
         </div>
       )}
 
-      {/* Address footer */}
-      {highlight.address && (
-        <div className="pt-3 border-t border-zinc-100 flex items-center gap-1.5 text-xs text-zinc-500 font-medium">
-          <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-          <span className="truncate">{highlight.address}</span>
-        </div>
-      )}
+      {/* Address & Verified Source Link Footer */}
+      <div className="pt-3 border-t border-zinc-100 flex flex-col gap-2">
+        {highlight.address && (
+          <div className="flex items-center gap-1.5 text-xs text-zinc-500 font-medium">
+            <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+            <span className="truncate">{highlight.address}</span>
+          </div>
+        )}
+
+        {highlight.sourceUrl && (
+          <Link
+            href={highlight.sourceUrl}
+            className="mt-1 inline-flex items-center justify-between text-xs font-bold text-[#FF4F00] hover:text-[#E04500] uppercase tracking-wider py-1.5 transition-colors group/link"
+          >
+            <span className="truncate">{getActionLabel(highlight.sourceType)}</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform shrink-0 ml-1" />
+          </Link>
+        )}
+      </div>
     </div>
   );
 }

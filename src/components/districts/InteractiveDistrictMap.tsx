@@ -261,11 +261,10 @@ export function InteractiveDistrictMap({
                     x="0"
                     y="6"
                     textAnchor="middle"
-                    className={`font-bold tracking-tight transition-all duration-200 ${
-                      isHovered
+                    className={`font-bold tracking-tight transition-all duration-200 ${isHovered
                         ? 'text-[13px] fill-neutral-950 font-black'
                         : 'text-[11px] fill-neutral-900 font-extrabold'
-                    }`}
+                      }`}
                     style={{
                       textShadow:
                         '0 1px 3px rgba(255,255,255,0.9), 0 0 6px #FFFFFF',
@@ -342,9 +341,8 @@ export function InteractiveDistrictMap({
                     x={labelX}
                     y={labelY}
                     textAnchor={textAnchor}
-                    className={`text-[9.5px] font-extrabold ${
-                      isFrost ? 'fill-red-800' : 'fill-slate-800'
-                    }`}
+                    className={`text-[9.5px] font-extrabold ${isFrost ? 'fill-red-800' : 'fill-slate-800'
+                      }`}
                     style={{ textShadow: '0 1px 3px rgba(255,255,255,0.95), 0 0 6px #FFFFFF' }}
                   >
                     {bridge.name}
@@ -435,11 +433,10 @@ export function InteractiveDistrictMap({
                   onMouseEnter={() => handleDistrictHover(district.slug)}
                   onMouseLeave={() => handleDistrictHover(null)}
                   onClick={() => handleDistrictClick(district)}
-                  className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
-                    isHovered || isSelected
+                  className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${isHovered || isSelected
                       ? 'bg-neutral-900 text-white shadow-md scale-105'
                       : 'bg-white text-neutral-700 border border-stone-200 hover:border-neutral-400 hover:bg-stone-50'
-                  }`}
+                    }`}
                 >
                   <span
                     className="w-2.5 h-2.5 rounded-full"

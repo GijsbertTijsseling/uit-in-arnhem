@@ -77,66 +77,52 @@ export default async function DistrictDetailPage({
     getEvents(),
   ]);
 
-  // Filter articles for this district
+  // Filter articles strictly for this district based on authentic tags and venue associations
   const relatedArticles = allArticles.filter((article) => {
-    // 1. Tag match
     const articleTags = (article.tags || []).map((t) => t.toLowerCase());
     const matchesTag = district.articleTags?.some((tag) =>
       articleTags.includes(tag.toLowerCase())
     );
 
-    // 2. Slug or name match in title, excerpt, content
-    const lowerSlug = district.slug.toLowerCase();
-    const lowerShortName = district.shortName.toLowerCase();
-    const searchSpace = `${article.title} ${article.excerpt} ${article.slug}`.toLowerCase();
-    const matchesText =
-      searchSpace.includes(lowerSlug) || searchSpace.includes(lowerShortName);
+    const searchSpace = `${article.title} ${article.excerpt || ''} ${article.slug}`.toLowerCase();
+    const matchesKeyword = (district.articleTags || []).some((kw) =>
+      searchSpace.includes(kw.toLowerCase())
+    );
 
-    return matchesTag || matchesText;
+    const matchesHighlight = district.highlights.some((h) => {
+      const cleanH = h.name.toLowerCase().split('&')[0].trim();
+      return cleanH.length > 3 && searchSpace.includes(cleanH);
+    });
+
+    return matchesTag || matchesKeyword || matchesHighlight;
   });
 
-  // If few specific articles, add other published articles to keep section rich
-  const displayedArticles =
-    relatedArticles.length >= 2
-      ? relatedArticles.slice(0, 3)
-      : [
-          ...relatedArticles,
-          ...allArticles.filter(
-            (a) => !relatedArticles.some((ra) => ra.id === a.id)
-          ),
-        ].slice(0, 3);
+  // Only display authentic articles that belong to this district (no unrelated fallback)
+  const displayedArticles = relatedArticles.slice(0, 6);
 
-  // Filter events for this district
+  // Filter events strictly for this district based on authentic venues and tags
   const relatedEvents = allEvents.filter((event) => {
     const venue = (event.venue_name || '').toLowerCase();
     const address = (event.venue_address || '').toLowerCase();
     const title = (event.title || '').toLowerCase();
-    const desc = (event.short_description || '').toLowerCase();
+    const desc = (event.short_description || event.full_description || '').toLowerCase();
     const searchSpace = `${venue} ${address} ${title} ${desc}`;
 
-    const lowerSlug = district.slug.toLowerCase();
-    const lowerShortName = district.shortName.toLowerCase();
-
-    // Check highlights names as venues
-    const matchesHighlightVenue = district.highlights.some((h) =>
-      searchSpace.includes(h.name.toLowerCase())
+    const matchesKeyword = (district.articleTags || []).some((kw) =>
+      searchSpace.includes(kw.toLowerCase())
     );
 
-    return (
-      searchSpace.includes(lowerSlug) ||
-      searchSpace.includes(lowerShortName) ||
-      matchesHighlightVenue
-    );
+    const matchesHighlightVenue = district.highlights.some((h) => {
+      const cleanH = h.name.toLowerCase().split('&')[0].trim();
+      const addrClean = (h.address || '').toLowerCase();
+      return (cleanH.length > 3 && searchSpace.includes(cleanH)) || (addrClean.length > 4 && address.includes(addrClean));
+    });
+
+    return matchesKeyword || matchesHighlightVenue;
   });
 
-  // If fewer than 2 specific events, augment with upcoming events
-  const displayedEvents =
-    relatedEvents.length >= 2
-      ? relatedEvents.slice(0, 3)
-      : [
-          ...relatedEvents,
-          ...allEvents.filter((e) => !relatedEvents.some((re) => re.id === e.id)),
-        ].slice(0, 3);
+  // Only display authentic events that belong to this district (no unrelated fallback)
+  const displayedEvents = relatedEvents.slice(0, 6);
 
   // Other districts for the navigation footer
   const otherDistricts = DISTRICTS.filter((d) => d.slug !== district.slug);

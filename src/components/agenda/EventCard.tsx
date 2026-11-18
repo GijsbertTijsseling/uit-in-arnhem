@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MapPin, Clock, Ticket, Sparkles } from 'lucide-react';
+import { MapPin, Clock, Sparkles } from 'lucide-react';
 import { AgendaItem } from '@/types';
 import { formatTime } from '@/lib/utils';
 
@@ -23,9 +23,12 @@ export function EventCard({ event }: EventCardProps) {
   const isFree = event.price_type === 'free' || event.price_from === 0;
 
   return (
-    <article className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200/80 hover:border-zinc-300 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+    <Link
+      href={`/agenda/${event.slug}`}
+      className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200/80 hover:border-zinc-300 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+    >
       {/* Image container */}
-      <Link href={`/agenda/${event.slug}`} className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100">
+      <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100">
         <Image
           src={event.hero_image_url || '/logo.png'}
           alt={event.title}
@@ -71,58 +74,36 @@ export function EventCard({ event }: EventCardProps) {
             {isFree ? 'Gratis' : `Vanaf €${event.price_from?.toFixed(2) || '–'}`}
           </span>
         </div>
-      </Link>
+      </div>
 
       {/* Content */}
-      <div className="p-5 flex-1 flex flex-col justify-between">
-        <div>
-          {/* Venue & Time metadata */}
-          <div className="flex items-center gap-4 text-xs font-medium text-zinc-500 mb-2">
-            <div className="flex items-center gap-1.5 truncate">
-              <MapPin className="w-3.5 h-3.5 text-[#FF4F00] shrink-0" />
-              <span className="truncate">{event.venue_name}</span>
-            </div>
-            {timeStr && (
-              <div className="flex items-center gap-1 shrink-0">
-                <Clock className="w-3.5 h-3.5 text-zinc-400" />
-                <span>{timeStr}</span>
-              </div>
-            )}
+      <div className="p-5 flex-1 flex flex-col">
+        {/* Venue & Time metadata */}
+        <div className="flex items-center gap-4 text-xs font-medium text-zinc-500 mb-2">
+          <div className="flex items-center gap-1.5 truncate">
+            <MapPin className="w-3.5 h-3.5 text-[#FF4F00] shrink-0" />
+            <span className="truncate">{event.venue_name}</span>
           </div>
+          {timeStr && (
+            <div className="flex items-center gap-1 shrink-0">
+              <Clock className="w-3.5 h-3.5 text-zinc-400" />
+              <span>{timeStr}</span>
+            </div>
+          )}
+        </div>
 
-          {/* Title */}
-          <h3 className="font-heading font-bold text-lg text-zinc-900 leading-snug group-hover:text-[#FF4F00] transition-colors line-clamp-2">
-            <Link href={`/agenda/${event.slug}`}>{event.title}</Link>
-          </h3>
+        {/* Title */}
+        <h3 className="font-heading font-bold text-lg text-zinc-900 leading-snug group-hover:text-[#FF4F00] transition-colors line-clamp-2">
+          {event.title}
+        </h3>
 
-          {/* Short description */}
+        {/* Short description */}
+        {event.short_description && (
           <p className="text-sm text-zinc-600 mt-2 line-clamp-2 leading-relaxed">
             {event.short_description}
           </p>
-        </div>
-
-        {/* Footer actions */}
-        <div className="pt-4 mt-4 border-t border-zinc-100 flex items-center justify-between">
-          <Link
-            href={`/agenda/${event.slug}`}
-            className="text-xs font-bold text-[#FF4F00] hover:text-[#E04500] uppercase tracking-wider inline-flex items-center gap-1"
-          >
-            Details & Info →
-          </Link>
-
-          {event.ticket_url && (
-            <a
-              href={event.ticket_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full bg-zinc-900 text-white hover:bg-[#FF4F00] transition-colors"
-            >
-              <Ticket className="w-3.5 h-3.5" />
-              Tickets
-            </a>
-          )}
-        </div>
+        )}
       </div>
-    </article>
+    </Link>
   );
 }

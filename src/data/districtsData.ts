@@ -5,6 +5,9 @@ export interface HighlightItem {
   address?: string;
   image?: string;
   tip?: string;
+  sourceType: 'article' | 'agenda' | 'locatie';
+  sourceTitle: string;
+  sourceUrl: string;
 }
 
 export interface TransportInfo {
@@ -145,44 +148,59 @@ export const DISTRICTS: District[] = [
     landmarkLabel: 'Eusebiuskerk',
     highlights: [
       {
-        name: 'Eusebiuskerk & Glazen Balkons',
+        name: 'Eusebiuskerk & Glazen Balkon',
         category: 'bezienswaardigheid',
         description:
           'Zweef in de panoramalift 73 meter omhoog en stap op de spectaculaire glazen balkons voor een 360° uitzicht over Arnhem en de Rijn.',
         address: 'Kerkplein 1',
-        tip: 'Boek de torentour tijdens zonsondergang voor magisch licht.',
+        tip: 'Bezoek het glazen balkon tijdens helder weer voor vergezichten tot aan Nijmegen en de Veluwe.',
+        sourceType: 'article',
+        sourceTitle: 'Het glazen balkon van de Eusebius',
+        sourceUrl: '/artikelen/de-eerste-keer-glazen-balkon-eusiebius',
       },
       {
-        name: 'De 7straatjes',
-        category: 'winkelen',
+        name: 'Focus Filmtheater',
+        category: 'cultuur',
         description:
-          'Karakteristieke historische straatjes vol onafhankelijke boetieks, ateliers, concept stores en ambachtelijke bakkers.',
-        address: 'Kerkstraat, Arke Noachstraat e.o.',
-        tip: 'Bezoek hier unieke vintage mode en handgemaakte sieraden.',
+          'Hét toonaangevende filmtheater van Arnhem met filmzalen, openlucht bioscoopdak en levendig café aan het Audrey Hepburnplein.',
+        address: 'Audrey Hepburnplein 1',
+        tip: 'In de zomermaanden zijn de openlucht filmavonden op het dakterras een unieke Arnhemse ervaring.',
+        sourceType: 'article',
+        sourceTitle: 'Extra kinderfilms in Paasweekend bij Focus Filmtheater Arnhem',
+        sourceUrl: '/artikelen/extra-kinderfilms-in-paasweekend-bij-focus-filmtheater-arnhem',
       },
       {
         name: 'Rozet Cultuurhuis',
         category: 'cultuur',
         description:
-          'Bekroond architectonisch icoon met de stadsbibliotheek, Erfgoedcentrum, kunstexposities en een prachtig dakterras.',
+          'Bekroond architectonisch icoon met de stadsbibliotheek, Erfgoedcentrum Rozet, kunstexposities en een panoramisch dakterras.',
         address: 'Kortestraat 16',
-        tip: 'Het dakterras is gratis toegankelijk met weids zicht op de binnenstad.',
+        tip: 'Het dakterras is gratis toegankelijk met een weids uitzicht over de binnenstad.',
+        sourceType: 'article',
+        sourceTitle: 'Rozet in De Stijl!',
+        sourceUrl: '/artikelen/rozet-in-de-stijl',
       },
       {
-        name: 'Korenmarkt & Jansplaats',
-        category: 'eten-drinken',
+        name: 'Boekhandel Het Colofon',
+        category: 'winkelen',
         description:
-          'Hét plein voor borrels, cafés en gastronomische ontdekkingen onder de platanen.',
-        address: 'Korenmarkt / Jansplaats',
-        tip: 'Perfect startpunt voor een gezellige avond uit.',
+          'Sfeervolle onafhankelijke boekhandel in de 7straatjes met duizenden boeken, vinyl, live muziek en een fijn café.',
+        address: 'Bakkerstraat 56',
+        tip: 'Strijk neer voor een kop koffie en een goed boek in de themakamers.',
+        sourceType: 'locatie',
+        sourceTitle: 'Het Colofon',
+        sourceUrl: '/agenda?search=Colofon',
       },
       {
-        name: 'Rijnkade Boulevard',
-        category: 'eten-drinken',
+        name: 'Rijnkade Boulevard & John Frostbrug',
+        category: 'bezienswaardigheid',
         description:
-          'Flaneren langs de kade met uitzicht op voorbijvarende schepen, de John Frostbrug en sfeervolle vis- en grillrestaurants.',
+          'Flaneren langs het water met uitzicht op voorbijvarende schepen, de historische John Frostbrug en sfeervolle terrassen.',
         address: 'Rijnkade',
-        tip: 'In de zomer een geliefde plek voor diner aan het water.',
+        tip: 'Ieder jaar in september het decor van de indrukwekkende herdenkingsavond Bridge to Liberation.',
+        sourceType: 'article',
+        sourceTitle: 'Bridge to Liberation – Herdenkingsavond Slag om Arnhem',
+        sourceUrl: '/artikelen/bridge-to-liberation-herdenking-slag-om-arnhem',
       },
     ],
     transportInfo: {
@@ -191,12 +209,11 @@ export const DISTRICTS: District[] = [
       parking: 'Parkeergarages Centraal, Rozet, Musis en Langstraat liggen direct rond het voetgangersgebied.',
     },
     heroImage:
-      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2024/01/juune1-c-jonas-de-witte-vierkant-2959072273_2734816142.jpg',
     galleryImages: [
-      'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2026/11/55002413960_8f66c3aa22_o-2-1.jpg',
     ],
-    articleTags: ['centrum', 'binnenstad', 'shoppen', '7straatjes', 'eusebius', 'horeca'],
+    articleTags: ['binnenstad', 'centrum', '7straatjes', 'korenmarkt', 'jansplaats', 'eusebius', 'rozet', 'rijnkade', 'focus', 'luxor', 'musis', 'colofon'],
   },
   {
     id: 'spijkerkwartier',
@@ -221,34 +238,70 @@ export const DISTRICTS: District[] = [
     landmarkLabel: 'Stadstuinen',
     highlights: [
       {
-        name: 'Verborgen Stadstuinen van Spijkerkwartier',
+        name: 'Vrijstaat Thialf & Brasserie Thialf',
+        category: 'actief',
+        description:
+          'Het bruisende sociale hart van het Spijkerkwartier met wijkpark, speeltuin, gezellige brasserie en het jaarlijkse Festival Spijkerrok.',
+        address: 'Dullertstraat 33',
+        tip: 'In de zomer een heerlijke ontmoetingsplek voor jong en oud op het groene terras.',
+        sourceType: 'article',
+        sourceTitle: 'Festival Spijkerrok op Vrijstaat Thialf',
+        sourceUrl: '/artikelen/festival-spijkerrok-op-vrijstaat-thialf',
+      },
+      {
+        name: 'Bakkerij Tom van Otterloo (Steenstraat)',
+        category: 'eten-drinken',
+        description:
+          'Ambachtelijke biologische bakkerij aan de levendige Steenstraat, bekend om authentiek desembrood en lokale ingrediënten.',
+        address: 'Steenstraat 83',
+        tip: 'Probeer het desembrood gemaakt van lokaal Gelders graan.',
+        sourceType: 'article',
+        sourceTitle: 'Tom van Otterloo serveert smaak met duurzaamheid',
+        sourceUrl: '/artikelen/tom-van-otterloo-serveert-smaak-met-duurzaamheid',
+      },
+      {
+        name: 'Klimaatroute & Verborgen Binnentuinen',
         category: 'natuur',
         description:
-          'Een oase van rust midden in de stad: ontdek de Lommerrijke Tuin, Watertuin en Ecologische Tuin verscholen achter monumentale poorten.',
-        address: 'Diverse ingangen rond Driekoningendwarsstraat',
-        tip: 'Loop rustig door de poortjes; deze paradijsjes zijn overdag vrij toegankelijk.',
+          'Ontdek de beroemde ecologische binnentuinen en klimaatadaptieve groene straten die het Spijkerkwartier tot een voorbeeldwijk maken.',
+        address: 'Spijkerstraat / Driekoningendwarsstraat',
+        tip: 'Wandel door de poortjes naar de Lommerrijke Tuin en de Watertuin voor serene rust midden in de stad.',
+        sourceType: 'article',
+        sourceTitle: 'Loop mee met de klimaatroute door het Spijkerkwartier',
+        sourceUrl: '/artikelen/loop-mee-met-de-klimaatroute-door-het-spijkerkwartier-in-arnhem',
+      },
+      {
+        name: 'Buurthuis De Lommerd',
+        category: 'cultuur',
+        description:
+          'Monumentaal wijkcentrum in een voormalige school, ontmoetingsplek voor kunstexposities, buurtinitiatieven en culturele evenementen.',
+        address: 'Spijkerstraat 185A',
+        tip: 'Bekijk de wisselende exposities van lokale kunstenaars en wijkbewoners.',
+        sourceType: 'locatie',
+        sourceTitle: 'Buurthuis De Lommerd',
+        sourceUrl: '/agenda?search=Lommerd',
       },
       {
         name: 'Café Vrijdag',
         category: 'eten-drinken',
         description:
-          'De ultieme ontmoetingsplek voor buurtbewoners met uitstekende koffie, huisgemaakte taarten en een zonovergoten hoekterras.',
-        address: 'Velperbuitensingel 21a',
-        tip: 'Probeer de seizoensgebonden lunchgerechten.',
+          'Gezellige, huiselijke ontmoetingsplek aan de rand van het Spijkerkwartier voor koffie, tosti’s, huisgemaakte taart, bordspellen en een zonnig hoekterras.',
+        address: 'Velperbuitensingel 21-A',
+        tip: 'Geliefde huiskamerlocatie voor buurtbewoners en deelnemende locatie van wijkinitiatieven zoals Kunst op de Koffie.',
+        sourceType: 'article',
+        sourceTitle: 'Kunst Op De Koffie in het Spijkerkwartier',
+        sourceUrl: '/artikelen/kunst-op-de-koffie',
       },
       {
-        name: 'Thialf Wijkpark & Speeltuin',
-        category: 'actief',
+        name: 'Kunst op de Koffie',
+        category: 'cultuur',
         description:
-          'Het bruisende sociale hart van de buurt met terras, speelruimte en buurtevents.',
-        address: 'Driekoningendwarsstraat 10',
-      },
-      {
-        name: 'Steenstraat Speciaalzaken',
-        category: 'winkelen',
-        description:
-          'Een levendige straat met internationale kruideniers, authentieke bakkers en vintage vinyl.',
-        address: 'Steenstraat',
+          'Bijzonder tweejaarlijks kunstfestival waarbij kunstenaars exposeren in de historische huiskamers en binnentuinen van wijkbewoners.',
+        address: 'Spijkerkwartier',
+        tip: 'Een unieke kans om achter de monumentale gevels van de 19e-eeuwse herenhuizen te kijken.',
+        sourceType: 'article',
+        sourceTitle: 'Kunst op de koffie in het Spijkerkwartier',
+        sourceUrl: '/artikelen/kunst-op-koffie',
       },
     ],
     transportInfo: {
@@ -257,11 +310,11 @@ export const DISTRICTS: District[] = [
       parking: 'Betaald parkeren in de wijk of parkeergarage Musis nabij de singel.',
     },
     heroImage:
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2020/08/AM_VerlatenVrouwen_03-1-LRG-CROP.jpg',
     galleryImages: [
-      'https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=800&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2020/08/Sonsbeekmarkt.jpg',
     ],
-    articleTags: ['spijkerkwartier', 'stadstuinen', 'steenstraat', 'architectuur', 'koffie'],
+    articleTags: ['spijkerkwartier', 'spijkerstraat', 'thialf', 'steenstraat', 'lommerd', 'otterloo', 'gavius', 'cafe vrijdag'],
   },
   {
     id: 'modekwartier',
@@ -286,41 +339,59 @@ export const DISTRICTS: District[] = [
     landmarkLabel: 'Mode & Design',
     highlights: [
       {
-        name: 'Klarendalseweg Ateliers',
-        category: 'winkelen',
-        description:
-          'Wandel langs meer dan 50 designateliers, hoedenmakers, keramisten en modeontwerpers.',
-        address: 'Klarendalseweg',
-        tip: 'Kijk gerust naar binnen: veel ontwerpers tonen met plezier hun werkproces.',
-      },
-      {
         name: 'Restaurant Goed Proeven',
         category: 'eten-drinken',
         description:
-          'Gevestigd in een voormalig kloosterpand: genieten van creatieve sharing gerechten en een sfeervolle binnentuin.',
+          'Gevestigd in een voormalig kloosterpand in het hart van Klarendal: creatieve gerechten om te delen en een sfeervolle binnentuin.',
         address: 'Klarendalseweg 536',
-        tip: 'Reserveren voor het weekend is aan te raden!',
-      },
-      {
-        name: 'Station Klarendal',
-        category: 'eten-drinken',
-        description:
-          'Het iconische monumentale postkantoortje op het plein, nu een geliefd café voor lunch en borrels.',
-        address: 'Klarendalseweg 193',
+        tip: 'De zonnige binnentuin is een van de best bewaarde geheimen van het Modekwartier.',
+        sourceType: 'locatie',
+        sourceTitle: 'Goed Proeven',
+        sourceUrl: '/artikelen/klarendal',
       },
       {
         name: 'Molen De Kroon',
         category: 'bezienswaardigheid',
         description:
-          'Historische korenmolen uit 1849 die nog altijd meel maalt voor lokale bakkers.',
+          'Historische korenmolen uit 1849 die nog altijd meel maalt en het decor vormt voor het jaarlijkse Klarendalse Molenfeest.',
         address: 'Klarendalseweg 82',
+        tip: 'Iedere zaterdag geopend voor bezoekers om vers gemalen pannenkoekenmeel te kopen.',
+        sourceType: 'article',
+        sourceTitle: 'Heropening Molen de Kroon | Klarendals Molenfeest',
+        sourceUrl: '/artikelen/heropening-molen-de-kroon',
       },
       {
-        name: 'Sugar Hill',
+        name: 'Modekwartier Designateliers',
+        category: 'winkelen',
+        description:
+          'Meer dan 50 ateliers, modeontwerpers, sieradenmakers en conceptstores langs de Klarendalseweg.',
+        address: 'Klarendalseweg',
+        tip: 'Wandel van noord naar zuid over de Klarendalseweg en ontdek unieke handgemaakte stukken.',
+        sourceType: 'article',
+        sourceTitle: 'Nieuwe conceptstore opent deuren in Modekwartier',
+        sourceUrl: '/artikelen/nieuwe-conceptstore-opent-deuren-in-modekwartier',
+      },
+      {
+        name: 'Café Restaurant Sugar Hill',
         category: 'eten-drinken',
         description:
-          'Arnhems icoon voor de allerbeste ambachtelijke burgers, natuurwijnen en huisgemaakte taarten.',
+          'Karakteristiek eetcafé op de hoek van de Klarendalseweg, vermaard om ambachtelijke gerechten, goede wijnen en huisgemaakte taarten.',
         address: 'Klarendalseweg 192',
+        tip: 'Vaste pleisterplaats voor creatieve wijkbewoners en bezoekers.',
+        sourceType: 'article',
+        sourceTitle: 'Klarendal: bruisende volkswijk en creatief hart van designstad Arnhem',
+        sourceUrl: '/artikelen/klarendal',
+      },
+      {
+        name: 'Uitgeverij Loopvis & ABC Libertas',
+        category: 'cultuur',
+        description:
+          'Duurzame Arnhemse uitgeverij en creatieve studio gespecialiseerd in bijzondere boeken, proeverijen en papierkunst.',
+        address: 'Klarendalseweg 477',
+        tip: 'Gevestigd in het monumentale ABC Libertas pand met regelmatige workshops en presentaties.',
+        sourceType: 'article',
+        sourceTitle: 'Uitgeverij Loopvis: Liefdewerk en nieuw papier',
+        sourceUrl: '/artikelen/uitgeverij-loopvis-liefdewerk-en-nieuw-papier',
       },
     ],
     transportInfo: {
@@ -329,11 +400,11 @@ export const DISTRICTS: District[] = [
       parking: 'Gratis parkeerterrein bij de wijk aan de Hommelseweg en parkeerplekken langs de wijkstraten.',
     },
     heroImage:
-      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2024/05/Street-Art-Tour-20230804_105441-scaled.jpg',
     galleryImages: [
-      'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2024/01/juune1-c-jonas-de-witte-vierkant-2959072273_2734816142.jpg',
     ],
-    articleTags: ['modekwartier', 'klarendal', 'design', 'ambacht', 'goedproeven', 'mode'],
+    articleTags: ['modekwartier', 'klarendal', 'klarendalseweg', 'kroon', 'goed proeven', 'sugar hill', 'loopvis'],
   },
   {
     id: 'sonsbeek',
@@ -363,35 +434,54 @@ export const DISTRICTS: District[] = [
         description:
           'Statig landhuis bovenop de heuvel met een grand café en een panoramaterras over de hele stad.',
         address: 'Tellegenlaan 3',
-        tip: 'Geniet hier op een zonnige zondagmiddag van een streekbiertje met uitzicht.',
+        tip: 'Geniet hier op een zonnige middag van een drankje met weids uitzicht over de Arnhemse skyline.',
+        sourceType: 'article',
+        sourceTitle: 'NYE in Stadsvilla Sonsbeek | Villa Volta',
+        sourceUrl: '/artikelen/nye-villa-volta',
       },
       {
-        name: 'De Grote Waterval & Steile Tuin',
-        category: 'natuur',
+        name: 'Ketelhuis Sonsbeek',
+        category: 'eten-drinken',
         description:
-          'Romantische waterpartijen, rotstuinen en bloeiende terrassen ontworpen door landschapsarchitect Zocher.',
-        address: 'Zijpendaalseweg',
+          'Industrieel monumentaal pand verscholen tussen de monumentale beuken van Sonsbeek voor een ontspannen lunch of borrel.',
+        address: 'Tellegenlaan 4',
+        tip: 'Perfect te combineren met een wandeling langs de watervallen en de Steile Tuin.',
+        sourceType: 'article',
+        sourceTitle: 'Lunchen bij Ketelhuis Sonsbeek',
+        sourceUrl: '/artikelen/lunchen-bij-ketelhuis-sonsbeek',
       },
       {
         name: 'Nederlands Watermuseum',
         category: 'cultuur',
         description:
-          'Interactief doe-museum over water in al haar facetten, gevestigd aan de Begijnebemden.',
-        address: 'Zijpendaalseweg 26-27',
+          'Interactief doe-museum over water in al haar facetten, gevestigd aan de kabbelende Sint Jansbeek.',
+        address: 'Zijpendaalseweg 26-28',
+        tip: 'Een fantastisch en leerzaam uitje voor gezinnen met kinderen direct aan het park.',
+        sourceType: 'locatie',
+        sourceTitle: 'Watermuseum',
+        sourceUrl: '/agenda?search=Watermuseum',
       },
       {
-        name: 'Kasteel & Park Zypendaal',
+        name: 'Huis & Park Zypendaal',
         category: 'bezienswaardigheid',
         description:
-          '18e-eeuws landhuis met slotgracht, omgeven door een oase van rust en eeuwenoude bomenlanen.',
+          'Schilderachtig 18e-eeuws landhuis met slotgracht, omgeven door rustige bomenlanen en rododendrons.',
         address: 'Zijpendaalseweg 44',
+        tip: 'Wandel via de bosvalleien direct van Sonsbeek door naar Zypendaal.',
+        sourceType: 'locatie',
+        sourceTitle: 'Huis Zypendaal',
+        sourceUrl: '/agenda?search=Zypendaal',
       },
       {
-        name: 'De Boerderij Sonsbeek',
-        category: 'eten-drinken',
+        name: 'Molenplaats Sonsbeek & De Ronde Weide',
+        category: 'natuur',
         description:
-          'Karakteristieke theetuin en restaurant aan de rand van de grote vijver met zwanen.',
-        address: 'Parkweg 2',
+          'Historische watermolen met theetuin en bezoekerscentrum, startpunt voor wandelroutes en culturele festivals zoals SonsbeekTheaterAvenue.',
+        address: 'Zijpendaalseweg 24a',
+        tip: 'Strijk neer op het terras aan de beek voor biologische streekproducten.',
+        sourceType: 'article',
+        sourceTitle: 'SonsbeekTheaterAvenue',
+        sourceUrl: '/artikelen/sonsbeektheateravenue',
       },
     ],
     transportInfo: {
@@ -400,11 +490,11 @@ export const DISTRICTS: District[] = [
       parking: 'Parkeren kan langs de Zijpendaalseweg of in parkeergarage Centraal.',
     },
     heroImage:
-      'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2020/08/Sonsbeekmarkt.jpg',
     galleryImages: [
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2024/04/Ketelhuis-Sonsbeek-6.jpg',
     ],
-    articleTags: ['sonsbeek', 'parken', 'zypendaal', 'wittevilla', 'natuur', 'wandelen'],
+    articleTags: ['sonsbeek', 'zypendaal', 'watermuseum', 'witte villa', 'ketelhuis', 'ronde weide', 'molenplaats'],
   },
   {
     id: 'arnhem-west',
@@ -432,30 +522,56 @@ export const DISTRICTS: District[] = [
         name: 'Museum Arnhem & Beeldentuin',
         category: 'cultuur',
         description:
-          'Toonaangevend museum voor moderne en hedendaagse kunst met een glazen uitkijkpunt dat boven de rivier zweeft.',
+          'Toonaangevend museum voor moderne en hedendaagse kunst op de hoge stuwwal, met een spectaculaire glazen uitkijkvleugel boven de Rijn.',
         address: 'Utrechtseweg 87',
         tip: 'De gratis toegankelijke beeldentuin biedt een van de mooiste vergezichten van Nederland.',
+        sourceType: 'article',
+        sourceTitle: 'Saskia Bak, directeur museum Arnhem: “Mijn opa bouwde als timmerman mee aan de Eusebiuskerk”',
+        sourceUrl: '/artikelen/saskia-bak-directeur-museum-arnhem-opa-bouwde-als-timmerman-mee-aan-eusebiuskerk',
       },
       {
-        name: 'Landgoed Mariëndaal & De Groene Bedstee',
-        category: 'natuur',
+        name: 'Airborne Museum Hartenstein',
+        category: 'cultuur',
         description:
-          'Historisch landgoed met de beroemde 300 meter lange beukenloofgang (De Groene Bedstee) en heuvelachtige wandelpaden.',
-        address: 'Mariëndaal',
+          'Het voormalige Britse hoofdkwartier tijdens de Slag om Arnhem in september 1944, met een indrukwekkende Airborne Experience.',
+        address: 'Utrechtseweg 232',
+        tip: 'Volg de historische wandelroutes van de para’s vanaf de Utrechtseweg richting de Rijnbrug.',
+        sourceType: 'article',
+        sourceTitle: 'Rondleiding door Airborne Museum Hartenstein',
+        sourceUrl: '/artikelen/rondleiding-airborne-museum-hartenstein',
       },
       {
-        name: 'Koffiecafé & Bakkershoek Meijer & Beijer',
-        category: 'eten-drinken',
+        name: 'Broedplaats De Transformatie',
+        category: 'cultuur',
         description:
-          'Gezellige ontmoetingsplek in Heijenoord voor specialty coffee, vers desembrood en heerlijke brunch.',
-        address: 'Utrechtseweg 54',
+          'Grootschalige creatieve broedplaats in een voormalig schoolcomplex in Heijenoord met ateliers, theatermakers en exposities.',
+        address: 'Van Oldenbarneveldtstraat 90',
+        tip: 'Houd de open atelierdagen en Transformatie-Lab presentaties in de gaten.',
+        sourceType: 'article',
+        sourceTitle: 'Transformatie-Lab',
+        sourceUrl: '/artikelen/transformatie-lab',
       },
       {
-        name: 'Airborne Herinneringen & Klingelbeek',
+        name: 'Arnhems Buiten & De Zoetenlab',
         category: 'bezienswaardigheid',
         description:
-          'Historische routes langs de route van de Britse para’s in september 1944 richting de brug.',
-        address: 'Utrechtseweg / Klingelbeekseweg',
+          'Het monumentale voormalige KEMA-terrein vol parkachtige architectuur, bossen, innovatieve bedrijven en culturele bijeenkomsten.',
+        address: 'Utrechtseweg 310',
+        tip: 'Een schitterend groen wandelgebied tussen monumentale gebouwen en eeuwenoude bomen.',
+        sourceType: 'locatie',
+        sourceTitle: 'Arnhems Buiten',
+        sourceUrl: '/agenda?search=Arnhems+Buiten',
+      },
+      {
+        name: 'Restaurant Klein Hartenstein',
+        category: 'eten-drinken',
+        description:
+          'Sfeervol restaurant gelegen in het groen aan de historische Utrechtseweg, met verfijnde seizoensgerechten en een ruim terras.',
+        address: 'Utrechtseweg 226',
+        tip: 'Ideaal start- of rustpunt tijdens een wandeling of fietstocht over de Utrechtseweg.',
+        sourceType: 'article',
+        sourceTitle: 'Uit eten bij: Restaurant Klein Hartenstein',
+        sourceUrl: '/artikelen/eten-restaurant-klein-hartenstein',
       },
     ],
     transportInfo: {
@@ -464,11 +580,11 @@ export const DISTRICTS: District[] = [
       parking: 'Parkeren bij het museumterrein of in de omliggende groene lanen.',
     },
     heroImage:
-      'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1600&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2021/08/Afbeelding-Bronbeek-scaled.jpg',
     galleryImages: [
-      'https://images.unsplash.com/photo-1578925518470-4def7a0f08bb?auto=format&fit=crop&w=800&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2024/05/Street-Art-Tour-20230804_105441-scaled.jpg',
     ],
-    articleTags: ['arnhem-west', 'museum-arnhem', 'kunst', 'mariendaal', 'rijnzicht'],
+    articleTags: ['arnhem-west', 'museum arnhem', 'mariendaal', 'mariëndaal', 'heijenoord', 'klingelbeek', 'arnhems buiten', 'transformatie', 'hartenstein', 'pierre janssen'],
   },
   {
     id: 'arnhem-noord',
@@ -493,33 +609,48 @@ export const DISTRICTS: District[] = [
     landmarkLabel: "Burgers' Zoo & Openluchtmuseum",
     highlights: [
       {
+        name: 'Nederlands Openluchtmuseum',
+        category: 'cultuur',
+        description:
+          'Wandel door eeuwen Nederlandse geschiedenis met authentieke boerderijen, historische trams, ambachtslieden en de Canon van Nederland.',
+        address: 'Hoeferlaan 4',
+        tip: 'Maak een ritje met de historische elektrische tram over het heuvelachtige museumpark.',
+        sourceType: 'article',
+        sourceTitle: 'We hebben wat te vieren: Nederlands Openluchtmuseum wordt 100 jaar!',
+        sourceUrl: '/artikelen/nederlands-openluchtmuseum-100-jaar',
+      },
+      {
         name: "Koninklijke Burgers' Zoo",
         category: 'cultuur',
         description:
           'Wereldberoemd ecodierenpark met overdekte werelden: Bush, Desert, Ocean, Mangrove en Safari.',
         address: 'Antoon van Hooffplein 1',
-        tip: 'Neem ruim de tijd voor de Mangrove, het grootste overdekte mangrovegebied ter wereld.',
+        tip: 'In de Mangrove loop je tussen vrij rondvliegende vlinders en zeekoeien in het grootste overdekte mangrovegebied ter wereld.',
+        sourceType: 'locatie',
+        sourceTitle: "Burgers' Zoo",
+        sourceUrl: '/agenda?search=Burgers',
       },
       {
-        name: 'Nederlands Openluchtmuseum',
+        name: 'Museum Bronbeek',
         category: 'cultuur',
         description:
-          'Wandel door eeuwen Nederlandse geschiedenis met authentieke molens, boerderijen, historische trams en de Canon van Nederland.',
-        address: 'Hoeferlaan 4',
+          'Koninklijk tehuis voor oud-militairen en museum gewijd aan het koloniale verleden en het voormalig Nederlands-Indië.',
+        address: 'Velperweg 147',
+        tip: 'Wandel door het monumentale park met historische kanonnen en herdenkingsmonumenten.',
+        sourceType: 'article',
+        sourceTitle: 'Week van de Koloniale Geschiedenis in Museum Bronbeek',
+        sourceUrl: '/artikelen/week-van-de-koloniale-geschiedenis-in-museum-bronbeek',
       },
       {
-        name: 'Schaarsbergen Heide & Veluwezoom',
+        name: 'Posbank & Nationaal Park Veluwezoom',
         category: 'natuur',
         description:
-          'Eindeloze wandel- en mountainbikeroutes over glooiende heidevelden en door dichte loofbossen.',
-        address: 'Schaarsbergen',
-      },
-      {
-        name: 'Boerderij Meyendel & Pinetum',
-        category: 'natuur',
-        description:
-          'Rustieke rustpunten voor een kop koffie of pannenkoek na een boswandeling.',
-        address: 'Koningsweg',
+          'Eindeloze vergezichten over glooiende heidevelden, heuvels tot 90 meter boven NAP en uitgestrekte bossen.',
+        address: 'Heuvenseweg',
+        tip: 'In augustus en september kleurt de heide adembenemend paars.',
+        sourceType: 'locatie',
+        sourceTitle: 'Posbank',
+        sourceUrl: '/agenda?search=Posbank',
       },
     ],
     transportInfo: {
@@ -528,11 +659,11 @@ export const DISTRICTS: District[] = [
       parking: 'Grote parkeerterreinen bij Burgers’ Zoo, Openluchtmuseum en Transferium Arnhem-Noord (A12).',
     },
     heroImage:
-      'https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=1600&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2021/08/Afbeelding-Bronbeek-scaled.jpg',
     galleryImages: [
-      'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=800&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2020/08/Sonsbeekmarkt.jpg',
     ],
-    articleTags: ['arnhem-noord', 'veluwe', 'burgerszoo', 'openluchtmuseum', 'bossen'],
+    articleTags: ['openluchtmuseum', 'burgers', 'zoo', 'bronbeek', 'schaarsbergen', 'posbank', 'veluwe'],
   },
   {
     id: 'arnhem-oost',
@@ -557,33 +688,48 @@ export const DISTRICTS: District[] = [
     landmarkLabel: 'Park Presikhaaf & HAN',
     highlights: [
       {
-        name: 'Park Presikhaaf & Stadsboerderij',
-        category: 'natuur',
-        description:
-          'Groot stadspark met een prachtige heemtuin, theehuis, educatieve stadsboerderij en grote waterpartijen.',
-        address: 'Ruitenberglaan 4',
-        tip: 'Geweldige plek voor een picknick of ontspannen wandeling met kinderen.',
-      },
-      {
         name: 'Industriepark Kleefse Waard (IPKW)',
         category: 'cultuur',
         description:
-          'Prijswinnende cleantech-campus op voormalig fabrieksterrein met evenementen, kunstinstallaties en Restaurant De Kookplaats.',
+          'Prijswinnende cleantech-campus op een voormalig industrieterrein aan de Rijn, broedplaats voor duurzame innovaties en cultuur.',
         address: 'Westervoortsedijk 73',
+        tip: 'Bekijk de iconische industriële hallen en duurzame architectuur langs de rivier.',
+        sourceType: 'article',
+        sourceTitle: 'IPKW-directeur Kevin Rijke: “Kleefse Waard wordt het duurzaamste park van Nederland”',
+        sourceUrl: '/artikelen/kevin-rijke-kleefse-waard-wordt-duurzaamste-park',
       },
       {
-        name: 'HAN Campus Arnhem',
+        name: 'Restaurant De Kookplaats',
+        category: 'eten-drinken',
+        description:
+          'Het culinaire hart van IPKW waar gewerkt wordt met verse seizoensproducten, biologische ingrediënten en een industrieel decor.',
+        address: 'Westervoortsedijk 73',
+        tip: 'Populair voor een gezonde lunch of een borrel in een unieke industriële setting.',
+        sourceType: 'article',
+        sourceTitle: 'Alles kan bij Kookplaats',
+        sourceUrl: '/artikelen/kookplaats',
+      },
+      {
+        name: 'Stadsboerderij Presikhaaf & Heemtuin',
+        category: 'natuur',
+        description:
+          'Groot stadspark met een educatieve stadsboerderij, heemtuin, theehuis en speelweiden aan de vijvers van Presikhaaf.',
+        address: 'Ruitenberglaan 4',
+        tip: 'Ideaal voor een wandeling met kinderen of een rustige middag in de heemtuin.',
+        sourceType: 'locatie',
+        sourceTitle: 'Stadsboerderij Presikhaaf',
+        sourceUrl: '/agenda?search=Presikhaaf',
+      },
+      {
+        name: 'Buurthuis De Oosthof Presikhaaf',
         category: 'cultuur',
         description:
-          'Moderne onderwijscampus vol studenteninitiatieven, lezingen en creatieve festivals.',
-        address: 'Ruitenberglaan 26',
-      },
-      {
-        name: 'Winkelcentrum Presikhaaf',
-        category: 'winkelen',
-        description:
-          'Groot overdekt winkelcentrum met een rijk aanbod aan verse streekproducten en internationale speciaalzaken.',
-        address: 'Hanzestraat',
+          'Actief buurthuis in Presikhaaf waar bewoners samenkomen voor culturele workshops, fietstochten en wijkfeesten.',
+        address: 'Kinderkamp 9',
+        tip: 'Organiseert regelmatig startpunten voor natuur- en klimaatfietstochten door de regio.',
+        sourceType: 'locatie',
+        sourceTitle: 'buurthuis de Oosthof Presikhaaf',
+        sourceUrl: '/agenda?search=Oosthof',
       },
     ],
     transportInfo: {
@@ -592,11 +738,11 @@ export const DISTRICTS: District[] = [
       parking: 'Ruime gratis parkeergelegenheid rondom Park Presikhaaf en Winkelcentrum Presikhaaf.',
     },
     heroImage:
-      'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2024/05/Street-Art-Tour-20230804_105441-scaled.jpg',
     galleryImages: [
-      'https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=800&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2020/08/Sonsbeekmarkt.jpg',
     ],
-    articleTags: ['arnhem-oost', 'presikhaaf', 'han', 'ipkw', 'parkpresikhaaf'],
+    articleTags: ['presikhaaf', 'ipkw', 'kleefse waard', 'kookplaats'],
   },
   {
     id: 'arnhem-zuid',
@@ -621,40 +767,59 @@ export const DISTRICTS: District[] = [
     landmarkLabel: 'Meinerswijk & GelreDome',
     highlights: [
       {
-        name: 'Uiterwaardenpark Meinerswijk',
-        category: 'natuur',
-        description:
-          'Struinen door 270 hectare ongerepte uiterwaarden, zandstranden aan de Rijn, konikpaarden, bevers en Galloway runderen.',
-        address: 'Meinerswijk',
-        tip: 'Struin buiten de gebaande paden langs de rivier voor ultieme rust en vergezichten op de Arnhemse skyline.',
-      },
-      {
-        name: 'Castellum Meinerswijk',
-        category: 'bezienswaardigheid',
-        description:
-          'Archeologisch monument van de Romeinse Limes (UNESCO Werelderfgoed) met gereconstrueerde muren en uitkijktoren.',
-        address: 'M पं Meinerswijk',
-      },
-      {
-        name: 'GelreDome Stadion',
+        name: 'Stadsblokken & ASM Haven',
         category: 'cultuur',
         description:
-          'De multifunctionele evenementenarena van Vitesse, megaconcerten van wereldsterren en grote dance-events.',
+          'Rauw uiterwaarden- en havengebied aan de zuidoever van de Rijn, thuishaven voor Cirque de la Liberté, strandfeesten en festivals.',
+        address: 'Stadsblokkenweg 25',
+        tip: 'Vanaf hier heb je een fenomenaal uitzicht op de skyline van de Arnhemse binnenstad en de Eusebiuskerk.',
+        sourceType: 'article',
+        sourceTitle: 'Voor de 10e keer Cirque de la Liberté aan de Rijnoever',
+        sourceUrl: '/artikelen/cirque-de-la-liberte',
+      },
+      {
+        name: 'Festivalterrein Meinerswijk & Luie Hond',
+        category: 'cultuur',
+        description:
+          'De ongerepte uiterwaarden van Meinerswijk vormen het decor voor openluchtfestivals zoals Festival de Luie Hond, theater en natuur.',
+        address: 'Meinerswijk',
+        tip: 'Struin tussen de konikpaarden en Galloway runderen langs de nevengeul en zandstranden van de Rijn.',
+        sourceType: 'article',
+        sourceTitle: 'Festival de Luie Hond',
+        sourceUrl: '/artikelen/luie-hond-festival',
+      },
+      {
+        name: 'GelreDome',
+        category: 'cultuur',
+        description:
+          'Grootste overdekte evenementenarena van Oost-Nederland voor megaconcerten van wereldsterren, dance-events en wedstrijden van Vitesse.',
         address: 'Batavierenweg 25',
+        tip: 'Uitstekend bereikbaar per snelle shuttlebus vanaf Arnhem Centraal.',
+        sourceType: 'locatie',
+        sourceTitle: 'Gelredome',
+        sourceUrl: '/agenda?search=Gelredome',
       },
       {
-        name: 'Winkelcentrum & Park Kronenburg',
-        category: 'winkelen',
+        name: 'Stadsboerderij De Korenmaat',
+        category: 'natuur',
         description:
-          'Het grootste overdekte winkelcentrum van Oost-Nederland met meer dan 100 winkels.',
-        address: 'Kronenburgpassage',
+          'Gezellige ecologische stadsboerderij in Arnhem-Zuid met boerderijdieren, tuinen en educatieve natuurpaden.',
+        address: 'Marius van Beeklaan 5',
+        tip: 'Leuke stop voor families tijdens een fietstocht door Arnhem-Zuid en Park Lingezegen.',
+        sourceType: 'locatie',
+        sourceTitle: 'Stadsboerderij de Korenmaat',
+        sourceUrl: '/agenda?search=Korenmaat',
       },
       {
-        name: 'RijnWaalpad & Dijkfietspaden',
-        category: 'actief',
+        name: 'Rozet Kronenburg',
+        category: 'cultuur',
         description:
-          'Snelfietsroute richting Nijmegen over de schilderachtige Rijndijken.',
-        address: 'Drielsedijk / Malburgse Bandijk',
+          'Culturele vestiging van Rozet in het winkelcentrum van Arnhem-Zuid met bibliotheek, lezingen en wijkfestivals.',
+        address: 'Kronenburggalerij 7',
+        tip: 'Regelmatig podium voor cultuurfestivals en kinderworkshops in Arnhem-Zuid.',
+        sourceType: 'locatie',
+        sourceTitle: 'Rozet Kronenburg',
+        sourceUrl: '/agenda?search=Kronenburg',
       },
     ],
     transportInfo: {
@@ -663,11 +828,11 @@ export const DISTRICTS: District[] = [
       parking: 'Zeer ruime parkeervoorzieningen bij GelreDome, Kronenburg en Transferium Arnhem-Zuid.',
     },
     heroImage:
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80',
+      '/images/bridge_uiterwaarden.jpg',
     galleryImages: [
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+      'https://uitinarnhem.nl/wp-content/uploads/2020/08/AM_VerlatenVrouwen_03-1-LRG-CROP.jpg',
     ],
-    articleTags: ['arnhem-zuid', 'meinerswijk', 'gelredome', 'uiterwaarden', 'kronenburg', 'limes'],
+    articleTags: ['meinerswijk', 'gelredome', 'kronenburg', 'stadsblokken', 'korenmaat', 'asm haven', 'cirque de la liberte'],
   },
 ];
 
