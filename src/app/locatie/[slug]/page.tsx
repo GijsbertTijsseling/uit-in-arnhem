@@ -81,14 +81,13 @@ export default async function LocationDetailPage({ params }: PageProps) {
     `${location.name}, ${fullAddress}`
   )}`;
 
-  const mapQuery =
-    location.coordinates?.lat && location.coordinates?.lng
-      ? `${location.coordinates.lat},${location.coordinates.lng}`
-      : `${location.name}, ${fullAddress}`;
+  const mapQuery = [location.name, location.address, location.postal_code, location.city || 'Arnhem']
+    .filter(Boolean)
+    .join(', ');
 
   const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(
     mapQuery
-  )}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+  )}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 
   // Group events by Month Year
   const groupedEvents: { [key: string]: typeof allLocationEvents } = {};

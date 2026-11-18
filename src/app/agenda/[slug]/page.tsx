@@ -65,18 +65,21 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
       ? event.venue_name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
       : null);
 
+  const addressQuery = [
+    event.venue_name,
+    event.venue_address,
+    event.venue_city || 'Arnhem',
+  ]
+    .filter(Boolean)
+    .join(', ');
+
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    `${event.venue_name}, ${event.venue_address}, ${event.venue_city}`
+    addressQuery
   )}`;
 
-  const mapQuery =
-    event.coordinates?.lat && event.coordinates?.lng
-      ? `${event.coordinates.lat},${event.coordinates.lng}`
-      : `${event.venue_name}, ${event.venue_address || ''}, ${event.venue_city || 'Arnhem'}`;
-
   const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(
-    mapQuery
-  )}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+    addressQuery
+  )}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">

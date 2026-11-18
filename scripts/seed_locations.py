@@ -20,7 +20,7 @@ DB_NAME = "postgres"
 DB_PORT = "5432"
 
 KNOWN_COORDINATES = {
-    "koepelgevangenis": {"lat": 51.9868, "lng": 5.8943},
+    "koepelgevangenis": {"lat": 51.9854, "lng": 5.8792},
     "luxor-live": {"lat": 51.9850, "lng": 5.9015},
     "luxor-live-2": {"lat": 51.9850, "lng": 5.9015},
     "musis": {"lat": 51.9839, "lng": 5.9142},

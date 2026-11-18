@@ -1034,8 +1034,8 @@ export const LOCATIONS_CATALOG: Location[] = [
     "description": "De monumentale Koepelgevangenis in Arnhem (1886) is een iconisch rijksmonument met een cirkelvormig panopticumontwerp en een imposante centrale hal van meer dan 2000 m\u00b2. Tegenwoordig d\u00e9 unieke culturele evenementenlocatie van Arnhem voor festivals, exclusieve proeverijen, masterclasses en historische rondleidingen door de cellencomplexen.",
     "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/08/Koepelgevangenis.jpg",
     "coordinates": {
-      "lat": 51.9868,
-      "lng": 5.8943
+      "lat": 51.9854,
+      "lng": 5.8792
     },
     "is_verified": true
   },
