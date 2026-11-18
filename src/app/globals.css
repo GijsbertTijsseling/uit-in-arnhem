@@ -62,7 +62,7 @@ main p a:not([class*="bg-"]):not([class*="btn"]):not([class*="rounded-full"]) {
   text-decoration: underline !important;
   text-decoration-color: rgba(255, 79, 0, 0.45) !important;
   text-underline-offset: 3px !important;
-  font-weight: 600;
+  font-weight: inherit !important;
   transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 

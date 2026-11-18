@@ -50,6 +50,8 @@ class ScrapedEvent(BaseModel):
             "venue_address": self.venue_address,
             "price": self.price,
             "ticket_url": self.ticket_url,
+            "source_url": self.source_url,
+            "short_description": (self.short_description or "").strip(),
             "description": (self.description or "").strip(),
             "hero_image_url": self.hero_image_url,
             "performances": [

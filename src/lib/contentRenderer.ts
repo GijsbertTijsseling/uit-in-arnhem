@@ -128,11 +128,11 @@ export function formatRichContent(rawContent: string, title: string = ''): strin
       newAttrs = newAttrs.replace(
         /class=["']([^"']*)["']/i,
         (m: string, cls: string) =>
-          `class="${cls} text-[#FF4F00] font-semibold underline decoration-[#FF4F00]/50 hover:decoration-[#E04500] hover:text-[#E04500] transition-colors"`
+          `class="${cls} text-[#FF4F00] underline decoration-[#FF4F00]/50 hover:decoration-[#E04500] hover:text-[#E04500] transition-colors"`
       );
     } else {
       newAttrs +=
-        ' class="text-[#FF4F00] font-semibold underline decoration-[#FF4F00]/50 hover:decoration-[#E04500] hover:text-[#E04500] transition-colors"';
+        ' class="text-[#FF4F00] underline decoration-[#FF4F00]/50 hover:decoration-[#E04500] hover:text-[#E04500] transition-colors"';
     }
     return `<a${newAttrs}>`;
   });

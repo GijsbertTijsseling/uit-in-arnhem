@@ -185,7 +185,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                 [&_h6]:font-heading [&_h6]:font-bold [&_h6]:text-base [&_h6]:text-zinc-950 [&_h6]:mt-4 [&_h6]:mb-1
                 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:my-4 [&_ul_li]:mb-1.5
                 [&_strong]:font-bold [&_strong]:text-zinc-950
-                [&_a]:text-[#FF4F00] [&_a]:underline [&_a]:decoration-[#FF4F00]/50 [&_a]:font-semibold hover:[&_a]:text-[#E04500] hover:[&_a]:decoration-[#E04500]"
+                [&_a]:text-[#FF4F00] [&_a]:underline [&_a]:decoration-[#FF4F00]/50 hover:[&_a]:text-[#E04500] hover:[&_a]:decoration-[#E04500]"
               dangerouslySetInnerHTML={{ __html: formatRichContent(event.full_description, event.title) }}
             />
           </div>
@@ -215,16 +215,30 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
               </div>
 
               {event.ticket_url && event.status !== 'cancelled' ? (
-                <a
-                  href={event.ticket_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3.5 w-full flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold transition-colors shadow-xs"
-                >
-                  <Globe className="w-3.5 h-3.5" />
-                  <span>Naar website</span>
-                  <ExternalLink className="w-3 h-3 opacity-60 ml-0.5" />
-                </a>
+                <div className="mt-3.5 space-y-2">
+                  <a
+                    href={event.ticket_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold transition-colors shadow-xs text-center"
+                  >
+                    <Globe className="w-3.5 h-3.5 shrink-0" />
+                    <span>{event.price_type === 'paid' ? `Bestel tickets bij ${event.venue_name || 'locatie'}` : 'Naar website'}</span>
+                    <ExternalLink className="w-3 h-3 opacity-60 ml-0.5 shrink-0" />
+                  </a>
+
+                  {event.source_url && event.source_url !== event.ticket_url && (
+                    <a
+                      href={event.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-1 text-[11px] font-semibold text-zinc-500 hover:text-[#FF4F00] transition-colors py-1 text-center"
+                    >
+                      <span>Bekijk voorstelling op {event.venue_name || 'website'}</span>
+                      <ExternalLink className="w-2.5 h-2.5 opacity-60 shrink-0" />
+                    </a>
+                  )}
+                </div>
               ) : event.status === 'cancelled' ? (
                 <div className="mt-3.5 w-full py-2.5 px-4 rounded-xl bg-zinc-200 text-zinc-600 text-xs font-medium text-center">
                   Tickets niet meer beschikbaar

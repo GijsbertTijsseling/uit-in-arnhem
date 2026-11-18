@@ -116,7 +116,7 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
             [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:my-6 [&>ol>li]:mb-2
             [&>blockquote]:border-l-4 [&>blockquote]:border-[#FF4F00] [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:my-6 [&>blockquote]:text-zinc-700
             [&>strong]:font-bold [&>strong]:text-zinc-900
-            [&_a]:text-[#FF4F00] [&_a]:underline [&_a]:decoration-[#FF4F00]/50 [&_a]:font-semibold hover:[&_a]:text-[#E04500] hover:[&_a]:decoration-[#E04500]
+            [&_a]:text-[#FF4F00] [&_a]:underline [&_a]:decoration-[#FF4F00]/50 hover:[&_a]:text-[#E04500] hover:[&_a]:decoration-[#E04500]
             [&>figure]:my-8 [&>figure>img]:rounded-2xl [&>figure>figcaption]:text-xs [&>figure>figcaption]:text-zinc-500 [&>figure>figcaption]:mt-2"
           dangerouslySetInnerHTML={{ __html: formatRichContent(article.content, article.title) }}
         />

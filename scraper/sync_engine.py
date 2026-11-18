@@ -371,17 +371,17 @@ class SyncEngine:
                                 cur.execute(
                                     """
                                     UPDATE public.events SET
-                                        title = %s, description = %s, featured_image = %s,
+                                        title = %s, short_description = %s, description = %s, featured_image = %s,
                                         start_date = %s, end_date = %s, venue_name = %s, venue_address = %s,
-                                        price = %s, price_type = %s, ticket_url = %s, performances = %s,
+                                        price = %s, price_type = %s, ticket_url = %s, source_url = %s, performances = %s,
                                         content_hash = %s, status = %s, missing_count = 0, missing_since = NULL,
                                         last_synced_at = %s, updated_at = NOW()
                                     WHERE id = %s;
                                     """,
                                     (
-                                        title_to_set, desc_to_set, img_to_set,
+                                        title_to_set, event.short_description or event.title, desc_to_set, img_to_set,
                                         event.start_date, event.end_date, event.venue_name, event.venue_address,
-                                        event.price, event.price_type, event.ticket_url, json.dumps(performances_data),
+                                        event.price, event.price_type, event.ticket_url, event.source_url, json.dumps(performances_data),
                                         content_hash, new_status, started_at, existing["id"]
                                     )
                                 )
@@ -389,10 +389,10 @@ class SyncEngine:
                                 report.items_updated += 1
                     elif self.client:
                         self.client.table("events").update({
-                            "title": title_to_set, "description": desc_to_set, "featured_image": img_to_set,
+                            "title": title_to_set, "short_description": event.short_description or event.title, "description": desc_to_set, "featured_image": img_to_set,
                             "start_date": event.start_date.isoformat(), "end_date": event.end_date.isoformat() if event.end_date else None,
                             "venue_name": event.venue_name, "venue_address": event.venue_address, "price": event.price,
-                            "price_type": event.price_type, "ticket_url": event.ticket_url, "performances": performances_data,
+                            "price_type": event.price_type, "ticket_url": event.ticket_url, "source_url": event.source_url, "performances": performances_data,
                             "content_hash": content_hash, "status": new_status, "missing_count": 0, "missing_since": None,
                             "last_synced_at": started_at.isoformat()
                         }).eq("id", existing["id"]).execute()
