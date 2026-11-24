@@ -384,18 +384,165 @@ export async function getEventsByLocation(
   });
 }
 
-export async function uploadImageToSupabase(file: File): Promise<string> {
+const ALLOWED_UPLOAD_MIME_TYPES = new Set([
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'image/gif',
+]);
+
+const MIME_TO_EXT: Record<string, string> = {
+  'image/jpeg': 'jpg',
+  'image/png': 'png',
+  'image/webp': 'webp',
+  'image/gif': 'gif',
+};
+
+async function convertImageFileToJpeg(file: File): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(file);
+    const img = new window.Image();
+
+    img.onload = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          URL.revokeObjectURL(objectUrl);
+          reject(new Error('Canvas context niet beschikbaar.'));
+          return;
+        }
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob(
+          (blob) => {
+            URL.revokeObjectURL(objectUrl);
+            if (blob) {
+              resolve(blob);
+            } else {
+              reject(new Error('Afbeelding converteren naar JPG is mislukt.'));
+            }
+          },
+          'image/jpeg',
+          0.9
+        );
+      } catch (err) {
+        URL.revokeObjectURL(objectUrl);
+        reject(err);
+      }
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      const ext = file.name.split('.').pop()?.toLowerCase() || '';
+      if (ext === 'heic' || ext === 'heif' || file.type === 'image/heic' || file.type === 'image/heif') {
+        reject(
+          new Error(
+            'HEIC/HEIF-bestanden (iPhone) worden niet ondersteund in deze browser. Zet de foto eerst om naar JPG, PNG of WebP.'
+          )
+        );
+      } else {
+        reject(
+          new Error(
+            `Dit bestandsformaat (${file.type || ext || 'onbekend'}) kan niet worden geladen. Gebruik JPG, PNG of WebP.`
+          )
+        );
+      }
+    };
+
+    img.src = objectUrl;
+  });
+}
+
+async function getImageDimensions(file: File | Blob, fileName = ''): Promise<{ width: number; height: number }> {
+  return new Promise((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(file);
+    const img = new window.Image();
+
+    img.onload = () => {
+      const dims = { width: img.naturalWidth, height: img.naturalHeight };
+      URL.revokeObjectURL(objectUrl);
+      resolve(dims);
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      const ext = fileName.split('.').pop()?.toLowerCase() || '';
+      if (ext === 'heic' || ext === 'heif' || file.type === 'image/heic' || file.type === 'image/heif') {
+        reject(
+          new Error(
+            'HEIC/HEIF-bestanden (iPhone) worden niet ondersteund in deze browser. Zet de foto eerst om naar JPG, PNG of WebP.'
+          )
+        );
+      } else {
+        reject(
+          new Error(
+            `Dit bestandsformaat (${file.type || ext || 'onbekend'}) kan niet worden geladen. Gebruik JPG, PNG of WebP.`
+          )
+        );
+      }
+    };
+
+    img.src = objectUrl;
+  });
+}
+
+export interface UploadImageOptions {
+  minWidth?: number;
+  minHeight?: number;
+}
+
+export async function uploadImageToSupabase(
+  file: File,
+  options: UploadImageOptions = {}
+): Promise<string> {
   const supabase = createClient();
-  const fileExt = file.name.split('.').pop();
-  const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+
+  let uploadBody: File | Blob = file;
+  let contentType = file.type;
+  let fileExt = MIME_TO_EXT[contentType];
+
+  if (!ALLOWED_UPLOAD_MIME_TYPES.has(contentType)) {
+    // Try browser-side conversion (handles AVIF, BMP, TIFF, and HEIC in Safari)
+    if (typeof window !== 'undefined') {
+      uploadBody = await convertImageFileToJpeg(file);
+      contentType = 'image/jpeg';
+      fileExt = 'jpg';
+    } else {
+      throw new Error('Alleen JPG, PNG, WebP of GIF afbeeldingen worden ondersteund.');
+    }
+  }
+
+  // Validate minimum dimensions client-side before uploading
+  if (typeof window !== 'undefined' && (options.minWidth || options.minHeight)) {
+    const { width, height } = await getImageDimensions(uploadBody, file.name);
+    if (options.minWidth && width < options.minWidth) {
+      throw new Error(
+        `Deze foto is te klein (${width} × ${height} px). Gebruik een afbeelding van minimaal ${options.minWidth}px breed voor een scherpe weergave.`
+      );
+    }
+    if (options.minHeight && height < options.minHeight) {
+      throw new Error(
+        `Deze foto is te laag (${width} × ${height} px). Gebruik een afbeelding van minimaal ${options.minHeight}px hoog.`
+      );
+    }
+  }
+
+  const safeExt = fileExt || 'jpg';
+  const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${safeExt}`;
   const filePath = `uploads/${fileName}`;
 
   const { error: uploadError } = await supabase.storage
     .from('media')
-    .upload(filePath, file, { cacheControl: '3600', upsert: true });
+    .upload(filePath, uploadBody, {
+      cacheControl: '3600',
+      upsert: true,
+      contentType,
+    });
 
   if (uploadError) {
-    throw new Error(`Upload failed: ${uploadError.message}`);
+    throw new Error(`Upload naar Supabase mislukt: ${uploadError.message}`);
   }
 
   const { data } = supabase.storage.from('media').getPublicUrl(filePath);

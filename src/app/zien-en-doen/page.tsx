@@ -15,7 +15,7 @@ const HIGHLIGHTS = [
     title: 'Kunst & Musea',
     description: 'Van hedendaagse kunst in Museum Arnhem hoog op de stuwwal tot de rijke geschiedenis van de Slag om Arnhem.',
     icon: Landmark,
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2021/08/Afbeelding-Bronbeek-scaled.jpg',
+    image: '/images/arnhem/museum-arnhem-tuin.jpg',
     href: '/agenda?category=kunst-expo',
     count: 'Musea & Expo',
   },
@@ -23,7 +23,7 @@ const HIGHLIGHTS = [
     title: 'Theater & Live Muziek',
     description: 'Geniet van concerten in poptempel Luxor Live, klassiek in Musis en vernieuwende dans bij Introdans en Oostpool.',
     icon: Sparkles,
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2020/08/AM_VerlatenVrouwen_03-1-LRG-CROP.jpg',
+    image: 'https://uitinarnhem.nl/wp-content/uploads/2025/03/Frans-Schneider-H80-2016-_-IMG_2098.jpg',
     href: '/agenda?category=theater-dans',
     count: 'Podia & Live',
   },
@@ -31,7 +31,7 @@ const HIGHLIGHTS = [
     title: 'Groen & Parken',
     description: 'Arnhem is de groenste stad van Nederland. Dwaal door het glooiende Sonsbeekpark of trek de Veluwezoom in.',
     icon: Trees,
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2020/08/Sonsbeekmarkt.jpg',
+    image: '/images/arnhem/stadsvilla-sonsbeek-zomer.jpg',
     href: '/artikelen?category=ontdekken',
     count: 'Natuur & Wandelen',
   },
@@ -39,7 +39,7 @@ const HIGHLIGHTS = [
     title: 'Eten, Drinken & Koffie',
     description: 'Ontdek specialty coffee in het Modekwartier, zwoele zomerterrassen aan de Rijnkade en intieme proeverijen in de 7straatjes.',
     icon: Coffee,
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/04/Ketelhuis-Sonsbeek-6.jpg',
+    image: '/images/arnhem/zevenstraatjes-terrassen.jpg',
     href: '/artikelen?category=eten-drinken',
     count: 'Culinaire Hotspots',
   },
@@ -51,7 +51,7 @@ export default function ZienEnDoenPage() {
       {/* Page Header */}
       <div className="space-y-4 max-w-3xl">
         <h1 className="font-heading font-black text-4xl sm:text-6xl text-zinc-950 tracking-tight leading-tight">
-          Zien en doen in Arnhem
+          Zien en doen in <span className="text-[#FF4F00]">Arnhem</span>
         </h1>
         <p className="text-zinc-600 text-lg sm:text-xl leading-relaxed">
           Of je nu houdt van toonaangevende mode en design, historische straatjes, uitgestrekte stadsparken of bruisende cultuurpodia: in Arnhem valt altijd iets te beleven.

@@ -8,25 +8,25 @@ const DISTRICTS = [
   {
     name: 'Modekwartier',
     tagline: 'Creatieve ateliers, vintage & design in Klarendal',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/05/Street-Art-Tour-20230804_105441-scaled.jpg',
+    image: '/images/arnhem/modekwartier-klarendal.jpg',
     slug: 'modekwartier',
   },
   {
     name: 'Centrum & Binnenstad',
     tagline: 'Historische 7straatjes, boetieks, terrassen & Korenmarkt',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/01/juune1-c-jonas-de-witte-vierkant-2959072273_2734816142.jpg',
+    image: '/images/arnhem/zevenstraatjes-eusebius.jpg',
     slug: 'centrum',
   },
   {
     name: 'Sonsbeek & Parken',
     tagline: 'Watervallen, Witte Villa, Zypendaal & glooiende velden',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2020/08/Sonsbeekmarkt.jpg',
+    image: '/images/arnhem/stadsvilla-sonsbeek-zomer.jpg',
     slug: 'sonsbeek',
   },
   {
     name: 'Spijkerkwartier',
     tagline: 'Statige 19e-eeuwse herenhuizen, binnentuinen & fijne horeca',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2020/08/AM_VerlatenVrouwen_03-1-LRG-CROP.jpg',
+    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/08/Arnhem-klimaatbestendig-vergroening-Emmastraat-20210728_FAM2178-Frank-Myszka.jpg',
     slug: 'spijkerkwartier',
   },
 ];

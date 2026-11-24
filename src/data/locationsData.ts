@@ -1147,7 +1147,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Marktplein is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/11/55002413960_8f66c3aa22_o-2.jpg",
+    "featured_image": "/images/arnhem/eusebiuskerk-kerkplein.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1453,7 +1453,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "https://www.papendal.nl",
     "description": "Papendal is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/05/Mega-Wandel-Marathon-Arnhem.jpg",
+    "featured_image": "/images/arnhem/papendal-bmx.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1669,7 +1669,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Rijnkade is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/08/518254204_1067027942261244_8071940414383128733_n.jpg",
+    "featured_image": "/images/arnhem/rijnkade-schemering.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987

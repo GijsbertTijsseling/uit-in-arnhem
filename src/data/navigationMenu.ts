@@ -65,7 +65,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       description: 'Meld je concert, expo, voorstelling of workshop gratis aan voor onze culturele uitagenda.',
       href: '/agenda/aanmelden',
       buttonText: 'Evenement aanmelden',
-      imageUrl: 'https://uitinarnhem.nl/wp-content/uploads/2026/11/55002413960_8f66c3aa22_o-2-1.jpg',
+      imageUrl: '/images/arnhem/eusebiuskerk-kerkplein.jpg',
     },
   },
   {
@@ -119,7 +119,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       description: 'Van zwoele terrassen aan de Rijnkade tot wandelingen door het groenste stadspark van Nederland.',
       href: '/zien-en-doen',
       buttonText: 'Ontdek alle tips',
-      imageUrl: 'https://uitinarnhem.nl/wp-content/uploads/2020/08/Sonsbeekmarkt.jpg',
+      imageUrl: '/images/arnhem/stadsvilla-sonsbeek-zomer.jpg',
     },
   },
   {
@@ -157,7 +157,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       description: 'Bekijk praktische reisinformatie, parkeertips en de beste slaapplekken in de stad.',
       href: '/plan-je-bezoek',
       buttonText: 'Plan je reis',
-      imageUrl: '/images/bridge_uiterwaarden.jpg',
+      imageUrl: '/images/arnhem/john-frostbrug-luchtfoto.jpg',
     },
   },
   {
@@ -196,19 +196,20 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       description: '3FM Serious Request strijkt dit jaar neer in Arnhem voor de Nederlandse Brandwonden Stichting.',
       href: '/artikelen/14382',
       buttonText: 'Lees het verhaal',
-      imageUrl: 'https://uitinarnhem.nl/wp-content/uploads/2026/11/55002413960_8f66c3aa22_o-2-1.jpg',
+      imageUrl: '/images/arnhem/serious-request-2026.jpg',
     },
   },
   {
     label: 'Over ons',
     href: '/over-ons',
-    description: 'Over UIT in Arnhem, ons team van lokale liefhebbers, samenwerken en onze missie.',
+    description: 'Over UIT in Arnhem, ons team van lokale liefhebbers, samenwerken en contact met de redactie.',
     columns: [
       {
         title: 'Over het platform',
         items: [
           { label: 'Wie we zijn & onze missie', href: '/over-ons' },
           { label: 'Maak kennis met het team', href: '/over-ons#team' },
+          { label: 'Word onderdeel van de redactie', href: '/over-ons#vacature' },
         ],
       },
       {
@@ -216,14 +217,13 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
         items: [
           { label: 'Samenwerken & Adverteren', href: '/over-ons#samenwerken' },
           { label: 'Gratis evenement aanmelden', href: '/agenda/aanmelden' },
-          { label: 'Word onderdeel van de redactie', href: '/over-ons#vacature' },
         ],
       },
       {
         title: 'Contact',
         items: [
-          { label: 'Contactformulier', href: '/contact' },
-          { label: 'Redactie CMS Login', href: '/login' },
+          { label: 'Contact', href: '/contact' },
+          { label: 'E-mail: info@uitinarnhem.nl', href: 'mailto:info@uitinarnhem.nl' },
         ],
       },
     ],
@@ -232,43 +232,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       description: 'UIT in Arnhem is hét onafhankelijke platform voor cultuur, horeca en verhalen uit de Rijnstad.',
       href: '/over-ons',
       buttonText: 'Lees over ons team',
-      imageUrl: 'https://uitinarnhem.nl/wp-content/uploads/2024/05/Street-Art-Tour-20230804_105441-scaled.jpg',
-    },
-  },
-  {
-    label: 'Contact',
-    href: '/contact',
-    description: 'Stel een vraag, meld een culturele tip of neem contact op met onze redactie.',
-    columns: [
-      {
-        title: 'Direct contact',
-        items: [
-          { label: 'Contactformulier', href: '/contact' },
-          { label: 'E-mail: info@uitinarnhem.nl', href: 'mailto:info@uitinarnhem.nl' },
-          { label: 'Tip de redactie', href: '/contact' },
-        ],
-      },
-      {
-        title: 'Samenwerken',
-        items: [
-          { label: 'Gratis evenement insturen', href: '/agenda/aanmelden' },
-          { label: 'Adverteren & Partners', href: '/over-ons#samenwerken' },
-        ],
-      },
-      {
-        title: 'Volg ons',
-        items: [
-          { label: 'Instagram (@uitinarnhem)', href: 'https://www.instagram.com/uitinarnhem/' },
-          { label: 'Facebook (UIT in Arnhem)', href: 'https://nl-nl.facebook.com/uitinarnhem/' },
-        ],
-      },
-    ],
-    featuredCta: {
-      title: 'Heb je een gouden tip?',
-      description: 'Ken je een nieuwe hotspot, bijzonder concert of cultureel initiatief? Tip onze redactie!',
-      href: '/contact',
-      buttonText: 'Stuur ons een bericht',
-      imageUrl: 'https://uitinarnhem.nl/wp-content/uploads/2024/01/juune1-c-jonas-de-witte-vierkant-2959072273_2734816142.jpg',
+      imageUrl: '/images/arnhem/modekwartier-klarendal.jpg',
     },
   },
 ];

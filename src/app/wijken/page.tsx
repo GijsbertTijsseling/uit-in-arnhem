@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description:
       'Verken alle 8 unieke wijken van Arnhem met onze interactieve wijkkaart, hotspots, verhalen en uitagenda.',
     images: [
-      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=80',
+      '/images/arnhem/rijnkade-schemering.jpg',
     ],
   },
 };
