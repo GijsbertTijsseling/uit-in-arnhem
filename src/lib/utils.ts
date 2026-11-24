@@ -51,3 +51,8 @@ export function formatTime(dateString: string | null | undefined): string {
     return "";
   }
 }
+
+export function formatPrice(amount: number | null | undefined): string {
+  if (amount == null || isNaN(amount)) return "–";
+  return `€${amount.toFixed(2).replace(".", ",")}`;
+}

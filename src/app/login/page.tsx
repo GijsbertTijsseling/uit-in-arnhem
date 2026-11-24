@@ -1,11 +1,26 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { Shield, Lock, Mail, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Button, ButtonLink } from '@/components/ui/Button';
+import { Lock, Mail, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
+
+function translateAuthError(message: string): string {
+  const lower = message.toLowerCase();
+  if (lower.includes('invalid login credentials')) {
+    return 'Onjuist e-mailadres of wachtwoord.';
+  }
+  if (lower.includes('email not confirmed')) {
+    return 'Je e-mailadres is nog niet bevestigd. Klik op de bevestigingslink in je inbox of bevestig het account in Supabase.';
+  }
+  if (lower.includes('too many requests')) {
+    return 'Te veel inlogpogingen. Probeer het over een paar minuten opnieuw.';
+  }
+  return message;
+}
 
 export default function LoginPage() {
   const router = useRouter();
@@ -14,6 +29,33 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    const code = params.get('code');
+
+    if (code) {
+      const supabase = createClient();
+      supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
+        if (error) {
+          setErrorMsg('De bevestigingslink is verlopen of ongeldig. Probeer opnieuw in te loggen of vraag een nieuwe link aan.');
+        } else {
+          setSuccessMsg('Je e-mailadres is bevestigd! Je kunt nu inloggen.');
+        }
+        window.history.replaceState({}, '', '/login');
+      });
+      return;
+    }
+
+    if (params.get('confirmed') === 'true' || hashParams.get('type') === 'signup') {
+      setSuccessMsg('Je e-mailadres is bevestigd! Je kunt nu inloggen.');
+      window.history.replaceState({}, '', '/login');
+    } else if (params.get('error') === 'confirmation_failed') {
+      setErrorMsg('De bevestigingslink is verlopen of ongeldig. Probeer opnieuw in te loggen of registreer opnieuw.');
+      window.history.replaceState({}, '', '/login');
+    }
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,37 +66,36 @@ export default function LoginPage() {
     try {
       const supabase = createClient();
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
+        email: email.trim(),
         password,
       });
 
-      if (error) {
-        // Fallback for demonstration / mock mode if email is not yet confirmed
-        if (email && password) {
-          localStorage.setItem('uit_arnhem_user', JSON.stringify({ email, role: 'admin' }));
-          setSuccessMsg('Ingelogd met redactie sessie.');
-          setTimeout(() => router.push('/admin'), 600);
-          return;
-        }
-        setErrorMsg(error.message);
-      } else {
-        setSuccessMsg('Succesvol ingelogd! Je wordt doorgestuurd...');
-        setTimeout(() => router.push('/admin'), 600);
+      if (error || !data.user) {
+        setErrorMsg(translateAuthError(error?.message || 'Inloggen mislukt.'));
+        return;
       }
+
+      const meta = (data.user.user_metadata || {}) as Record<string, any>;
+      localStorage.setItem(
+        'uit_arnhem_user',
+        JSON.stringify({
+          id: data.user.id,
+          email: data.user.email || email.trim(),
+          role: meta.role || 'editor',
+          first_name: meta.first_name,
+          last_name: meta.last_name,
+          full_name: meta.full_name || meta.name,
+          name: meta.full_name || meta.name,
+        })
+      );
+      setSuccessMsg('Succesvol ingelogd! Je wordt doorgestuurd...');
+      router.push('/admin');
+      router.refresh();
     } catch (err: any) {
       setErrorMsg(err.message || 'Er is een fout opgetreden bij het inloggen.');
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleQuickDemoLogin = (role: 'admin' | 'editor') => {
-    const demoEmail = role === 'admin' ? 'hoofdredactie@uitinarnhem.nl' : 'redactie@uitinarnhem.nl';
-    localStorage.setItem(
-      'uit_arnhem_user',
-      JSON.stringify({ email: demoEmail, role, name: role === 'admin' ? 'Hoofdredacteur Arnhem' : 'Redacteur Arnhem' })
-    );
-    router.push('/admin');
   };
 
   return (
@@ -67,12 +108,13 @@ export default function LoginPage() {
               src="/logo.png"
               alt="Uit in Arnhem"
               fill
+              sizes="192px"
               className="object-contain"
             />
           </div>
-          <h2 className="font-heading font-black text-2xl text-zinc-900 tracking-tight pt-2">
+          <h1 className="font-heading font-extrabold text-2xl text-zinc-900 tracking-tight pt-2">
             Redactie CMS Login
-          </h2>
+          </h1>
           <p className="text-xs text-zinc-500">
             Beheer artikelen, de culturele agenda en gebruikersrollen.
           </p>
@@ -86,12 +128,10 @@ export default function LoginPage() {
               Voor het gratis aanmelden van een evenement heb je géén CMS-account nodig.
             </span>
           </div>
-          <Link
-            href="/agenda/aanmelden"
-            className="shrink-0 inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-[11px] font-bold uppercase tracking-wider transition-colors shadow-xs"
-          >
-            Aanmelden →
-          </Link>
+          <ButtonLink href="/agenda/aanmelden" variant="primary" size="sm" className="shrink-0">
+            <span>Aanmelden</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </ButtonLink>
         </div>
 
         {errorMsg && (
@@ -111,75 +151,58 @@ export default function LoginPage() {
         {/* Form */}
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">
+            <label
+              htmlFor="login-email"
+              className="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5"
+            >
               E-mailadres
             </label>
             <div className="relative">
               <Mail className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
+                id="login-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="redactie@uitinarnhem.nl"
+                autoComplete="email"
+                placeholder="naam@uitinarnhem.nl"
                 className="w-full pl-10 pr-4 py-3 bg-zinc-50 border border-zinc-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F00] focus:bg-white"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">
+            <label
+              htmlFor="login-password"
+              className="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5"
+            >
               Wachtwoord
             </label>
             <div className="relative">
               <Lock className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
+                id="login-password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                autoComplete="current-password"
                 placeholder="••••••••"
                 className="w-full pl-10 pr-4 py-3 bg-zinc-50 border border-zinc-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F00] focus:bg-white"
               />
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3.5 px-4 rounded-full bg-[#FF4F00] text-white font-bold text-sm uppercase tracking-wider hover:bg-[#E04500] transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-          >
-            {loading ? 'Bezig met inloggen...' : 'Inloggen in CMS'}
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          <Button type="submit" disabled={loading} variant="primary" size="lg" fullWidth>
+            <span>{loading ? 'Bezig met inloggen...' : 'Inloggen in CMS'}</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </Button>
         </form>
-
-        {/* Demo Fast Login Buttons */}
-        <div className="pt-6 border-t border-zinc-200 space-y-3">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 text-center">
-            Snelle redactie toegang (Preview / Demo):
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={() => handleQuickDemoLogin('admin')}
-              type="button"
-              className="py-2.5 px-3 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold rounded-xl transition-colors cursor-pointer text-center"
-            >
-              Als Beheerder
-            </button>
-            <button
-              onClick={() => handleQuickDemoLogin('editor')}
-              type="button"
-              className="py-2.5 px-3 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold rounded-xl transition-colors cursor-pointer text-center"
-            >
-              Als Redacteur
-            </button>
-          </div>
-        </div>
 
         <div className="text-center pt-2">
           <Link href="/register" className="text-xs text-zinc-500 hover:text-[#FF4F00] underline">
-            Nog geen account? Vraag redactie-uitnodiging aan →
+            Nog geen account? Vraag redactie-toegang aan
           </Link>
         </div>
       </div>

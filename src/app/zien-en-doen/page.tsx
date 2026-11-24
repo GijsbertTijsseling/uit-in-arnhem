@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Sparkles, MapPin, ArrowRight, Calendar, Coffee, Landmark, Trees } from 'lucide-react';
 import { HotspotHighlights } from '@/components/home/HotspotHighlights';
+import { ButtonLink } from '@/components/ui/Button';
 
 export const metadata = {
   title: 'Zien en doen in Arnhem | Uit in Arnhem',
@@ -65,16 +66,16 @@ export default function ZienEnDoenPage() {
             <Link
               key={item.title}
               href={item.href}
-              className="group relative rounded-3xl overflow-hidden bg-zinc-950 text-white shadow-lg hover:shadow-2xl transition-all duration-300 min-h-[380px] flex flex-col justify-end p-8 border border-zinc-800"
+              className="group relative rounded-3xl overflow-hidden bg-ink text-white shadow-card hover:shadow-card-hover transition-all duration-300 min-h-[380px] flex flex-col justify-end p-8 border border-border-warm"
             >
               <Image
                 src={item.image}
                 alt={item.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700 ease-out"
+                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/92 via-black/60 to-transparent pointer-events-none" />
 
               <div className="relative z-10 space-y-3">
                 <div className="flex items-center justify-between">
@@ -82,15 +83,16 @@ export default function ZienEnDoenPage() {
                     <Icon className="w-3.5 h-3.5" />
                     <span>{item.count}</span>
                   </span>
-                  <span className="text-xs text-white/80 font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                    Ontdekken <ArrowRight className="w-4 h-4 text-[#FF4F00]" />
+                  <span className="text-xs text-white font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1 drop-shadow-xs">
+                    <span>Ontdekken</span>
+                    <ArrowRight className="w-4 h-4 text-[#FF4F00]" />
                   </span>
                 </div>
 
-                <h2 className="font-heading font-black text-2xl sm:text-3xl text-white group-hover:text-[#FF4F00] transition-colors">
+                <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-white drop-shadow-xs group-hover:text-[#FF4F00] transition-colors">
                   {item.title}
                 </h2>
-                <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
+                <p className="text-white/90 text-sm sm:text-base leading-relaxed drop-shadow-xs">
                   {item.description}
                 </p>
               </div>
@@ -103,23 +105,20 @@ export default function ZienEnDoenPage() {
       <HotspotHighlights />
 
       {/* Direct Agenda CTA Banner */}
-      <div className="rounded-3xl bg-zinc-900 text-white p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl border border-zinc-800">
+      <div className="rounded-3xl bg-cta-tint text-ink p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-6 border border-cta-border">
         <div className="space-y-2 text-center md:text-left">
-          <h3 className="font-heading font-black text-2xl sm:text-3xl text-white">
+          <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-ink">
             Benieuwd wat er vandaag of dit weekend te doen is?
           </h3>
-          <p className="text-zinc-400 text-sm sm:text-base max-w-xl">
+          <p className="text-ink-body text-sm sm:text-base max-w-xl">
             Bekijk direct alle aankomende concerten, exposities, theatervoorstellingen en markten in de complete Arnhem agenda.
           </p>
         </div>
-        <Link
-          href="/agenda"
-          className="px-6 py-3.5 rounded-full bg-[#FF4F00] hover:bg-[#E04500] text-white font-bold text-sm uppercase tracking-wider transition-all shadow-lg shrink-0 flex items-center gap-2"
-        >
+        <ButtonLink href="/agenda" variant="primary" surface="light" size="lg" className="shrink-0">
           <Calendar className="w-4 h-4" />
           <span>Naar de Uitagenda</span>
-          <ArrowRight className="w-4 h-4" />
-        </Link>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+        </ButtonLink>
       </div>
     </div>
   );

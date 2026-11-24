@@ -1,22 +1,28 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { AgendaItem } from '@/types';
 import { EventCard } from '@/components/agenda/EventCard';
 import { DateFilterStrip } from '@/components/agenda/DateFilterStrip';
+import { Pagination } from '@/components/common/Pagination';
+import { Button } from '@/components/ui/Button';
 import { EVENT_CATEGORIES } from '@/data/mockData';
-import { Search, Filter, Calendar, X, Tag } from 'lucide-react';
+import { Search, Calendar, X } from 'lucide-react';
+
+const EVENTS_PER_PAGE = 24;
 
 interface AgendaPageClientProps {
   initialEvents: AgendaItem[];
   defaultCategory?: string;
   defaultFilter?: string;
+  defaultPage?: number;
 }
 
 export function AgendaPageClient({
   initialEvents,
   defaultCategory = 'all',
   defaultFilter = 'all',
+  defaultPage = 1,
 }: AgendaPageClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
@@ -24,6 +30,8 @@ export function AgendaPageClient({
   const [customStartDate, setCustomStartDate] = useState('');
   const [customEndDate, setCustomEndDate] = useState('');
   const [priceFilter, setPriceFilter] = useState<'all' | 'free' | 'paid'>('all');
+  const [currentPage, setCurrentPage] = useState(defaultPage);
+  const resultsTopRef = useRef<HTMLDivElement>(null);
 
   const filteredEvents = useMemo(() => {
     const today = new Date();
@@ -35,15 +43,21 @@ export function AgendaPageClient({
     const endOfTomorrow = new Date(tomorrow);
     endOfTomorrow.setHours(23, 59, 59, 999);
 
-    const dayOfWeek = today.getDay();
-    let fridayDiff = (5 - dayOfWeek + 7) % 7;
+    const dayOfWeek = today.getDay(); // 0 is Sunday, 5 is Friday, 6 is Saturday
     const friday = new Date(today);
-    friday.setDate(friday.getDate() + fridayDiff);
-    friday.setHours(17, 0, 0, 0);
+    const sunday = new Date(today);
 
-    const sunday = new Date(friday);
-    sunday.setDate(sunday.getDate() + (dayOfWeek === 0 ? 0 : 7 - dayOfWeek));
-    sunday.setHours(23, 59, 59, 999);
+    if (dayOfWeek === 6 || dayOfWeek === 0) {
+      friday.setHours(0, 0, 0, 0);
+      sunday.setDate(today.getDate() + (dayOfWeek === 0 ? 0 : 1));
+      sunday.setHours(23, 59, 59, 999);
+    } else {
+      const fridayDiff = 5 - dayOfWeek;
+      friday.setDate(today.getDate() + fridayDiff);
+      friday.setHours(17, 0, 0, 0);
+      sunday.setDate(friday.getDate() + 2);
+      sunday.setHours(23, 59, 59, 999);
+    }
 
     const nextWeek = new Date(today);
     nextWeek.setDate(nextWeek.getDate() + 7);
@@ -120,6 +134,40 @@ export function AgendaPageClient({
     });
   }, [initialEvents, selectedCategory, selectedDateFilter, customStartDate, customEndDate, priceFilter, searchQuery]);
 
+  const totalPages = Math.max(1, Math.ceil(filteredEvents.length / EVENTS_PER_PAGE));
+  const safePage = Math.min(Math.max(1, currentPage), totalPages);
+
+  const paginatedEvents = useMemo(() => {
+    const startIndex = (safePage - 1) * EVENTS_PER_PAGE;
+    return filteredEvents.slice(startIndex, startIndex + EVENTS_PER_PAGE);
+  }, [filteredEvents, safePage]);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (safePage > 1) {
+      url.searchParams.set('page', String(safePage));
+    } else {
+      url.searchParams.delete('page');
+    }
+    window.history.replaceState(null, '', url.toString());
+  }, [safePage]);
+
+  const handlePageChange = (page: number) => {
+    const clamped = Math.min(Math.max(1, page), totalPages);
+    setCurrentPage(clamped);
+    resultsTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const resetFilters = () => {
+    setSelectedCategory('all');
+    setSelectedDateFilter('all');
+    setPriceFilter('all');
+    setSearchQuery('');
+    setCustomStartDate('');
+    setCustomEndDate('');
+    setCurrentPage(1);
+  };
+
   return (
     <div className="space-y-8">
       {/* Search & Main Filter Controls */}
@@ -131,14 +179,22 @@ export function AgendaPageClient({
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1);
+              }}
               placeholder="Zoek op titel, podium (bijv. Luxor, Focus) of genre..."
               className="w-full pl-12 pr-10 py-3.5 bg-zinc-50 border border-zinc-200 rounded-2xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#FF4F00] focus:bg-white transition-all"
             />
             {searchQuery && (
               <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
+                type="button"
+                aria-label="Wis zoekopdracht"
+                onClick={() => {
+                  setSearchQuery('');
+                  setCurrentPage(1);
+                }}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -148,31 +204,40 @@ export function AgendaPageClient({
           {/* Price Selector */}
           <div className="md:col-span-4 flex items-center bg-zinc-100 p-1 rounded-2xl">
             <button
-              onClick={() => setPriceFilter('all')}
+              onClick={() => {
+                setPriceFilter('all');
+                setCurrentPage(1);
+              }}
               type="button"
-              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${priceFilter === 'all'
-                  ? 'bg-white text-zinc-900 shadow-xs'
-                  : 'text-zinc-600 hover:text-zinc-900'
+              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${priceFilter === 'all'
+                ? 'bg-zinc-900 text-white shadow-xs'
+                : 'text-zinc-600 hover:text-zinc-900'
                 }`}
             >
               Alles
             </button>
             <button
-              onClick={() => setPriceFilter('free')}
+              onClick={() => {
+                setPriceFilter('free');
+                setCurrentPage(1);
+              }}
               type="button"
-              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${priceFilter === 'free'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-zinc-600 hover:text-zinc-900'
+              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${priceFilter === 'free'
+                ? 'bg-zinc-900 text-white shadow-xs'
+                : 'text-zinc-600 hover:text-zinc-900'
                 }`}
             >
               Gratis
             </button>
             <button
-              onClick={() => setPriceFilter('paid')}
+              onClick={() => {
+                setPriceFilter('paid');
+                setCurrentPage(1);
+              }}
               type="button"
-              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${priceFilter === 'paid'
-                  ? 'bg-zinc-900 text-white shadow-xs'
-                  : 'text-zinc-600 hover:text-zinc-900'
+              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${priceFilter === 'paid'
+                ? 'bg-zinc-900 text-white shadow-xs'
+                : 'text-zinc-600 hover:text-zinc-900'
                 }`}
             >
               Tickets
@@ -185,6 +250,7 @@ export function AgendaPageClient({
           selectedFilter={selectedDateFilter}
           onSelectFilter={(filter) => {
             setSelectedDateFilter(filter);
+            setCurrentPage(1);
             if (filter !== 'custom') {
               setCustomStartDate('');
               setCustomEndDate('');
@@ -196,6 +262,7 @@ export function AgendaPageClient({
             setCustomStartDate(start);
             setCustomEndDate(end);
             setSelectedDateFilter('custom');
+            setCurrentPage(1);
           }}
         />
 
@@ -206,11 +273,14 @@ export function AgendaPageClient({
             return (
               <button
                 key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
+                onClick={() => {
+                  setSelectedCategory(cat.id);
+                  setCurrentPage(1);
+                }}
                 type="button"
-                className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${active
-                    ? 'bg-zinc-900 text-white'
-                    : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap border transition-all cursor-pointer ${active
+                  ? 'bg-zinc-900 border-zinc-900 text-white shadow-xs'
+                  : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100'
                   }`}
               >
                 {cat.label}
@@ -221,22 +291,20 @@ export function AgendaPageClient({
       </div>
 
       {/* Results Header */}
-      <div className="flex items-center justify-between">
+      <div ref={resultsTopRef} className="scroll-mt-24 flex items-center justify-between">
         <p className="text-sm font-semibold text-zinc-500">
           {filteredEvents.length}{' '}
           {filteredEvents.length === 1 ? 'evenement gevonden' : 'evenementen gevonden'}
+          {totalPages > 1 && (
+            <span className="text-zinc-400 font-medium">
+              {' '}· Pagina {safePage} van {totalPages}
+            </span>
+          )}
         </p>
 
         {(selectedCategory !== 'all' || selectedDateFilter !== 'all' || priceFilter !== 'all' || searchQuery || customStartDate || customEndDate) && (
           <button
-            onClick={() => {
-              setSelectedCategory('all');
-              setSelectedDateFilter('all');
-              setPriceFilter('all');
-              setSearchQuery('');
-              setCustomStartDate('');
-              setCustomEndDate('');
-            }}
+            onClick={resetFilters}
             type="button"
             className="text-xs font-bold text-[#FF4F00] hover:underline cursor-pointer"
           >
@@ -247,11 +315,22 @@ export function AgendaPageClient({
 
       {/* Events Grid */}
       {filteredEvents.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredEvents.map((event) => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {paginatedEvents.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
+
+          <Pagination
+            currentPage={safePage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            totalItems={filteredEvents.length}
+            itemsPerPage={EVENTS_PER_PAGE}
+            itemLabel="evenementen"
+          />
+        </>
       ) : (
         <div className="py-20 text-center bg-zinc-50 rounded-3xl border border-zinc-200 px-4">
           <Calendar className="w-12 h-12 text-zinc-300 mx-auto mb-3" />
@@ -261,18 +340,9 @@ export function AgendaPageClient({
           <p className="text-sm text-zinc-500 max-w-sm mx-auto mt-1 mb-6">
             Probeer een andere datum of reset de categorie en zoekterm.
           </p>
-          <button
-            onClick={() => {
-              setSelectedCategory('all');
-              setSelectedDateFilter('all');
-              setPriceFilter('all');
-              setSearchQuery('');
-            }}
-            type="button"
-            className="px-5 py-2.5 rounded-full bg-[#FF4F00] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#E04500] cursor-pointer"
-          >
+          <Button onClick={resetFilters} variant="primary" size="md">
             Reset alle filters
-          </button>
+          </Button>
         </div>
       )}
     </div>

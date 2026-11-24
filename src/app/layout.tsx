@@ -1,26 +1,26 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google';
 import './globals.css';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
+import { SiteChrome } from '@/components/layout/SiteChrome';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-heading',
+  variable: '--font-jakarta',
   display: 'swap',
 });
 
 const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-sans',
+  variable: '--font-inter',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
   title: 'Uit in Arnhem | Cultuur, Agenda, Hotspots & Nachtleven',
-  description: 'Ontdek wat er te doen is in Arnhem. De complete culturele agenda, tips voor eten & drinken, vintage winkelen en verborgen parels in de Rijnstad.',
+  description:
+    'Ontdek wat er te doen is in Arnhem. De complete culturele agenda, tips voor eten & drinken, vintage winkelen en verborgen parels in de Rijnstad.',
   keywords: ['Arnhem', 'Agenda', 'Cultuur', 'Hotspots', 'Nachtleven', 'Sonsbeek', 'Modekwartier', 'Uit in Arnhem'],
   openGraph: {
     title: 'Uit in Arnhem | De officiële cultuur- en uitgaansgids',
@@ -39,10 +39,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl" className={`${plusJakartaSans.variable} ${inter.variable}`}>
-      <body className="min-h-screen flex flex-col bg-white text-[#121212] selection:bg-[#FF4F00] selection:text-white overflow-x-hidden">
-        <Navbar />
-        <main className="flex-1 w-full overflow-x-hidden">{children}</main>
-        <Footer />
+      <body className="min-h-screen flex flex-col bg-canvas text-ink selection:bg-[#FF4F00] selection:text-white overflow-x-hidden">
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

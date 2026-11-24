@@ -1,22 +1,19 @@
 'use client';
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import {
   DISTRICTS,
   RHINE_RIVER,
   District,
   getDistrictBySlug,
 } from '@/data/districtsData';
-import { ArrowRight, Compass } from 'lucide-react';
 
 interface InteractiveDistrictMapProps {
   activeSlug?: string;
   onSelectDistrict?: (district: District) => void;
   className?: string;
   showSelector?: boolean;
-  showPreviewCard?: boolean;
   title?: string;
   subtitle?: string;
 }
@@ -26,12 +23,10 @@ export function InteractiveDistrictMap({
   onSelectDistrict,
   className = '',
   showSelector = true,
-  showPreviewCard = true,
   title = 'Ontdek Arnhem per wijk',
   subtitle = 'Klik op een wijk op de kaart om de leukste hotspots, verhalen en uitagenda te ontdekken.',
 }: InteractiveDistrictMapProps) {
   const router = useRouter();
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(
     activeSlug || null
@@ -39,26 +34,9 @@ export function InteractiveDistrictMap({
   const [selectedSlug, setSelectedSlug] = useState<string | null>(
     activeSlug || null
   );
-  const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(
-    null
-  );
 
   const activeDistrict =
     getDistrictBySlug(hoveredSlug || selectedSlug || '') || null;
-
-  // Handle pointer movement over the map to update the floating pill position
-  const handleMouseMove = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    // Boundary clamping for tooltip
-    const clampedX = Math.max(120, Math.min(rect.width - 120, x));
-    const clampedY = Math.max(40, Math.min(rect.height - 40, y));
-
-    setTooltipPos({ x: clampedX, y: clampedY });
-  }, []);
 
   const handleDistrictHover = (slug: string | null) => {
     setHoveredSlug(slug);
@@ -73,49 +51,41 @@ export function InteractiveDistrictMap({
     }
   };
 
+  const pillWidth = activeDistrict
+    ? Math.max(150, Math.round(activeDistrict.name.length * 7.8 + 44))
+    : 200;
+
   return (
     <div
-      ref={containerRef}
-      className={`relative w-full bg-linear-to-b from-stone-50/70 via-white to-stone-50/70 rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden select-none p-4 sm:p-6 lg:p-8 ${className}`}
+      className={`relative w-full bg-surface-subtle rounded-3xl border border-border-warm overflow-hidden select-none p-3 sm:p-5 lg:p-6 ${className}`}
     >
-      {/* Header Info (I amsterdam style clean typography) */}
+      {/* Header Info */}
       {(title || subtitle) && (
-        <div className="mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div className="mb-5 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-orange-100 text-orange-800 mb-2">
-              <Compass className="w-3.5 h-3.5 text-[#FF4F00]" />
-              <span>Wijkengids & Kaart</span>
-            </div>
             {title && (
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-neutral-900 font-heading">
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink font-heading">
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className="mt-1 text-sm sm:text-base text-neutral-600 max-w-2xl">
+              <p className="mt-1 text-sm sm:text-base text-ink-body max-w-2xl">
                 {subtitle}
               </p>
             )}
-          </div>
-
-          <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-neutral-500 bg-white/90 backdrop-blur-xs px-3 py-1.5 rounded-full border border-stone-200 shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Beweeg of klik op een wijk</span>
           </div>
         </div>
       )}
 
       {/* Interactive SVG Canvas */}
-      <div className="relative w-full aspect-960/720 max-w-5xl mx-auto">
+      <div className="relative w-full aspect-960/720 max-w-4xl mx-auto">
         <svg
           viewBox="0 0 960 720"
           className="w-full h-full drop-shadow-sm transition-all duration-300 overflow-visible"
           role="region"
           aria-label="Interactieve kaart van Arnhemse wijken"
-          onMouseMove={handleMouseMove}
           onMouseLeave={() => {
             setHoveredSlug(null);
-            setTooltipPos(null);
           }}
         >
           <defs>
@@ -197,7 +167,7 @@ export function InteractiveDistrictMap({
                 role="link"
                 tabIndex={0}
                 aria-label={`Wijk ${district.name}`}
-                className="cursor-pointer outline-none transition-all duration-300 focus:outline-none"
+                className="cursor-pointer outline-none transition-all duration-300 focus-visible:outline-2 focus-visible:outline-[#FF4F00]"
                 onMouseEnter={() => handleDistrictHover(district.slug)}
                 onMouseLeave={() => handleDistrictHover(null)}
                 onClick={() => handleDistrictClick(district)}
@@ -232,29 +202,16 @@ export function InteractiveDistrictMap({
                   transform={`translate(${district.centerPoint.x}, ${district.centerPoint.y})`}
                   className="pointer-events-none select-none transition-all duration-200"
                 >
-                  {/* Subtle Icon Badge */}
-                  {district.landmarkIcon && (
-                    <circle
-                      cx="0"
-                      cy="-14"
-                      r="12"
-                      fill="#FFFFFF"
-                      fillOpacity={isHovered ? 0.98 : 0.9}
-                      stroke={district.textColor}
-                      strokeWidth="1.2"
-                      className="shadow-xs"
-                    />
-                  )}
-                  {district.landmarkIcon && (
-                    <text
-                      x="0"
-                      y="-10"
-                      textAnchor="middle"
-                      className="text-[11px] leading-none"
-                    >
-                      {district.landmarkIcon}
-                    </text>
-                  )}
+                  {/* Minimal Anchor Marker (no emojis) */}
+                  <circle
+                    cx="0"
+                    cy="-11"
+                    r={isHovered || isSelected ? '6' : '4.5'}
+                    fill={isHovered || isSelected ? '#FF4F00' : '#FFFFFF'}
+                    stroke={isHovered || isSelected ? '#FFFFFF' : district.textColor}
+                    strokeWidth="1.8"
+                    className="transition-all duration-200"
+                  />
 
                   {/* District Short Label */}
                   <text
@@ -262,8 +219,8 @@ export function InteractiveDistrictMap({
                     y="6"
                     textAnchor="middle"
                     className={`font-bold tracking-tight transition-all duration-200 ${isHovered
-                        ? 'text-[13px] fill-neutral-950 font-black'
-                        : 'text-[11px] fill-neutral-900 font-extrabold'
+                      ? 'text-[13px] fill-neutral-950 font-black'
+                      : 'text-[11px] fill-neutral-900 font-extrabold'
                       }`}
                     style={{
                       textShadow:
@@ -353,7 +310,7 @@ export function InteractiveDistrictMap({
           </g>
 
           {/* ==================================================== */}
-          {/* FLOATING PILL TOOLTIP (I amsterdam style: "Wijknaam →") */}
+          {/* SINGLE FLOATING PILL TOOLTIP ("Wijknaam →")          */}
           {/* ==================================================== */}
           {activeDistrict && (
             <g
@@ -363,12 +320,12 @@ export function InteractiveDistrictMap({
               {/* Elevated floating pill badge */}
               <g transform="translate(0, -38)">
                 <rect
-                  x="-110"
+                  x={-pillWidth / 2}
                   y="-18"
-                  width="220"
+                  width={pillWidth}
                   height="36"
                   rx="18"
-                  fill="#0F172A"
+                  fill="#121212"
                   className="shadow-2xl"
                   filter="url(#wijk-shadow)"
                 />
@@ -384,46 +341,20 @@ export function InteractiveDistrictMap({
             </g>
           )}
         </svg>
-
-        {/* Floating Tooltip Follower for Mouse Position (Mobile/Desktop helper) */}
-        {activeDistrict && tooltipPos && (
-          <div
-            className="absolute pointer-events-none transition-all duration-75 z-20 hidden md:block"
-            style={{
-              left: `${tooltipPos.x}px`,
-              top: `${tooltipPos.y - 48}px`,
-              transform: 'translate(-50%, -100%)',
-            }}
-          >
-            <div className="bg-neutral-900/95 backdrop-blur-md text-white px-4 py-2 rounded-2xl shadow-xl border border-white/10 flex items-center gap-2 whitespace-nowrap">
-              <span className="text-base">{activeDistrict.landmarkIcon}</span>
-              <div>
-                <div className="text-xs font-bold leading-tight flex items-center gap-1 text-white">
-                  <span>{activeDistrict.name}</span>
-                  <ArrowRight className="w-3 h-3 text-[#FF4F00]" />
-                </div>
-                <div className="text-[10px] text-neutral-300 font-medium">
-                  {activeDistrict.vibe}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* ==================================================== */}
       {/* QUICK CHIP SELECTOR (Accessible & Mobile Friendly) */}
       {/* ==================================================== */}
       {showSelector && (
-        <div className="mt-6 pt-6 border-t border-stone-200/80">
-          <div className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-3 flex items-center justify-between">
+        <div className="mt-4 pt-4 border-t border-border-warm">
+          <div className="text-xs font-bold uppercase tracking-wider text-ink-muted mb-2.5 flex items-center justify-between">
             <span>Of kies direct een wijk van Arnhem:</span>
-            <span className="text-[11px] text-neutral-400">8 wijken</span>
+            <span className="text-[11px] text-ink-muted">{DISTRICTS.length} wijken</span>
           </div>
 
           <div className="flex flex-wrap gap-2">
             {DISTRICTS.map((district) => {
-              const isHovered = hoveredSlug === district.slug;
               const isSelected = selectedSlug === district.slug;
 
               return (
@@ -433,9 +364,9 @@ export function InteractiveDistrictMap({
                   onMouseEnter={() => handleDistrictHover(district.slug)}
                   onMouseLeave={() => handleDistrictHover(null)}
                   onClick={() => handleDistrictClick(district)}
-                  className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${isHovered || isSelected
-                      ? 'bg-neutral-900 text-white shadow-md scale-105'
-                      : 'bg-white text-neutral-700 border border-stone-200 hover:border-neutral-400 hover:bg-stone-50'
+                  className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${isSelected
+                    ? 'bg-ink text-white shadow-xs'
+                    : 'bg-surface text-ink-body border border-border-warm hover:border-ink hover:bg-ink hover:text-white'
                     }`}
                 >
                   <span
@@ -443,43 +374,10 @@ export function InteractiveDistrictMap({
                     style={{ backgroundColor: district.accentColor }}
                   />
                   <span>{district.shortName}</span>
-                  <span className="text-[10px] opacity-60">
-                    ({district.highlights.length})
-                  </span>
                 </button>
               );
             })}
           </div>
-        </div>
-      )}
-
-      {/* ==================================================== */}
-      {/* SELECTED DISTRICT PREVIEW CARD (Below Map) */}
-      {/* ==================================================== */}
-      {showPreviewCard && activeDistrict && (
-        <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-white border border-stone-200/90 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="text-lg">{activeDistrict.landmarkIcon}</span>
-              <h3 className="font-heading font-black text-lg text-neutral-900">
-                {activeDistrict.name}
-              </h3>
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 font-medium">
-                {activeDistrict.vibe}
-              </span>
-            </div>
-            <p className="text-xs sm:text-sm text-neutral-600 line-clamp-2 max-w-2xl">
-              {activeDistrict.description}
-            </p>
-          </div>
-
-          <Link
-            href={`/wijken/${activeDistrict.slug}`}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-xs shrink-0 group"
-          >
-            <span>Wijkpagina bekijken</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-          </Link>
         </div>
       )}
     </div>

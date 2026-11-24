@@ -3,6 +3,7 @@
 import React from 'react';
 import { CalendarPlus, Download } from 'lucide-react';
 import { AgendaItem } from '@/types';
+import { Button, ButtonLink } from '@/components/ui/Button';
 
 interface CalendarExportProps {
   event: AgendaItem;
@@ -42,6 +43,7 @@ export function CalendarExport({ event }: CalendarExportProps) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
   const getGoogleCalendarUrl = () => {
@@ -54,33 +56,36 @@ export function CalendarExport({ event }: CalendarExportProps) {
 
     const dates = `${formatGoogleDate(startDate)}/${formatGoogleDate(endDate)}`;
     const text = encodeURIComponent(event.title);
-    const details = encodeURIComponent(`${event.short_description}\n\nMeer info: https://uitinarnhem.nl/agenda/${event.slug}`);
-    const location = encodeURIComponent(`${event.venue_name}, ${event.venue_address}, ${event.venue_city}`);
+    const descParts = [event.short_description, `Meer info: https://uitinarnhem.nl/agenda/${event.slug}`].filter(Boolean);
+    const details = encodeURIComponent(descParts.join('\n\n'));
+    const location = encodeURIComponent(
+      [event.venue_name, event.venue_address, event.venue_city].filter(Boolean).join(', ')
+    );
 
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${dates}&details=${details}&location=${location}`;
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <button
+    <div className="flex flex-wrap items-center gap-2.5">
+      <Button
         onClick={downloadIcs}
-        type="button"
-        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold transition-colors cursor-pointer"
+        variant="secondary"
+        size="sm"
         title="Download .ics bestand voor Apple Agenda, Outlook"
       >
-        <Download className="w-3.5 h-3.5 text-[#FF4F00]" />
+        <Download className="w-3.5 h-3.5 text-[#FF4F00] group-hover:text-white transition-colors" />
         <span>Voeg toe aan Agenda (.ics)</span>
-      </button>
+      </Button>
 
-      <a
+      <ButtonLink
         href={getGoogleCalendarUrl()}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold transition-colors"
+        variant="secondary"
+        size="sm"
+        external
       >
-        <CalendarPlus className="w-3.5 h-3.5 text-[#FF4F00]" />
+        <CalendarPlus className="w-3.5 h-3.5 text-[#FF4F00] group-hover:text-white transition-colors" />
         <span>Google Agenda</span>
-      </a>
+      </ButtonLink>
     </div>
   );
 }

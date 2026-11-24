@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Compass, ArrowRight } from 'lucide-react';
+import { ButtonLink } from '@/components/ui/Button';
 
 const DISTRICTS = [
   {
@@ -39,47 +40,55 @@ export function HotspotHighlights() {
             <Compass className="w-4 h-4" />
             <span>Wijken in de kijker</span>
           </div>
-          <h2 className="font-heading font-black text-2xl sm:text-3xl text-zinc-900 tracking-tight">
+          <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-ink tracking-tight">
             Verken de sfeer van de stad
           </h2>
-          <p className="text-zinc-600 text-sm mt-1">
+          <p className="text-ink-body text-sm mt-1">
             Ontdek de karakteristieke buurten en duik direct in de lokale gidsen.
           </p>
         </div>
 
-        <Link
+        <ButtonLink
           href="/wijken"
-          className="text-xs font-bold text-[#FF4F00] hover:text-[#E04500] uppercase tracking-wider inline-flex items-center gap-1 group"
+          variant="secondary"
+          size="md"
+          className="self-start sm:self-auto shrink-0"
         >
-          Alle 8 wijken bekijken <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </Link>
+          <span>Alle 8 wijken bekijken</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+        </ButtonLink>
       </div>
 
+      {/* Puur redactioneel: 100% heldere foto boven, witte kaart eronder */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {DISTRICTS.map((item) => (
           <Link
             key={item.slug}
             href={`/wijken/${item.slug}`}
-            className="group relative rounded-2xl overflow-hidden aspect-4/5 flex flex-col justify-end p-6 bg-zinc-900 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            className="group flex flex-col bg-surface rounded-2xl overflow-hidden border border-border-warm shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
           >
-            <Image
-              src={item.image}
-              alt={item.name}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              className="object-cover opacity-80 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/40 to-transparent pointer-events-none" />
+            <div className="relative aspect-4/3 w-full overflow-hidden bg-surface-muted">
+              <Image
+                src={item.image}
+                alt={item.name}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
 
-            <div className="relative z-10 text-white">
-              <h3 className="font-heading font-black text-xl text-white group-hover:text-[#FF4F00] transition-colors">
-                {item.name}
-              </h3>
-              <p className="text-xs text-zinc-300 mt-1 line-clamp-2 leading-relaxed">
-                {item.tagline}
-              </p>
-              <div className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-[#FF4F00] uppercase tracking-wider">
-                Verken wijk →
+            <div className="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="font-heading font-extrabold text-lg text-ink group-hover:text-[#FF4F00] transition-colors leading-snug">
+                  {item.name}
+                </h3>
+                <p className="text-xs text-ink-body mt-1.5 line-clamp-2 leading-relaxed">
+                  {item.tagline}
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-border-warm inline-flex items-center gap-1.5 text-[11px] font-bold text-ink uppercase tracking-wider">
+                <span>Verken wijk</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#FF4F00] group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
           </Link>

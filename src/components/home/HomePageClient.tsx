@@ -4,8 +4,8 @@ import React, { useState, useMemo } from 'react';
 import { AgendaItem } from '@/types';
 import { EventCard } from '@/components/agenda/EventCard';
 import { DateFilterStrip } from '@/components/agenda/DateFilterStrip';
-import { Calendar, Search } from 'lucide-react';
-import Link from 'next/link';
+import { Button } from '@/components/ui/Button';
+import { Calendar } from 'lucide-react';
 
 interface HomePageClientProps {
   initialEvents: AgendaItem[];
@@ -26,16 +26,22 @@ export function HomePageClient({ initialEvents }: HomePageClientProps) {
     const endOfTomorrow = new Date(tomorrow);
     endOfTomorrow.setHours(23, 59, 59, 999);
 
-    // Calculate weekend (upcoming Friday 17:00 to Sunday 23:59)
+    // Calculate weekend (upcoming Friday 17:00 to Sunday 23:59, or rest of current weekend on Sat/Sun)
     const dayOfWeek = today.getDay(); // 0 is Sunday, 5 is Friday, 6 is Saturday
-    let fridayDiff = (5 - dayOfWeek + 7) % 7;
     const friday = new Date(today);
-    friday.setDate(friday.getDate() + fridayDiff);
-    friday.setHours(17, 0, 0, 0);
+    const sunday = new Date(today);
 
-    const sunday = new Date(friday);
-    sunday.setDate(sunday.getDate() + (dayOfWeek === 0 ? 0 : 7 - dayOfWeek));
-    sunday.setHours(23, 59, 59, 999);
+    if (dayOfWeek === 6 || dayOfWeek === 0) {
+      friday.setHours(0, 0, 0, 0);
+      sunday.setDate(today.getDate() + (dayOfWeek === 0 ? 0 : 1));
+      sunday.setHours(23, 59, 59, 999);
+    } else {
+      const fridayDiff = 5 - dayOfWeek;
+      friday.setDate(today.getDate() + fridayDiff);
+      friday.setHours(17, 0, 0, 0);
+      sunday.setDate(friday.getDate() + 2);
+      sunday.setHours(23, 59, 59, 999);
+    }
 
     const nextWeek = new Date(today);
     nextWeek.setDate(nextWeek.getDate() + 7);
@@ -133,13 +139,9 @@ export function HomePageClient({ initialEvents }: HomePageClientProps) {
           <p className="text-sm text-zinc-500 max-w-sm mx-auto mt-1 mb-6">
             Probeer een andere datum of bekijk het complete aanbod in onze overzichtskalender.
           </p>
-          <button
-            onClick={() => setSelectedFilter('all')}
-            type="button"
-            className="px-5 py-2.5 rounded-full bg-[#FF4F00] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#E04500] cursor-pointer"
-          >
+          <Button onClick={() => setSelectedFilter('all')} variant="primary" size="md">
             Toon alle data
-          </button>
+          </Button>
         </div>
       )}
     </div>

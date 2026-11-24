@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Article } from '@/types';
 import { ModularCtaBlock } from './ModularCtaBlock';
-import { Clock, Calendar, User, Tag, Share2, Bookmark } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import { formatRichContent } from '@/lib/contentRenderer';
 
@@ -16,6 +15,10 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
   const template = article.layout_template || 'standard';
   const [isPortrait, setIsPortrait] = useState<boolean>(false);
   const [aspectRatio, setAspectRatio] = useState<number | null>(null);
+  const wordCount = article.content
+    ? article.content.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).filter(Boolean).length
+    : 200;
+  const readMinutes = Math.max(1, Math.ceil(wordCount / 200));
 
   useEffect(() => {
     if (!article.featured_image_url) return;
@@ -42,38 +45,36 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
     <article className="w-full">
       {/* 1. EDITORIAL STORY TEMPLATE: Big immersive banner */}
       {template === 'editorial_story' && (
-        <div className="relative w-full h-[65vh] min-h-[450px] bg-zinc-950 flex items-end mb-12">
+        <div className="relative w-full h-[65vh] min-h-[450px] bg-ink flex items-end mb-12">
           <Image
             src={article.featured_image_url}
             alt={article.title}
             fill
             priority
-            className="object-cover opacity-75"
+            sizes="100vw"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/90 via-black/55 to-transparent pointer-events-none" />
 
           <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full text-white">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="bg-[#FF4F00] text-white text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full">
-                {article.category}
-              </span>
-              <span className="text-xs text-zinc-300 font-medium">
-                {formatDate(article.published_at)}
-              </span>
-            </div>
-
-            <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white leading-tight">
+            <h1 className="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white leading-tight drop-shadow-xs">
               {article.title}
             </h1>
 
-            <p className="text-zinc-200 text-lg sm:text-xl mt-4 font-normal max-w-2xl leading-relaxed">
+            <p className="text-white/90 text-lg sm:text-xl mt-4 font-normal max-w-2xl leading-relaxed drop-shadow-xs">
               {article.excerpt}
             </p>
 
-            <div className="flex items-center gap-4 mt-6 pt-6 border-t border-white/20 text-xs text-zinc-300">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mt-6 pt-6 border-t border-white/20 text-xs text-zinc-300">
+              <span className="uppercase tracking-wider font-bold text-[#FF4F00]">
+                {article.category}
+              </span>
+              <span aria-hidden="true">•</span>
               <span className="font-bold text-white">Door {article.author_name || 'Redactie'}</span>
-              <span>•</span>
-              <span>Leestijd ~4 minuten</span>
+              <span aria-hidden="true">•</span>
+              <span>{formatDate(article.published_at)}</span>
+              <span aria-hidden="true">•</span>
+              <span>Leestijd {readMinutes} min</span>
             </div>
           </div>
         </div>
@@ -106,18 +107,19 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
 
             {/* Right Column: Article Details */}
             <div className="md:col-span-7 order-1 md:order-2 flex flex-col justify-center">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="bg-[#FF4F00] text-white text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-xs">
-                  {article.category}
-                </span>
-                <span className="text-xs text-zinc-500 font-medium">
-                  Gepubliceerd op {formatDate(article.published_at)}
-                </span>
-              </div>
-
-              <h1 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-zinc-950 leading-[1.15] tracking-tight">
+              <h1 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-zinc-950 leading-[1.15] tracking-tight">
                 {article.title}
               </h1>
+
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-xs text-zinc-500 font-medium">
+                <span className="uppercase tracking-wider font-bold text-[#FF4F00]">
+                  {article.category}
+                </span>
+                <span className="text-zinc-300" aria-hidden="true">•</span>
+                <span>Gepubliceerd op {formatDate(article.published_at)}</span>
+                <span className="text-zinc-300" aria-hidden="true">•</span>
+                <span>{readMinutes} min leestijd</span>
+              </div>
 
               <p className="text-zinc-600 text-lg sm:text-xl mt-5 leading-relaxed font-normal">
                 {article.excerpt}
@@ -126,11 +128,11 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
               <div className="flex flex-wrap items-center justify-between gap-4 mt-8 pt-6 border-t border-zinc-200 text-xs text-zinc-500">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-[#FFF3ED] text-[#FF4F00] flex items-center justify-center font-bold text-sm shadow-inner">
-                    {article.author_name ? article.author_name[0] : 'R'}
+                    {(article.author_name || 'Redactie Uit in Arnhem').trim()[0]?.toUpperCase() || 'R'}
                   </div>
                   <div>
                     <p className="font-bold text-zinc-900 text-sm">{article.author_name || 'Redactie Uit in Arnhem'}</p>
-                    <p className="text-xs text-zinc-500">Cultuur & Lifestyle redacteur</p>
+                    <p className="text-xs text-zinc-500">Redacteur Uit in Arnhem</p>
                   </div>
                 </div>
 
@@ -148,18 +150,19 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
       {/* 3. STANDARD / LISTICLE / VISUAL GALLERY HEADER (LANDSCAPE IMAGES) */}
       {!showSplitHeader && template !== 'editorial_story' && (
         <header className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="bg-[#FF4F00] text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-              {article.category}
-            </span>
-            <span className="text-xs text-zinc-500 font-medium">
-              Gepubliceerd op {formatDate(article.published_at)}
-            </span>
-          </div>
-
-          <h1 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-zinc-950 leading-tight">
+          <h1 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-zinc-950 leading-tight">
             {article.title}
           </h1>
+
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-xs text-zinc-500 font-medium">
+            <span className="uppercase tracking-wider font-bold text-[#FF4F00]">
+              {article.category}
+            </span>
+            <span className="text-zinc-300" aria-hidden="true">•</span>
+            <span>Gepubliceerd op {formatDate(article.published_at)}</span>
+            <span className="text-zinc-300" aria-hidden="true">•</span>
+            <span>{readMinutes} min leestijd</span>
+          </div>
 
           <p className="text-zinc-600 text-lg sm:text-xl mt-4 leading-relaxed font-normal">
             {article.excerpt}
@@ -168,11 +171,11 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
           <div className="flex flex-wrap items-center justify-between gap-4 mt-6 pt-6 border-t border-zinc-200 text-xs text-zinc-500">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-[#FFF3ED] text-[#FF4F00] flex items-center justify-center font-bold">
-                {article.author_name ? article.author_name[0] : 'R'}
+                {(article.author_name || 'Redactie Uit in Arnhem').trim()[0]?.toUpperCase() || 'R'}
               </div>
               <div>
                 <p className="font-bold text-zinc-900">{article.author_name || 'Redactie Uit in Arnhem'}</p>
-                <p className="text-[11px] text-zinc-500">Cultuur & Lifestyle redacteur</p>
+                <p className="text-[11px] text-zinc-500">Redacteur Uit in Arnhem</p>
               </div>
             </div>
 

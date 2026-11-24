@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { DISTRICTS } from '@/data/districtsData';
 import { InteractiveDistrictMap } from '@/components/districts/InteractiveDistrictMap';
 import { DistrictCard } from '@/components/districts/DistrictCard';
-import { NewsletterCta } from '@/components/common/NewsletterCta';
-import { MapPin, Sparkles, ArrowRight } from 'lucide-react';
+import { ButtonLink } from '@/components/ui/Button';
+import { ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Wijken van Arnhem | Ontdek alle buurten & interactieve kaart',
@@ -53,10 +53,6 @@ export default function WijkenHubPage() {
       <section aria-labelledby="districts-grid-heading" className="space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-zinc-200 pb-5">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF4F00] mb-1.5">
-              <MapPin className="w-3.5 h-3.5" />
-              <span>Overzicht</span>
-            </div>
             <h2
               id="districts-grid-heading"
               className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-zinc-900 tracking-tight"
@@ -68,8 +64,8 @@ export default function WijkenHubPage() {
             </p>
           </div>
 
-          <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">
-            {DISTRICTS.length} Arnhemse wijken
+          <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
+            {DISTRICTS.length} wijken
           </span>
         </div>
 
@@ -82,43 +78,29 @@ export default function WijkenHubPage() {
       </section>
 
       {/* 4. INFORMATIVE HIGHLIGHT BANNER */}
-      <section className="bg-zinc-900 text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden">
-        <div className="absolute -right-10 -bottom-10 w-80 h-80 rounded-full bg-[#FF4F00]/20 blur-3xl pointer-events-none" />
-        <div className="relative z-10 max-w-2xl space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#FF4F00]">
-            <Sparkles className="w-4 h-4 fill-[#FF4F00]" />
-            <span>Arnhem aan de Rijn</span>
-          </div>
-          <h2 className="font-heading font-black text-2xl sm:text-4xl text-white tracking-tight leading-tight">
-            Tussen Veluwe & Rivier: de veelzijdigheid van de stad
+      <section className="bg-cta-tint text-ink border border-cta-border rounded-3xl p-8 sm:p-12">
+        <div className="max-w-2xl space-y-4">
+          <h2 className="font-heading font-extrabold text-2xl sm:text-4xl text-ink tracking-tight leading-tight">
+            Tussen Veluwe &amp; Rivier: de veelzijdigheid van de stad
           </h2>
-          <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
+          <p className="text-ink-body text-sm sm:text-base leading-relaxed">
             Geen stad in Nederland kent zulke grote hoogteverschillen, parken en
             waterlinies als Arnhem. Met de iconische John Frostbrug en Nelson
             Mandelabrug als levensaders verbinden de noordelijke heuvels en het
             weidse uiterwaardengebied van Meinerswijk elkaar dagelijks.
           </p>
           <div className="pt-2 flex flex-wrap gap-3">
-            <Link
-              href="/agenda"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#FF4F00] text-white font-bold text-xs uppercase tracking-wider hover:bg-[#e04500] transition-colors shadow-sm"
-            >
+            <ButtonLink href="/agenda" variant="primary" surface="light" size="md">
               <span>Bekijk complete uitagenda</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-            <Link
-              href="/artikelen"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-zinc-800 text-white font-bold text-xs uppercase tracking-wider hover:bg-zinc-700 transition-colors"
-            >
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </ButtonLink>
+            <ButtonLink href="/artikelen" variant="secondary" surface="light" size="md">
               <span>Lees alle stadsverhalen</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </ButtonLink>
           </div>
         </div>
       </section>
-
-      {/* 5. NEWSLETTER CTA */}
-      <NewsletterCta />
     </div>
   );
 }

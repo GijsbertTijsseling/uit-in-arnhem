@@ -264,7 +264,7 @@ export function LocationCombobox({
                               {highlightMatch(loc.name, searchQuery)}
                             </span>
                             {loc.city && loc.city.toLowerCase() !== 'arnhem' && (
-                              <span className="text-[10px] px-1.5 py-0.2 bg-zinc-200/70 text-zinc-600 rounded font-medium">
+                              <span className="text-[10px] px-1.5 py-0.5 bg-zinc-200/70 text-zinc-600 rounded font-medium">
                                 {loc.city}
                               </span>
                             )}

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Building2, Search, ExternalLink, Calendar, ArrowRight } from 'lucide-react';
 import { getLocations, getEvents } from '@/lib/supabase/api';
+import { ButtonLink } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
   title: 'Culturele Locaties & Podia in Arnhem | Uit in Arnhem',
@@ -40,20 +41,15 @@ export default async function LocatiesPage() {
   ];
 
   const featuredLocations = locations.filter((l) => prioritySlugs.includes(l.slug));
-  const otherLocations = locations.filter((l) => !prioritySlugs.includes(l.slug));
 
   return (
-    <div className="min-h-screen bg-zinc-50/60 pb-20">
+    <div className="min-h-screen bg-canvas pb-20">
       {/* Hero Header */}
-      <section className="bg-white border-b border-zinc-200 py-12 sm:py-16">
+      <section className="bg-surface-subtle border-b border-border-warm py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF3ED] border border-[#FF4F00]/20 text-[#FF4F00] text-xs font-bold uppercase tracking-wider mb-4">
-              <Building2 className="w-3.5 h-3.5" />
-              <span>Ontdek de Rijnstad</span>
-            </div>
-            <h1 className="font-heading font-black text-3xl sm:text-5xl text-zinc-950 tracking-tight leading-tight">
-              Culturele Locaties & Podia in Arnhem
+            <h1 className="font-heading font-extrabold text-3xl sm:text-5xl text-zinc-950 tracking-tight leading-tight">
+              Culturele Locaties &amp; Podia in Arnhem
             </h1>
             <p className="mt-4 text-base sm:text-lg text-zinc-600 leading-relaxed">
               Van historische monumenten zoals de Koepelgevangenis tot intieme podia, musea en filmtheaters.
@@ -84,7 +80,7 @@ export default async function LocatiesPage() {
                 <Link
                   key={loc.slug}
                   href={`/locatie/${loc.slug}`}
-                  className="group bg-white rounded-3xl border border-zinc-200/90 overflow-hidden shadow-2xs hover:shadow-xl hover:border-zinc-300 transition-all duration-300 flex flex-col"
+                  className="group bg-surface rounded-3xl border border-border-warm overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col"
                 >
                   <div className="relative h-48 w-full bg-zinc-100 overflow-hidden">
                     <Image
@@ -97,13 +93,13 @@ export default async function LocatiesPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
-                      <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-black/50 backdrop-blur-xs flex items-center gap-1">
+                      <span className="text-xs font-semibold px-3 py-1 rounded-full bg-black/60 backdrop-blur-xs flex items-center gap-1">
                         <MapPin className="w-3 h-3 text-[#FF4F00]" />
                         <span className="truncate">{loc.city || 'Arnhem'}</span>
                       </span>
 
                       {count > 0 && (
-                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#FF4F00] text-white flex items-center gap-1 shadow-sm">
+                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#FF4F00] text-white flex items-center gap-1 shadow-sm">
                           <Calendar className="w-3 h-3" />
                           <span>{count} {count === 1 ? 'evenement' : 'evenementen'}</span>
                         </span>
@@ -152,7 +148,7 @@ export default async function LocatiesPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-3xl border border-zinc-200/90 shadow-2xs divide-y divide-zinc-100 overflow-hidden">
+          <div className="bg-surface rounded-3xl border border-border-warm shadow-card divide-y divide-border-warm overflow-hidden">
             {locations.map((loc) => {
               const count =
                 eventCounts[loc.slug] || eventCounts[loc.name.toLowerCase()] || 0;
@@ -183,17 +179,14 @@ export default async function LocatiesPage() {
 
                   <div className="flex items-center gap-3 shrink-0 self-end sm:self-center">
                     {count > 0 && (
-                      <span className="px-2.5 py-1 rounded-lg bg-zinc-100 text-zinc-700 text-xs font-semibold">
-                        {count} {count === 1 ? 'event' : 'events'}
+                      <span className="px-3 py-1 rounded-full bg-zinc-100 text-zinc-700 text-xs font-semibold">
+                        {count} {count === 1 ? 'evenement' : 'evenementen'}
                       </span>
                     )}
-                    <Link
-                      href={`/locatie/${loc.slug}`}
-                      className="px-3.5 py-1.5 rounded-xl border border-zinc-200 text-xs font-bold text-zinc-700 hover:text-[#FF4F00] hover:border-[#FF4F00]/30 transition-colors flex items-center gap-1"
-                    >
+                    <ButtonLink href={`/locatie/${loc.slug}`} variant="secondary" size="sm">
                       <span>Locatiepagina</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </Link>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    </ButtonLink>
                   </div>
                 </div>
               );

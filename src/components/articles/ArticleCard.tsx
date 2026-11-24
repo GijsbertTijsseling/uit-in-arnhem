@@ -21,9 +21,9 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
 
   if (featured) {
     return (
-      <article className="group relative rounded-3xl overflow-hidden bg-zinc-950 text-white shadow-xl grid grid-cols-1 lg:grid-cols-12 min-h-120">
+      <article className="group relative rounded-3xl overflow-hidden bg-ink text-white shadow-card-hover grid grid-cols-1 lg:grid-cols-12 min-h-120">
         {/* Image col */}
-        <div className="lg:col-span-7 relative min-h-75 lg:min-h-full overflow-hidden bg-zinc-950 flex items-center justify-center">
+        <div className="lg:col-span-7 relative min-h-75 lg:min-h-full overflow-hidden bg-ink flex items-center justify-center">
           {/* Ambient blur background for portrait images */}
           {isPortrait && (
             <div className="absolute -inset-6 overflow-hidden pointer-events-none">
@@ -54,7 +54,7 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
               isPortrait ? 'object-contain relative z-10 drop-shadow-2xl' : 'object-cover'
             } transition-transform duration-700 group-hover:scale-105`}
           />
-          <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-zinc-950/80 via-transparent to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/55 via-transparent to-transparent pointer-events-none z-10" />
         </div>
 
         {/* Content col */}
@@ -103,10 +103,10 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
   }
 
   return (
-    <article className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200/80 hover:border-zinc-300 hover:shadow-lg transition-all duration-300">
+    <article className="group flex flex-col bg-surface rounded-2xl overflow-hidden border border-border-warm shadow-card hover:shadow-card-hover transition-all duration-300">
       <Link
         href={`/artikelen/${article.slug}`}
-        className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100 block"
+        className="relative aspect-16/10 w-full overflow-hidden bg-surface-muted block"
       >
         {/* Ambient Blur Layer if portrait: uses object-fill so the top (sky/bridge) and bottom (bricks/water) 
             are preserved rather than zoomed into the dark torso by object-cover */}
@@ -150,7 +150,7 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
 
       <div className="p-5 flex-1 flex flex-col justify-between">
         <div>
-          <div className="flex items-center gap-2 text-xs text-zinc-400 mb-2 font-medium">
+          <div className="flex items-center gap-2 text-xs text-ink-muted mb-2 font-medium">
             <span>{formatDate(article.published_at)}</span>
             <span>•</span>
             <span className="flex items-center gap-1">
@@ -159,17 +159,17 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
             </span>
           </div>
 
-          <h3 className="font-heading font-bold text-lg text-zinc-900 group-hover:text-[#FF4F00] transition-colors leading-snug line-clamp-2">
+          <h3 className="font-heading font-bold text-lg text-ink group-hover:text-[#FF4F00] transition-colors leading-snug line-clamp-2">
             <Link href={`/artikelen/${article.slug}`}>{article.title}</Link>
           </h3>
 
-          <p className="text-zinc-600 text-sm mt-2 line-clamp-2 leading-relaxed">
+          <p className="text-ink-body text-sm mt-2 line-clamp-2 leading-relaxed">
             {article.excerpt}
           </p>
         </div>
 
-        <div className="pt-4 mt-4 border-t border-zinc-100 flex items-center justify-between text-xs">
-          <span className="text-zinc-500 font-medium">Door {article.author_name || 'Redactie'}</span>
+        <div className="pt-4 mt-4 border-t border-border-warm flex items-center justify-between text-xs">
+          <span className="text-ink-muted font-medium">Door {article.author_name || 'Redactie'}</span>
           <Link
             href={`/artikelen/${article.slug}`}
             className="text-[#FF4F00] font-bold inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform"

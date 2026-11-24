@@ -1,69 +1,98 @@
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Calendar, Compass, BookOpen, MapPin, Sparkles } from 'lucide-react';
+'use client';
+
+import React, { useState, useEffect, useRef } from 'react';
+import { ArrowRight, Pause, Play } from 'lucide-react';
+import { ButtonLink } from '@/components/ui/Button';
 
 export function IntoArnhemHero() {
-  const quickLinks = [
-    { label: 'Uitagenda', href: '#agenda', icon: Calendar },
-    { label: 'Zien & Doen', href: '/zien-en-doen', icon: Sparkles },
-    { label: 'Verhalen', href: '#verhalen', icon: BookOpen },
-    { label: 'Wijken & Sfeer', href: '#wijken', icon: Compass },
-    { label: 'Plan je bezoek', href: '/plan-je-bezoek', icon: MapPin },
-  ];
+  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mediaQuery.matches && videoRef.current) {
+      videoRef.current.pause();
+      setIsVideoPlaying(false);
+    }
+  }, []);
+
+  const toggleVideoPlay = () => {
+    if (!videoRef.current) return;
+    if (isVideoPlaying) {
+      videoRef.current.pause();
+      setIsVideoPlaying(false);
+    } else {
+      videoRef.current.play().catch(() => { });
+      setIsVideoPlaying(true);
+    }
+  };
 
   return (
-    <section className="relative w-full rounded-3xl overflow-hidden shadow-2xl bg-zinc-950 text-white min-h-[520px] sm:min-h-[580px] flex items-end p-6 sm:p-12 lg:p-16 border border-zinc-800">
-      {/* Background Image: Iconic John Frostbrug over the Rhine */}
-      <Image
-        src="/images/bridge_uiterwaarden.jpg"
-        alt="De iconische John Frostbrug over de Nederrijn in Arnhem"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center opacity-70"
-      />
+    <div className="w-full flex flex-col relative overflow-hidden">
+      <section className="relative w-full overflow-hidden bg-zinc-950 text-white min-h-[560px] sm:min-h-[640px] lg:min-h-[700px] flex items-center justify-center">
+        {/* Background Video met poster fallback en zonder browser PiP-popout */}
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          disablePictureInPicture
+          disableRemotePlayback
+          controlsList="nodownload noplaybackrate noremoteplayback"
+          preload="metadata"
+          poster="/images/bridge_uiterwaarden.jpg"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+        >
+          <source src="/videos/arnhem_hero.mp4" type="video/mp4" />
+        </video>
 
-      {/* Atmospheric dark gradient overlays for maximum contrast and elegance */}
-      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/65 to-zinc-950/25 pointer-events-none" />
-      <div className="absolute inset-0 bg-radial from-transparent via-transparent to-zinc-950/50 pointer-events-none" />
+        {/* Subtiel vignet aan boven- en onderrand voor tekstcontrast met behoud van helderheid */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/30 pointer-events-none" />
 
-      {/* Hero Content */}
-      <div className="relative z-10 max-w-4xl space-y-6">
-        <h1 className="font-heading font-black text-4xl sm:text-6xl lg:text-7xl text-white tracking-tight leading-[1.06]">
-          Ontdek wat er bruist in{' '}
-          <span className="text-[#FF4F00] relative inline-block">
-            Arnhem.
-            <span className="absolute left-0 -bottom-1 sm:-bottom-2 w-full h-1.5 sm:h-2 bg-[#FF4F00]/30 rounded-full" />
-          </span>
-        </h1>
-
-        <p className="text-zinc-200 text-base sm:text-xl font-normal leading-relaxed max-w-2xl">
-          Jouw gids voor concerten, theater, exposities, verborgen terrassen en de mooiste verhalen uit de Rijnstad.
-        </p>
-
-        {/* Calm, uniform quick-links */}
-        <div className="pt-2 space-y-3">
-          <div className="text-xs font-bold uppercase tracking-wider text-zinc-300">
-            Snel navigeren naar:
+        {/* Centered Widescreen Content Container */}
+        <div className="relative z-20 w-full max-w-5xl mx-auto px-6 text-center space-y-6 py-20 sm:py-28">
+          <div className="space-y-4 max-w-3xl mx-auto">
+            <h1 className="font-heading font-extrabold text-4xl sm:text-6xl lg:text-7xl text-white tracking-tight leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]">
+              Ontdek wat er bruist in{' '}
+              <span className="text-[#FF4F00] relative inline-block">
+                Arnhem.
+              </span>
+            </h1>
+            <p className="text-white text-base sm:text-xl max-w-xl mx-auto font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+              Jouw gids voor concerten, theater, exposities, verborgen terrassen en de mooiste verhalen uit de Rijnstad.
+            </p>
           </div>
-          <div className="flex flex-wrap gap-2.5">
-            {quickLinks.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-[#FF4F00] hover:border-[#FF4F00] border border-white/20 backdrop-blur-md transition-all shadow-sm active:scale-95"
-                >
-                  <Icon className="w-4 h-4 text-white/90 shrink-0" />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
+
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-3.5">
+            <ButtonLink href="#agenda" variant="primary" surface="dark" size="lg">
+              <span>Ontdek de agenda</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </ButtonLink>
+
+            <ButtonLink href="/zien-en-doen" variant="secondary" surface="dark" size="lg">
+              <span>Zien &amp; Doen</span>
+            </ButtonLink>
           </div>
         </div>
-      </div>
-    </section>
+
+        {/* Compacte Pause / Play knop linksonder */}
+        <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 z-20 select-none">
+          <button
+            type="button"
+            onClick={toggleVideoPlay}
+            title={isVideoPlaying ? 'Pauzeer achtergrondfilm' : 'Speel achtergrondfilm af'}
+            aria-label={isVideoPlaying ? 'Pauzeer achtergrondfilm' : 'Speel achtergrondfilm af'}
+            className="w-10 h-10 rounded-full bg-black/55 hover:bg-black/75 border border-white/20 backdrop-blur-md text-white inline-flex items-center justify-center transition-all active:scale-95 shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4F00]"
+          >
+            {isVideoPlaying ? (
+              <Pause className="w-4 h-4 fill-white" />
+            ) : (
+              <Play className="w-4 h-4 fill-white translate-x-0.5" />
+            )}
+          </button>
+        </div>
+      </section>
+    </div>
   );
 }

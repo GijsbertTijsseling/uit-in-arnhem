@@ -5,11 +5,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { UserPlus, Mail, Lock, User, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
+import { Mail, Lock, User, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState<'editor' | 'contributor'>('editor');
@@ -23,30 +25,41 @@ export default function RegisterPage() {
     setMessage('');
     setErrorMsg('');
 
+    const cleanFirst = firstName.trim();
+    const cleanLast = lastName.trim();
+    const fullName = `${cleanFirst} ${cleanLast}`.trim();
+
+    if (!cleanFirst || !cleanLast) {
+      setErrorMsg('Vul zowel je voornaam als achternaam in.');
+      setLoading(false);
+      return;
+    }
+
     try {
       const supabase = createClient();
+      const siteOrigin =
+        typeof window !== 'undefined'
+          ? window.location.origin
+          : 'https://uit-in-arnhem.vercel.app';
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
+          emailRedirectTo: `${siteOrigin}/auth/callback?next=/login`,
           data: {
-            full_name: name,
+            first_name: cleanFirst,
+            last_name: cleanLast,
+            full_name: fullName,
             role: role,
           },
         },
       });
 
       if (error) {
-        // Fallback for mock mode
-        localStorage.setItem(
-          'uit_arnhem_user',
-          JSON.stringify({ email, name, role })
-        );
-        setMessage('Account geregistreerd! Je wordt doorgestuurd...');
-        setTimeout(() => router.push('/admin'), 1000);
+        setErrorMsg(error.message || 'Registreren is niet gelukt. Controleer je gegevens.');
       } else {
-        setMessage('Registratie succesvol! Controleer je e-mail voor verificatie of log direct in.');
-        setTimeout(() => router.push('/login'), 1500);
+        setMessage('Registratie succesvol! Controleer je e-mail om je account te bevestigen en log daarna in.');
+        setTimeout(() => router.push('/login'), 1800);
       }
     } catch (err: any) {
       setErrorMsg(err.message || 'Er is een fout opgetreden.');
@@ -67,9 +80,9 @@ export default function RegisterPage() {
               className="object-contain"
             />
           </div>
-          <h2 className="font-heading font-black text-2xl text-zinc-900 tracking-tight pt-2">
+          <h1 className="font-heading font-extrabold text-2xl text-zinc-900 tracking-tight pt-2">
             Redactie Aanmelden
-          </h2>
+          </h1>
           <p className="text-xs text-zinc-500">
             Word auteur of cultureel partner voor Uit in Arnhem.
           </p>
@@ -90,19 +103,35 @@ export default function RegisterPage() {
         )}
 
         <form onSubmit={handleRegister} className="space-y-4">
-          <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">
-              Volledige naam
-            </label>
-            <div className="relative">
-              <User className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="h-5 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">
+                Voornaam
+              </label>
+              <div className="relative">
+                <User className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                  placeholder="Bijv. Sanne"
+                  className="w-full pl-10 pr-4 py-3 bg-zinc-50 border border-zinc-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F00] focus:bg-white"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="h-5 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">
+                Achternaam
+              </label>
               <input
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 required
-                placeholder="Bijv. Sanne van den Berg"
-                className="w-full pl-10 pr-4 py-3 bg-zinc-50 border border-zinc-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F00] focus:bg-white"
+                placeholder="Bijv. van den Berg"
+                className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F00] focus:bg-white"
               />
             </div>
           </div>
@@ -156,14 +185,10 @@ export default function RegisterPage() {
             </select>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3.5 px-4 rounded-full bg-[#FF4F00] text-white font-bold text-sm uppercase tracking-wider hover:bg-[#E04500] transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-          >
-            {loading ? 'Bezig met registreren...' : 'Account aanmaken'}
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          <Button type="submit" disabled={loading} variant="primary" size="lg" fullWidth>
+            <span>{loading ? 'Bezig met registreren...' : 'Account aanmaken'}</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </Button>
         </form>
 
         <div className="text-center pt-2">

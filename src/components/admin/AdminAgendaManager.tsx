@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AgendaItem } from '@/types';
 import { updateEventStatus } from '@/lib/supabase/api';
+import { getCurrentEditorUser } from '@/lib/auth';
 import { formatDate, formatTime } from '@/lib/utils';
 import {
   Calendar,
@@ -23,7 +24,6 @@ import {
   AlertCircle,
   PlusCircle,
   Search,
-  Filter,
 } from 'lucide-react';
 
 interface AdminAgendaManagerProps {
@@ -31,8 +31,18 @@ interface AdminAgendaManagerProps {
   userRole?: string;
 }
 
-export function AdminAgendaManager({ initialEvents, userRole = 'admin' }: AdminAgendaManagerProps) {
+export function AdminAgendaManager({ initialEvents, userRole: initialRole }: AdminAgendaManagerProps) {
+  const [userRole, setUserRole] = useState<string>(initialRole || 'editor');
   const [events, setEvents] = useState<AgendaItem[]>(initialEvents);
+
+  useEffect(() => {
+    if (initialRole) return;
+    getCurrentEditorUser().then((editor) => {
+      if (editor?.role) {
+        setUserRole(editor.role);
+      }
+    });
+  }, [initialRole]);
   const [activeTab, setActiveTab] = useState<'submitted' | 'all' | 'published' | 'other'>(
     initialEvents.some((e) => e.status === 'submitted') ? 'submitted' : 'all'
   );
@@ -154,7 +164,7 @@ export function AdminAgendaManager({ initialEvents, userRole = 'admin' }: AdminA
             onClick={() => setActiveTab('submitted')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer ${
               activeTab === 'submitted'
-                ? 'bg-white text-zinc-950 shadow-xs'
+                ? 'bg-zinc-900 text-white shadow-xs'
                 : 'text-zinc-600 hover:text-zinc-900'
             }`}
           >
@@ -164,7 +174,11 @@ export function AdminAgendaManager({ initialEvents, userRole = 'admin' }: AdminA
                 {submittedCount}
               </span>
             ) : (
-              <span className="px-2 py-0.5 rounded-full text-[10px] bg-zinc-200 text-zinc-600">
+              <span
+                className={`px-2 py-0.5 rounded-full text-[10px] ${
+                  activeTab === 'submitted' ? 'bg-white/15 text-zinc-200' : 'bg-zinc-200 text-zinc-600'
+                }`}
+              >
                 0
               </span>
             )}
@@ -175,7 +189,7 @@ export function AdminAgendaManager({ initialEvents, userRole = 'admin' }: AdminA
             onClick={() => setActiveTab('all')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
               activeTab === 'all'
-                ? 'bg-white text-zinc-950 shadow-xs'
+                ? 'bg-zinc-900 text-white shadow-xs'
                 : 'text-zinc-600 hover:text-zinc-900'
             }`}
           >
@@ -187,7 +201,7 @@ export function AdminAgendaManager({ initialEvents, userRole = 'admin' }: AdminA
             onClick={() => setActiveTab('published')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
               activeTab === 'published'
-                ? 'bg-white text-zinc-950 shadow-xs'
+                ? 'bg-zinc-900 text-white shadow-xs'
                 : 'text-zinc-600 hover:text-zinc-900'
             }`}
           >
@@ -199,7 +213,7 @@ export function AdminAgendaManager({ initialEvents, userRole = 'admin' }: AdminA
             onClick={() => setActiveTab('other')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
               activeTab === 'other'
-                ? 'bg-white text-zinc-950 shadow-xs'
+                ? 'bg-zinc-900 text-white shadow-xs'
                 : 'text-zinc-600 hover:text-zinc-900'
             }`}
           >
@@ -257,9 +271,10 @@ export function AdminAgendaManager({ initialEvents, userRole = 'admin' }: AdminA
                   <div className="flex items-start gap-4">
                     <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-zinc-100 shrink-0 border border-zinc-200">
                       <Image
-                        src={evt.hero_image_url}
+                        src={evt.hero_image_url || '/logo.png'}
                         alt={evt.title}
                         fill
+                        sizes="80px"
                         className="object-cover"
                       />
                     </div>
@@ -397,9 +412,10 @@ export function AdminAgendaManager({ initialEvents, userRole = 'admin' }: AdminA
                         <div className="flex items-center gap-3">
                           <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-zinc-100 shrink-0 border border-zinc-200">
                             <Image
-                              src={evt.hero_image_url}
+                              src={evt.hero_image_url || '/logo.png'}
                               alt={evt.title}
                               fill
+                              sizes="48px"
                               className="object-cover"
                             />
                           </div>

@@ -1,26 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
-import { getArticles, getAllEventsForAdmin } from '@/lib/supabase/api';
+import { getArticles, getAllEventsForAdmin, getLocations } from '@/lib/supabase/api';
 import {
   FileText,
   Calendar,
-  Eye,
   PlusCircle,
-  TrendingUp,
   Clock,
-  ArrowRight,
-  Sparkles,
   MapPin,
-  CheckCircle,
+  Star,
 } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 
 export const revalidate = 0;
 
 export default async function AdminDashboardPage() {
-  const [articles, allEvents] = await Promise.all([
+  const [articles, allEvents, locations] = await Promise.all([
     getArticles(),
     getAllEventsForAdmin(),
+    getLocations(),
   ]);
 
   const draftArticles = articles.filter((a) => a.status === 'draft');
@@ -35,8 +32,9 @@ export default async function AdminDashboardPage() {
       value: articles.length,
       sub: `${publishedArticles.length} live, ${draftArticles.length} concept`,
       icon: FileText,
-      color: 'text-blue-600',
-      bg: 'bg-blue-50',
+      color: 'text-zinc-700',
+      bg: 'bg-zinc-100',
+      href: '/admin/articles',
     },
     {
       label: 'Inzendingen ter Review',
@@ -54,14 +52,16 @@ export default async function AdminDashboardPage() {
       icon: Calendar,
       color: 'text-emerald-600',
       bg: 'bg-emerald-50',
+      href: '/admin/agenda',
     },
     {
-      label: 'Nieuwsbrief Leden',
-      value: '3.420',
-      sub: 'Wekelijkse Arnhemse lezers',
-      icon: Sparkles,
-      color: 'text-purple-600',
-      bg: 'bg-purple-50',
+      label: 'Vaste Locaties',
+      value: locations.length,
+      sub: 'Podia, musea & hotspots',
+      icon: MapPin,
+      color: 'text-zinc-700',
+      bg: 'bg-zinc-100',
+      href: '/admin/locaties',
     },
   ];
 
@@ -126,16 +126,20 @@ export default async function AdminDashboardPage() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((s, idx) => (
-          <div key={idx} className="bg-white p-5 rounded-2xl border border-zinc-200/90 shadow-xs flex items-center gap-4">
+          <Link
+            key={idx}
+            href={s.href}
+            className="bg-white p-5 rounded-2xl border border-zinc-200/90 hover:border-zinc-300 hover:shadow-sm shadow-xs flex items-center gap-4 transition-all"
+          >
             <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${s.bg}`}>
               <s.icon className={`w-6 h-6 ${s.color}`} />
             </div>
             <div>
               <div className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">{s.label}</div>
-              <div className="text-2xl font-black text-zinc-900 mt-0.5">{s.value}</div>
+              <div className="text-2xl font-extrabold text-zinc-900 mt-0.5">{s.value}</div>
               <div className="text-[11px] text-zinc-500 mt-0.5">{s.sub}</div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -217,8 +221,9 @@ export default async function AdminDashboardPage() {
                       {evt.category}
                     </span>
                     {evt.is_highlight && (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FFF3ED] text-[#FF4F00]">
-                        ★ Tip
+                      <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FFF3ED] text-[#FF4F00]">
+                        <Star className="w-2.5 h-2.5 fill-[#FF4F00]" />
+                        <span>Tip</span>
                       </span>
                     )}
                   </div>

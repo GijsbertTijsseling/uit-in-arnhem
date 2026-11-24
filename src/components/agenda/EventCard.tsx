@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Clock, Sparkles, Calendar, AlertCircle } from 'lucide-react';
 import { AgendaItem } from '@/types';
-import { formatTime } from '@/lib/utils';
+import { formatTime, formatPrice } from '@/lib/utils';
 
 interface EventCardProps {
   event: AgendaItem;
@@ -70,8 +70,8 @@ export function EventCard({ event }: EventCardProps) {
             }
           }}
           className={`${isPortrait
-              ? 'object-contain relative z-10 drop-shadow-[0_0_15px_rgba(0,0,0,0.18)]'
-              : 'object-cover'
+            ? 'object-contain relative z-10 drop-shadow-[0_0_15px_rgba(0,0,0,0.18)]'
+            : 'object-cover'
             } transition-transform duration-500 group-hover:scale-105`}
         />
 
@@ -102,18 +102,18 @@ export function EventCard({ event }: EventCardProps) {
         ) : null}
 
         {/* Price & Category tags bottom - High z-index so tags never disappear behind image */}
-        <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between pointer-events-none">
-          <span className="bg-black/80 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm">
+        <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between gap-2 pointer-events-none">
+          <span className="bg-black/80 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
             {event.category}
           </span>
 
           <span
-            className={`text-xs font-bold px-2.5 py-1 rounded-lg shadow-sm ${isFree
+            className={`text-xs font-bold px-3 py-1 rounded-full shadow-sm ${isFree
               ? 'bg-emerald-500 text-white'
               : 'bg-white/95 backdrop-blur-sm text-zinc-900 border border-zinc-200'
               }`}
           >
-            {isFree ? 'Gratis' : `Vanaf €${event.price_from?.toFixed(2) || '–'}`}
+            {isFree ? 'Gratis' : `Vanaf ${formatPrice(event.price_from)}`}
           </span>
         </div>
       </div>

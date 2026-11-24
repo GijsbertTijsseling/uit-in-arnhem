@@ -118,7 +118,7 @@ export default async function AdminLocationsListPage() {
                           href={loc.website}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-zinc-600 hover:text-[#FF4F00] truncate max-w-44 block flex items-center gap-1 group"
+                          className="text-zinc-600 hover:text-[#FF4F00] truncate max-w-44 flex items-center gap-1 group"
                         >
                           <span className="truncate group-hover:underline">{loc.website.replace(/^https?:\/\//, '')}</span>
                           <ExternalLink className="w-3 h-3 shrink-0 opacity-60 group-hover:opacity-100" />

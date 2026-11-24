@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Mail, MapPin, Send, PlusCircle, CheckCircle2, MessageSquare, Megaphone, ArrowRight } from 'lucide-react';
+import { Button, ButtonLink } from '@/components/ui/Button';
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -46,12 +47,14 @@ export default function ContactPage() {
               <p className="text-sm text-emerald-700 max-w-md mx-auto">
                 Onze redactie heeft je bericht ontvangen. We nemen zo snel mogelijk contact met je op.
               </p>
-              <button
+              <Button
                 onClick={() => setSubmitted(false)}
-                className="mt-4 px-5 py-2 rounded-full bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider hover:bg-emerald-700"
+                variant="secondary"
+                size="sm"
+                className="mt-4"
               >
                 Nog een bericht sturen
-              </button>
+              </Button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -114,13 +117,10 @@ export default function ContactPage() {
                 />
               </div>
 
-              <button
-                type="submit"
-                className="w-full py-4 rounded-full bg-[#FF4F00] hover:bg-[#E04500] text-white font-bold text-sm uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
-              >
+              <Button type="submit" variant="primary" size="lg" fullWidth>
                 <Send className="w-4 h-4" />
-                <span>Bericht Versturen</span>
-              </button>
+                <span>Bericht versturen</span>
+              </Button>
             </form>
           )}
         </div>
@@ -138,13 +138,10 @@ export default function ContactPage() {
             <p className="text-zinc-700 text-sm leading-relaxed">
               Organiseer je een concert, expositie, markt of voorstelling in Arnhem? Meld je evenement gratis aan voor onze culturele uitagenda.
             </p>
-            <Link
-              href="/agenda/aanmelden"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF4F00] text-white font-bold text-xs uppercase tracking-wider hover:bg-[#E04500] transition-colors"
-            >
-              <span>Evenement Aanmelden</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+            <ButtonLink href="/agenda/aanmelden" variant="primary" size="md">
+              <span>Evenement aanmelden</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </ButtonLink>
           </div>
 
           {/* Redactiegegevens */}

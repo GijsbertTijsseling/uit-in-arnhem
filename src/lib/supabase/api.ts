@@ -9,6 +9,11 @@ function cleanHtml(html: string): string {
 }
 
 function mapArticleItem(item: any): Article {
+  const resolvedAuthorName =
+    item.author_name?.trim() ||
+    item.profiles?.full_name?.trim() ||
+    'Redactie Uit in Arnhem';
+
   return {
     id: item.id || `art-${item.slug}`,
     slug: item.slug,
@@ -21,7 +26,7 @@ function mapArticleItem(item: any): Article {
       '/logo.png',
     gallery_image_urls: item.gallery_image_urls || [],
     author_id: item.author_id,
-    author_name: item.author_name || 'Redactie Uit in Arnhem',
+    author_name: resolvedAuthorName,
     category: item.categories?.slug || item.category_slug || item.category || 'nieuws',
     tags: item.tags || [],
     status: item.status || 'published',
@@ -39,7 +44,7 @@ export async function getArticles(): Promise<Article[]> {
     const supabase = createClient();
     const { data, error } = await supabase
       .from('articles')
-      .select('*, categories(name, slug)')
+      .select('*, categories(name, slug), profiles(id, full_name)')
       .eq('status', 'published')
       .order('published_at', { ascending: false });
 
@@ -60,7 +65,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
     const supabase = createClient();
     const { data, error } = await supabase
       .from('articles')
-      .select('*, categories(name, slug)')
+      .select('*, categories(name, slug), profiles(id, full_name)')
       .or(`slug.eq.${slug},id.eq.${slug}`)
       .maybeSingle();
 
@@ -71,7 +76,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
     // Try case-insensitive lookup
     const { data: ciData } = await supabase
       .from('articles')
-      .select('*, categories(name, slug)')
+      .select('*, categories(name, slug), profiles(id, full_name)')
       .ilike('slug', slug)
       .maybeSingle();
 
@@ -381,7 +386,7 @@ export async function uploadImageToSupabase(file: File): Promise<string> {
 
 export async function saveArticleToSupabase(article: Partial<Article>): Promise<{ data: any; error: any }> {
   const supabase = createClient();
-  const payload = {
+  const payload: Record<string, any> = {
     title: article.title,
     slug: article.slug,
     excerpt: article.excerpt,
@@ -392,21 +397,79 @@ export async function saveArticleToSupabase(article: Partial<Article>): Promise<
     cta_block: article.cta_block,
     is_featured: article.is_featured ?? false,
     published_at: article.published_at || new Date().toISOString(),
+    author_name: article.author_name?.trim() || null,
   };
 
-  if (article.id && !article.id.startsWith('art-') && isNaN(Number(article.id))) {
-    const { data, error } = await supabase
+  if (article.author_id) {
+    payload.author_id = article.author_id;
+  }
+
+  const isUpdate = Boolean(article.id && !article.id.startsWith('art-') && isNaN(Number(article.id)));
+
+  // Zorg dat er altijd maximaal 1 artikel tegelijk als uitgelicht gemarkeerd staat
+  if (payload.is_featured) {
+    let clearQuery = supabase
       .from('articles')
-      .update(payload)
-      .eq('id', article.id)
-      .select();
-    return { data, error };
-  } else {
-    const { data, error } = await supabase
+      .update({ is_featured: false })
+      .eq('is_featured', true);
+    if (isUpdate && article.id) {
+      clearQuery = clearQuery.neq('id', article.id);
+    }
+    await clearQuery;
+  }
+
+  const execute = async (body: Record<string, any>) => {
+    if (isUpdate) {
+      return supabase.from('articles').update(body).eq('id', article.id).select();
+    }
+    return supabase.from('articles').insert([body]).select();
+  };
+
+  const result = await execute(payload);
+
+  // Graceful fallback if the author_name column migration hasn't been applied in Supabase yet
+  if (result.error && /author_name/i.test(result.error.message || '')) {
+    const { author_name: _ignored, ...fallbackPayload } = payload;
+    const retryResult = await execute(fallbackPayload);
+    return { data: retryResult.data, error: retryResult.error };
+  }
+
+  return { data: result.data, error: result.error };
+}
+
+export async function setFeaturedArticle(
+  articleId: string,
+  featured = true
+): Promise<{ success: boolean; error?: any }> {
+  try {
+    const supabase = createClient();
+
+    if (featured) {
+      const { error: clearError } = await supabase
+        .from('articles')
+        .update({ is_featured: false })
+        .eq('is_featured', true)
+        .neq('id', articleId);
+
+      if (clearError) {
+        console.error('Failed to clear previous featured article:', clearError);
+        return { success: false, error: clearError };
+      }
+    }
+
+    const { error } = await supabase
       .from('articles')
-      .insert([payload])
-      .select();
-    return { data, error };
+      .update({ is_featured: featured })
+      .eq('id', articleId);
+
+    if (error) {
+      console.error('Failed to update featured article:', error);
+      return { success: false, error };
+    }
+
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: err.message || err };
   }
 }
 

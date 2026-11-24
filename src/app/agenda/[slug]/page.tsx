@@ -2,10 +2,11 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getEventBySlug, getEvents } from '@/lib/supabase/api';
+import { getEventBySlug, getEvents, getLocations } from '@/lib/supabase/api';
 import { CalendarExport } from '@/components/agenda/CalendarExport';
 import { EventCard } from '@/components/agenda/EventCard';
 import { EventHeroImage } from '@/components/agenda/EventHeroImage';
+import { ButtonLink } from '@/components/ui/Button';
 import {
   Calendar,
   Clock,
@@ -14,11 +15,13 @@ import {
   ExternalLink,
   ChevronLeft,
   ChevronRight,
+  ArrowRight,
   Share2,
   Sparkles,
   Building2,
+  AlertTriangle,
 } from 'lucide-react';
-import { formatDateTime, formatDate, formatTime } from '@/lib/utils';
+import { formatDateTime, formatDate, formatTime, formatPrice } from '@/lib/utils';
 import { formatRichContent } from '@/lib/contentRenderer';
 
 interface EventDetailPageProps {
@@ -52,19 +55,24 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
     notFound();
   }
 
-  const allEvents = await getEvents();
+  const [allEvents, allLocations] = await Promise.all([getEvents(), getLocations()]);
   const relatedEvents = allEvents
     .filter((e) => e.slug !== event.slug)
     .slice(0, 3);
 
   const isFree = event.price_type === 'free' || event.price_from === 0;
 
-  const targetLocationSlug =
+  const candidateSlug =
     event.location_slug ||
     event.location?.slug ||
     (event.venue_name
       ? event.venue_name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
       : null);
+
+  const matchedLocation = candidateSlug
+    ? allLocations.find((loc) => loc.slug === candidateSlug)
+    : undefined;
+  const targetLocationSlug = matchedLocation ? matchedLocation.slug : null;
 
   const addressQuery = [
     event.venue_name,
@@ -118,23 +126,33 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
             )}
           </EventHeroImage>
 
-          {/* Title & Category */}
+          {/* Title & Metadata */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="bg-[#FFF3ED] text-[#FF4F00] text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-[#FF4F00]/20">
-                {event.category}
-              </span>
-              <span
-                className={`text-xs font-bold px-3 py-1 rounded-full ${isFree ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-zinc-100 text-zinc-800'
-                  }`}
-              >
-                {isFree ? 'Gratis Toegang' : `Vanaf €${event.price_from?.toFixed(2)}`}
-              </span>
-            </div>
-
-            <h1 className="font-heading font-black text-3xl sm:text-5xl text-zinc-950 tracking-tight leading-tight">
+            <h1 className="font-heading font-extrabold text-3xl sm:text-5xl text-zinc-950 tracking-tight leading-tight">
               {event.title}
             </h1>
+
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-semibold text-zinc-600">
+              <span className="uppercase tracking-wider font-bold text-[#FF4F00]">
+                {event.category}
+              </span>
+              <span className="text-zinc-300" aria-hidden="true">•</span>
+              <span
+                className={
+                  isFree
+                    ? 'inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-500 text-white font-bold'
+                    : 'text-zinc-800 font-bold'
+                }
+              >
+                {isFree ? 'Gratis toegang' : `Vanaf ${formatPrice(event.price_from)}`}
+              </span>
+              {event.venue_name && (
+                <>
+                  <span className="text-zinc-300" aria-hidden="true">•</span>
+                  <span className="text-zinc-600">{event.venue_name}</span>
+                </>
+              )}
+            </div>
 
             <p className="text-zinc-600 text-lg leading-relaxed font-normal">
               {event.short_description}
@@ -172,29 +190,32 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
           <div className="bg-zinc-50 border border-zinc-200/90 rounded-3xl p-6 sm:p-8 space-y-6 sticky top-28 shadow-sm">
             {/* Status Alert if Cancelled */}
             {event.status === 'cancelled' && (
-              <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold">
-                ⚠️ Let op: Dit evenement is geannuleerd of verwijderd bij de organisator.
+              <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-start gap-2.5">
+                <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                <span>Let op: Dit evenement is geannuleerd of verwijderd bij de organisator.</span>
               </div>
             )}
 
             {/* Ticket & Price box */}
             <div className="pb-6 border-b border-zinc-200">
               <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Entree</span>
-              <div className="text-3xl font-black text-zinc-950 mt-1">
-                {isFree ? 'Gratis entree' : `€${event.price_from?.toFixed(2)}`}
+              <div className="text-3xl font-extrabold text-zinc-950 mt-1">
+                {isFree ? 'Gratis entree' : formatPrice(event.price_from)}
               </div>
 
               {(event.ticket_url || event.source_url) && event.status !== 'cancelled' ? (
-                <a
-                  href={event.ticket_url || event.source_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3.5 w-full flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold transition-colors shadow-xs text-center"
+                <ButtonLink
+                  href={(event.ticket_url || event.source_url)!}
+                  variant="primary"
+                  size="md"
+                  fullWidth
+                  external
+                  className="mt-3.5"
                 >
-                  <Globe className="w-3.5 h-3.5 shrink-0" />
+                  <Globe className="w-4 h-4 shrink-0" />
                   <span>Naar website</span>
-                  <ExternalLink className="w-3 h-3 opacity-60 ml-0.5 shrink-0" />
-                </a>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-75 shrink-0" />
+                </ButtonLink>
               ) : event.status === 'cancelled' ? (
                 <div className="mt-3.5 w-full py-2.5 px-4 rounded-xl bg-zinc-200 text-zinc-600 text-xs font-medium text-center">
                   Niet meer beschikbaar
@@ -237,15 +258,16 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                             Uitverkocht
                           </span>
                         ) : perf.ticket_url ? (
-                          <a
+                          <ButtonLink
                             href={perf.ticket_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-[#FF4F00] text-white text-[10px] font-bold uppercase tracking-wider transition-colors shrink-0"
+                            variant="secondary"
+                            size="sm"
+                            external
+                            className="shrink-0"
                           >
                             <span>Tickets</span>
-                            <ExternalLink className="w-2.5 h-2.5 opacity-70" />
-                          </a>
+                            <ExternalLink className="w-3 h-3 opacity-70" />
+                          </ButtonLink>
                         ) : null}
                       </div>
                     );
@@ -319,7 +341,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                     title="Open locatie in Google Maps"
                     className="absolute inset-0 bg-transparent flex items-end justify-end p-2 group-hover:bg-black/5 transition-colors"
                   >
-                    <span className="bg-white/95 hover:bg-white text-zinc-800 text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-sm border border-zinc-200/90 backdrop-blur-xs flex items-center gap-1 transition-transform group-hover:scale-105">
+                    <span className="bg-white/95 hover:bg-white text-zinc-800 text-[11px] font-bold px-3 py-1 rounded-full shadow-sm border border-zinc-200/90 backdrop-blur-xs flex items-center gap-1 transition-transform group-hover:scale-105">
                       <span>Open kaart</span>
                       <ExternalLink className="w-3 h-3 text-[#FF4F00]" />
                     </span>
@@ -344,16 +366,14 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
       {/* Related events */}
       {relatedEvents.length > 0 && (
         <section className="pt-12 border-t border-zinc-200 space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="font-heading font-black text-2xl text-zinc-900">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <h3 className="font-heading font-extrabold text-2xl text-zinc-900">
               Ook interessant in Arnhem
             </h3>
-            <Link
-              href="/agenda"
-              className="text-xs font-bold text-[#FF4F00] hover:text-[#E04500] uppercase tracking-wider"
-            >
-              Volledige agenda bekijken →
-            </Link>
+            <ButtonLink href="/agenda" variant="secondary" size="sm" className="self-start sm:self-auto shrink-0">
+              <span>Volledige agenda</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </ButtonLink>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

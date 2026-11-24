@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import Image from 'next/image';
-import { AgendaItem, EventCategory, Location } from '@/types';
+import { AgendaItem, Location } from '@/types';
 import { EVENT_CATEGORIES } from '@/data/mockData';
 import { uploadImageToSupabase, saveEventToSupabase, saveLocationToSupabase, getLocations } from '@/lib/supabase/api';
 import { LOCATIONS_CATALOG } from '@/data/locationsData';
@@ -12,16 +11,13 @@ import { LocationCombobox } from '@/components/admin/LocationCombobox';
 import {
   Save,
   Upload,
-  Image as ImageIcon,
   CheckCircle2,
   AlertCircle,
   Calendar,
-  Clock,
   MapPin,
   Ticket,
   Sparkles,
-  Building2,
-  ExternalLink,
+  Trash2,
 } from 'lucide-react';
 
 interface AgendaEditorFormProps {
@@ -96,8 +92,8 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
 
   // Flags
   const [isHighlight, setIsHighlight] = useState(initialEvent?.is_highlight || false);
-  const [status, setStatus] = useState<'draft' | 'published'>(
-    initialEvent?.status === 'published' ? 'published' : 'published'
+  const [status, setStatus] = useState<NonNullable<AgendaItem['status']>>(
+    initialEvent?.status || 'published'
   );
 
   // State
@@ -145,7 +141,7 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
       setHeroImage(localUrl);
       setFeedback({
         type: 'error',
-        message: 'Lokale preview geladen; je kunt ook een directe fotolink invullen.',
+        message: 'Upload naar Supabase Storage is mislukt. Probeer een ander bestand (JPG, PNG of WebP).',
       });
     } finally {
       setUploadingImage(false);
@@ -259,7 +255,7 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
         <div
           className={`p-4 rounded-2xl text-xs flex items-center gap-2 ${feedback.type === 'success'
             ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
-            : 'bg-amber-50 border border-amber-200 text-amber-800'
+            : 'bg-rose-50 border border-rose-200 text-rose-800'
             }`}
         >
           {feedback.type === 'success' ? (
@@ -361,8 +357,8 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-zinc-600 mb-1.5">
-                  Startdatum & Tijd *
+                <label className="h-9 flex items-end text-xs font-bold text-zinc-600 mb-2">
+                  Startdatum &amp; Tijd *
                 </label>
                 <input
                   type="datetime-local"
@@ -374,8 +370,8 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-zinc-600 mb-1.5">
-                  Einddatum & Tijd (Optioneel)
+                <label className="h-9 flex items-end text-xs font-bold text-zinc-600 mb-2">
+                  Einddatum &amp; Tijd (Optioneel)
                 </label>
                 <input
                   type="datetime-local"
@@ -407,7 +403,7 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
               <div className="sm:col-span-1">
-                <label className="block text-xs font-bold text-zinc-600 mb-1.5">
+                <label className="h-9 flex items-end text-xs font-bold text-zinc-600 mb-2">
                   Locatie / Venue *
                 </label>
                 <input
@@ -423,7 +419,7 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
               </div>
 
               <div className="sm:col-span-1">
-                <label className="block text-xs font-bold text-zinc-600 mb-1.5">
+                <label className="h-9 flex items-end text-xs font-bold text-zinc-600 mb-2">
                   Adres *
                 </label>
                 <input
@@ -437,7 +433,7 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
               </div>
 
               <div className="sm:col-span-1">
-                <label className="block text-xs font-bold text-zinc-600 mb-1.5">
+                <label className="h-9 flex items-end text-xs font-bold text-zinc-600 mb-2">
                   Stad
                 </label>
                 <input
@@ -469,20 +465,43 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
         <div className="lg:col-span-4 space-y-6">
           {/* Publication & Highlight */}
           <div className="bg-white p-6 rounded-3xl border border-zinc-200/90 shadow-xs space-y-4">
-            <h3 className="font-heading font-black text-sm uppercase tracking-wider text-zinc-800">
-              Instellingen & Redactietip
+            <h3 className="font-heading font-extrabold text-sm uppercase tracking-wider text-zinc-800">
+              Status &amp; Redactietip
             </h3>
 
-            <label className="flex items-center gap-2 text-xs font-bold text-zinc-800 cursor-pointer p-3 rounded-xl bg-[#FFF3ED] border border-[#FF4F00]/20">
+            <div>
+              <label className="block text-xs font-bold text-zinc-600 mb-1.5">
+                Publicatiestatus
+              </label>
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value as NonNullable<AgendaItem['status']>)}
+                className="w-full px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-bold"
+              >
+                <option value="published">Gepubliceerd (Live)</option>
+                <option value="submitted">Ingezonden (Ter beoordeling)</option>
+                <option value="draft">Concept (Draft)</option>
+                <option value="cancelled">Geannuleerd</option>
+                <option value="rejected">Afgewezen</option>
+              </select>
+            </div>
+
+            <label
+              className={`flex items-center gap-2.5 text-xs font-bold cursor-pointer p-3 rounded-xl border transition-all ${
+                isHighlight
+                  ? 'bg-zinc-900 border-zinc-900 text-white shadow-xs'
+                  : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100'
+              }`}
+            >
               <input
                 type="checkbox"
                 checked={isHighlight}
                 onChange={(e) => setIsHighlight(e.target.checked)}
-                className="rounded text-[#FF4F00] focus:ring-[#FF4F00]"
+                className="accent-white"
               />
               <span className="flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#FF4F00]" />
-                <span>Markeer als "Tip van de Redactie"</span>
+                <Sparkles className={`w-3.5 h-3.5 ${isHighlight ? 'text-[#FF4F00]' : 'text-zinc-500'}`} />
+                <span>Markeer als &ldquo;Tip van de Redactie&rdquo;</span>
               </span>
             </label>
           </div>
@@ -564,37 +583,55 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
               <span className="text-[11px] text-zinc-400">Media Bucket</span>
             </div>
 
-            <div className="relative aspect-16/10 rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200">
-              {heroImage ? (
-                <Image src={heroImage} alt="Voorvertoning" fill className="object-cover" />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-zinc-50/80 text-zinc-400">
-                  <div className="relative w-32 h-10 opacity-30 mb-2">
-                    <Image src="/logo.png" alt="Uit in Arnhem" fill className="object-contain" />
-                  </div>
-                  <span className="text-[11px] text-zinc-400">Standaard Uit in Arnhem logo</span>
+            {heroImage ? (
+              <div className="space-y-3">
+                <div className="relative aspect-16/10 rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200">
+                  <Image
+                    src={heroImage}
+                    alt="Voorvertoning"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover"
+                  />
                 </div>
-              )}
-            </div>
-
-            <label className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-bold cursor-pointer transition-colors shadow-sm">
-              <Upload className="w-4 h-4 text-[#FF4F00]" />
-              <span>{uploadingImage ? 'Bezig met uploaden...' : 'Upload naar Supabase Media'}</span>
-              <input type="file" accept="image/*" onChange={handleImageFileChange} className="hidden" />
-            </label>
-
-            <div>
-              <label className="block text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-1">
-                Of directe fotolink:
+                <div className="flex items-center gap-2">
+                  <label className="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-bold cursor-pointer transition-colors">
+                    <Upload className="w-3.5 h-3.5" />
+                    <span>{uploadingImage ? 'Uploaden...' : 'Andere foto kiezen'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageFileChange}
+                      disabled={uploadingImage}
+                      className="hidden"
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setHeroImage('')}
+                    aria-label="Afbeelding verwijderen"
+                    className="p-2.5 rounded-xl border border-zinc-200 text-zinc-500 hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 transition-colors cursor-pointer"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <label className="flex flex-col items-center justify-center gap-2 aspect-16/10 rounded-2xl border-2 border-dashed border-zinc-300 hover:border-[#FF4F00] bg-zinc-50 hover:bg-white cursor-pointer transition-colors p-4 text-center">
+                <Upload className="w-6 h-6 text-[#FF4F00]" />
+                <span className="text-xs font-bold text-zinc-800">
+                  {uploadingImage ? 'Bezig met uploaden...' : 'Klik om evenementfoto te uploaden'}
+                </span>
+                <span className="text-[11px] text-zinc-500">JPG, PNG of WebP</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageFileChange}
+                  disabled={uploadingImage}
+                  className="hidden"
+                />
               </label>
-              <input
-                type="text"
-                value={heroImage}
-                onChange={(e) => setHeroImage(e.target.value)}
-                placeholder="https://..."
-                className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-mono"
-              />
-            </div>
+            )}
           </div>
         </div>
       </div>

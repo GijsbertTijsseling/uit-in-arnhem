@@ -5,8 +5,8 @@ import { getArticleBySlug, getArticles, getEvents } from '@/lib/supabase/api';
 import { LayoutTemplateView } from '@/components/articles/LayoutTemplateView';
 import { ArticleCard } from '@/components/articles/ArticleCard';
 import { EventCard } from '@/components/agenda/EventCard';
+import { ButtonLink } from '@/components/ui/Button';
 import { ChevronLeft, ArrowRight, Share2, Sparkles } from 'lucide-react';
-import { NewsletterCta } from '@/components/common/NewsletterCta';
 
 interface ArticleDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -69,22 +69,20 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
       {/* Related Events Section */}
       {relatedEvents.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 border-t border-zinc-200">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF4F00] mb-1">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Sluit aan bij dit verhaal</span>
               </div>
-              <h3 className="font-heading font-black text-2xl text-zinc-900">
+              <h3 className="font-heading font-extrabold text-2xl text-zinc-900">
                 Aanbevolen evenementen in Arnhem
               </h3>
             </div>
-            <Link
-              href="/agenda"
-              className="text-xs font-bold text-[#FF4F00] hover:text-[#E04500] uppercase tracking-wider"
-            >
-              Bekijk agenda →
-            </Link>
+            <ButtonLink href="/agenda" variant="secondary" size="sm" className="self-start sm:self-auto shrink-0">
+              <span>Bekijk agenda</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </ButtonLink>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -98,16 +96,14 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
       {/* Related Articles Section */}
       {relatedArticles.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 border-t border-zinc-200">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="font-heading font-black text-2xl text-zinc-900">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <h3 className="font-heading font-extrabold text-2xl text-zinc-900">
               Meer verhalen om te ontdekken
             </h3>
-            <Link
-              href="/artikelen"
-              className="text-xs font-bold text-[#FF4F00] hover:text-[#E04500] uppercase tracking-wider"
-            >
-              Alle artikelen →
-            </Link>
+            <ButtonLink href="/artikelen" variant="secondary" size="sm" className="self-start sm:self-auto shrink-0">
+              <span>Alle artikelen</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </ButtonLink>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -117,11 +113,6 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
           </div>
         </div>
       )}
-
-      {/* Newsletter */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <NewsletterCta />
-      </div>
     </div>
   );
 }

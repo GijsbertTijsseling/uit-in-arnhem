@@ -15,6 +15,7 @@ import {
   Send,
   Users
 } from 'lucide-react';
+import { ButtonLink } from '@/components/ui/Button';
 
 export const metadata = {
   title: 'Over ons | Het team van UIT in Arnhem',
@@ -93,34 +94,28 @@ export default function AboutPage() {
   return (
     <div className="space-y-20 pb-24">
       {/* Hero Header */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-stone-100 via-stone-50 to-white pt-16 pb-20 border-b border-stone-200">
+      <section className="relative overflow-hidden bg-gradient-to-b from-surface-muted via-surface-subtle to-canvas pt-16 pb-20 border-b border-border-warm">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <h1 className="font-heading font-black text-4xl sm:text-6xl text-zinc-950 tracking-tight leading-tight">
+          <h1 className="font-heading font-extrabold text-4xl sm:text-6xl text-ink tracking-tight leading-tight">
             Wij zijn <span className="text-[#FF4F00]">UIT in Arnhem</span>
           </h1>
 
-          <p className="text-xl sm:text-2xl text-zinc-700 font-medium max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl sm:text-2xl text-ink-body font-medium max-w-3xl mx-auto leading-relaxed">
             Hét online platform dat jou laat zien wat er in onze bruisende Rijnstad te doen is!
           </p>
 
-          <p className="text-zinc-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-ink-muted text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Van intieme voorstellingen tot zwoele foodfestivals, en van verborgen koffiebars tot dampende zalen in Luxor Live en Musis: UIT in Arnhem neemt jou overal mee naartoe.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-            <a
-              href="#team"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-900 text-white font-bold text-sm hover:bg-[#FF4F00] transition-colors shadow-md"
-            >
+          <div className="flex flex-wrap items-center justify-center gap-3.5 pt-4">
+            <ButtonLink href="#team" variant="primary" size="md">
               <Users className="w-4 h-4" />
               <span>Maak kennis met ons team</span>
-            </a>
-            <a
-              href="#samenwerken"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-zinc-800 font-bold text-sm border border-zinc-200 hover:border-[#FF4F00] hover:text-[#FF4F00] transition-colors shadow-sm"
-            >
-              <span>Samenwerken & Adverteren</span>
-            </a>
+            </ButtonLink>
+            <ButtonLink href="#samenwerken" variant="secondary" size="md">
+              <span>Samenwerken &amp; Adverteren</span>
+            </ButtonLink>
           </div>
         </div>
       </section>
@@ -128,32 +123,32 @@ export default function AboutPage() {
       {/* Missie & Pijlers */}
       <section id="missie" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-stone-50 border border-stone-200/80 p-8 rounded-3xl space-y-4 hover:shadow-md transition-shadow">
+          <div className="bg-surface border border-border-warm p-8 rounded-3xl space-y-4 shadow-card hover:shadow-card-hover transition-shadow">
             <div className="w-12 h-12 rounded-2xl bg-[#FFF3ED] text-[#FF4F00] flex items-center justify-center font-bold">
               <Compass className="w-6 h-6" />
             </div>
-            <h3 className="font-heading font-black text-xl text-zinc-900">Echt & Onafhankelijk</h3>
-            <p className="text-zinc-600 text-sm leading-relaxed">
+            <h3 className="font-heading font-extrabold text-xl text-ink">Echt &amp; Onafhankelijk</h3>
+            <p className="text-ink-body text-sm leading-relaxed">
               Geen droge persberichten of commerciële trucjes, maar persoonlijke en oprechte tips van redacteuren die dagelijks in Arnhem wonen, werken en genieten.
             </p>
           </div>
 
-          <div className="bg-stone-50 border border-stone-200/80 p-8 rounded-3xl space-y-4 hover:shadow-md transition-shadow">
+          <div className="bg-surface border border-border-warm p-8 rounded-3xl space-y-4 shadow-card hover:shadow-card-hover transition-shadow">
             <div className="w-12 h-12 rounded-2xl bg-[#FFF3ED] text-[#FF4F00] flex items-center justify-center font-bold">
               <Calendar className="w-6 h-6" />
             </div>
-            <h3 className="font-heading font-black text-xl text-zinc-900">Compleet & Actueel</h3>
-            <p className="text-zinc-600 text-sm leading-relaxed">
+            <h3 className="font-heading font-extrabold text-xl text-ink">Compleet &amp; Actueel</h3>
+            <p className="text-ink-body text-sm leading-relaxed">
               Van de grote podia tot kleine wijkinitiatieven: met honderden evenementen in onze Uitagenda weet je altijd precies wat er vandaag, morgen of dit weekend te beleven is.
             </p>
           </div>
 
-          <div className="bg-stone-50 border border-stone-200/80 p-8 rounded-3xl space-y-4 hover:shadow-md transition-shadow">
+          <div className="bg-surface border border-border-warm p-8 rounded-3xl space-y-4 shadow-card hover:shadow-card-hover transition-shadow">
             <div className="w-12 h-12 rounded-2xl bg-[#FFF3ED] text-[#FF4F00] flex items-center justify-center font-bold">
               <Heart className="w-6 h-6" />
             </div>
-            <h3 className="font-heading font-black text-xl text-zinc-900">Voor en door de stad</h3>
-            <p className="text-zinc-600 text-sm leading-relaxed">
+            <h3 className="font-heading font-extrabold text-xl text-ink">Voor en door de stad</h3>
+            <p className="text-ink-body text-sm leading-relaxed">
               Arnhem is een stad met karakter — groen, creatief en vol energie. We verbinden publiek, artiesten, horecaondernemers en cultuurmakers met elkaar.
             </p>
           </div>
@@ -237,19 +232,25 @@ export default function AboutPage() {
             </div>
 
             <div className="space-y-3 relative z-10 pt-4">
-              <Link
+              <ButtonLink
                 href="/artikelen/vacature-redacteur-bij-uit-in-arnhem"
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-white text-zinc-950 font-bold text-sm hover:bg-orange-50 transition-colors shadow-lg"
+                variant="primary"
+                surface="brand"
+                size="md"
+                fullWidth
               >
                 <span>Bekijk vacature redacteur</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </ButtonLink>
+              <ButtonLink
                 href="/contact"
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-black/20 text-white font-medium text-xs hover:bg-black/30 transition-colors"
+                variant="secondary"
+                surface="brand"
+                size="sm"
+                fullWidth
               >
                 <span>Of stuur een open berichtje</span>
-              </Link>
+              </ButtonLink>
             </div>
           </div>
         </div>
@@ -257,13 +258,9 @@ export default function AboutPage() {
 
       {/* Samenwerken Section */}
       <section id="samenwerken" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-stone-900 text-white rounded-3xl p-8 sm:p-14 relative overflow-hidden shadow-xl">
+        <div className="bg-ink text-white rounded-3xl p-8 sm:p-14 relative overflow-hidden shadow-card-hover">
           <div className="max-w-2xl space-y-6">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 text-orange-300 text-xs font-bold uppercase tracking-wider">
-              <span>Samenwerken & Zichtbaarheid</span>
-            </div>
-
-            <h2 className="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
               Jouw evenement of organisatie uitgelicht in Arnhem?
             </h2>
 
@@ -305,19 +302,14 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="pt-4 flex flex-wrap items-center gap-4">
-              <Link
-                href="/contact"
-                className="px-6 py-3.5 rounded-full bg-[#FF4F00] text-white font-bold text-sm hover:bg-[#E04500] transition-colors shadow-lg"
-              >
-                Kom langs voor een kop koffie
-              </Link>
-              <a
-                href="mailto:info@uitinarnhem.nl"
-                className="px-6 py-3.5 rounded-full bg-zinc-800 text-zinc-200 font-bold text-sm hover:bg-zinc-700 transition-colors border border-zinc-700"
-              >
+            <div className="pt-4 flex flex-wrap items-center gap-3.5">
+              <ButtonLink href="/contact" variant="primary" surface="dark" size="lg">
+                <span>Kom langs voor een kop koffie</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </ButtonLink>
+              <ButtonLink href="mailto:info@uitinarnhem.nl" variant="secondary" surface="dark" size="lg">
                 info@uitinarnhem.nl
-              </a>
+              </ButtonLink>
             </div>
           </div>
         </div>
@@ -331,23 +323,13 @@ export default function AboutPage() {
         <p className="text-zinc-600 text-sm leading-relaxed">
           Volg onze avonturen dagelijks op social media of stuur onze redactie jouw tips door.
         </p>
-        <div className="flex justify-center gap-4 pt-2">
-          <a
-            href="https://www.instagram.com/uitinarnhem/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-bold px-4 py-2 rounded-full border border-stone-300 text-zinc-700 hover:border-[#FF4F00] hover:text-[#FF4F00] transition-colors"
-          >
+        <div className="flex flex-wrap justify-center gap-3 pt-2">
+          <ButtonLink href="https://www.instagram.com/uitinarnhem/" variant="secondary" size="sm">
             Instagram @uitinarnhem
-          </a>
-          <a
-            href="https://nl-nl.facebook.com/uitinarnhem/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-bold px-4 py-2 rounded-full border border-stone-300 text-zinc-700 hover:border-[#FF4F00] hover:text-[#FF4F00] transition-colors"
-          >
+          </ButtonLink>
+          <ButtonLink href="https://nl-nl.facebook.com/uitinarnhem/" variant="secondary" size="sm">
             Facebook Pagina
-          </a>
+          </ButtonLink>
         </div>
       </section>
     </div>

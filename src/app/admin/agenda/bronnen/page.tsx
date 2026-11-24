@@ -199,11 +199,8 @@ export default function AdminAgendaSourcesPage() {
               <span>Terug naar Agenda</span>
             </Link>
           </div>
-          <h1 className="font-heading font-black text-2xl sm:text-3xl text-zinc-950 flex items-center gap-3">
-            <span>Agenda Scraper & Bronnen</span>
-            <span className="px-2.5 py-0.5 text-xs font-bold bg-[#FF4F00]/10 text-[#FF4F00] rounded-full uppercase tracking-wider">
-              Python Engine
-            </span>
+          <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-zinc-950">
+            Agenda Scraper &amp; Bronnen
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1">
             Beheer externe podia en culturele agenda-URLs die automatisch worden gesynchroniseerd.
@@ -261,6 +258,20 @@ export default function AdminAgendaSourcesPage() {
       )}
 
       {/* Source Cards Grid */}
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className="h-56 bg-white rounded-3xl border border-zinc-200 p-6 animate-pulse space-y-4"
+            >
+              <div className="h-5 w-1/2 bg-zinc-200 rounded-lg" />
+              <div className="h-3 w-3/4 bg-zinc-100 rounded-lg" />
+              <div className="h-16 w-full bg-zinc-100 rounded-xl" />
+            </div>
+          ))}
+        </div>
+      ) : (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sources.map((src) => {
           const isSyncing = syncingId === src.id || syncingId === src.slug;
@@ -370,6 +381,7 @@ export default function AdminAgendaSourcesPage() {
           );
         })}
       </div>
+      )}
 
       {/* Add New Source Modal */}
       {showAddModal && (
@@ -417,9 +429,9 @@ export default function AdminAgendaSourcesPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-bold text-zinc-800 mb-1">Adapter Type</label>
+                  <label className="h-8 flex items-end font-bold text-zinc-800 mb-1.5">Adapter Type</label>
                   <select
                     value={newSource.adapter_type}
                     onChange={(e) => setNewSource({ ...newSource, adapter_type: e.target.value })}
@@ -427,33 +439,33 @@ export default function AdminAgendaSourcesPage() {
                   >
                     <option value="generic_jsonld">Schema.org JSON-LD (Universeel)</option>
                     <option value="luxor">Luxor Live (Microdata)</option>
-                    <option value="musis">Musis & Stadstheater (API)</option>
+                    <option value="musis">Musis &amp; Stadstheater (API)</option>
                     <option value="posttheater">Posttheater (Ticketmatic)</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block font-bold text-zinc-800 mb-1">Standaard Categorie</label>
+                  <label className="h-8 flex items-end font-bold text-zinc-800 mb-1.5">Standaard Categorie</label>
                   <select
                     value={newSource.default_category_slug}
                     onChange={(e) => setNewSource({ ...newSource, default_category_slug: e.target.value })}
                     className="w-full px-3 py-2.5 rounded-xl border border-zinc-200 focus:outline-none focus:border-[#FF4F00] bg-white"
                   >
                     <option value="muziek">Muziek</option>
-                    <option value="theater-dans">Theater & Dans</option>
-                    <option value="comedy">Comedy & Cabaret</option>
+                    <option value="theater-dans">Theater &amp; Dans</option>
+                    <option value="comedy">Comedy &amp; Cabaret</option>
                     <option value="film">Film</option>
                     <option value="festival">Festival</option>
-                    <option value="kunst-expo">Kunst & Expo</option>
-                    <option value="kinderen-familie">Kinderen & Familie</option>
+                    <option value="kunst-expo">Kunst &amp; Expo</option>
+                    <option value="kinderen-familie">Kinderen &amp; Familie</option>
                     <option value="cultuur">Cultuur Algemeen</option>
                   </select>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-bold text-zinc-800 mb-1">Standaard Zaalnaam</label>
+                  <label className="h-8 flex items-end font-bold text-zinc-800 mb-1.5">Standaard Zaalnaam</label>
                   <input
                     type="text"
                     placeholder="Focus Filmtheater"
@@ -464,7 +476,7 @@ export default function AdminAgendaSourcesPage() {
                 </div>
 
                 <div>
-                  <label className="block font-bold text-zinc-800 mb-1">Adres</label>
+                  <label className="h-8 flex items-end font-bold text-zinc-800 mb-1.5">Adres</label>
                   <input
                     type="text"
                     placeholder="Audrey Hepburnplein 1"

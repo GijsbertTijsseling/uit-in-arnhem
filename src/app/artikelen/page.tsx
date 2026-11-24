@@ -10,12 +10,14 @@ export const metadata = {
 export const revalidate = 60;
 
 interface ArticlesPageProps {
-  searchParams: Promise<{ category?: string; tag?: string }>;
+  searchParams: Promise<{ category?: string; tag?: string; page?: string }>;
 }
 
 export default async function ArticlesPage({ searchParams }: ArticlesPageProps) {
   const resolvedParams = await searchParams;
   const articles = await getArticles();
+  const parsedPage = Number(resolvedParams.page);
+  const defaultPage = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
@@ -32,6 +34,7 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
         initialArticles={articles}
         defaultCategory={resolvedParams.category || 'all'}
         defaultTag={resolvedParams.tag}
+        defaultPage={defaultPage}
       />
     </div>
   );

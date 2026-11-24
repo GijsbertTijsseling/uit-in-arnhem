@@ -9,15 +9,14 @@ import { saveLocationToSupabase, uploadImageToSupabase } from '@/lib/supabase/ap
 import {
   Save,
   Upload,
-  Image as ImageIcon,
   CheckCircle2,
   AlertCircle,
   MapPin,
   Globe,
   Phone,
   Mail,
-  Building2,
   ExternalLink,
+  Trash2,
 } from 'lucide-react';
 
 interface LocationEditorFormProps {
@@ -78,7 +77,7 @@ export function LocationEditorForm({ initialLocation, isNew = false }: LocationE
       setFeaturedImage(localUrl);
       setFeedback({
         type: 'error',
-        message: 'Lokale preview geladen; je kunt ook een directe fotolink invullen.',
+        message: 'Upload naar Supabase Storage is mislukt. Probeer een ander bestand (JPG, PNG of WebP).',
       });
     } finally {
       setUploadingImage(false);
@@ -161,7 +160,7 @@ export function LocationEditorForm({ initialLocation, isNew = false }: LocationE
           className={`p-4 rounded-2xl text-xs flex items-center gap-2 ${
             feedback.type === 'success'
               ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
-              : 'bg-amber-50 border border-amber-200 text-amber-800'
+              : 'bg-rose-50 border border-rose-200 text-rose-800'
           }`}
         >
           {feedback.type === 'success' ? (
@@ -260,7 +259,7 @@ export function LocationEditorForm({ initialLocation, isNew = false }: LocationE
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-zinc-600 mb-1.5">
+                <label className="h-9 flex items-end text-xs font-bold text-zinc-600 mb-2">
                   Postcode
                 </label>
                 <input
@@ -273,7 +272,7 @@ export function LocationEditorForm({ initialLocation, isNew = false }: LocationE
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-zinc-600 mb-1.5">
+                <label className="h-9 flex items-end text-xs font-bold text-zinc-600 mb-2">
                   Stad
                 </label>
                 <input
@@ -286,7 +285,7 @@ export function LocationEditorForm({ initialLocation, isNew = false }: LocationE
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-zinc-600 mb-1.5">
+                <label className="h-9 flex items-end text-xs font-bold text-zinc-600 mb-2">
                   Breedtegraad (Latitude)
                 </label>
                 <input
@@ -299,7 +298,7 @@ export function LocationEditorForm({ initialLocation, isNew = false }: LocationE
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-zinc-600 mb-1.5">
+                <label className="h-9 flex items-end text-xs font-bold text-zinc-600 mb-2">
                   Lengtegraad (Longitude)
                 </label>
                 <input
@@ -322,35 +321,46 @@ export function LocationEditorForm({ initialLocation, isNew = false }: LocationE
               Locatiefoto
             </h3>
 
-            <div className="relative aspect-16/10 rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200">
-              <Image
-                src={featuredImage || '/logo.png'}
-                alt={name || 'Locatie preview'}
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-zinc-600 mb-1.5">
-                Foto URL
-              </label>
-              <input
-                type="url"
-                value={featuredImage}
-                onChange={(e) => setFeaturedImage(e.target.value)}
-                placeholder="https://..."
-                className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#FF4F00]"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-zinc-600 mb-1.5">
-                Of upload bestand
-              </label>
-              <label className="flex items-center justify-center gap-2 p-3 border-2 border-dashed border-zinc-200 hover:border-[#FF4F00] rounded-2xl cursor-pointer bg-zinc-50 hover:bg-white transition-colors text-xs font-bold text-zinc-600">
-                <Upload className="w-4 h-4 text-[#FF4F00]" />
-                <span>{uploadingImage ? 'Uploaden...' : 'Kies afbeelding'}</span>
+            {featuredImage && featuredImage !== '/logo.png' ? (
+              <div className="space-y-3">
+                <div className="relative aspect-16/10 rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200">
+                  <Image
+                    src={featuredImage}
+                    alt={name || 'Locatie preview'}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-bold cursor-pointer transition-colors">
+                    <Upload className="w-3.5 h-3.5" />
+                    <span>{uploadingImage ? 'Uploaden...' : 'Andere foto kiezen'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageFileChange}
+                      disabled={uploadingImage}
+                      className="hidden"
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setFeaturedImage('/logo.png')}
+                    aria-label="Locatiefoto verwijderen"
+                    className="p-2.5 rounded-xl border border-zinc-200 text-zinc-500 hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 transition-colors cursor-pointer"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <label className="flex flex-col items-center justify-center gap-2 aspect-16/10 rounded-2xl border-2 border-dashed border-zinc-300 hover:border-[#FF4F00] bg-zinc-50 hover:bg-white cursor-pointer transition-colors p-4 text-center">
+                <Upload className="w-6 h-6 text-[#FF4F00]" />
+                <span className="text-xs font-bold text-zinc-800">
+                  {uploadingImage ? 'Uploaden...' : 'Klik om locatiefoto te uploaden'}
+                </span>
+                <span className="text-[11px] text-zinc-500">JPG, PNG of WebP</span>
                 <input
                   type="file"
                   accept="image/*"
@@ -359,17 +369,17 @@ export function LocationEditorForm({ initialLocation, isNew = false }: LocationE
                   className="hidden"
                 />
               </label>
-            </div>
+            )}
           </div>
 
           {/* Online & Contact Channels */}
           <div className="bg-white p-6 rounded-3xl border border-zinc-200/90 shadow-xs space-y-4">
-            <h3 className="font-heading font-black text-sm uppercase tracking-wider text-zinc-800">
-              Contact & Links
+            <h3 className="font-heading font-extrabold text-sm uppercase tracking-wider text-zinc-800">
+              Contact &amp; Links
             </h3>
 
             <div>
-              <label className="block text-xs font-bold text-zinc-600 mb-1.5 flex items-center gap-1.5">
+              <label className="text-xs font-bold text-zinc-600 mb-1.5 flex items-center gap-1.5">
                 <Globe className="w-3.5 h-3.5 text-zinc-400" />
                 <span>Website</span>
               </label>
@@ -383,7 +393,7 @@ export function LocationEditorForm({ initialLocation, isNew = false }: LocationE
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-zinc-600 mb-1.5 flex items-center gap-1.5">
+              <label className="text-xs font-bold text-zinc-600 mb-1.5 flex items-center gap-1.5">
                 <Phone className="w-3.5 h-3.5 text-zinc-400" />
                 <span>Telefoonnummer</span>
               </label>
@@ -397,7 +407,7 @@ export function LocationEditorForm({ initialLocation, isNew = false }: LocationE
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-zinc-600 mb-1.5 flex items-center gap-1.5">
+              <label className="text-xs font-bold text-zinc-600 mb-1.5 flex items-center gap-1.5">
                 <Mail className="w-3.5 h-3.5 text-zinc-400" />
                 <span>E-mailadres</span>
               </label>

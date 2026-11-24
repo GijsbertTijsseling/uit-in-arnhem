@@ -1,14 +1,41 @@
 @import "tailwindcss";
 
-@theme {
+@theme inline {
+  /* Brand */
   --color-primary: #FF4F00;
   --color-primary-hover: #E04500;
   --color-primary-light: #FFF3ED;
   --color-dark: #121212;
+
+  /* Warm Editorial Neutral System */
+  --color-canvas: #FDFCFA;
+  --color-surface: #FFFFFF;
+  --color-surface-subtle: #FAF9F6;
+  --color-surface-muted: #F5F3F0;
+  --color-surface-accent: #EEEAE4;
+  --color-border-warm: #E7E4DF;
+  --color-cta-tint: #FFF0E7;
+  --color-cta-border: #F5D7C6;
+
+  /* Warm Typography Tokens */
+  --color-ink: #121212;
+  --color-ink-body: #494744;
+  --color-ink-muted: #6B6761;
+  --color-ink-dark-body: #D8D4CD;
+  --color-ink-dark-muted: #A8A39B;
+
+  /* Soft Editorial Shadows */
+  --shadow-card: 0 1px 2px rgba(18, 18, 18, 0.04), 0 4px 12px rgba(18, 18, 18, 0.03);
+  --shadow-card-hover: 0 6px 20px rgba(18, 18, 18, 0.07), 0 2px 6px rgba(18, 18, 18, 0.04);
+
+  /* Typography */
+  --font-heading: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-weight-black: 800;
 }
 
 :root {
-  --background: #FFFFFF;
+  --background: #FDFCFA;
   --foreground: #121212;
   --color-primary: #FF4F00;
   --color-primary-hover: #E04500;
@@ -19,7 +46,7 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
 }
 
@@ -28,49 +55,48 @@ body {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #F4F4F5;
+  background: #F5F3F0;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #D4D4D8;
+  background: #D8D4CD;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #A1A1AA;
+  background: #A8A39B;
 }
 
 /* Hide scrollbar for tabs */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-/* Uit in Arnhem - Brand links in editorial and prose text */
+/* Uit in Arnhem - Brand links strictly scoped to editorial prose */
 .prose {
   --tw-prose-links: #FF4F00;
 }
 
-.prose a,
-.prose-zinc a,
-.prose-lg a,
-article p a,
-main p a:not([class*="bg-"]):not([class*="btn"]):not([class*="rounded-full"]) {
-  color: #FF4F00 !important;
-  text-decoration: underline !important;
-  text-decoration-color: rgba(255, 79, 0, 0.45) !important;
-  text-underline-offset: 3px !important;
-  font-weight: inherit !important;
+.prose a:not([class*="bg-"]):not([class*="btn"]):not([class*="rounded-full"]):not([class*="rounded-xl"]),
+.prose-zinc a:not([class*="bg-"]):not([class*="btn"]):not([class*="rounded-full"]):not([class*="rounded-xl"]),
+.prose-lg a:not([class*="bg-"]):not([class*="btn"]):not([class*="rounded-full"]):not([class*="rounded-xl"]) {
+  color: #FF4F00;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 79, 0, 0.45);
+  text-underline-offset: 3px;
   transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
-.prose a:hover,
-.prose-zinc a:hover,
-.prose-lg a:hover,
-article p a:hover,
-main p a:not([class*="bg-"]):not([class*="btn"]):not([class*="rounded-full"]):hover {
-  color: #E04500 !important;
-  text-decoration-color: #E04500 !important;
+.prose a:not([class*="bg-"]):not([class*="btn"]):not([class*="rounded-full"]):not([class*="rounded-xl"]):hover,
+.prose-zinc a:not([class*="bg-"]):not([class*="btn"]):not([class*="rounded-full"]):not([class*="rounded-xl"]):hover,
+.prose-lg a:not([class*="bg-"]):not([class*="btn"]):not([class*="rounded-full"]):not([class*="rounded-xl"]):hover {
+  color: #E04500;
+  text-decoration-color: #E04500;
 }

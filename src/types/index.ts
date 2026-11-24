@@ -165,6 +165,8 @@ export type UserRole = 'admin' | 'editor' | 'contributor';
 export interface UserProfile {
   id: string;
   email?: string;
+  first_name?: string;
+  last_name?: string;
   full_name?: string;
   role: UserRole;
   avatar_url?: string;

@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Calendar as CalendarIcon, CalendarDays, ChevronDown, X, Check } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 
 interface DateFilterStripProps {
   selectedFilter: string;
@@ -109,9 +110,9 @@ export function DateFilterStrip({
                   }
                 }}
                 type="button"
-                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-150 cursor-pointer ${active
-                    ? 'bg-[#FF4F00] text-white shadow-sm ring-2 ring-[#FF4F00]/20'
-                    : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
+                className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap border transition-all duration-150 cursor-pointer ${active
+                    ? 'bg-zinc-900 border-zinc-900 text-white shadow-xs'
+                    : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100'
                   }`}
               >
                 {item.label}
@@ -125,9 +126,9 @@ export function DateFilterStrip({
               <button
                 type="button"
                 onClick={() => setIsOpen((prev) => !prev)}
-                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-150 inline-flex items-center gap-1.5 cursor-pointer ${isCustomActive || selectedFilter === 'custom'
-                    ? 'bg-[#FF4F00] text-white shadow-sm ring-2 ring-[#FF4F00]/20'
-                    : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
+                className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap border transition-all duration-150 inline-flex items-center gap-1.5 cursor-pointer ${isCustomActive || selectedFilter === 'custom'
+                    ? 'bg-zinc-900 border-zinc-900 text-white shadow-xs'
+                    : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100'
                   }`}
               >
                 <CalendarDays className="w-3.5 h-3.5" />
@@ -142,6 +143,7 @@ export function DateFilterStrip({
                   type="button"
                   onClick={handleClear}
                   title="Wis datumfilter"
+                  aria-label="Wis datumfilter"
                   className="p-1.5 text-zinc-400 hover:text-zinc-700 rounded-full hover:bg-zinc-100 transition-colors cursor-pointer"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -151,7 +153,7 @@ export function DateFilterStrip({
 
             {/* Popover for date range */}
             {isOpen && (
-              <div className="absolute left-0 mt-2 z-40 bg-white rounded-2xl shadow-xl border border-zinc-200 p-4 min-w-[280px] sm:w-80 animate-in fade-in zoom-in-95 duration-150">
+              <div className="absolute left-0 mt-2 z-40 bg-white rounded-2xl shadow-xl border border-zinc-200 p-4 w-[min(20rem,calc(100vw-2rem))] animate-in fade-in zoom-in-95 duration-150">
                 <div className="flex items-center justify-between pb-3 border-b border-zinc-100 mb-3">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-zinc-800">
                     <CalendarDays className="w-4 h-4 text-[#FF4F00]" />
@@ -196,22 +198,24 @@ export function DateFilterStrip({
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-end gap-2">
-                  <button
+                  <Button
                     type="button"
+                    variant="secondary"
+                    size="sm"
                     onClick={() => setIsOpen(false)}
-                    className="px-3 py-1.5 text-xs font-semibold text-zinc-500 hover:text-zinc-800 rounded-lg hover:bg-zinc-50 transition-colors cursor-pointer"
                   >
                     Annuleren
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     type="button"
+                    variant="primary"
+                    size="sm"
                     onClick={handleApply}
                     disabled={!tempStart && !tempEnd}
-                    className="px-4 py-1.5 bg-[#FF4F00] hover:bg-[#E04500] disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold rounded-lg transition-colors shadow-xs inline-flex items-center gap-1 cursor-pointer"
                   >
                     <Check className="w-3.5 h-3.5" />
                     <span>Toepassen</span>
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { getEvents } from '@/lib/supabase/api';
 import { AgendaPageClient } from '@/components/agenda/AgendaPageClient';
+import { ButtonLink } from '@/components/ui/Button';
+import { Plus } from 'lucide-react';
 
 export const metadata = {
   title: 'Agenda Arnhem | Concerten, Theater, Festivals & Evenementen',
@@ -10,12 +12,14 @@ export const metadata = {
 export const revalidate = 60;
 
 interface AgendaPageProps {
-  searchParams: Promise<{ category?: string; filter?: string }>;
+  searchParams: Promise<{ category?: string; filter?: string; page?: string }>;
 }
 
 export default async function AgendaPage({ searchParams }: AgendaPageProps) {
   const resolvedParams = await searchParams;
   const events = await getEvents();
+  const parsedPage = Number(resolvedParams.page);
+  const defaultPage = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
@@ -31,12 +35,10 @@ export default async function AgendaPage({ searchParams }: AgendaPageProps) {
         </div>
 
         <div className="shrink-0">
-          <a
-            href="/agenda/aanmelden"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-sm hover:shadow-md"
-          >
-            <span>+ Evenement Gratis Aanmelden</span>
-          </a>
+          <ButtonLink href="/agenda/aanmelden" variant="primary" size="md">
+            <Plus className="w-4 h-4" />
+            <span>Evenement aanmelden</span>
+          </ButtonLink>
         </div>
       </div>
 
@@ -45,6 +47,7 @@ export default async function AgendaPage({ searchParams }: AgendaPageProps) {
         initialEvents={events}
         defaultCategory={resolvedParams.category || 'all'}
         defaultFilter={resolvedParams.filter || 'all'}
+        defaultPage={defaultPage}
       />
     </div>
   );

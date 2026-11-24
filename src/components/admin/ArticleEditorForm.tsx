@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Article, LayoutTemplate, CtaBlock, Location } from '@/types';
 import { ARTICLE_CATEGORIES } from '@/data/mockData';
 import { uploadImageToSupabase, saveArticleToSupabase, getLocations } from '@/lib/supabase/api';
+import { getCurrentEditorUser, DEFAULT_AUTHOR_NAME } from '@/lib/auth';
 import { LOCATIONS_CATALOG } from '@/data/locationsData';
 import { LocationCombobox } from '@/components/admin/LocationCombobox';
 import {
@@ -14,15 +15,15 @@ import {
   Image as ImageIcon,
   CheckCircle2,
   AlertCircle,
-  Eye,
   Sparkles,
-  Link as LinkIcon,
   Bold,
   Italic,
   List,
-  Heading2,
   Heading3,
   Quote,
+  User,
+  MapPin,
+  Trash2,
 } from 'lucide-react';
 
 interface ArticleEditorFormProps {
@@ -42,12 +43,19 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
   const [content, setContent] = useState(initialArticle?.content || '');
   const [featuredImage, setFeaturedImage] = useState(
     initialArticle?.featured_image_url ||
-      '/logo.png'
+    '/logo.png'
   );
   const [status, setStatus] = useState<'draft' | 'published'>(
     initialArticle?.status === 'draft' ? 'draft' : 'published'
   );
   const [isFeatured, setIsFeatured] = useState(initialArticle?.is_featured || false);
+  const [authorName, setAuthorName] = useState(
+    initialArticle?.author_name && initialArticle.author_name !== DEFAULT_AUTHOR_NAME
+      ? initialArticle.author_name
+      : ''
+  );
+  const [authorId, setAuthorId] = useState<string | undefined>(initialArticle?.author_id);
+  const [accountAuthorName, setAccountAuthorName] = useState<string | null>(null);
 
   // CTA Builder
   const [enableCta, setEnableCta] = useState(!!initialArticle?.cta_block);
@@ -73,6 +81,29 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
     });
   }, []);
 
+  useEffect(() => {
+    const loadEditor = async (prefillIfNew: boolean) => {
+      const editor = await getCurrentEditorUser();
+      setAccountAuthorName(editor?.author_name || null);
+      if (prefillIfNew && isNew) {
+        if (editor?.id) {
+          setAuthorId(editor.id);
+        }
+        if (editor?.author_name) {
+          setAuthorName((prev) => prev || editor.author_name || '');
+        }
+      }
+    };
+
+    loadEditor(true);
+
+    const handleProfileUpdate = () => {
+      loadEditor(false);
+    };
+    window.addEventListener('uit-arnhem-profile-updated', handleProfileUpdate);
+    return () => window.removeEventListener('uit-arnhem-profile-updated', handleProfileUpdate);
+  }, [isNew]);
+
   const handleLocationSelect = (loc: Location | null) => {
     if (!loc) {
       setSelectedLocationSlug('');
@@ -82,9 +113,9 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
   };
 
   const handleInsertLocationIntoContent = (loc: Location) => {
-    const addressBlock = `\n\n📍 **${loc.name}**\n${loc.address ? `*Adres:* ${loc.address}${loc.city ? `, ${loc.city}` : ''}\n` : ''}${loc.website ? `*Website:* [${loc.name}](${loc.website})\n` : ''}`;
+    const addressBlock = `\n\n**${loc.name}**\n${loc.address ? `*Adres: ${loc.address}${loc.city ? `, ${loc.city}` : ''}*\n` : ''}${loc.website ? `*Website:* [${loc.name}](${loc.website})\n` : ''}`;
     setContent((prev) => prev + addressBlock);
-    setFeedback({ type: 'success', message: `Locatie "${loc.name}" ingevoegd in artikeltekst!` });
+    setFeedback({ type: 'success', message: `Locatie "${loc.name}" ingevoegd in artikeltekst.` });
   };
 
   const handleApplyLocationToCta = (loc: Location) => {
@@ -127,7 +158,7 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
       setFeaturedImage(localUrl);
       setFeedback({
         type: 'error',
-        message: 'Supabase storage media bucket is niet publiek schrijfbaar. Lokale preview geladen; je kunt ook een directe beelduitwisselingslink invullen.',
+        message: 'Upload naar Supabase Storage is mislukt. Probeer een ander bestand (JPG, PNG of WebP).',
       });
     } finally {
       setUploadingImage(false);
@@ -146,11 +177,11 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
 
     const ctaBlock: CtaBlock | undefined = enableCta
       ? {
-          heading: ctaHeading,
-          description: ctaDesc,
-          button_label: ctaBtnLabel,
-          button_url: ctaBtnUrl,
-        }
+        heading: ctaHeading,
+        description: ctaDesc,
+        button_label: ctaBtnLabel,
+        button_url: ctaBtnUrl,
+      }
       : undefined;
 
     const articleData: Partial<Article> = {
@@ -165,6 +196,8 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
       status,
       is_featured: isFeatured,
       cta_block: ctaBlock,
+      author_name: authorName.trim() || DEFAULT_AUTHOR_NAME,
+      author_id: authorId,
     };
 
     try {
@@ -217,11 +250,10 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
 
       {feedback && (
         <div
-          className={`p-4 rounded-2xl text-xs flex items-center gap-2 ${
-            feedback.type === 'success'
+          className={`p-4 rounded-2xl text-xs flex items-center gap-2 ${feedback.type === 'success'
               ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
-              : 'bg-amber-50 border border-amber-200 text-amber-800'
-          }`}
+              : 'bg-rose-50 border border-rose-200 text-rose-800'
+            }`}
         >
           {feedback.type === 'success' ? (
             <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -347,10 +379,11 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
                 <button
                   type="button"
                   onClick={() => insertFormatting('*Adres: Straat 1, Arnhem*')}
-                  className="px-2 py-1 hover:bg-white rounded-lg text-[11px] font-bold text-zinc-600"
-                  title="Adres tag"
+                  className="inline-flex items-center gap-1 px-2 py-1 hover:bg-white rounded-lg text-[11px] font-bold text-zinc-600 cursor-pointer"
+                  title="Adresblok invoegen"
                 >
-                  📍 Adres
+                  <MapPin className="w-3.5 h-3.5 text-zinc-500" />
+                  <span>Adres</span>
                 </button>
               </div>
             </div>
@@ -411,9 +444,9 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
                     className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-xs"
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] font-bold uppercase text-zinc-700 mb-1">
+                    <label className="h-7 flex items-end text-[11px] font-bold uppercase text-zinc-700 mb-1.5">
                       Knop Tekst
                     </label>
                     <input
@@ -425,7 +458,7 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold uppercase text-zinc-700 mb-1">
+                    <label className="h-7 flex items-end text-[11px] font-bold uppercase text-zinc-700 mb-1.5">
                       Knop Doel URL
                     </label>
                     <input
@@ -462,15 +495,20 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
               </select>
             </div>
 
-            <label className="flex items-center gap-2 text-xs font-bold text-zinc-800 cursor-pointer pt-2">
-              <input
-                type="checkbox"
-                checked={isFeatured}
-                onChange={(e) => setIsFeatured(e.target.checked)}
-                className="rounded text-[#FF4F00] focus:ring-[#FF4F00]"
-              />
-              <span>Uitlichten op Homepage (Hero Story)</span>
-            </label>
+            <div className="pt-2 space-y-1">
+              <label className="flex items-center gap-2 text-xs font-bold text-zinc-800 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={isFeatured}
+                  onChange={(e) => setIsFeatured(e.target.checked)}
+                  className="rounded text-[#FF4F00] focus:ring-[#FF4F00]"
+                />
+                <span>Uitlichten op Homepage</span>
+              </label>
+              <p className="text-[11px] text-zinc-500 pl-6">
+                Als je dit aanzet, vervalt het vorige uitgelichte verhaal automatisch.
+              </p>
+            </div>
           </div>
 
           {/* Template Selector */}
@@ -489,11 +527,10 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
               ].map((item) => (
                 <label
                   key={item.id}
-                  className={`block p-3 rounded-xl border text-xs cursor-pointer transition-all ${
-                    template === item.id
-                      ? 'border-[#FF4F00] bg-[#FFF3ED] text-[#FF4F00]'
-                      : 'border-zinc-200 hover:bg-zinc-50 text-zinc-800'
-                  }`}
+                  className={`block p-3 rounded-xl border text-xs cursor-pointer transition-all ${template === item.id
+                      ? 'border-zinc-900 bg-zinc-900 text-white shadow-xs'
+                      : 'border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-700'
+                    }`}
                 >
                   <div className="flex items-center gap-2">
                     <input
@@ -502,14 +539,57 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
                       value={item.id}
                       checked={template === item.id}
                       onChange={(e) => setTemplate(e.target.value as any)}
-                      className="text-[#FF4F00] focus:ring-[#FF4F00]"
+                      className="accent-white"
                     />
                     <span className="font-bold">{item.label}</span>
                   </div>
-                  <p className="text-[11px] text-zinc-500 mt-1 pl-5">{item.desc}</p>
+                  <p className={`text-[11px] mt-1 pl-5 ${template === item.id ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                    {item.desc}
+                  </p>
                 </label>
               ))}
             </div>
+          </div>
+
+          {/* Author / Redacteur */}
+          <div className="bg-white p-6 rounded-3xl border border-zinc-200/90 shadow-xs space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="font-heading font-black text-sm uppercase tracking-wider text-zinc-800">
+                Auteur / Redacteur
+              </h3>
+              {accountAuthorName && authorName.trim() !== accountAuthorName && (
+                <button
+                  type="button"
+                  onClick={() => setAuthorName(accountAuthorName)}
+                  className="text-[11px] font-bold text-[#FF4F00] hover:underline cursor-pointer"
+                >
+                  Gebruik mijn naam
+                </button>
+              )}
+            </div>
+
+            <div className="relative">
+              <User className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={authorName}
+                onChange={(e) => setAuthorName(e.target.value)}
+                placeholder={DEFAULT_AUTHOR_NAME}
+                className="w-full pl-9 pr-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-medium text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F00] focus:bg-white"
+              />
+            </div>
+
+            <p className="text-[11px] text-zinc-500 leading-relaxed">
+              {accountAuthorName ? (
+                <>
+                  Automatisch gekoppeld aan je account (<span className="font-semibold text-zinc-700">{accountAuthorName}</span>). Laat leeg voor <span className="font-semibold text-zinc-700">{DEFAULT_AUTHOR_NAME}</span>.
+                </>
+              ) : (
+                <>
+                  Geen voor- en achternaam ingesteld bij je account. Vul hier een naam in of stel je naam in via je profiel linksonder. Leeg = <span className="font-semibold text-zinc-700">{DEFAULT_AUTHOR_NAME}</span>.
+                </>
+              )}
+            </p>
           </div>
 
           {/* Category */}
@@ -556,30 +636,39 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
                     <button
                       type="button"
                       onClick={() => handleInsertLocationIntoContent(loc)}
-                      className="w-full text-left px-3 py-2 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-800 transition-colors flex items-center justify-between cursor-pointer"
+                      className="w-full text-left px-3 py-2 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-800 transition-colors flex items-center justify-between gap-2 cursor-pointer"
                     >
-                      <span>📍 Voeg adresblok in artikeltekst</span>
-                      <span className="text-[10px] text-[#FF4F00] font-bold">+ Invoegen</span>
+                      <span className="inline-flex items-center gap-2">
+                        <MapPin className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                        <span>Voeg adresblok in artikeltekst</span>
+                      </span>
+                      <span className="text-[10px] text-[#FF4F00] font-bold shrink-0">+ Invoegen</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => handleApplyLocationToCta(loc)}
-                      className="w-full text-left px-3 py-2 bg-orange-50/70 hover:bg-orange-100/70 border border-[#FF4F00]/20 rounded-xl text-xs font-semibold text-zinc-800 transition-colors flex items-center justify-between cursor-pointer"
+                      className="w-full text-left px-3 py-2 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-800 transition-colors flex items-center justify-between gap-2 cursor-pointer"
                     >
-                      <span>✨ Vul artikel CTA-blok automatisch</span>
-                      <span className="text-[10px] text-[#FF4F00] font-bold">+ CTA</span>
+                      <span className="inline-flex items-center gap-2">
+                        <Sparkles className="w-3.5 h-3.5 text-[#FF4F00] shrink-0" />
+                        <span>Vul artikel CTA-blok automatisch</span>
+                      </span>
+                      <span className="text-[10px] text-[#FF4F00] font-bold shrink-0">+ CTA</span>
                     </button>
                     {loc.featured_image && loc.featured_image !== '/logo.png' && (
                       <button
                         type="button"
                         onClick={() => {
                           setFeaturedImage(loc.featured_image!);
-                          setFeedback({ type: 'success', message: 'Locatie-afbeelding ingesteld als hoofdafbeelding!' });
+                          setFeedback({ type: 'success', message: 'Locatie-afbeelding ingesteld als hoofdafbeelding.' });
                         }}
-                        className="w-full text-left px-3 py-2 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-800 transition-colors flex items-center justify-between cursor-pointer"
+                        className="w-full text-left px-3 py-2 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-800 transition-colors flex items-center justify-between gap-2 cursor-pointer"
                       >
-                        <span>🖼️ Gebruik locatiefoto als cover</span>
-                        <span className="text-[10px] text-zinc-500 font-bold">Instellen</span>
+                        <span className="inline-flex items-center gap-2">
+                          <ImageIcon className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                          <span>Gebruik locatiefoto als cover</span>
+                        </span>
+                        <span className="text-[10px] text-zinc-500 font-bold shrink-0">Instellen</span>
                       </button>
                     )}
                   </div>
@@ -597,50 +686,56 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
               <span className="text-[11px] text-zinc-400">Media Bucket</span>
             </div>
 
-            {/* Preview */}
-            <div className="relative aspect-16/9 rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200">
-              {featuredImage ? (
-                <Image
-                  src={featuredImage}
-                  alt="Voorvertoning"
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center text-zinc-400 text-xs">
-                  <ImageIcon className="w-8 h-8 mb-1" />
-                  <span>Geen afbeelding gekozen</span>
+            {/* Eenduidige uploadzone met preview */}
+            {featuredImage ? (
+              <div className="space-y-3">
+                <div className="relative aspect-16/9 rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200">
+                  <Image
+                    src={featuredImage}
+                    alt="Voorvertoning"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover"
+                  />
                 </div>
-              )}
-            </div>
-
-            {/* Upload to Supabase Storage button */}
-            <div>
-              <label className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-bold cursor-pointer transition-colors shadow-sm">
-                <Upload className="w-4 h-4 text-[#FF4F00]" />
-                <span>{uploadingImage ? 'Bezig met uploaden...' : 'Upload naar Supabase Media'}</span>
+                <div className="flex items-center gap-2">
+                  <label className="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-bold cursor-pointer transition-colors">
+                    <Upload className="w-3.5 h-3.5" />
+                    <span>{uploadingImage ? 'Uploaden...' : 'Andere foto kiezen'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageFileChange}
+                      disabled={uploadingImage}
+                      className="hidden"
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setFeaturedImage('')}
+                    aria-label="Afbeelding verwijderen"
+                    className="p-2.5 rounded-xl border border-zinc-200 text-zinc-500 hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 transition-colors cursor-pointer"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <label className="flex flex-col items-center justify-center gap-2 aspect-16/9 rounded-2xl border-2 border-dashed border-zinc-300 hover:border-[#FF4F00] bg-zinc-50 hover:bg-white cursor-pointer transition-colors p-4 text-center">
+                <Upload className="w-6 h-6 text-[#FF4F00]" />
+                <span className="text-xs font-bold text-zinc-800">
+                  {uploadingImage ? 'Bezig met uploaden...' : 'Klik om hoofdafbeelding te uploaden'}
+                </span>
+                <span className="text-[11px] text-zinc-500">JPG, PNG of WebP</span>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleImageFileChange}
+                  disabled={uploadingImage}
                   className="hidden"
                 />
               </label>
-            </div>
-
-            {/* Or direct URL */}
-            <div>
-              <label className="block text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-1">
-                Of plak directe afbeeldings-URL:
-              </label>
-              <input
-                type="text"
-                value={featuredImage}
-                onChange={(e) => setFeaturedImage(e.target.value)}
-                placeholder="https://..."
-                className="w-full px-3 py-2 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-mono"
-              />
-            </div>
+            )}
           </div>
         </div>
       </div>

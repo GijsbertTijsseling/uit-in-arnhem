@@ -8,6 +8,7 @@ import { EVENT_CATEGORIES } from '@/data/mockData';
 import { LOCATIONS_CATALOG } from '@/data/locationsData';
 import { LocationCombobox } from '@/components/admin/LocationCombobox';
 import { submitPublicEvent, uploadImageToSupabase, getLocations } from '@/lib/supabase/api';
+import { Button, ButtonLink } from '@/components/ui/Button';
 import {
   Calendar,
   Clock,
@@ -78,7 +79,7 @@ export function PublicEventSubmissionForm() {
         if (data && data.length > 0) {
           setLocations(data);
         }
-      } catch {}
+      } catch { }
     }
     load();
   }, []);
@@ -108,7 +109,7 @@ export function PublicEventSubmissionForm() {
       if (publicUrl) {
         setHeroImage(publicUrl);
       } else {
-        setErrorMessage('Kon de afbeelding niet uploaden. Probeer een directe afbeeldings-URL.');
+        setErrorMessage('Kon de afbeelding niet uploaden. Probeer een ander bestand (JPG, PNG of WebP).');
       }
     } catch (err: any) {
       setErrorMessage(err.message || 'Fout bij het uploaden van de afbeelding.');
@@ -227,14 +228,13 @@ export function PublicEventSubmissionForm() {
         </div>
 
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Link
-            href="/agenda"
-            className="w-full sm:w-auto px-6 py-3 rounded-full bg-zinc-900 hover:bg-black text-white text-xs font-bold uppercase tracking-wider transition-all"
-          >
-            Bekijk de Agenda
-          </Link>
-          <button
-            type="button"
+          <ButtonLink href="/agenda" variant="primary" size="md" className="w-full sm:w-auto">
+            Bekijk de agenda
+          </ButtonLink>
+          <Button
+            variant="secondary"
+            size="md"
+            className="w-full sm:w-auto"
             onClick={() => {
               setIsSuccess(false);
               setTitle('');
@@ -247,10 +247,9 @@ export function PublicEventSubmissionForm() {
               setSelectedLocationSlug('');
               setSelectedLocation(null);
             }}
-            className="w-full sm:w-auto px-6 py-3 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold transition-all"
           >
             Nog een evenement aanmelden
-          </button>
+          </Button>
         </div>
       </div>
     );
@@ -279,8 +278,8 @@ export function PublicEventSubmissionForm() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2">
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
-              Titel van het evenement <span className="text-[#FF4F00]">*</span>
+            <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
+              <span>Titel van het evenement <span className="text-[#FF4F00]">*</span></span>
             </label>
             <input
               type="text"
@@ -293,8 +292,8 @@ export function PublicEventSubmissionForm() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
-              Categorie <span className="text-[#FF4F00]">*</span>
+            <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
+              <span>Categorie <span className="text-[#FF4F00]">*</span></span>
             </label>
             <select
               value={category}
@@ -359,8 +358,8 @@ export function PublicEventSubmissionForm() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
-              Startdatum <span className="text-[#FF4F00]">*</span>
+            <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
+              <span>Startdatum <span className="text-[#FF4F00]">*</span></span>
             </label>
             <input
               type="date"
@@ -372,8 +371,8 @@ export function PublicEventSubmissionForm() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
-              Aanvangstijd
+            <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
+              <span>Aanvangstijd</span>
             </label>
             <input
               type="time"
@@ -384,8 +383,8 @@ export function PublicEventSubmissionForm() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
-              Einddatum <span className="text-zinc-400 font-normal">(optioneel)</span>
+            <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
+              <span>Einddatum <span className="text-zinc-400 font-normal">(optioneel)</span></span>
             </label>
             <input
               type="date"
@@ -396,8 +395,8 @@ export function PublicEventSubmissionForm() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
-              Eindtijd <span className="text-zinc-400 font-normal">(optioneel)</span>
+            <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
+              <span>Eindtijd <span className="text-zinc-400 font-normal">(optioneel)</span></span>
             </label>
             <input
               type="time"
@@ -462,8 +461,8 @@ export function PublicEventSubmissionForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1">
-                  Locatienaam / Podium <span className="text-[#FF4F00]">*</span>
+                <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-600 mb-2">
+                  <span>Locatienaam / Podium <span className="text-[#FF4F00]">*</span></span>
                 </label>
                 <input
                   type="text"
@@ -471,20 +470,20 @@ export function PublicEventSubmissionForm() {
                   value={venueName}
                   onChange={(e) => setVenueName(e.target.value)}
                   placeholder="Bijv. De Eusebiuskerk, Café Stella, Pop-up tentoonstelling..."
-                  className="w-full px-4 py-2.5 bg-white border border-zinc-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F00]"
+                  className="w-full px-4 py-3 bg-white border border-zinc-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F00]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1">
-                  Straat en huisnummer
+                <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-600 mb-2">
+                  <span>Straat en huisnummer</span>
                 </label>
                 <input
                   type="text"
                   value={venueAddress}
                   onChange={(e) => setVenueAddress(e.target.value)}
                   placeholder="Bijv. Kerkplein 1"
-                  className="w-full px-4 py-2.5 bg-white border border-zinc-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F00]"
+                  className="w-full px-4 py-3 bg-white border border-zinc-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F00]"
                 />
               </div>
             </div>
@@ -506,8 +505,8 @@ export function PublicEventSubmissionForm() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
-              Toegangstype
+            <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
+              <span>Toegangstype</span>
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
@@ -516,22 +515,20 @@ export function PublicEventSubmissionForm() {
                   setPriceType('free');
                   setPriceFrom('');
                 }}
-                className={`py-3 px-4 rounded-2xl text-xs font-bold border text-center transition-all cursor-pointer ${
-                  priceType === 'free'
+                className={`py-3 px-4 rounded-2xl text-xs font-bold border text-center transition-all cursor-pointer ${priceType === 'free'
                     ? 'bg-zinc-900 border-zinc-900 text-white shadow-xs'
                     : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100'
-                }`}
+                  }`}
               >
                 Gratis toegang
               </button>
               <button
                 type="button"
                 onClick={() => setPriceType('paid')}
-                className={`py-3 px-4 rounded-2xl text-xs font-bold border text-center transition-all cursor-pointer ${
-                  priceType === 'paid'
+                className={`py-3 px-4 rounded-2xl text-xs font-bold border text-center transition-all cursor-pointer ${priceType === 'paid'
                     ? 'bg-zinc-900 border-zinc-900 text-white shadow-xs'
                     : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100'
-                }`}
+                  }`}
               >
                 Betaalde toegang
               </button>
@@ -540,8 +537,8 @@ export function PublicEventSubmissionForm() {
 
           {priceType === 'paid' && (
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
-                Prijs vanaf (€)
+              <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
+                <span>Prijs vanaf (€)</span>
               </label>
               <input
                 type="number"
@@ -651,7 +648,7 @@ export function PublicEventSubmissionForm() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2 h-9 flex items-end">
+            <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
               <span>Naam contactpersoon / organisatie <span className="text-[#FF4F00]">*</span></span>
             </label>
             <div className="relative">
@@ -668,7 +665,7 @@ export function PublicEventSubmissionForm() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2 h-9 flex items-end">
+            <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
               <span>E-mailadres <span className="text-[#FF4F00]">*</span></span>
             </label>
             <div className="relative">
@@ -685,7 +682,7 @@ export function PublicEventSubmissionForm() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2 h-9 flex items-end">
+            <label className="h-9 flex items-end text-xs font-bold uppercase tracking-wider text-zinc-700 mb-2">
               <span>Telefoonnummer <span className="text-zinc-400 font-normal">(optioneel)</span></span>
             </label>
             <div className="relative">
@@ -721,20 +718,22 @@ export function PublicEventSubmissionForm() {
           Door te versturen geef je de redactie van Uit in Arnhem toestemming om deze informatie en het beeldmateriaal redactioneel te publiceren.
         </p>
 
-        <button
+        <Button
           type="submit"
           disabled={isSubmitting || uploadingImage}
-          className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#FF4F00] hover:bg-[#E04500] text-white font-heading font-black text-sm uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+          variant="primary"
+          size="lg"
+          className="w-full sm:w-auto"
         >
           {isSubmitting ? (
             <span>Bezig met verzenden...</span>
           ) : (
             <>
-              <span>Evenement Gratis Aanmelden</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Evenement gratis aanmelden</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </>
           )}
-        </button>
+        </Button>
       </div>
     </form>
   );

@@ -6,26 +6,19 @@ import { notFound } from 'next/navigation';
 import {
   DISTRICTS,
   getDistrictBySlug,
-  District,
 } from '@/data/districtsData';
 import { getArticles, getEvents } from '@/lib/supabase/api';
 import { HotspotCard } from '@/components/districts/HotspotCard';
 import { DistrictCard } from '@/components/districts/DistrictCard';
 import { ArticleCard } from '@/components/articles/ArticleCard';
 import { EventCard } from '@/components/agenda/EventCard';
-import { NewsletterCta } from '@/components/common/NewsletterCta';
+import { ButtonLink } from '@/components/ui/Button';
 import {
   ChevronLeft,
   ArrowRight,
-  Compass,
-  MapPin,
-  Sparkles,
   Bus,
   Bike,
   Car,
-  Calendar,
-  BookOpen,
-  CheckCircle2,
 } from 'lucide-react';
 
 interface DistrictDetailPageProps {
@@ -138,24 +131,18 @@ export default async function DistrictDetailPage({
     <div className="space-y-16 sm:space-y-20 pb-16">
       {/* 1. TOP BREADCRUMB / NAV BAR */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
-        <div className="flex items-center justify-between">
-          <Link
-            href="/wijken"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-[#FF4F00] uppercase tracking-wider transition-colors group"
-          >
-            <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Alle wijken van Arnhem</span>
-          </Link>
-
-          <span className="text-xs font-semibold text-zinc-400 hidden sm:inline-block">
-            Wijk van Arnhem: {district.shortName}
-          </span>
-        </div>
+        <Link
+          href="/wijken"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-[#FF4F00] uppercase tracking-wider transition-colors group"
+        >
+          <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          <span>Alle wijken van Arnhem</span>
+        </Link>
       </div>
 
       {/* 2. HERO BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl overflow-hidden bg-zinc-950 text-white min-h-[420px] sm:min-h-[500px] flex flex-col justify-end shadow-2xl">
+        <div className="relative rounded-3xl overflow-hidden bg-ink text-white min-h-[380px] sm:min-h-[460px] flex flex-col justify-end shadow-card-hover">
           {/* Background Hero Image */}
           <Image
             src={district.heroImage}
@@ -163,80 +150,31 @@ export default async function DistrictDetailPage({
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-60"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/90 via-black/55 to-transparent pointer-events-none" />
 
           {/* Hero Content */}
-          <div className="relative z-10 p-6 sm:p-10 lg:p-12 max-w-4xl space-y-4">
-            {/* Badges */}
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="bg-white/90 backdrop-blur-sm text-zinc-900 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                {district.vibe}
-              </span>
-              {district.characterTags.slice(0, 3).map((tag) => (
-                <span
-                  key={tag}
-                  className="bg-black/50 backdrop-blur-sm text-zinc-200 text-xs font-medium px-3 py-1 rounded-full border border-white/20"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-
-            {/* Title */}
-            <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-tight">
+          <div className="relative z-10 p-6 sm:p-10 lg:p-12 max-w-4xl space-y-3">
+            <h1 className="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-tight drop-shadow-xs">
               {district.name}
             </h1>
 
-            {/* Tagline */}
-            <p className="text-lg sm:text-xl text-zinc-200 font-medium max-w-2xl leading-relaxed">
+            <p className="text-base sm:text-xl text-white/90 font-medium max-w-2xl leading-relaxed drop-shadow-xs">
               {district.tagLine}
             </p>
-
-            {/* Quick jump anchor links */}
-            <div className="pt-2 flex flex-wrap gap-2.5">
-              <a
-                href="#over"
-                className="text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm transition-colors"
-              >
-                Over de wijk
-              </a>
-              <a
-                href="#highlights"
-                className="text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm transition-colors"
-              >
-                Hotspots ({district.highlights.length})
-              </a>
-              <a
-                href="#agenda"
-                className="text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm transition-colors"
-              >
-                Uitagenda
-              </a>
-              <a
-                href="#praktisch"
-                className="text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm transition-colors"
-              >
-                Bereikbaarheid
-              </a>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 3. SECTION 1: OVER DE WIJK & KARAKTERISTIEKEN */}
+      {/* 3. SECTION 1: OVER DE WIJK */}
       <section
         id="over"
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Main Description */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF4F00]">
-              <Compass className="w-3.5 h-3.5" />
-              <span>Over {district.shortName}</span>
-            </div>
+          <div className="lg:col-span-8 space-y-5">
             <h2 className="font-heading font-black text-2xl sm:text-4xl text-zinc-900 tracking-tight leading-tight">
               Het karakter van {district.shortName}
             </h2>
@@ -248,66 +186,31 @@ export default async function DistrictDetailPage({
             </div>
           </div>
 
-          {/* District Quick Facts & Highlights Card */}
-          <div className="lg:col-span-5 bg-stone-50 border border-stone-200/90 rounded-3xl p-6 sm:p-8 space-y-6">
-            <h3 className="font-heading font-black text-xl text-zinc-900">
-              Wijkkenmerken & Sfeer
+          {/* District Quick Facts */}
+          <div className="lg:col-span-4 bg-surface-muted border border-border-warm rounded-2xl p-6 space-y-5">
+            <h3 className="font-heading font-bold text-base text-ink">
+              In het kort
             </h3>
 
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center shrink-0 mt-0.5 text-[#FF4F00]">
-                  <Sparkles className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                    Sfeer & Karakter
-                  </h4>
-                  <p className="text-sm font-semibold text-zinc-900 mt-0.5">
-                    {district.vibe}
-                  </p>
-                </div>
+            <dl className="divide-y divide-border-warm text-sm">
+              <div className="pb-4">
+                <dt className="text-xs font-bold uppercase tracking-wider text-ink-muted">
+                  Sfeer
+                </dt>
+                <dd className="font-semibold text-ink mt-1">
+                  {district.vibe}
+                </dd>
               </div>
 
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center shrink-0 mt-0.5 text-[#FF4F00]">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                    Ligging & Buurten
-                  </h4>
-                  <p className="text-sm font-medium text-zinc-800 mt-0.5">
-                    {district.characterTags.join(' • ')}
-                  </p>
-                </div>
+              <div className="pt-4">
+                <dt className="text-xs font-bold uppercase tracking-wider text-ink-muted">
+                  Kenmerken
+                </dt>
+                <dd className="text-ink-body mt-1 leading-relaxed">
+                  {district.characterTags.join(' · ')}
+                </dd>
               </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center shrink-0 mt-0.5 text-[#FF4F00]">
-                  <CheckCircle2 className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                    Aantal Uitgelichte Hotspots
-                  </h4>
-                  <p className="text-sm font-semibold text-zinc-900 mt-0.5">
-                    {district.highlights.length} zorgvuldig geselecteerde tips
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Back to map button */}
-            <div className="pt-2 border-t border-stone-200">
-              <Link
-                href="/wijken"
-                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-zinc-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-[#FF4F00] transition-colors"
-              >
-                <Compass className="w-4 h-4" />
-                <span>Bekijk alle wijken op de interactieve kaart</span>
-              </Link>
-            </div>
+            </dl>
           </div>
         </div>
       </section>
@@ -319,10 +222,6 @@ export default async function DistrictDetailPage({
       >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-zinc-200 pb-5">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF4F00] mb-1.5">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Lokale tips</span>
-            </div>
             <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-zinc-900 tracking-tight">
               Hotspots & Highlights in {district.shortName}
             </h2>
@@ -331,114 +230,84 @@ export default async function DistrictDetailPage({
               en de redactie.
             </p>
           </div>
-          <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">
+          <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
             {district.highlights.length} hotspots
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {district.highlights.map((highlight) => (
-            <HotspotCard
-              key={highlight.name}
-              highlight={highlight}
-              accentColor={district.accentColor}
-            />
+            <HotspotCard key={highlight.name} highlight={highlight} />
           ))}
         </div>
       </section>
 
       {/* 5. SECTION 3: VERHALEN & ARTIKELEN */}
-      <section
-        id="artikelen"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 space-y-8"
-      >
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-zinc-200 pb-5">
-          <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF4F00] mb-1.5">
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>Inspiratie & Verhalen</span>
+      {displayedArticles.length > 0 && (
+        <section
+          id="artikelen"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 space-y-8"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-zinc-200 pb-5">
+            <div>
+              <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-zinc-900 tracking-tight">
+                Verhalen uit {district.shortName}
+              </h2>
+              <p className="text-zinc-600 text-sm sm:text-base mt-1">
+                Lees reportages, interviews en wandelroutes over deze wijk.
+              </p>
             </div>
-            <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-zinc-900 tracking-tight">
-              Verhalen uit {district.shortName}
-            </h2>
-            <p className="text-zinc-600 text-sm sm:text-base mt-1">
-              Lees reportages, interviews en wandelroutes over deze wijk.
-            </p>
+
+            <ButtonLink href="/artikelen" variant="secondary" size="sm" className="self-start sm:self-auto shrink-0">
+              <span>Alle artikelen</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </ButtonLink>
           </div>
 
-          <Link
-            href="/artikelen"
-            className="text-xs font-bold text-zinc-500 hover:text-[#FF4F00] uppercase tracking-wider inline-flex items-center gap-1 group"
-          >
-            Alle artikelen{' '}
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-
-        {displayedArticles.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedArticles.map((article) => (
               <ArticleCard key={article.id} article={article} />
             ))}
           </div>
-        ) : (
-          <div className="p-8 text-center bg-zinc-50 rounded-2xl text-zinc-500 text-sm">
-            Binnenkort verschijnen hier nieuwe artikelen over {district.shortName}.
-          </div>
-        )}
-      </section>
+        </section>
+      )}
 
       {/* 6. SECTION 4: UITAGENDA IN DEZE WIJK */}
-      <section
-        id="agenda"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 space-y-8"
-      >
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-zinc-200 pb-5">
-          <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF4F00] mb-1.5">
-              <Calendar className="w-3.5 h-3.5" />
-              <span>Wat is er te doen</span>
+      {displayedEvents.length > 0 && (
+        <section
+          id="agenda"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 space-y-8"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-zinc-200 pb-5">
+            <div>
+              <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-zinc-900 tracking-tight">
+                Uitagenda in {district.shortName}
+              </h2>
+              <p className="text-zinc-600 text-sm sm:text-base mt-1">
+                Evenementen, voorstellingen en activiteiten in en rond deze wijk.
+              </p>
             </div>
-            <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-zinc-900 tracking-tight">
-              Uitagenda in {district.shortName}
-            </h2>
-            <p className="text-zinc-600 text-sm sm:text-base mt-1">
-              Evenementen, voorstellingen en activiteiten in en rond deze wijk.
-            </p>
+
+            <ButtonLink href="/agenda" variant="secondary" size="sm" className="self-start sm:self-auto shrink-0">
+              <span>Volledige agenda</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </ButtonLink>
           </div>
 
-          <Link
-            href="/agenda"
-            className="text-xs font-bold text-zinc-500 hover:text-[#FF4F00] uppercase tracking-wider inline-flex items-center gap-1 group"
-          >
-            Volledige agenda{' '}
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-
-        {displayedEvents.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedEvents.map((event) => (
               <EventCard key={event.id} event={event} />
             ))}
           </div>
-        ) : (
-          <div className="p-8 text-center bg-zinc-50 rounded-2xl text-zinc-500 text-sm">
-            Momenteel geen evenementen in de wijkagenda voor {district.shortName}.
-          </div>
-        )}
-      </section>
+        </section>
+      )}
 
       {/* 7. SECTION 5: PRAKTISCH & BEREIKBAARHEID */}
       <section
         id="praktisch"
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 space-y-6"
       >
-        <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF4F00] mb-1.5">
-            <MapPin className="w-3.5 h-3.5" />
-            <span>Praktische tips</span>
-          </div>
+        <div className="border-b border-zinc-200 pb-5">
           <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-zinc-900 tracking-tight">
             Bereikbaarheid van {district.shortName}
           </h2>
@@ -448,41 +317,32 @@ export default async function DistrictDetailPage({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* OV Card */}
-          <div className="bg-white rounded-2xl p-6 border border-zinc-200/90 shadow-xs flex flex-col space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
-              <Bus className="w-5 h-5" />
-            </div>
-            <h3 className="font-heading font-bold text-lg text-zinc-900">
-              Openbaar Vervoer
+          <div className="bg-white rounded-2xl p-6 border border-zinc-200/80 space-y-2.5">
+            <h3 className="font-heading font-bold text-base text-zinc-900 flex items-center gap-2">
+              <Bus className="w-4 h-4 text-zinc-500 shrink-0" />
+              <span>Openbaar Vervoer</span>
             </h3>
-            <p className="text-zinc-600 text-sm leading-relaxed flex-1">
+            <p className="text-zinc-600 text-sm leading-relaxed">
               {district.transportInfo.ov}
             </p>
           </div>
 
-          {/* Fiets Card */}
-          <div className="bg-white rounded-2xl p-6 border border-zinc-200/90 shadow-xs flex flex-col space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <Bike className="w-5 h-5" />
-            </div>
-            <h3 className="font-heading font-bold text-lg text-zinc-900">
-              Met de Fiets
+          <div className="bg-white rounded-2xl p-6 border border-zinc-200/80 space-y-2.5">
+            <h3 className="font-heading font-bold text-base text-zinc-900 flex items-center gap-2">
+              <Bike className="w-4 h-4 text-zinc-500 shrink-0" />
+              <span>Met de Fiets</span>
             </h3>
-            <p className="text-zinc-600 text-sm leading-relaxed flex-1">
+            <p className="text-zinc-600 text-sm leading-relaxed">
               {district.transportInfo.bike}
             </p>
           </div>
 
-          {/* Parkeren Card */}
-          <div className="bg-white rounded-2xl p-6 border border-zinc-200/90 shadow-xs flex flex-col space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
-              <Car className="w-5 h-5" />
-            </div>
-            <h3 className="font-heading font-bold text-lg text-zinc-900">
-              Parkeren & Auto
+          <div className="bg-white rounded-2xl p-6 border border-zinc-200/80 space-y-2.5">
+            <h3 className="font-heading font-bold text-base text-zinc-900 flex items-center gap-2">
+              <Car className="w-4 h-4 text-zinc-500 shrink-0" />
+              <span>Parkeren & Auto</span>
             </h3>
-            <p className="text-zinc-600 text-sm leading-relaxed flex-1">
+            <p className="text-zinc-600 text-sm leading-relaxed">
               {district.transportInfo.parking}
             </p>
           </div>
@@ -493,25 +353,18 @@ export default async function DistrictDetailPage({
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 pt-6 border-t border-zinc-200">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF4F00] mb-1.5">
-              <Compass className="w-3.5 h-3.5" />
-              <span>Verder verkennen</span>
-            </div>
             <h2 className="font-heading font-black text-2xl sm:text-3xl text-zinc-900 tracking-tight">
-              Bekijk ook de andere wijken van Arnhem
+              Bekijk ook andere wijken van Arnhem
             </h2>
             <p className="text-zinc-600 text-sm sm:text-base mt-1">
               Ontdek wat Arnhem nog meer te bieden heeft.
             </p>
           </div>
 
-          <Link
-            href="/wijken"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-[#FF4F00] transition-colors shadow-sm self-start sm:self-auto"
-          >
-            <span>Interactieve wijkkaart</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+          <ButtonLink href="/wijken" variant="secondary" size="md" className="self-start sm:self-auto shrink-0">
+            <span>Alle wijken op de kaart</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </ButtonLink>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -520,11 +373,6 @@ export default async function DistrictDetailPage({
           ))}
         </div>
       </section>
-
-      {/* 9. NEWSLETTER CTA */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <NewsletterCta />
-      </div>
     </div>
   );
 }

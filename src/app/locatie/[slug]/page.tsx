@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { getLocationBySlug, getEventsByLocation, getLocations } from '@/lib/supabase/api';
 import { formatDate, formatTime } from '@/lib/utils';
+import { ButtonLink } from '@/components/ui/Button';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -196,17 +197,18 @@ export default async function LocationDetailPage({ params }: PageProps) {
                 loading="lazy"
               />
 
-              {/* "Open in Maps" overlay button exactly like the legacy UI */}
+              {/* "Open in Maps" overlay button */}
               <div className="absolute top-4 right-4 z-10">
-                <a
+                <ButtonLink
                   href={googleMapsSearchUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white/95 hover:bg-white text-zinc-900 text-xs font-bold px-3.5 py-2 rounded-xl shadow-md border border-zinc-200/90 backdrop-blur-xs flex items-center gap-1.5 transition-all hover:scale-105"
+                  variant="secondary"
+                  size="sm"
+                  external
+                  className="bg-white/95 backdrop-blur-xs shadow-md"
                 >
                   <span>Open in Maps</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-[#FF4F00]" />
-                </a>
+                  <ExternalLink className="w-3.5 h-3.5 text-[#FF4F00] group-hover:text-white transition-colors" />
+                </ButtonLink>
               </div>
 
               {/* Bottom bar inside map card with quick actions */}
@@ -215,15 +217,16 @@ export default async function LocationDetailPage({ params }: PageProps) {
                   <div className="font-bold text-zinc-800 truncate px-1">
                     {location.name}
                   </div>
-                  <a
+                  <ButtonLink
                     href={googleMapsDirectionsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-[#FF4F00] hover:bg-[#E04500] text-white font-bold rounded-xl flex items-center gap-1 transition-colors shrink-0 shadow-xs"
+                    variant="primary"
+                    size="sm"
+                    external
+                    className="shrink-0"
                   >
-                    <Navigation className="w-3 h-3" />
+                    <Navigation className="w-3.5 h-3.5" />
                     <span>Navigeer</span>
-                  </a>
+                  </ButtonLink>
                 </div>
               </div>
             </div>
@@ -246,12 +249,9 @@ export default async function LocationDetailPage({ params }: PageProps) {
             </div>
 
             <div className="flex items-center gap-2">
-              <Link
-                href="/agenda/aanmelden"
-                className="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors"
-              >
+              <ButtonLink href="/agenda/aanmelden" variant="secondary" size="sm">
                 <span>Evenement toevoegen</span>
-              </Link>
+              </ButtonLink>
             </div>
           </div>
 
@@ -286,11 +286,11 @@ export default async function LocationDetailPage({ params }: PageProps) {
                           className="bg-white rounded-3xl border border-zinc-200/90 shadow-2xs hover:shadow-md hover:border-zinc-300 transition-all p-5 sm:p-6 flex flex-col md:flex-row gap-5 md:gap-6 items-stretch group"
                         >
                           {/* Left: Date Badge */}
-                          <div className="flex md:flex-col items-center justify-center shrink-0 w-auto md:w-20 bg-zinc-50 border border-zinc-200/80 rounded-2xl p-3 text-center self-start">
+                          <div className="flex md:flex-col items-center justify-center gap-2 md:gap-0 shrink-0 w-auto md:w-20 bg-zinc-50 border border-zinc-200/80 rounded-2xl px-3.5 py-2.5 md:p-3 text-center self-start">
                             <span className="text-xs font-extrabold text-[#FF4F00] tracking-wider uppercase">
                               {weekdayStr}
                             </span>
-                            <span className="text-3xl font-black text-zinc-900 leading-none my-1">
+                            <span className="text-2xl md:text-3xl font-extrabold text-zinc-900 leading-none md:my-1">
                               {dayNumber}
                             </span>
                             <span className="text-[10px] font-bold text-zinc-400 uppercase">
@@ -348,22 +348,14 @@ export default async function LocationDetailPage({ params }: PageProps) {
 
                               <div className="flex items-center gap-2">
                                 {evt.ticket_url && (
-                                  <a
-                                    href={evt.ticket_url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-4 py-2 bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors shadow-2xs"
-                                  >
+                                  <ButtonLink href={evt.ticket_url} variant="primary" size="sm" external>
                                     <Ticket className="w-3.5 h-3.5" />
                                     <span>Tickets</span>
-                                  </a>
+                                  </ButtonLink>
                                 )}
-                                <Link
-                                  href={`/agenda/${evt.slug}`}
-                                  className="px-4 py-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold rounded-xl transition-colors"
-                                >
+                                <ButtonLink href={`/agenda/${evt.slug}`} variant="secondary" size="sm">
                                   Bekijk details
-                                </Link>
+                                </ButtonLink>
                               </div>
                             </div>
                           </div>
@@ -402,19 +394,13 @@ export default async function LocationDetailPage({ params }: PageProps) {
                 Organiseer je een feest, concert, tentoonstelling of lezing bij {location.name}? Voeg je
                 evenement direct toe aan de cultuuragenda van Arnhem.
               </p>
-              <div className="pt-2 flex items-center justify-center gap-3">
-                <Link
-                  href="/agenda/aanmelden"
-                  className="px-5 py-2.5 bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold rounded-xl transition-colors shadow-sm"
-                >
-                  Evenement Aanmelden
-                </Link>
-                <Link
-                  href="/agenda"
-                  className="px-5 py-2.5 border border-zinc-300 text-zinc-700 hover:bg-zinc-50 text-xs font-bold rounded-xl transition-colors"
-                >
+              <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+                <ButtonLink href="/agenda/aanmelden" variant="primary" size="md">
+                  Evenement aanmelden
+                </ButtonLink>
+                <ButtonLink href="/agenda" variant="secondary" size="md">
                   Bekijk de hele agenda
-                </Link>
+                </ButtonLink>
               </div>
             </div>
           )}

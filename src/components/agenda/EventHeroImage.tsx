@@ -28,6 +28,7 @@ export function EventHeroImage({
             alt=""
             fill
             priority
+            sizes="(max-width: 1024px) 100vw, 66vw"
             aria-hidden="true"
             className="object-fill blur-2xl scale-115 opacity-80 brightness-105 saturate-110"
           />
@@ -41,6 +42,7 @@ export function EventHeroImage({
         alt={title}
         fill
         priority
+        sizes="(max-width: 1024px) 100vw, 66vw"
         onLoad={(e) => {
           const img = e.currentTarget;
           if (img.naturalHeight > img.naturalWidth) {

@@ -89,13 +89,13 @@ export function formatRichContent(rawContent: string, title: string = ''): strin
     content = content.replace(titleRegex, '');
   }
   // Convert any remaining <h1> tags inside the article body into <h2> for semantic hierarchy
-  content = content.replace(/<h1([^>]*)>([\s\S]*?)<\/h1>/gi, '<h2 class="font-heading font-black text-2xl text-zinc-900 mt-8 mb-4"$1>$2</h2>');
+  content = content.replace(/<h1([^>]*)>([\s\S]*?)<\/h1>/gi, '<h2 class="font-heading font-extrabold text-2xl text-zinc-900 mt-8 mb-4"$1>$2</h2>');
 
   // Convert markdown ### headings into <h3>
   content = content.replace(/^###\s*(.+)$/gm, '<h3 class="font-heading font-bold text-xl text-zinc-900 mt-8 mb-3">$1</h3>');
 
   // Convert *Adres: ...* blocks
-  content = content.replace(/\*Adres:\s*([^\*]+)\*/gi, '<div class="my-4 p-3 bg-zinc-50 rounded-xl border border-zinc-200 text-sm text-zinc-600 font-mono">📍 Adres: $1</div>');
+  content = content.replace(/\*Adres:\s*([^\*]+)\*/gi, '<div class="my-4 p-3.5 bg-zinc-50 rounded-xl border border-zinc-200 text-sm text-zinc-700"><span class="font-semibold text-zinc-900">Adres:</span> $1</div>');
 
   // 6. Decode HTML entities in text
   content = content
@@ -116,23 +116,24 @@ export function formatRichContent(rawContent: string, title: string = ''): strin
       .join('\n');
   }
 
-  // 8. Style links in rich content with Uit in Arnhem brand orange
+  // 8. Add external link attributes and style plain editorial links (skip button-styled links)
   content = content.replace(/<a\b([^>]*)>/gi, (match, attrs) => {
     let newAttrs = attrs;
-    // Add target="_blank" and rel="noopener noreferrer" for external links if not already present
     if (/href=["']https?:\/\//i.test(newAttrs) && !newAttrs.includes('target=')) {
       newAttrs += ' target="_blank" rel="noopener noreferrer"';
     }
-    // Inject brand orange styling classes
-    if (/class=["']/i.test(newAttrs)) {
-      newAttrs = newAttrs.replace(
-        /class=["']([^"']*)["']/i,
-        (m: string, cls: string) =>
-          `class="${cls} text-[#FF4F00] underline decoration-[#FF4F00]/50 hover:decoration-[#E04500] hover:text-[#E04500] transition-colors"`
-      );
-    } else {
-      newAttrs +=
-        ' class="text-[#FF4F00] underline decoration-[#FF4F00]/50 hover:decoration-[#E04500] hover:text-[#E04500] transition-colors"';
+    const isButtonLike = /\b(?:bg-|btn|rounded-full|rounded-xl)\b/i.test(newAttrs);
+    if (!isButtonLike) {
+      if (/class=["']/i.test(newAttrs)) {
+        newAttrs = newAttrs.replace(
+          /class=["']([^"']*)["']/i,
+          (m: string, cls: string) =>
+            `class="${cls} text-[#FF4F00] underline decoration-[#FF4F00]/45 hover:decoration-[#E04500] hover:text-[#E04500] transition-colors"`
+        );
+      } else {
+        newAttrs +=
+          ' class="text-[#FF4F00] underline decoration-[#FF4F00]/45 hover:decoration-[#E04500] hover:text-[#E04500] transition-colors"';
+      }
     }
     return `<a${newAttrs}>`;
   });
