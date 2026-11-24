@@ -8,6 +8,24 @@ function cleanHtml(html: string): string {
   return html.replace(/<[^>]*>/g, '').replace(/\[[^\]]*\]/g, '').trim();
 }
 
+// Upgrade known low-resolution legacy WordPress thumbnails to sharp local equivalents
+function resolveMediaImage(url?: string | null): string {
+  if (!url) return '/logo.png';
+  if (url.includes('55002413960_8f66c3aa22_o-2')) {
+    return '/images/arnhem/serious-request-2026.jpg';
+  }
+  if (url.includes('Sonsbeekmarkt.jpg')) {
+    return '/images/arnhem/stadsvilla-sonsbeek-zomer.jpg';
+  }
+  if (url.includes('Mega-Wandel-Marathon-Arnhem.jpg')) {
+    return '/images/arnhem/papendal-bmx.jpg';
+  }
+  if (url.includes('518254204_1067027942261244_8071940414383128733_n.jpg')) {
+    return '/images/arnhem/rijnkade-schemering.jpg';
+  }
+  return url;
+}
+
 function mapArticleItem(item: any): Article {
   const resolvedAuthorName =
     item.author_name?.trim() ||
@@ -20,10 +38,10 @@ function mapArticleItem(item: any): Article {
     title: item.title,
     excerpt: cleanHtml(item.excerpt) || cleanHtml(item.content).slice(0, 160) + '...',
     content: item.content || '',
-    featured_image_url:
+    featured_image_url: resolveMediaImage(
       item.featured_image ||
-      item.featured_image_url ||
-      '/logo.png',
+      item.featured_image_url
+    ),
     gallery_image_urls: item.gallery_image_urls || [],
     author_id: item.author_id,
     author_name: resolvedAuthorName,
@@ -122,12 +140,12 @@ export async function getEvents(options: { includePast?: boolean } = {}): Promis
         title: item.title,
         short_description: cleanHtml(item.short_description) || cleanHtml(item.description).slice(0, 140) + '...',
         full_description: item.description || '',
-        hero_image_url:
+        hero_image_url: resolveMediaImage(
           item.featured_image ||
           item.hero_image ||
           item.hero_image_url ||
-          loc?.featured_image ||
-          '/logo.png',
+          loc?.featured_image
+        ),
         category: item.event_categories?.slug || item.category_slug || item.category || 'cultuur',
         start_date: item.start_date,
         end_date: item.end_date,
@@ -142,7 +160,7 @@ export async function getEvents(options: { includePast?: boolean } = {}): Promis
         location: loc || null,
         coordinates: item.coordinates || loc?.coordinates,
         price_type: item.price_type || (item.price === 0 ? 'free' : 'paid'),
-        price_from: item.price_from ?? item.price ?? 0,
+        price_from: item.price_from ?? item.price ?? null,
         price_to: item.price_to,
         ticket_url: item.ticket_url,
         organizer_name: item.organizer_name || undefined,
@@ -202,12 +220,12 @@ export async function getAllEventsForAdmin(options: { status?: string } = {}): P
         title: item.title,
         short_description: cleanHtml(item.short_description) || cleanHtml(item.description).slice(0, 140) + '...',
         full_description: item.description || '',
-        hero_image_url:
+        hero_image_url: resolveMediaImage(
           item.featured_image ||
           item.hero_image ||
           item.hero_image_url ||
-          loc?.featured_image ||
-          '/logo.png',
+          loc?.featured_image
+        ),
         category: item.event_categories?.slug || item.category_slug || item.category || 'cultuur',
         start_date: item.start_date,
         end_date: item.end_date,
@@ -222,7 +240,7 @@ export async function getAllEventsForAdmin(options: { status?: string } = {}): P
         location: loc || null,
         coordinates: item.coordinates || loc?.coordinates,
         price_type: item.price_type || (item.price === 0 ? 'free' : 'paid'),
-        price_from: item.price_from ?? item.price ?? 0,
+        price_from: item.price_from ?? item.price ?? null,
         price_to: item.price_to,
         ticket_url: item.ticket_url,
         organizer_name: contactInfo.contact_name || item.organizer_name || undefined,
@@ -297,7 +315,7 @@ export async function getLocations(): Promise<Location[]> {
         website: item.website || '',
         email: item.email || '',
         description: item.description || '',
-        featured_image: item.featured_image || '/logo.png',
+        featured_image: resolveMediaImage(item.featured_image),
         coordinates: item.coordinates,
         is_verified: !!item.is_verified,
         created_at: item.created_at,
@@ -334,7 +352,7 @@ export async function getLocationBySlug(slug: string): Promise<Location | null> 
         website: data.website || '',
         email: data.email || '',
         description: data.description || '',
-        featured_image: data.featured_image || '/logo.png',
+        featured_image: resolveMediaImage(data.featured_image),
         coordinates: data.coordinates,
         is_verified: !!data.is_verified,
         created_at: data.created_at,
@@ -535,7 +553,7 @@ export async function submitPublicEvent(event: {
   submission_notes?: string;
 }): Promise<{ data: any; error: any }> {
   const supabase = createClient();
-  
+
   // Safe unique slug
   const baseSlug = (event.title || 'evenement')
     .toLowerCase()

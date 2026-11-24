@@ -335,7 +335,7 @@ export default async function LocationDetailPage({ params }: PageProps) {
                             <div className="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-zinc-100">
                               <div className="flex items-center gap-3">
                                 <span className="font-black text-base text-zinc-900">
-                                  {isFree ? 'Gratis entree' : `€${evt.price_from?.toFixed(2).replace('.', ',') || '–'}`}
+                                  {isFree ? 'Gratis entree' : evt.price_from != null ? `€${evt.price_from.toFixed(2).replace('.', ',')}` : 'Betaald'}
                                 </span>
 
                                 {evt.is_highlight && (

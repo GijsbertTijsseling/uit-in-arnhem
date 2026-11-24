@@ -113,7 +113,7 @@ export function EventCard({ event }: EventCardProps) {
               : 'bg-white/95 backdrop-blur-sm text-zinc-900 border border-zinc-200'
               }`}
           >
-            {isFree ? 'Gratis' : `Vanaf ${formatPrice(event.price_from)}`}
+            {isFree ? 'Gratis' : event.price_from != null ? `Vanaf ${formatPrice(event.price_from)}` : 'Betaald'}
           </span>
         </div>
       </div>

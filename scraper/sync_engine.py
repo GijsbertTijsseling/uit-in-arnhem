@@ -403,6 +403,8 @@ class SyncEngine:
         # 6. Missing & Cancelled Reconciliation
         if not skip_reconciliation:
             now_dt = datetime.now(timezone.utc)
+            min_date_utc = min_date if min_date.tzinfo is not None else min_date.replace(tzinfo=timezone.utc)
+            max_date_utc = max_date if max_date.tzinfo is not None else max_date.replace(tzinfo=timezone.utc)
             for source_id, existing in existing_map.items():
                 if source_id not in scraped_ids:
                     ev_date = existing.get("start_date")
@@ -417,7 +419,7 @@ class SyncEngine:
                     if ev_date.tzinfo is None:
                         ev_date = ev_date.replace(tzinfo=timezone.utc)
 
-                    if ev_date >= now_dt and min_date <= ev_date <= max_date:
+                    if ev_date >= now_dt and min_date_utc <= ev_date <= max_date_utc:
                         curr_missing = existing.get("missing_count", 0)
                         curr_status = existing.get("status", "published")
 

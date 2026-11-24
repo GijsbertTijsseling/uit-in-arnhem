@@ -75,7 +75,7 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
     initialEvent?.price_type || 'paid'
   );
   const [price, setPrice] = useState<string>(
-    initialEvent?.price_from !== undefined ? String(initialEvent.price_from) : ''
+    initialEvent?.price_from != null ? String(initialEvent.price_from) : ''
   );
   const [ticketUrl, setTicketUrl] = useState(initialEvent?.ticket_url || '');
 

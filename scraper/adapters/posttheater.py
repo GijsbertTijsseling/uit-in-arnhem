@@ -110,7 +110,26 @@ class PosttheaterAdapter(BaseAdapter):
                     if bg_match:
                         hero_img = bg_match.group(1)
 
-                # 5. Tickets
+                # 5. Price from .card-label (e.g. "€ 24,-", "€ 23,50", "Gratis")
+                price_val: Optional[float] = None
+                price_type = "paid"
+                for label_el in card.select(".card-label"):
+                    label_text = self.clean_text(label_el.get_text(" "))
+                    label_lower = label_text.lower()
+                    if "gratis" in label_lower or "vrij" in label_lower:
+                        price_val = 0.0
+                        price_type = "free"
+                        break
+                    p_match = re.search(r"€\s*(\d+)(?:[.,](\d{1,2}|-))?", label_text)
+                    if p_match:
+                        euros = int(p_match.group(1))
+                        cents_str = p_match.group(2)
+                        cents = int(cents_str.ljust(2, "0")) if (cents_str and cents_str != "-") else 0
+                        price_val = round(euros + cents / 100.0, 2)
+                        price_type = "free" if price_val == 0 else "paid"
+                        break
+
+                # 6. Tickets
                 ticket_link = urljoin(event_url + "/", "ticket")
                 btn_orange = card.select_one(".button--orange, .card-buttons a")
                 is_sold_out = False
@@ -125,6 +144,7 @@ class PosttheaterAdapter(BaseAdapter):
                     start_date=start_date,
                     ticket_url=ticket_link,
                     is_sold_out=is_sold_out,
+                    price_from=price_val,
                 )
 
                 prod_key = f"posttheater-{prod_id}"
@@ -158,7 +178,8 @@ class PosttheaterAdapter(BaseAdapter):
                     venue_name=self.config.default_venue_name,
                     venue_address=self.config.default_venue_address,
                     venue_city=self.config.default_venue_city,
-                    price_type="paid",
+                    price_type=price_type,
+                    price=price_val,
                     ticket_url=ticket_link,
                     category_slug=cat_slug,
                     production_id=prod_key,

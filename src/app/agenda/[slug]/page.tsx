@@ -144,7 +144,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
                     : 'text-zinc-800 font-bold'
                 }
               >
-                {isFree ? 'Gratis toegang' : `Vanaf ${formatPrice(event.price_from)}`}
+                {isFree ? 'Gratis toegang' : event.price_from != null ? `Vanaf ${formatPrice(event.price_from)}` : 'Betaald'}
               </span>
               {event.venue_name && (
                 <>
@@ -200,7 +200,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
             <div className="pb-6 border-b border-zinc-200">
               <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Entree</span>
               <div className="text-3xl font-extrabold text-zinc-950 mt-1">
-                {isFree ? 'Gratis entree' : formatPrice(event.price_from)}
+                {isFree ? 'Gratis entree' : event.price_from != null ? formatPrice(event.price_from) : 'Zie website'}
               </div>
 
               {(event.ticket_url || event.source_url) && event.status !== 'cancelled' ? (

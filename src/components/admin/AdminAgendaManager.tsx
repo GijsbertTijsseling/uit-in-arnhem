@@ -307,7 +307,7 @@ export function AdminAgendaManager({ initialEvents, userRole: initialRole }: Adm
                         <div className="flex items-center gap-1">
                           <Ticket className="w-3.5 h-3.5 text-zinc-400" />
                           <span>
-                            {evt.price_type === 'free' ? 'Gratis entree' : `Vanaf €${evt.price_from?.toFixed(2)}`}
+                            {evt.price_type === 'free' ? 'Gratis entree' : evt.price_from != null ? `Vanaf €${evt.price_from.toFixed(2)}` : 'Betaald'}
                           </span>
                         </div>
                       </div>
@@ -476,7 +476,7 @@ export function AdminAgendaManager({ initialEvents, userRole: initialRole }: Adm
                             isFree ? 'bg-emerald-50 text-emerald-700' : 'bg-zinc-100 text-zinc-800'
                           }`}
                         >
-                          {isFree ? 'Gratis' : `€${evt.price_from?.toFixed(2)}`}
+                          {isFree ? 'Gratis' : evt.price_from != null ? `€${evt.price_from.toFixed(2)}` : '–'}
                         </span>
                       </td>
 
