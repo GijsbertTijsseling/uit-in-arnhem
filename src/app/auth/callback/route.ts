@@ -14,7 +14,12 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code');
   const tokenHash = searchParams.get('token_hash');
   const type = searchParams.get('type') as EmailOtpType | null;
-  const nextPath = getSafeNextPath(searchParams.get('next'));
+  const rawNext = searchParams.get('next');
+  const nextPath = rawNext
+    ? getSafeNextPath(rawNext)
+    : type === 'recovery'
+      ? '/wachtwoord-herstellen'
+      : '/login';
 
   const supabase = await createServerSupabaseClient();
 

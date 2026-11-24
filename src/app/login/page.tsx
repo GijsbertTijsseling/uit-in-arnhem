@@ -31,12 +31,25 @@ export default function LoginPage() {
   const [successMsg, setSuccessMsg] = useState('');
 
   useEffect(() => {
+    const supabase = createClient();
     const params = new URLSearchParams(window.location.search);
     const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
     const code = params.get('code');
 
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        router.replace('/wachtwoord-herstellen');
+      }
+    });
+
+    if (hashParams.get('type') === 'recovery') {
+      router.replace('/wachtwoord-herstellen');
+      return () => subscription.unsubscribe();
+    }
+
     if (code) {
-      const supabase = createClient();
       supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
         if (error) {
           setErrorMsg('De bevestigingslink is verlopen of ongeldig. Probeer opnieuw in te loggen of vraag een nieuwe link aan.');
@@ -45,17 +58,22 @@ export default function LoginPage() {
         }
         window.history.replaceState({}, '', '/login');
       });
-      return;
+      return () => subscription.unsubscribe();
     }
 
-    if (params.get('confirmed') === 'true' || hashParams.get('type') === 'signup') {
+    if (params.get('passwordReset') === 'true') {
+      setSuccessMsg('Je wachtwoord is gewijzigd! Je kunt nu inloggen met je nieuwe wachtwoord.');
+      window.history.replaceState({}, '', '/login');
+    } else if (params.get('confirmed') === 'true' || hashParams.get('type') === 'signup') {
       setSuccessMsg('Je e-mailadres is bevestigd! Je kunt nu inloggen.');
       window.history.replaceState({}, '', '/login');
     } else if (params.get('error') === 'confirmation_failed') {
       setErrorMsg('De bevestigingslink is verlopen of ongeldig. Probeer opnieuw in te loggen of registreer opnieuw.');
       window.history.replaceState({}, '', '/login');
     }
-  }, []);
+
+    return () => subscription.unsubscribe();
+  }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -173,12 +191,20 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label
-              htmlFor="login-password"
-              className="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5"
-            >
-              Wachtwoord
-            </label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label
+                htmlFor="login-password"
+                className="block text-xs font-bold uppercase tracking-wider text-zinc-600"
+              >
+                Wachtwoord
+              </label>
+              <Link
+                href="/wachtwoord-vergeten"
+                className="text-xs text-zinc-500 hover:text-[#FF4F00] underline"
+              >
+                Wachtwoord vergeten?
+              </Link>
+            </div>
             <div className="relative">
               <Lock className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
