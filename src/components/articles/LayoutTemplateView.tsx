@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Article } from '@/types';
 import { ModularCtaBlock } from './ModularCtaBlock';
-import { formatDate } from '@/lib/utils';
+import { formatDate, isLogoFallbackImage } from '@/lib/utils';
 import { formatRichContent } from '@/lib/contentRenderer';
 import { getArticleCategoryLabel } from '@/data/mockData';
 
@@ -16,6 +16,7 @@ interface LayoutTemplateViewProps {
 export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
   const template = article.layout_template || 'standard';
   const featuredImageSrc = article.featured_image_url || '/logo.png';
+  const isLogoFallback = isLogoFallbackImage(featuredImageSrc);
   const isBlobImage = featuredImageSrc.startsWith('blob:');
   const [isPortrait, setIsPortrait] = useState<boolean>(false);
   const [aspectRatio, setAspectRatio] = useState<number | null>(null);
@@ -49,7 +50,7 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
     <article className="w-full">
       {/* 1. EDITORIAL STORY TEMPLATE: Big immersive banner */}
       {template === 'editorial_story' && (
-        <div className="relative w-full h-[65vh] min-h-[450px] bg-ink flex items-end mb-12">
+        <div className={`relative w-full h-[65vh] min-h-[450px] flex items-end mb-12 ${isLogoFallback ? 'bg-surface-muted' : 'bg-ink'}`}>
           <Image
             src={featuredImageSrc}
             alt={article.title || 'Artikelafbeelding'}
@@ -57,7 +58,7 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
             priority
             unoptimized={isBlobImage}
             sizes="100vw"
-            className="object-cover"
+            className={isLogoFallback ? 'object-contain p-16 sm:p-24 opacity-80' : 'object-cover'}
           />
           <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/90 via-black/55 to-transparent pointer-events-none" />
 
@@ -105,7 +106,11 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
                   priority
                   unoptimized={isBlobImage}
                   sizes="(max-width: 768px) 100vw, 40vw"
-                  className="object-contain sm:object-cover transition-transform duration-700 group-hover:scale-102"
+                  className={
+                    isLogoFallback
+                      ? 'object-contain p-10 opacity-85'
+                      : 'object-contain sm:object-cover transition-transform duration-700 group-hover:scale-102'
+                  }
                 />
                 <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-3xl pointer-events-none" />
               </div>
@@ -193,14 +198,14 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
           </div>
 
           {/* Main Feature Image */}
-          <div className="relative aspect-16/9 w-full mt-8 rounded-3xl overflow-hidden shadow-lg bg-zinc-100">
+          <div className="relative aspect-16/9 w-full mt-8 rounded-3xl overflow-hidden shadow-lg bg-surface-muted">
             <Image
               src={featuredImageSrc}
               alt={article.title || 'Artikelafbeelding'}
               fill
               priority
               unoptimized={isBlobImage}
-              className="object-cover"
+              className={isLogoFallback ? 'object-contain p-12 sm:p-20 opacity-85' : 'object-cover'}
             />
           </div>
         </header>

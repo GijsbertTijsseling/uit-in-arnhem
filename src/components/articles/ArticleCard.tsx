@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Clock, ArrowRight } from 'lucide-react';
 import { Article } from '@/types';
-import { formatDate } from '@/lib/utils';
+import { formatDate, isLogoFallbackImage } from '@/lib/utils';
 import { getArticleCategoryLabel } from '@/data/mockData';
 
 interface ArticleCardProps {
@@ -15,6 +15,7 @@ interface ArticleCardProps {
 
 export function ArticleCard({ article, featured = false }: ArticleCardProps) {
   const [isPortrait, setIsPortrait] = useState(false);
+  const isLogoFallback = isLogoFallbackImage(article.featured_image_url);
 
   // Reading time estimate
   const words = article.content ? article.content.split(/\s+/).length : 200;
@@ -24,9 +25,13 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
     return (
       <article className="group relative rounded-3xl overflow-hidden bg-ink text-white shadow-card-hover grid grid-cols-1 lg:grid-cols-12 min-h-120">
         {/* Image col */}
-        <div className="lg:col-span-7 relative min-h-75 lg:min-h-full overflow-hidden bg-ink flex items-center justify-center">
+        <div
+          className={`lg:col-span-7 relative min-h-75 lg:min-h-full overflow-hidden flex items-center justify-center ${
+            isLogoFallback ? 'bg-surface-muted' : 'bg-ink'
+          }`}
+        >
           {/* Ambient blur background for portrait images */}
-          {isPortrait && (
+          {isPortrait && !isLogoFallback && (
             <div className="absolute -inset-6 overflow-hidden pointer-events-none">
               <Image
                 src={article.featured_image_url}
@@ -41,21 +46,28 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
           )}
 
           <Image
-            src={article.featured_image_url}
+            src={article.featured_image_url || '/logo.png'}
             alt={article.title}
             fill
             sizes="(max-width: 1024px) 100vw, 60vw"
             onLoad={(e) => {
+              if (isLogoFallback) return;
               const img = e.currentTarget;
               if (img.naturalHeight > img.naturalWidth) {
                 setIsPortrait(true);
               }
             }}
             className={`${
-              isPortrait ? 'object-contain relative z-10 drop-shadow-2xl' : 'object-cover'
-            } transition-transform duration-700 group-hover:scale-105`}
+              isLogoFallback
+                ? 'object-contain p-10 sm:p-14 transition-transform duration-500 group-hover:scale-103'
+                : isPortrait
+                  ? 'object-contain relative z-10 drop-shadow-2xl transition-transform duration-700 group-hover:scale-105'
+                  : 'object-cover transition-transform duration-700 group-hover:scale-105'
+            }`}
           />
-          <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/55 via-transparent to-transparent pointer-events-none z-10" />
+          {!isLogoFallback && (
+            <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/55 via-transparent to-transparent pointer-events-none z-10" />
+          )}
         </div>
 
         {/* Content col */}
@@ -111,7 +123,7 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
       >
         {/* Ambient Blur Layer if portrait: uses object-fill so the top (sky/bridge) and bottom (bricks/water) 
             are preserved rather than zoomed into the dark torso by object-cover */}
-        {isPortrait && (
+        {isPortrait && !isLogoFallback && (
           <div className="absolute -inset-4 overflow-hidden pointer-events-none">
             <Image
               src={article.featured_image_url}
@@ -126,21 +138,24 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
         )}
 
         <Image
-          src={article.featured_image_url}
+          src={article.featured_image_url || '/logo.png'}
           alt={article.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           onLoad={(e) => {
+            if (isLogoFallback) return;
             const img = e.currentTarget;
             if (img.naturalHeight > img.naturalWidth) {
               setIsPortrait(true);
             }
           }}
           className={`${
-            isPortrait
-              ? 'object-contain relative z-10 drop-shadow-[0_0_15px_rgba(0,0,0,0.18)]'
-              : 'object-cover'
-          } transition-transform duration-500 group-hover:scale-105`}
+            isLogoFallback
+              ? 'object-contain p-8 sm:p-10 opacity-85 transition-transform duration-500 group-hover:scale-103'
+              : isPortrait
+                ? 'object-contain relative z-10 drop-shadow-[0_0_15px_rgba(0,0,0,0.18)] transition-transform duration-500 group-hover:scale-105'
+                : 'object-cover transition-transform duration-500 group-hover:scale-105'
+          }`}
         />
         <div className="absolute top-3 left-3 z-20">
           <span className="bg-white/90 backdrop-blur-sm text-zinc-900 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-zinc-100 shadow-xs">

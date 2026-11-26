@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Clock, ArrowRight } from 'lucide-react';
 import { Article } from '@/types';
-import { formatDate } from '@/lib/utils';
+import { formatDate, isLogoFallbackImage } from '@/lib/utils';
 import { getArticleCategoryLabel } from '@/data/mockData';
 import { ButtonLink } from '@/components/ui/Button';
 
@@ -15,11 +15,13 @@ interface FeaturedStorySectionProps {
 
 export function FeaturedStorySection({ article }: FeaturedStorySectionProps) {
   const [isPortrait, setIsPortrait] = useState(false);
+  const isLogoFallback = isLogoFallbackImage(article.featured_image_url);
 
   const words = article.content ? article.content.split(/\s+/).length : 200;
   const readMinutes = Math.max(1, Math.ceil(words / 200));
 
   const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    if (isLogoFallback) return;
     const img = e.currentTarget;
     if (img.naturalHeight > img.naturalWidth) {
       setIsPortrait(true);
@@ -62,15 +64,17 @@ export function FeaturedStorySection({ article }: FeaturedStorySectionProps) {
             )}
 
             <Image
-              src={article.featured_image_url}
+              src={article.featured_image_url || '/logo.png'}
               alt={article.title}
               fill
               sizes="(max-width: 1024px) 100vw, 58vw"
               onLoad={handleImageLoad}
               className={`${
-                isPortrait
-                  ? 'object-contain relative z-10 drop-shadow-[0_8px_24px_rgba(0,0,0,0.14)]'
-                  : 'object-cover'
+                isLogoFallback
+                  ? 'object-contain p-10 sm:p-14 opacity-85'
+                  : isPortrait
+                    ? 'object-contain relative z-10 drop-shadow-[0_8px_24px_rgba(0,0,0,0.14)]'
+                    : 'object-cover'
               } transition-transform duration-700 group-hover:scale-[1.03]`}
             />
           </Link>

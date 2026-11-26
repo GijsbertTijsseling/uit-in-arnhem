@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Clock, Sparkles, Calendar, AlertCircle } from 'lucide-react';
 import { AgendaItem } from '@/types';
-import { formatTime, formatPrice } from '@/lib/utils';
+import { formatTime, formatPrice, isLogoFallbackImage } from '@/lib/utils';
 import { getEventCategoryLabel } from '@/data/mockData';
 
 interface EventCardProps {
@@ -27,11 +27,14 @@ export function EventCard({ event }: EventCardProps) {
   const isCancelled = event.status === 'cancelled';
   const hasMultipleDates = event.performances && event.performances.length > 1;
 
+  const isLogoFallback = isLogoFallbackImage(event.hero_image_url);
+
   // Detect portrait theater posters (e.g. Posttheater / Ticketmatic)
   const initialIsPortrait =
-    event.source === 'posttheater' ||
-    Boolean(event.hero_image_url?.includes('ticketmatic')) ||
-    Boolean(event.hero_image_url?.includes('portrait'));
+    !isLogoFallback &&
+    (event.source === 'posttheater' ||
+      Boolean(event.hero_image_url?.includes('ticketmatic')) ||
+      Boolean(event.hero_image_url?.includes('portrait')));
 
   const [isPortrait, setIsPortrait] = useState(initialIsPortrait);
 
@@ -44,7 +47,7 @@ export function EventCard({ event }: EventCardProps) {
       {/* Image container: 16:9 ratio with light background */}
       <div className="relative aspect-16/9 w-full overflow-hidden bg-zinc-100">
         {/* Ambient blurred backdrop that preserves full top-to-bottom colors */}
-        {isPortrait && (
+        {isPortrait && !isLogoFallback && (
           <div className="absolute -inset-4 overflow-hidden pointer-events-none">
             <Image
               src={event.hero_image_url || '/logo.png'}
@@ -65,15 +68,19 @@ export function EventCard({ event }: EventCardProps) {
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           onLoad={(e) => {
+            if (isLogoFallback) return;
             const img = e.currentTarget;
             if (img.naturalHeight > img.naturalWidth) {
               setIsPortrait(true);
             }
           }}
-          className={`${isPortrait
-            ? 'object-contain relative z-10 drop-shadow-[0_0_15px_rgba(0,0,0,0.18)]'
-            : 'object-cover'
-            } transition-transform duration-500 group-hover:scale-105`}
+          className={`${
+            isLogoFallback
+              ? 'object-contain p-8 sm:p-10 opacity-85 transition-transform duration-500 group-hover:scale-103'
+              : isPortrait
+                ? 'object-contain relative z-10 drop-shadow-[0_0_15px_rgba(0,0,0,0.18)] transition-transform duration-500 group-hover:scale-105'
+                : 'object-cover transition-transform duration-500 group-hover:scale-105'
+          }`}
         />
 
         {/* Date sticker - High z-index to stay above foreground image */}

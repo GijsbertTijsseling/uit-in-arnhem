@@ -56,3 +56,13 @@ export function formatPrice(amount: number | null | undefined): string {
   if (amount == null || isNaN(amount)) return "–";
   return `€${amount.toFixed(2).replace(".", ",")}`;
 }
+
+export function isLogoFallbackImage(url?: string | null): boolean {
+  if (!url) return true;
+  const normalized = url.trim().toLowerCase();
+  return (
+    normalized === "/logo.png" ||
+    normalized.endsWith("/logo.png") ||
+    normalized.includes("/logo-placeholder")
+  );
+}
