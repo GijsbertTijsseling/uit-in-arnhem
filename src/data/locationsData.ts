@@ -31,7 +31,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "ABC Libertas is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/01/DSC0233_02.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/01/DSC0233_02.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -85,7 +85,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Arnhem is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/01/2025-01-24-UitnachtArnhem-WEBSIZE-JortBrummel-30.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/01/2025-01-24-UitnachtArnhem-WEBSIZE-JortBrummel-30.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -121,7 +121,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Arnhems Buiten is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/09/Schermafbeelding-2026-09-21-om-15.10.33-klein.png",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/09/Schermafbeelding-2026-09-21-om-15.10.33-klein.png",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -157,7 +157,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "azc Elderhoeve is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/05/Verre-Binding.png",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/05/Verre-Binding.png",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -193,7 +193,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Binnenstad Arnhem is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/11/MNQUIJEN.NL-Kerstmarkt-Binnenstad-Arnhem-mix-social-media-2816-2048x1367-1.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/11/MNQUIJEN.NL-Kerstmarkt-Binnenstad-Arnhem-mix-social-media-2816-2048x1367-1.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -229,7 +229,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Burgers’ Zoo is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/12/cheeta-s_10.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/12/cheeta-s_10.jpg",
     "coordinates": {
       "lat": 52.0105,
       "lng": 5.901
@@ -283,7 +283,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "https://cafebosch.nl/",
     "description": "Café Bosch is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/01/Freakscene-web_31012026-f8bc.png",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/01/Freakscene-web_31012026-f8bc.png",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -301,7 +301,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Cleantech Park Arnhem is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/02/WK_6-12-2026_Arnhem_webflyer-LRG.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/02/WK_6-12-2026_Arnhem_webflyer-LRG.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -409,7 +409,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "De Ronde Weide is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/01/20260710-LoRPark-vrijdag-V2-Fbbanner.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/01/20260710-LoRPark-vrijdag-V2-Fbbanner.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -427,7 +427,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "De Stadskeuken is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/01/PR-beeld_STADSKAMELEONS.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/01/PR-beeld_STADSKAMELEONS.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -481,7 +481,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "De Zoetenlab is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/09/DePlaats_Bliksem-Bij-Heldere-Hemel-Foto-Tse-Kao.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/09/DePlaats_Bliksem-Bij-Heldere-Hemel-Foto-Tse-Kao.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -499,7 +499,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Domein Hof te Dieren is een vaste culturele en ontmoetingslocatie in Dieren.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/09/School-of-Sushi-Rik-Keijzer-01.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/09/School-of-Sushi-Rik-Keijzer-01.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -553,7 +553,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Eusebiuskerk is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/12/musis-achtergrond-vloeimans-2.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/12/musis-achtergrond-vloeimans-2.jpg",
     "coordinates": {
       "lat": 51.979,
       "lng": 5.9096
@@ -589,7 +589,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Flor de Fango is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/08/Tango.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/08/Tango.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -625,7 +625,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "088 190 0666",
     "website": "https://www.focusarnhem.nl/",
     "description": "Focus Filmtheater op het Audrey Hepburnplein is het film- en cultuurhuis van Arnhem, met meerdere comfortabele filmzalen, een rooftop bioscoop en een sfeervol filmcafé.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/07/FOCUS_ophetdak_ValerieSpanjers_07-2022_websize0027-1440x720-1.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/07/FOCUS_ophetdak_ValerieSpanjers_07-2022_websize0027-1440x720-1.jpg",
     "coordinates": {
       "lat": 51.9798,
       "lng": 5.9095
@@ -661,7 +661,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Gelredome is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/03/El-Toro-Loco-25-001-scaled.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/03/El-Toro-Loco-25-001-scaled.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -769,7 +769,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "https://www.h80festival.nl/",
     "description": "Hoogte80 is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/02/Hoogte80-top.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/02/Hoogte80-top.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -787,7 +787,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Hotel Haarhuis is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/03/BLOU-Rooftop-BAR.png",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/03/BLOU-Rooftop-BAR.png",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -805,7 +805,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "0263510510",
     "website": "https://huisvanpuck.nl",
     "description": "Huis van Puck is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/12/Henk-DSCF00571.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/12/Henk-DSCF00571.jpg",
     "coordinates": {
       "lat": 51.9875,
       "lng": 5.9205
@@ -841,7 +841,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "026-4422106",
     "website": "",
     "description": "Jacobiberg is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/12/zuitnacht-jacobiberg-9x16-1.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/12/zuitnacht-jacobiberg-9x16-1.jpg",
     "coordinates": {
       "lat": 51.995,
       "lng": 5.889
@@ -877,7 +877,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "026 364 4645",
     "website": "https://www.glk.nl/",
     "description": "Kasteel & Park Rosendael is een vaste culturele en ontmoetingslocatie in Rozendaal.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/02/Zomerproeverij-foto.png",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/02/Zomerproeverij-foto.png",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -913,7 +913,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Ketelhuis Sonsbeek is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/08/Jazz-in-Sonsbeek-banners-2026-20272-scaled.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/08/Jazz-in-Sonsbeek-banners-2026-20272-scaled.jpg",
     "coordinates": {
       "lat": 51.992,
       "lng": 5.9048
@@ -967,7 +967,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "https://koepelgevangenisarnhem.nl/",
     "description": "De monumentale Koepelgevangenis in Arnhem (1886) is een iconisch rijksmonument met een cirkelvormig panopticumontwerp en een imposante centrale hal van meer dan 2000 m². Tegenwoordig dé unieke culturele evenementenlocatie van Arnhem voor festivals, exclusieve proeverijen, masterclasses en historische rondleidingen door de cellencomplexen.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/08/Koepelgevangenis.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/08/Koepelgevangenis.jpg",
     "coordinates": {
       "lat": 51.9853971,
       "lng": 5.8792471
@@ -1021,7 +1021,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "info@middachten.nl",
     "website": "https://www.middachten.nl",
     "description": "Landgoed Middachten is een vaste culturele en ontmoetingslocatie in DE STEEG.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/02/Moestuinbeurs.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/02/Moestuinbeurs.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1039,7 +1039,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Landwinkel IJsseloord is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/01/622012024_1400399868547697_181627702627131841_n.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/01/622012024_1400399868547697_181627702627131841_n.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1057,7 +1057,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "https://www.leeffabriek.com",
     "description": "LEEFFabriek is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/03/Leeffabriek-Henri-Bloem.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/03/Leeffabriek-Henri-Bloem.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1111,7 +1111,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "026 351 1660",
     "website": "https://www.luxorlive.nl",
     "description": "Luxor Live is hét poppodium van Arnhem aan het Willemsplein. Gevestigd in een prachtig historisch pand biedt het podium een toonaangevend programma vol live concerten, clubnachten en dance-evenementen.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/12/Luxor-Live_skin-prisoner-friends_web-1920x630-1.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/12/Luxor-Live_skin-prisoner-friends_web-1920x630-1.jpg",
     "coordinates": {
       "lat": 51.985,
       "lng": 5.9015
@@ -1147,7 +1147,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Marktplein is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "/images/arnhem/eusebiuskerk-kerkplein.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/eusebiuskerk-kerkplein.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1237,7 +1237,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "0267029000",
     "website": "https://www.natuurcentrumarnhem.nl",
     "description": "Molenplaats Sonsbeek is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/07/Logo-Tafel-van-de-Stad.png",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/07/Logo-Tafel-van-de-Stad.png",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1255,7 +1255,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "026 303 1400",
     "website": "https://www.museumarnhem.nl",
     "description": "Museum Arnhem toont moderne en hedendaagse kunst en vormgeving, hoog gelegen op de stuwwal met een adembenemend uitzicht over de Rijn.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/04/input.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/04/input.jpg",
     "coordinates": {
       "lat": 51.9855,
       "lng": 5.8856
@@ -1291,7 +1291,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "026 372 0720",
     "website": "https://www.musisenstadstheater.nl",
     "description": "Musis & Stadstheater Arnhem is het culturele kloppend hart voor symfonische muziek, theater, dans en cabaret. Thuisbasis van Phion (Orkest van Gelderland & Overijssel) en Introdans.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/12/Phion-Nieuwjaarsconcert-2026-Karin-Strobos.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/12/Phion-Nieuwjaarsconcert-2026-Karin-Strobos.jpg",
     "coordinates": {
       "lat": 51.9839,
       "lng": 5.9142
@@ -1417,7 +1417,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "https://www.openluchtmuseum.nl",
     "description": "Openluchtmuseum is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/07/Zomer-in-Arnhem-2026-Openlucht-Museum.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/07/Zomer-in-Arnhem-2026-Openlucht-Museum.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1453,7 +1453,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "https://www.papendal.nl",
     "description": "Papendal is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "/images/arnhem/papendal-bmx.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/papendal-bmx.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1471,7 +1471,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Park Angerenstein is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/02/Arnhem_Op_Dronk_77.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/02/Arnhem_Op_Dronk_77.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1507,7 +1507,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Park Lingezegen is een vaste culturele en ontmoetingslocatie in Elst.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/11/250419-165308-Lingepop-Joris-Bisschops-6763-LR-1280x853-1.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/11/250419-165308-Lingepop-Joris-Bisschops-6763-LR-1280x853-1.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1543,7 +1543,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Park Zypendaal is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/03/Arnhem-Tapt-scaled.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/03/Arnhem-Tapt-scaled.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1615,7 +1615,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "+31 26 446 3554",
     "website": "https://www.posttheater.nl",
     "description": "Posttheater is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/12/599085406_1385553010030771_7420561628176731031_n.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/12/599085406_1385553010030771_7420561628176731031_n.jpg",
     "coordinates": {
       "lat": 51.9822,
       "lng": 5.9221
@@ -1669,7 +1669,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Rijnkade is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "/images/arnhem/rijnkade-schemering.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/rijnkade-schemering.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1687,7 +1687,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Robbers en van den Hoogen is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/04/Wijnstripfestival-klein-.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/04/Wijnstripfestival-klein-.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1705,7 +1705,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "https://www.rozet.nl",
     "description": "Rozet aan de Kortestraat is het bekroonde kennis- en cultuurcentrum van Arnhem, met bibliotheek, erfgoedcentrum, kunstexposities en educatieve voorzieningen.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/01/eus1kQ2zZk4zSUlPWH2CHfgBV6pjemxr5uyL4XQu.png",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/01/eus1kQ2zZk4zSUlPWH2CHfgBV6pjemxr5uyL4XQu.png",
     "coordinates": {
       "lat": 51.9788,
       "lng": 5.9056
@@ -1759,7 +1759,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "https://sonsbeekagenda.nl",
     "description": "Sonsbeekpark is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/02/zeldzaammooi1.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/02/zeldzaammooi1.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1813,7 +1813,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Stadsblokken is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/01/W2pxAWviqsI2Yy8mFIHM0IbYUWY.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/01/W2pxAWviqsI2Yy8mFIHM0IbYUWY.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1831,7 +1831,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Stadsboerderij de Korenmaat is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/08/AGM-Korenmaat.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/08/AGM-Korenmaat.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1975,7 +1975,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Theater De Leeuw is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/10/Pubquiz-de-Leeuw.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/10/Pubquiz-de-Leeuw.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -1993,7 +1993,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "026 351 4436",
     "website": "https://www.theaterhethof.nl",
     "description": "Theater Het Hof is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/01/theaterhethof.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/01/theaterhethof.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -2047,7 +2047,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Vrijstaat Thialf is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/01/606166927_1446413367494248_3905358780953766747_n.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/01/606166927_1446413367494248_3905358780953766747_n.jpg",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987
@@ -2101,7 +2101,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Willemeen is hét jongerencultuur- en undergroundpodium van Arnhem, bekend om alternatieve muziek, metal, punk, hiphop en creatieve workshops.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2025/12/2025121695647-2618_addional_image-700x875-1.jpg",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2025/12/2025121695647-2618_addional_image-700x875-1.jpg",
     "coordinates": {
       "lat": 51.9852,
       "lng": 5.901
@@ -2119,7 +2119,7 @@ export const LOCATIONS_CATALOG: Location[] = [
     "phone": "",
     "website": "",
     "description": "Windpark Koningspleij is een vaste culturele en ontmoetingslocatie in Arnhem.",
-    "featured_image": "https://uitinarnhem.nl/wp-content/uploads/2026/08/Open-Energiedag.png",
+    "featured_image": "https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/08/Open-Energiedag.png",
     "coordinates": {
       "lat": 51.9851,
       "lng": 5.8987

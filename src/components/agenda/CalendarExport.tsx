@@ -10,9 +10,13 @@ interface CalendarExportProps {
 }
 
 export function CalendarExport({ event }: CalendarExportProps) {
+  const getSiteOrigin = () =>
+    typeof window !== 'undefined' ? window.location.origin : 'https://uitinarnhem.nl';
+
   const downloadIcs = () => {
     const startDate = new Date(event.start_date);
     const endDate = event.end_date ? new Date(event.end_date) : new Date(startDate.getTime() + 2 * 3600 * 1000);
+    const eventUrl = `${getSiteOrigin()}/agenda/${event.slug}`;
 
     const formatDateForIcs = (d: Date) => {
       return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
@@ -30,7 +34,7 @@ export function CalendarExport({ event }: CalendarExportProps) {
       `SUMMARY:${event.title}`,
       `DESCRIPTION:${event.short_description || ''}`,
       `LOCATION:${event.venue_name}, ${event.venue_address}, ${event.venue_city}`,
-      `URL:https://uitinarnhem.nl/agenda/${event.slug}`,
+      `URL:${eventUrl}`,
       'END:VEVENT',
       'END:VCALENDAR',
     ].join('\r\n');
@@ -49,6 +53,7 @@ export function CalendarExport({ event }: CalendarExportProps) {
   const getGoogleCalendarUrl = () => {
     const startDate = new Date(event.start_date);
     const endDate = event.end_date ? new Date(event.end_date) : new Date(startDate.getTime() + 2 * 3600 * 1000);
+    const eventUrl = `${getSiteOrigin()}/agenda/${event.slug}`;
 
     const formatGoogleDate = (d: Date) => {
       return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
@@ -56,7 +61,7 @@ export function CalendarExport({ event }: CalendarExportProps) {
 
     const dates = `${formatGoogleDate(startDate)}/${formatGoogleDate(endDate)}`;
     const text = encodeURIComponent(event.title);
-    const descParts = [event.short_description, `Meer info: https://uitinarnhem.nl/agenda/${event.slug}`].filter(Boolean);
+    const descParts = [event.short_description, `Meer info: ${eventUrl}`].filter(Boolean);
     const details = encodeURIComponent(descParts.join('\n\n'));
     const location = encodeURIComponent(
       [event.venue_name, event.venue_address, event.venue_city].filter(Boolean).join(', ')

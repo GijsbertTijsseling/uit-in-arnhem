@@ -65,7 +65,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       description: 'Meld je concert, expo, voorstelling of workshop gratis aan voor onze culturele uitagenda.',
       href: '/agenda/aanmelden',
       buttonText: 'Evenement aanmelden',
-      imageUrl: '/images/arnhem/eusebiuskerk-kerkplein.jpg',
+      imageUrl: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/eusebiuskerk-kerkplein.jpg',
     },
   },
   {
@@ -119,7 +119,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       description: 'Van zwoele terrassen aan de Rijnkade tot wandelingen door het groenste stadspark van Nederland.',
       href: '/zien-en-doen',
       buttonText: 'Ontdek alle tips',
-      imageUrl: '/images/arnhem/stadsvilla-sonsbeek-zomer.jpg',
+      imageUrl: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/stadsvilla-sonsbeek-zomer.jpg',
     },
   },
   {
@@ -157,7 +157,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       description: 'Bekijk praktische reisinformatie, parkeertips en de beste slaapplekken in de stad.',
       href: '/plan-je-bezoek',
       buttonText: 'Plan je reis',
-      imageUrl: '/images/arnhem/john-frostbrug-luchtfoto.jpg',
+      imageUrl: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/john-frostbrug-luchtfoto.jpg',
     },
   },
   {
@@ -196,7 +196,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       description: '3FM Serious Request strijkt dit jaar neer in Arnhem voor de Nederlandse Brandwonden Stichting.',
       href: '/artikelen/14382',
       buttonText: 'Lees het verhaal',
-      imageUrl: '/images/arnhem/serious-request-2026.jpg',
+      imageUrl: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/serious-request-2026.jpg',
     },
   },
   {
@@ -232,7 +232,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
       description: 'UIT in Arnhem is hét onafhankelijke platform voor cultuur, horeca en verhalen uit de Rijnstad.',
       href: '/over-ons',
       buttonText: 'Lees over ons team',
-      imageUrl: '/images/arnhem/modekwartier-klarendal.jpg',
+      imageUrl: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/modekwartier-klarendal.jpg',
     },
   },
 ];

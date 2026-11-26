@@ -35,7 +35,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     name: 'Rein Aalbers',
     role: 'Eigenaar & Campagnemanager',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/09/DSC06905-klein-e1727707002545-500x500.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/09/DSC06905-klein-e1727707002545-500x500.jpg',
     bio: 'Rein is 37 jaar en woont in hartje Klarendal, om de hoek bij Sugar Hill. Met zijn nieuwsgierigheid is Rein altijd op zoek naar verborgen plekjes; dat ene nieuwe koffietentje in de stad of die verscholen binnentuin in het Spijkerkwartier. Zijn passie voor groen Arnhem combineert hij met zijn liefde voor eten en drinken. Zo werkt hij als gastheer in de achtertuin van Arnhem, bij Bistrobar Beaune in Rozendaal aan de rand van de Posbank.',
     quote: 'Altijd op zoek naar die verborgen parels in Klarendal en het Spijkerkwartier.',
     tags: ['Klarendal', 'Bistrobar Beaune', 'Hotspots', 'Groen Arnhem'],
@@ -43,7 +43,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     name: 'Gijs Tijsseling',
     role: 'Eigenaar & Webdeveloper',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/09/Kopie-van-foto_bert-500x500.png',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/09/Kopie-van-foto_bert-500x500.png',
     bio: 'Na zijn studie Sterrenkunde in Amsterdam en wat omzwervingen in de Randstad is Gijs terug op het oude nest in Arnhem. Met zijn hond, vrouw en twee kinderen wandelt hij letterlijk vanuit zijn achtertuin Landgoed Mariëndaal in. Ook Gijs is het liefst buiten, maar tegen een pubquiz in Café Sint Jan of een feestje in Luxor Live zegt hij geen nee. Als je Gijs kwijt bent, is de kans groot dat hij op zijn vaste stekje in het zuiden van Portugal aan het kitesurfen is.',
     quote: 'Van sterrenkunde tot het moderne platform voor Arnhem.',
     tags: ['Mariëndaal', 'Sint Jan', 'Luxor Live', 'Webdevelopment'],
@@ -51,7 +51,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     name: 'Marleen',
     role: 'Redacteur & Cultuurspecialist',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/10/Marleen-website-1-500x500.png',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/10/Marleen-website-1-500x500.png',
     bio: 'Marleen is een grote aanwinst voor het team van UIT in Arnhem. Eindelijk iemand van ‘over de brug’ die laat zien dat er in Arnhem Zuid genoeg te beleven is! Met haar passie voor cultuur is Marleen regelmatig in het theater, bij Luxor Live of één van de andere podia te vinden. Sinds haar komst is onze online agenda altijd tiptop gevuld. Arnhem is natuurlijk haar grote liefde, maar voor een concertje van Bruce Springsteen (“The Boss”) in het buitenland draait ze haar hand ook niet om.',
     quote: 'Cultuur brengt Arnhem samen, van noord tot diep in zuid.',
     tags: ['Arnhem Zuid', 'Theater & Podia', 'Luxor Live', 'Bruce Springsteen'],
@@ -59,7 +59,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     name: 'Jort Blummel',
     role: 'Fotograaf',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/10/Jort-website-500x500.png',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/10/Jort-website-500x500.png',
     bio: 'Onvermoeibaar en altijd vrolijk. Dat is Jort. Als fotograaf reist hij bands en artiesten achterna door heel Nederland. Ook voor UIT in Arnhem schiet hij de mooiste plaatjes. Ken je Jort niet van de beelden van uitzinnige fans op de Jansplaats, dan wel van zijn andere passie: hardlopen. Overdag werkt hij bij RUN2DAY in de stad en als hij dan nog tijd overhoudt, rent hij door de parken of doet hij een rondje bruggen.',
     quote: 'De energie en dynamiek van Arnhem vangen in één krachtig beeld.',
     tags: ['Concertfotografie', 'RUN2DAY', 'Rondje Bruggen', 'Festivals'],
@@ -67,7 +67,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     name: 'Marloes Tiedink',
     role: 'Content Creator & Fijnproever',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/10/Marloes-website-500x500.png',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/10/Marloes-website-500x500.png',
     bio: 'Wil je op de hoogte zijn van de leukste eettentjes, de beste restaurants en de nieuwste hotspots in onze stad? Dan moet je bij Marloes zijn. Deze Arnhemse hobbykok kan niet alleen zelf heerlijk eten maken, ze is ook een kei in het vastleggen en delen van culinaire adresjes. Ze deelt maandelijks haar favoriete ontdekkingen in de stad en neemt iedereen mee in haar smaakvolle avonturen.',
     quote: 'Arnhem zit boordevol heerlijke smaken en creatieve ondernemers.',
     tags: ['Horeca Hotspots', 'Culinair Arnhem', 'Recepten', 'Binnenstad'],
@@ -75,7 +75,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     name: 'Lizzy',
     role: 'Content Creator',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2026/02/Lizzy-500x500.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2026/02/Lizzy-500x500.jpg',
     bio: 'Met haar achtergrond in Toerisme Management en ervaring in de marketingwereld zet Lizzy zich dagelijks in om de Arnhemse horeca, evenementen en lokale initiatieven zichtbaar te maken. Lizzy heeft een grote passie voor eten en drinken en is vaak in Arnhem te vinden om nieuwe terrassen en restaurants te ontdekken — het liefst onder het genot van een goed glas wijn.',
     quote: 'Arnhemse gezelligheid en gastvrijheid zichtbaar maken voor iedereen.',
     tags: ['Toerisme', 'Social Media', 'Wijn & Terras', 'Evenementen'],
@@ -83,7 +83,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     name: 'Larissa Derks',
     role: 'Fotograaf',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/10/Larissa-website-1-500x500.png',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/10/Larissa-website-1-500x500.png',
     bio: 'Larissa is al van kinds af aan gek van muziek. Niet zo vreemd dus dat je haar regelmatig in de concertzalen van Arnhem weet te vinden. Inmiddels is ze niet alleen huisfotograaf van Musis & Stadstheater, maar reist ze mee met artiesten om beelden te schieten op festivals en bij poppodia door heel Nederland. Larissa is één bonk energie en het liefst altijd onderweg met haar camera.',
     quote: 'Vastleggen hoe muziek en theater mensen in het hart raken.',
     tags: ['Musis & Stadstheater', 'Live Muziek', 'Theaterfotografie', 'Poppodia'],

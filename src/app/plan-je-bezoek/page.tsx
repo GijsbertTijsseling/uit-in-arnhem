@@ -50,7 +50,7 @@ export default function PlanJeBezoekPage() {
           {/* Visual Hero Banner */}
           <div className="relative aspect-[21/9] min-h-[300px] w-full rounded-3xl overflow-hidden bg-ink flex items-end p-8 sm:p-12 text-white">
             <Image
-              src="/images/arnhem/john-frostbrug-luchtfoto.jpg"
+              src="https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/john-frostbrug-luchtfoto.jpg"
               alt="De John Frostbrug over de Nederrijn in Arnhem"
               fill
               priority
@@ -87,7 +87,7 @@ export default function PlanJeBezoekPage() {
             <div className="space-y-8">
               <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-surface-muted">
                 <Image
-                  src="/images/arnhem/trolleybus-arnhem.jpg"
+                  src="https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/trolleybus-arnhem.jpg"
                   alt="De iconische Arnhemse trolleybus in de stad"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -126,7 +126,7 @@ export default function PlanJeBezoekPage() {
             <div id="parkeren" className="space-y-8 scroll-mt-24">
               <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-surface-muted">
                 <Image
-                  src="/images/arnhem/rijnkade-schemering.jpg"
+                  src="https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/rijnkade-schemering.jpg"
                   alt="De Rijnkade en binnenstad van Arnhem bij schemering"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -170,7 +170,7 @@ export default function PlanJeBezoekPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-6 relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-surface-muted">
               <Image
-                src="https://uitinarnhem.nl/wp-content/uploads/2024/04/Ketelhuis-Sonsbeek-6.jpg"
+                src="https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/04/Ketelhuis-Sonsbeek-6.jpg"
                 alt="Sfeervol overnachten en ontspannen nabij Park Sonsbeek in Arnhem"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -286,7 +286,7 @@ export default function PlanJeBezoekPage() {
             <figure className="space-y-2">
               <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-surface-muted">
                 <Image
-                  src="/images/arnhem/zevenstraatjes-eusebius.jpg"
+                  src="https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/zevenstraatjes-eusebius.jpg"
                   alt="Winkelen en struinen door De 7straatjes met uitzicht op de Eusebiuskerk"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -301,7 +301,7 @@ export default function PlanJeBezoekPage() {
             <figure className="space-y-2">
               <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-surface-muted">
                 <Image
-                  src="/images/arnhem/eusebiuskerk-kerkplein.jpg"
+                  src="https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/eusebiuskerk-kerkplein.jpg"
                   alt="Het Kerkplein bij de Eusebiuskerk, decor van de wekelijkse warenmarkt"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -322,7 +322,7 @@ export default function PlanJeBezoekPage() {
           <div className="bg-cta-tint border border-cta-border rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-stretch">
             <div className="lg:col-span-5 relative min-h-[260px] lg:min-h-full bg-surface-muted">
               <Image
-                src="/images/arnhem/eusebiuskerk-bloemen.jpg"
+                src="https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/eusebiuskerk-bloemen.jpg"
                 alt="Citystore Arnhem in de Eusebiuskerk aan het Kerkplein"
                 fill
                 sizes="(max-width: 1024px) 100vw, 42vw"

@@ -11,7 +11,7 @@ const INSPIRATION_CARDS = [
       'Struin door de 7straatjes en het Modekwartier, duik een museum in en strijk neer in Park Sonsbeek.',
     href: '/zien-en-doen',
     cta: 'Zien & doen',
-    image: '/images/arnhem/zevenstraatjes-eusebius.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/zevenstraatjes-eusebius.jpg',
     alt: 'Gezellige terrassen en boetieks in De 7straatjes met uitzicht op de Eusebiuskerk',
   },
   {
@@ -20,7 +20,7 @@ const INSPIRATION_CARDS = [
       'Blijf een nachtje slapen in een boutique hotel of B&B en proef Arnhem van ochtendkoffie tot avondvoorstelling.',
     href: '/plan-je-bezoek#overnachten',
     cta: 'Tips om te overnachten',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/04/Ketelhuis-Sonsbeek-6.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/04/Ketelhuis-Sonsbeek-6.jpg',
     alt: 'Sfeervol interieur voor een ontspannen weekendje weg in Arnhem',
   },
   {
@@ -29,7 +29,7 @@ const INSPIRATION_CARDS = [
       'Van de Eusebiuskerk en de John Frostbrug tot toonaangevende musea, theaters en historische hofjes.',
     href: '/locaties',
     cta: 'Bekijk alle locaties',
-    image: '/images/arnhem/eusebiuskerk-bloemen.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/eusebiuskerk-bloemen.jpg',
     alt: 'De historische Eusebiuskerk in het hart van Arnhem',
   },
 ];

@@ -209,9 +209,9 @@ export const DISTRICTS: District[] = [
       parking: 'Parkeergarages Centraal, Rozet, Musis en Langstraat liggen direct rond het voetgangersgebied.',
     },
     heroImage:
-      '/images/arnhem/zevenstraatjes-eusebius.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/zevenstraatjes-eusebius.jpg',
     galleryImages: [
-      '/images/arnhem/zevenstraatjes-terrassen.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/zevenstraatjes-terrassen.jpg',
     ],
     articleTags: ['binnenstad', 'centrum', '7straatjes', 'korenmarkt', 'jansplaats', 'eusebius', 'rozet', 'rijnkade', 'focus', 'luxor', 'musis', 'colofon'],
   },
@@ -310,9 +310,9 @@ export const DISTRICTS: District[] = [
       parking: 'Betaald parkeren in de wijk of parkeergarage Musis nabij de singel.',
     },
     heroImage:
-      'https://uitinarnhem.nl/wp-content/uploads/2024/08/Arnhem-klimaatbestendig-vergroening-Emmastraat-20210728_FAM2178-Frank-Myszka.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/08/Arnhem-klimaatbestendig-vergroening-Emmastraat-20210728_FAM2178-Frank-Myszka.jpg',
     galleryImages: [
-      '/images/arnhem/trolleybus-arnhem.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/trolleybus-arnhem.jpg',
     ],
     articleTags: ['spijkerkwartier', 'spijkerstraat', 'thialf', 'steenstraat', 'lommerd', 'otterloo', 'gavius', 'cafe vrijdag'],
   },
@@ -400,9 +400,9 @@ export const DISTRICTS: District[] = [
       parking: 'Gratis parkeerterrein bij de wijk aan de Hommelseweg en parkeerplekken langs de wijkstraten.',
     },
     heroImage:
-      '/images/arnhem/modekwartier-klarendal.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/modekwartier-klarendal.jpg',
     galleryImages: [
-      'https://uitinarnhem.nl/wp-content/uploads/2024/05/Street-Art-Tour-20230804_105441-scaled.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/05/Street-Art-Tour-20230804_105441-scaled.jpg',
     ],
     articleTags: ['modekwartier', 'klarendal', 'klarendalseweg', 'kroon', 'goed proeven', 'sugar hill', 'loopvis'],
   },
@@ -490,9 +490,9 @@ export const DISTRICTS: District[] = [
       parking: 'Parkeren kan langs de Zijpendaalseweg of in parkeergarage Centraal.',
     },
     heroImage:
-      '/images/arnhem/stadsvilla-sonsbeek-zomer.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/stadsvilla-sonsbeek-zomer.jpg',
     galleryImages: [
-      'https://uitinarnhem.nl/wp-content/uploads/2024/04/Ketelhuis-Sonsbeek-6.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/04/Ketelhuis-Sonsbeek-6.jpg',
     ],
     articleTags: ['sonsbeek', 'zypendaal', 'watermuseum', 'witte villa', 'ketelhuis', 'ronde weide', 'molenplaats'],
   },
@@ -580,9 +580,9 @@ export const DISTRICTS: District[] = [
       parking: 'Parkeren bij het museumterrein of in de omliggende groene lanen.',
     },
     heroImage:
-      '/images/arnhem/museum-arnhem-tuin.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/museum-arnhem-tuin.jpg',
     galleryImages: [
-      '/images/arnhem/rijnkade-schemering.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/rijnkade-schemering.jpg',
     ],
     articleTags: ['arnhem-west', 'museum arnhem', 'mariendaal', 'mariëndaal', 'heijenoord', 'klingelbeek', 'arnhems buiten', 'transformatie', 'hartenstein', 'pierre janssen'],
   },
@@ -659,9 +659,9 @@ export const DISTRICTS: District[] = [
       parking: 'Grote parkeerterreinen bij Burgers’ Zoo, Openluchtmuseum en Transferium Arnhem-Noord (A12).',
     },
     heroImage:
-      'https://uitinarnhem.nl/wp-content/uploads/2021/08/Afbeelding-Bronbeek-scaled.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2021/08/Afbeelding-Bronbeek-scaled.jpg',
     galleryImages: [
-      '/images/arnhem/papendal-bmx.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/papendal-bmx.jpg',
     ],
     articleTags: ['openluchtmuseum', 'burgers', 'zoo', 'bronbeek', 'schaarsbergen', 'posbank', 'veluwe'],
   },
@@ -738,9 +738,9 @@ export const DISTRICTS: District[] = [
       parking: 'Ruime gratis parkeergelegenheid rondom Park Presikhaaf en Winkelcentrum Presikhaaf.',
     },
     heroImage:
-      'https://uitinarnhem.nl/wp-content/uploads/2024/05/Street-Art-Tour-20230804_105441-scaled.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/05/Street-Art-Tour-20230804_105441-scaled.jpg',
     galleryImages: [
-      '/images/arnhem/stadsvilla-sonsbeek-zomer.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/stadsvilla-sonsbeek-zomer.jpg',
     ],
     articleTags: ['presikhaaf', 'ipkw', 'kleefse waard', 'kookplaats'],
   },
@@ -828,9 +828,9 @@ export const DISTRICTS: District[] = [
       parking: 'Zeer ruime parkeervoorzieningen bij GelreDome, Kronenburg en Transferium Arnhem-Zuid.',
     },
     heroImage:
-      '/images/arnhem/john-frostbrug-luchtfoto.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/john-frostbrug-luchtfoto.jpg',
     galleryImages: [
-      '/images/arnhem/rijnkade-schemering.jpg',
+      'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/rijnkade-schemering.jpg',
     ],
     articleTags: ['meinerswijk', 'gelredome', 'kronenburg', 'stadsblokken', 'korenmaat', 'asm haven', 'cirque de la liberte'],
   },

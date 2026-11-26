@@ -8,22 +8,8 @@ function cleanHtml(html: string): string {
   return html.replace(/<[^>]*>/g, '').replace(/\[[^\]]*\]/g, '').trim();
 }
 
-// Upgrade known low-resolution legacy WordPress thumbnails to sharp local equivalents
 function resolveMediaImage(url?: string | null): string {
-  if (!url) return '/logo.png';
-  if (url.includes('55002413960_8f66c3aa22_o-2')) {
-    return '/images/arnhem/serious-request-2026.jpg';
-  }
-  if (url.includes('Sonsbeekmarkt.jpg')) {
-    return '/images/arnhem/stadsvilla-sonsbeek-zomer.jpg';
-  }
-  if (url.includes('Mega-Wandel-Marathon-Arnhem.jpg')) {
-    return '/images/arnhem/papendal-bmx.jpg';
-  }
-  if (url.includes('518254204_1067027942261244_8071940414383128733_n.jpg')) {
-    return '/images/arnhem/rijnkade-schemering.jpg';
-  }
-  return url;
+  return url || '/logo.png';
 }
 
 function mapArticleItem(item: any): Article {

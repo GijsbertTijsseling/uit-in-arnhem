@@ -8,25 +8,25 @@ const DISTRICTS = [
   {
     name: 'Modekwartier',
     tagline: 'Creatieve ateliers, vintage & design in Klarendal',
-    image: '/images/arnhem/modekwartier-klarendal.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/modekwartier-klarendal.jpg',
     slug: 'modekwartier',
   },
   {
     name: 'Centrum & Binnenstad',
     tagline: 'Historische 7straatjes, boetieks, terrassen & Korenmarkt',
-    image: '/images/arnhem/zevenstraatjes-eusebius.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/zevenstraatjes-eusebius.jpg',
     slug: 'centrum',
   },
   {
     name: 'Sonsbeek & Parken',
     tagline: 'Watervallen, Witte Villa, Zypendaal & glooiende velden',
-    image: '/images/arnhem/stadsvilla-sonsbeek-zomer.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/stadsvilla-sonsbeek-zomer.jpg',
     slug: 'sonsbeek',
   },
   {
     name: 'Spijkerkwartier',
     tagline: 'Statige 19e-eeuwse herenhuizen, binnentuinen & fijne horeca',
-    image: 'https://uitinarnhem.nl/wp-content/uploads/2024/08/Arnhem-klimaatbestendig-vergroening-Emmastraat-20210728_FAM2178-Frank-Myszka.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/wp-migrated/2024/08/Arnhem-klimaatbestendig-vergroening-Emmastraat-20210728_FAM2178-Frank-Myszka.jpg',
     slug: 'spijkerkwartier',
   },
 ];

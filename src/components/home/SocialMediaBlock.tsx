@@ -13,42 +13,42 @@ function InstagramIcon({ className = 'w-4 h-4' }: { className?: string }) {
 
 const INSTAGRAM_POSTS = [
   {
-    image: '/images/arnhem/eusebius-glazen-balkon.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/eusebius-glazen-balkon.jpg',
     caption: 'Hoog boven de stad op het Glazen Balkon van de Eusebiuskerk.',
     likes: '482',
     comments: '24',
     location: 'Eusebiuskerk',
   },
   {
-    image: '/images/arnhem/modekwartier-klarendal.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/modekwartier-klarendal.jpg',
     caption: 'Struinen langs ateliers, boetiekjes en terrassen in het Modekwartier.',
     likes: '615',
     comments: '31',
     location: 'Modekwartier',
   },
   {
-    image: '/images/arnhem/binnenstad-terras-bloemen.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/binnenstad-terras-bloemen.jpg',
     caption: 'Zonnige koffiestops en verborgen terrasjes in de Arnhemse binnenstad.',
     likes: '530',
     comments: '18',
     location: 'Arnhem Centrum',
   },
   {
-    image: '/images/arnhem/stadsvilla-sonsbeek-winter.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/stadsvilla-sonsbeek-winter.jpg',
     caption: 'De Witte Villa in Park Sonsbeek — elk seizoen weer een plaatje.',
     likes: '720',
     comments: '44',
     location: 'Park Sonsbeek',
   },
   {
-    image: '/images/arnhem/rijnkade-schemering.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/rijnkade-schemering.jpg',
     caption: 'Blauw uurtje aan de Rijnkade met de Eusebiuskerk op de achtergrond.',
     likes: '894',
     comments: '37',
     location: 'Rijnkade Arnhem',
   },
   {
-    image: '/images/arnhem/museum-arnhem-tuin.jpg',
+    image: 'https://ldvclkymaiopytbkjulp.supabase.co/storage/v1/object/public/media/editorial/museum-arnhem-tuin.jpg',
     caption: 'Kunst kijken in de beeldentuin van Museum Arnhem hoog op de stuwwal.',
     likes: '448',
     comments: '16',
