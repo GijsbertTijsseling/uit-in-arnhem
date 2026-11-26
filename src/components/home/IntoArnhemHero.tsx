@@ -17,23 +17,27 @@ const HERO_BACKDROP_IMAGES = [
 ] as const;
 
 export function IntoArnhemHero() {
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const [hasVideoStarted, setHasVideoStarted] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
+  const [showPhotoFallback, setShowPhotoFallback] = useState(false);
   const [activeBackdropIdx, setActiveBackdropIdx] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const userPausedRef = useRef(false);
 
-  useEffect(() => {
+  const attemptAutoplay = () => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || userPausedRef.current) return;
 
-    // Forceer muted op het DOM-element voor betrouwbare autoplay op iOS Safari
+    // Forceer muted & playsinline als DOM-attributen voor iOS Safari
     video.defaultMuted = true;
     video.muted = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
 
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mediaQuery.matches) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       video.pause();
       setIsVideoPlaying(false);
+      setShowPhotoFallback(true);
       return;
     }
 
@@ -42,17 +46,23 @@ export function IntoArnhemHero() {
       playPromise
         .then(() => {
           setIsVideoPlaying(true);
+          setShowPhotoFallback(false);
         })
         .catch(() => {
           // Bijv. iOS Energiebesparingsmodus blokkeert autoplay: toon foto-backdrop
           setIsVideoPlaying(false);
+          setShowPhotoFallback(true);
         });
     }
+  };
+
+  useEffect(() => {
+    attemptAutoplay();
   }, []);
 
-  // Wissel rustig tussen beide Arnhem-foto's zolang de video niet draait
+  // Wissel rustig tussen beide Arnhem-foto's wanneer de foto-fallback actief is
   useEffect(() => {
-    if (hasVideoStarted && isVideoPlaying) return;
+    if (!showPhotoFallback) return;
     if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return;
     }
@@ -62,21 +72,28 @@ export function IntoArnhemHero() {
     }, 7000);
 
     return () => window.clearInterval(timer);
-  }, [hasVideoStarted, isVideoPlaying]);
+  }, [showPhotoFallback]);
 
   const toggleVideoPlay = () => {
-    if (!videoRef.current) return;
+    const video = videoRef.current;
+    if (!video) return;
     if (isVideoPlaying) {
-      videoRef.current.pause();
+      userPausedRef.current = true;
+      video.pause();
       setIsVideoPlaying(false);
     } else {
-      videoRef.current
+      userPausedRef.current = false;
+      setShowPhotoFallback(false);
+      video.muted = true;
+      video
         .play()
         .then(() => {
-          setHasVideoStarted(true);
           setIsVideoPlaying(true);
         })
-        .catch(() => { });
+        .catch(() => {
+          setIsVideoPlaying(false);
+          setShowPhotoFallback(true);
+        });
     }
   };
 
@@ -100,7 +117,7 @@ export function IntoArnhemHero() {
           ))}
         </div>
 
-        {/* Background Video met soepele fade-in zodra afspelen start */}
+        {/* Background Video: altijd opacity-100 bij init zodat iOS Safari autoplay toestaat */}
         <video
           ref={videoRef}
           autoPlay
@@ -112,12 +129,13 @@ export function IntoArnhemHero() {
           controlsList="nodownload noplaybackrate noremoteplayback"
           preload="auto"
           poster="/images/hero-focus-nacht.jpg"
+          onLoadedData={attemptAutoplay}
           onPlaying={() => {
-            setHasVideoStarted(true);
             setIsVideoPlaying(true);
+            setShowPhotoFallback(false);
           }}
           className={`absolute inset-0 w-full h-full object-cover object-center pointer-events-none transition-opacity duration-700 ${
-            hasVideoStarted ? 'opacity-100' : 'opacity-0'
+            showPhotoFallback ? 'opacity-0' : 'opacity-100'
           }`}
         >
           <source src="/videos/arnhem_hero.mp4" type="video/mp4" />
