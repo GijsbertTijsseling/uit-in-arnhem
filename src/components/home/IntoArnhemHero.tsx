@@ -41,6 +41,12 @@ export function IntoArnhemHero() {
       return;
     }
 
+    if (!video.paused && !video.ended) {
+      setIsVideoPlaying(true);
+      setShowPhotoFallback(false);
+      return;
+    }
+
     const playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise
@@ -48,8 +54,12 @@ export function IntoArnhemHero() {
           setIsVideoPlaying(true);
           setShowPhotoFallback(false);
         })
-        .catch(() => {
-          // Bijv. iOS Energiebesparingsmodus blokkeert autoplay: toon foto-backdrop
+        .catch((err: unknown) => {
+          // Negeer AbortError (gebeurt wanneer laden/play elkaar kort kruisen)
+          if (err instanceof DOMException && err.name === 'AbortError') {
+            return;
+          }
+          // Alleen bij echte autoplay-blokkade (NotAllowedError) foto-fallback tonen
           setIsVideoPlaying(false);
           setShowPhotoFallback(true);
         });
@@ -58,6 +68,19 @@ export function IntoArnhemHero() {
 
   useEffect(() => {
     attemptAutoplay();
+
+    // Als iOS Chrome (WKWebView) autoplay uitstelt tot eerste aanraking, probeer opnieuw
+    const handleFirstInteraction = () => {
+      if (!userPausedRef.current && videoRef.current?.paused) {
+        attemptAutoplay();
+      }
+    };
+    window.addEventListener('touchstart', handleFirstInteraction, { once: true, passive: true });
+    window.addEventListener('touchend', handleFirstInteraction, { once: true, passive: true });
+    return () => {
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('touchend', handleFirstInteraction);
+    };
   }, []);
 
   // Wissel rustig tussen beide Arnhem-foto's wanneer de foto-fallback actief is
@@ -120,6 +143,7 @@ export function IntoArnhemHero() {
         {/* Background Video: altijd opacity-100 bij init zodat iOS Safari autoplay toestaat */}
         <video
           ref={videoRef}
+          src="/videos/arnhem_hero.mp4"
           autoPlay
           loop
           muted
@@ -129,7 +153,7 @@ export function IntoArnhemHero() {
           controlsList="nodownload noplaybackrate noremoteplayback"
           preload="auto"
           poster="/images/hero-focus-nacht.jpg"
-          onLoadedData={attemptAutoplay}
+          onCanPlay={attemptAutoplay}
           onPlaying={() => {
             setIsVideoPlaying(true);
             setShowPhotoFallback(false);
@@ -137,9 +161,7 @@ export function IntoArnhemHero() {
           className={`absolute inset-0 w-full h-full object-cover object-center pointer-events-none transition-opacity duration-700 ${
             showPhotoFallback ? 'opacity-0' : 'opacity-100'
           }`}
-        >
-          <source src="/videos/arnhem_hero.mp4" type="video/mp4" />
-        </video>
+        />
 
         {/* Subtiel vignet aan boven- en onderrand voor tekstcontrast met behoud van helderheid */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/30 pointer-events-none" />
