@@ -17,17 +17,19 @@ const HERO_BACKDROP_IMAGES = [
 ] as const;
 
 export function IntoArnhemHero() {
-  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showPhotoFallback, setShowPhotoFallback] = useState(false);
+  const [hasVideoError, setHasVideoError] = useState(false);
   const [activeBackdropIdx, setActiveBackdropIdx] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const userPausedRef = useRef(false);
+  const hasRetriedTouchRef = useRef(false);
 
   const attemptAutoplay = () => {
     const video = videoRef.current;
-    if (!video || userPausedRef.current) return;
+    if (!video || userPausedRef.current || hasVideoError) return;
 
-    // Forceer muted & playsinline als DOM-attributen voor iOS Safari
+    // Forceer muted & playsinline als DOM-attributen voor iOS Safari / Chrome
     video.defaultMuted = true;
     video.muted = true;
     video.setAttribute('muted', '');
@@ -59,7 +61,7 @@ export function IntoArnhemHero() {
           if (err instanceof DOMException && err.name === 'AbortError') {
             return;
           }
-          // Alleen bij echte autoplay-blokkade (NotAllowedError) foto-fallback tonen
+          // Bij echte autoplay-blokkade (NotAllowedError) foto-fallback tonen
           setIsVideoPlaying(false);
           setShowPhotoFallback(true);
         });
@@ -69,15 +71,29 @@ export function IntoArnhemHero() {
   useEffect(() => {
     attemptAutoplay();
 
-    // Als iOS Chrome (WKWebView) autoplay uitstelt tot eerste aanraking, probeer opnieuw
+    // Vangnet: als de video na 2,5s nog steeds gepauzeerd is, activeer de foto-crossfade
+    const fallbackTimer = window.setTimeout(() => {
+      const video = videoRef.current;
+      if (!video || video.paused || video.readyState < 2) {
+        setIsVideoPlaying(false);
+        setShowPhotoFallback(true);
+      }
+    }, 2500);
+
+    // Als iOS Chrome (WKWebView) autoplay uitstelt tot eerste aanraking, probeer 1x opnieuw
     const handleFirstInteraction = () => {
-      if (!userPausedRef.current && videoRef.current?.paused) {
+      if (hasRetriedTouchRef.current || userPausedRef.current) return;
+      hasRetriedTouchRef.current = true;
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('touchend', handleFirstInteraction);
+      if (videoRef.current?.paused) {
         attemptAutoplay();
       }
     };
-    window.addEventListener('touchstart', handleFirstInteraction, { once: true, passive: true });
-    window.addEventListener('touchend', handleFirstInteraction, { once: true, passive: true });
+    window.addEventListener('touchstart', handleFirstInteraction, { passive: true });
+    window.addEventListener('touchend', handleFirstInteraction, { passive: true });
     return () => {
+      window.clearTimeout(fallbackTimer);
       window.removeEventListener('touchstart', handleFirstInteraction);
       window.removeEventListener('touchend', handleFirstInteraction);
     };
@@ -99,7 +115,7 @@ export function IntoArnhemHero() {
 
   const toggleVideoPlay = () => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || hasVideoError) return;
     if (isVideoPlaying) {
       userPausedRef.current = true;
       video.pause();
@@ -140,28 +156,34 @@ export function IntoArnhemHero() {
           ))}
         </div>
 
-        {/* Background Video: altijd opacity-100 bij init zodat iOS Safari autoplay toestaat */}
-        <video
-          ref={videoRef}
-          src="/videos/arnhem_hero.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          disablePictureInPicture
-          disableRemotePlayback
-          controlsList="nodownload noplaybackrate noremoteplayback"
-          preload="auto"
-          poster="/images/hero-focus-nacht.jpg"
-          onCanPlay={attemptAutoplay}
-          onPlaying={() => {
-            setIsVideoPlaying(true);
-            setShowPhotoFallback(false);
-          }}
-          className={`absolute inset-0 w-full h-full object-cover object-center pointer-events-none transition-opacity duration-700 ${
-            showPhotoFallback ? 'opacity-0' : 'opacity-100'
-          }`}
-        />
+        {/* Background Video: altijd opacity-100 bij init zodat iOS Safari/Chrome autoplay toestaat */}
+        {!hasVideoError && (
+          <video
+            ref={videoRef}
+            src="/videos/arnhem_hero.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload noplaybackrate noremoteplayback"
+            preload="auto"
+            onCanPlay={attemptAutoplay}
+            onPlaying={() => {
+              setIsVideoPlaying(true);
+              setShowPhotoFallback(false);
+            }}
+            onError={() => {
+              setHasVideoError(true);
+              setIsVideoPlaying(false);
+              setShowPhotoFallback(true);
+            }}
+            className={`absolute inset-0 w-full h-full object-cover object-center pointer-events-none transition-opacity duration-700 ${
+              showPhotoFallback ? 'opacity-0' : 'opacity-100'
+            }`}
+          />
+        )}
 
         {/* Subtiel vignet aan boven- en onderrand voor tekstcontrast met behoud van helderheid */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/30 pointer-events-none" />
@@ -193,21 +215,23 @@ export function IntoArnhemHero() {
         </div>
 
         {/* Compacte Pause / Play knop linksonder */}
-        <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 z-20 select-none">
-          <button
-            type="button"
-            onClick={toggleVideoPlay}
-            title={isVideoPlaying ? 'Pauzeer achtergrondfilm' : 'Speel achtergrondfilm af'}
-            aria-label={isVideoPlaying ? 'Pauzeer achtergrondfilm' : 'Speel achtergrondfilm af'}
-            className="w-10 h-10 rounded-full bg-black/55 hover:bg-black/75 border border-white/20 backdrop-blur-md text-white inline-flex items-center justify-center transition-all active:scale-95 shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4F00]"
-          >
-            {isVideoPlaying ? (
-              <Pause className="w-4 h-4 fill-white" />
-            ) : (
-              <Play className="w-4 h-4 fill-white translate-x-0.5" />
-            )}
-          </button>
-        </div>
+        {!hasVideoError && (
+          <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 z-20 select-none">
+            <button
+              type="button"
+              onClick={toggleVideoPlay}
+              title={isVideoPlaying ? 'Pauzeer achtergrondfilm' : 'Speel achtergrondfilm af'}
+              aria-label={isVideoPlaying ? 'Pauzeer achtergrondfilm' : 'Speel achtergrondfilm af'}
+              className="w-10 h-10 rounded-full bg-black/55 hover:bg-black/75 border border-white/20 backdrop-blur-md text-white inline-flex items-center justify-center transition-all active:scale-95 shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4F00]"
+            >
+              {isVideoPlaying ? (
+                <Pause className="w-4 h-4 fill-white" />
+              ) : (
+                <Play className="w-4 h-4 fill-white translate-x-0.5" />
+              )}
+            </button>
+          </div>
+        )}
       </section>
     </div>
   );
