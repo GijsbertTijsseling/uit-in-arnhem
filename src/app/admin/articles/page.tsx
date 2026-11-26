@@ -1,13 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 import { getArticles } from '@/lib/supabase/api';
+import { getEntityViewCounts } from '@/lib/analytics';
 import { PlusCircle } from 'lucide-react';
 import { AdminArticlesTable } from '@/components/admin/AdminArticlesTable';
 
 export const revalidate = 0;
 
 export default async function AdminArticlesListPage() {
-  const articles = await getArticles();
+  const [articles, viewCounts] = await Promise.all([
+    getArticles(),
+    getEntityViewCounts('article', 30),
+  ]);
 
   return (
     <div className="space-y-6">
@@ -31,7 +35,7 @@ export default async function AdminArticlesListPage() {
         </Link>
       </div>
 
-      <AdminArticlesTable initialArticles={articles} />
+      <AdminArticlesTable initialArticles={articles} viewCounts={viewCounts} />
     </div>
   );
 }

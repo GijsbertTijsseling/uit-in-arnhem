@@ -23,7 +23,7 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       <div>
         <h1 className="font-heading font-black text-3xl sm:text-5xl text-zinc-950 tracking-tight">
-          Verhalen uit de stad
+          Verhalen uit <span className="text-[#FF4F00]">Arnhem</span>
         </h1>
         <p className="text-zinc-600 text-base sm:text-lg mt-2 max-w-2xl leading-relaxed">
           Ontdek de beste koffiebars, verborgen terrassen aan de Rijn, museumrecensies en wandelroutes door Arnhemse buurten.

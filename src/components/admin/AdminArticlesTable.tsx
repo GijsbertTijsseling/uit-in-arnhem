@@ -11,9 +11,13 @@ import { setFeaturedArticle } from '@/lib/supabase/api';
 
 interface AdminArticlesTableProps {
   initialArticles: Article[];
+  viewCounts?: Record<string, { views: number; uniqueVisitors: number }>;
 }
 
-export function AdminArticlesTable({ initialArticles }: AdminArticlesTableProps) {
+export function AdminArticlesTable({
+  initialArticles,
+  viewCounts = {},
+}: AdminArticlesTableProps) {
   const router = useRouter();
   const [articles, setArticles] = useState<Article[]>(initialArticles);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
@@ -105,6 +109,7 @@ export function AdminArticlesTable({ initialArticles }: AdminArticlesTableProps)
                 <th className="py-4 px-4">Categorie</th>
                 <th className="py-4 px-4">Uitgelicht</th>
                 <th className="py-4 px-4">Status</th>
+                <th className="py-4 px-4 text-right">Weergaven (30d)</th>
                 <th className="py-4 px-4">Publicatiedatum</th>
                 <th className="py-4 px-6 text-right">Acties</th>
               </tr>
@@ -188,6 +193,26 @@ export function AdminArticlesTable({ initialArticles }: AdminArticlesTableProps)
                       >
                         {article.status === 'published' ? 'Gepubliceerd' : 'Concept'}
                       </span>
+                    </td>
+
+                    <td className="py-4 px-4 text-right">
+                      {(() => {
+                        const stat = viewCounts[article.slug];
+                        const views = stat?.views ?? 0;
+                        const unique = stat?.uniqueVisitors ?? 0;
+                        return (
+                          <div
+                            title={`${views.toLocaleString('nl-NL')} weergaven, ${unique.toLocaleString('nl-NL')} unieke dagbezoekers (30d)`}
+                          >
+                            <div className="font-bold text-zinc-900 tabular-nums">
+                              {views.toLocaleString('nl-NL')}
+                            </div>
+                            <div className="text-[10px] text-zinc-400 tabular-nums">
+                              {unique.toLocaleString('nl-NL')} uniek/dag
+                            </div>
+                          </div>
+                        );
+                      })()}
                     </td>
 
                     <td className="py-4 px-4 text-zinc-500">

@@ -1,3 +1,5 @@
+import type { LayoutTemplate } from '@/types';
+
 /**
  * Helper function to safely strip a <div> and all its nested children
  * matching any class name pattern.
@@ -27,12 +29,47 @@ function stripDivWithClass(html: string, classPattern: string): string {
   return output;
 }
 
+function escapeHtmlAttr(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function isSafeMediaUrl(url: string): boolean {
+  const trimmed = url.trim();
+  return /^(?:https?:\/\/|\/|blob:)/i.test(trimmed);
+}
+
+function renderListicleHeading(rawText: string, index: number): string {
+  const cleaned = rawText.trim();
+  const explicitMatch = cleaned.match(/^(\d{1,2})\s*[.)\-:]\s+(.+)$/);
+  const num = explicitMatch ? parseInt(explicitMatch[1], 10) : index;
+  const label = explicitMatch ? explicitMatch[2].trim() : cleaned;
+  const formattedNum = String(num).padStart(2, '0');
+  const topSpacing = index === 1 ? 'mt-8 pt-2' : 'mt-12 pt-7 border-t border-border-warm';
+
+  return `<h3 class="flex items-center gap-3.5 font-heading font-extrabold text-xl sm:text-2xl text-ink ${topSpacing} mb-4"><span class="inline-flex items-center justify-center shrink-0 w-9 h-9 rounded-xl bg-[#FF4F00] text-white font-heading font-black text-sm tracking-tight shadow-xs">${formattedNum}</span><span>${label}</span></h3>`;
+}
+
+export interface FormatRichContentOptions {
+  layoutTemplate?: LayoutTemplate;
+}
+
 /**
  * Helper to clean and format legacy WordPress article and event content
- * into clean, responsive HTML with embedded videos and figures.
+ * as well as Markdown editor content into clean, responsive HTML.
  */
-export function formatRichContent(rawContent: string, title: string = ''): string {
+export function formatRichContent(
+  rawContent: string,
+  title: string = '',
+  options: FormatRichContentOptions = {}
+): string {
   if (!rawContent) return '';
+
+  const isLegacyHtml = /<(?:p|div|br|h[1-6]|ul|ol|blockquote|figure)\b/i.test(rawContent);
+  const isListicle = options.layoutTemplate === 'listicle';
 
   let content = rawContent;
 
@@ -91,11 +128,74 @@ export function formatRichContent(rawContent: string, title: string = ''): strin
   // Convert any remaining <h1> tags inside the article body into <h2> for semantic hierarchy
   content = content.replace(/<h1([^>]*)>([\s\S]*?)<\/h1>/gi, '<h2 class="font-heading font-extrabold text-2xl text-zinc-900 mt-8 mb-4"$1>$2</h2>');
 
-  // Convert markdown ### headings into <h3>
-  content = content.replace(/^###\s*(.+)$/gm, '<h3 class="font-heading font-bold text-xl text-zinc-900 mt-8 mb-3">$1</h3>');
+  // Convert markdown ### headings into <h3> (with numbered badges for listicle template)
+  let listicleIndex = 0;
+  content = content.replace(/^###\s*(.+)$/gm, (_match, headingText: string) => {
+    if (isListicle) {
+      listicleIndex += 1;
+      return renderListicleHeading(headingText, listicleIndex);
+    }
+    return `<h3 class="font-heading font-bold text-xl text-zinc-900 mt-8 mb-3">${headingText.trim()}</h3>`;
+  });
+
+  // Also style legacy HTML <h3> headings as numbered items when listicle template is active
+  if (isListicle && isLegacyHtml && listicleIndex === 0) {
+    content = content.replace(/<h3[^>]*>([\s\S]*?)<\/h3>/gi, (_match, innerHtml: string) => {
+      const plainText = innerHtml.replace(/<[^>]+>/g, '').trim();
+      if (!plainText) return _match;
+      listicleIndex += 1;
+      return renderListicleHeading(plainText, listicleIndex);
+    });
+  }
+
+  // Convert markdown images: ![caption](url) -> responsive <figure>
+  content = content.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (_match, rawAlt: string, rawUrl: string) => {
+    if (!isSafeMediaUrl(rawUrl)) return '';
+    const safeUrl = escapeHtmlAttr(rawUrl.trim());
+    const caption = rawAlt.trim();
+    const safeAlt = escapeHtmlAttr(caption || title || 'Artikelafbeelding');
+    const figcaptionHtml = caption
+      ? `<figcaption class="text-xs text-ink-muted mt-2.5 text-center leading-relaxed">${escapeHtmlAttr(caption)}</figcaption>`
+      : '';
+    return `\n\n<figure class="my-8 flex flex-col items-center"><img src="${safeUrl}" alt="${safeAlt}" loading="lazy" class="max-w-full w-auto max-h-[560px] rounded-2xl object-contain shadow-card border border-border-warm/60" />${figcaptionHtml}</figure>\n\n`;
+  });
 
   // Convert *Adres: ...* blocks
-  content = content.replace(/\*Adres:\s*([^\*]+)\*/gi, '<div class="my-4 p-3.5 bg-zinc-50 rounded-xl border border-zinc-200 text-sm text-zinc-700"><span class="font-semibold text-zinc-900">Adres:</span> $1</div>');
+  content = content.replace(
+    /\*Adres:\s*([^\*]+)\*/gi,
+    '\n\n<div class="my-4 p-3.5 bg-surface-subtle rounded-xl border border-border-warm text-sm text-ink-body"><span class="font-semibold text-ink">Adres:</span> $1</div>\n\n'
+  );
+
+  // Convert markdown links: [label](url) -> <a href="url">label</a>
+  content = content.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_match, label: string, rawUrl: string) => {
+    if (!isSafeMediaUrl(rawUrl)) return label;
+    return `<a href="${escapeHtmlAttr(rawUrl.trim())}">${label}</a>`;
+  });
+
+  // Convert markdown blockquotes (> ...) and unordered lists (- ...) for markdown content
+  if (!isLegacyHtml) {
+    content = content.replace(/(?:^|\n)((?:> .+(?:\n|$))+)/g, (_match, block: string) => {
+      const quoteText = block
+        .trim()
+        .split('\n')
+        .map((line) => line.replace(/^>\s?/, '').trim())
+        .join('<br />');
+      return `\n\n<blockquote>${quoteText}</blockquote>\n\n`;
+    });
+
+    content = content.replace(/(?:^|\n)((?:- .+(?:\n|$))+)/g, (_match, block: string) => {
+      const items = block
+        .trim()
+        .split('\n')
+        .map((line) => `<li>${line.replace(/^-\s+/, '').trim()}</li>`)
+        .join('');
+      return `\n\n<ul>${items}</ul>\n\n`;
+    });
+
+    // Inline bold & italic markdown
+    content = content.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+    content = content.replace(/(?<![*\w])\*([^*\n]+)\*(?!\*)/g, '<em>$1</em>');
+  }
 
   // 6. Decode HTML entities in text
   content = content
@@ -107,12 +207,20 @@ export function formatRichContent(rawContent: string, title: string = ''): strin
     .replace(/&#8221;/g, '”')
     .replace(/&#038;/g, '&');
 
-  // 7. If plain text without paragraph tags, wrap double newlines into <p>
-  if (!content.includes('<p>') && !content.includes('<div>') && !content.includes('<br')) {
+  // 7. If markdown / plain text without legacy HTML tags, wrap non-block paragraphs into <p>
+  if (!isLegacyHtml) {
+    const blockStartRegex = /^<(?:h[1-6]|figure|div|blockquote|ul|ol|p)\b/i;
     content = content
-      .split('\n\n')
-      .filter((p) => p.trim())
-      .map((p) => `<p>${p.trim()}</p>`)
+      .replace(/\r\n/g, '\n')
+      .split(/\n{2,}/)
+      .map((chunk) => chunk.trim())
+      .filter(Boolean)
+      .map((chunk) => {
+        if (blockStartRegex.test(chunk)) {
+          return chunk;
+        }
+        return `<p>${chunk.replace(/\n/g, '<br />')}</p>`;
+      })
       .join('\n');
   }
 

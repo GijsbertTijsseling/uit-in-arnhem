@@ -97,7 +97,8 @@ export function Navbar() {
               {NAVIGATION_MENU.map((section) => {
                 const isCurrentPage =
                   pathname === section.href ||
-                  (section.href !== '/' && pathname.startsWith(section.href) && !section.href.includes('?'));
+                  (section.href !== '/' && pathname.startsWith(section.href) && !section.href.includes('?')) ||
+                  (section.href === '/over-ons' && pathname.startsWith('/contact'));
                 const isDropdownActive = activeDropdown === section.label;
 
                 return (

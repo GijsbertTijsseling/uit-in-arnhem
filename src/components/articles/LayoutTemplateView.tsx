@@ -13,6 +13,8 @@ interface LayoutTemplateViewProps {
 
 export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
   const template = article.layout_template || 'standard';
+  const featuredImageSrc = article.featured_image_url || '/logo.png';
+  const isBlobImage = featuredImageSrc.startsWith('blob:');
   const [isPortrait, setIsPortrait] = useState<boolean>(false);
   const [aspectRatio, setAspectRatio] = useState<number | null>(null);
   const wordCount = article.content
@@ -21,9 +23,9 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
   const readMinutes = Math.max(1, Math.ceil(wordCount / 200));
 
   useEffect(() => {
-    if (!article.featured_image_url) return;
+    if (!featuredImageSrc) return;
     const img = new window.Image();
-    img.src = article.featured_image_url;
+    img.src = featuredImageSrc;
     if (img.complete && img.naturalHeight > 0) {
       const portrait = img.naturalHeight > img.naturalWidth;
       setIsPortrait(portrait);
@@ -35,7 +37,7 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
         setAspectRatio(img.naturalWidth / img.naturalHeight);
       };
     }
-  }, [article.featured_image_url]);
+  }, [featuredImageSrc]);
 
   const showSplitHeader =
     template === 'split_header' ||
@@ -47,10 +49,11 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
       {template === 'editorial_story' && (
         <div className="relative w-full h-[65vh] min-h-[450px] bg-ink flex items-end mb-12">
           <Image
-            src={article.featured_image_url}
-            alt={article.title}
+            src={featuredImageSrc}
+            alt={article.title || 'Artikelafbeelding'}
             fill
             priority
+            unoptimized={isBlobImage}
             sizes="100vw"
             className="object-cover"
           />
@@ -94,10 +97,11 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
                 }}
               >
                 <Image
-                  src={article.featured_image_url}
-                  alt={article.title}
+                  src={featuredImageSrc}
+                  alt={article.title || 'Artikelafbeelding'}
                   fill
                   priority
+                  unoptimized={isBlobImage}
                   sizes="(max-width: 768px) 100vw, 40vw"
                   className="object-contain sm:object-cover transition-transform duration-700 group-hover:scale-102"
                 />
@@ -189,10 +193,11 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
           {/* Main Feature Image */}
           <div className="relative aspect-16/9 w-full mt-8 rounded-3xl overflow-hidden shadow-lg bg-zinc-100">
             <Image
-              src={article.featured_image_url}
-              alt={article.title}
+              src={featuredImageSrc}
+              alt={article.title || 'Artikelafbeelding'}
               fill
               priority
+              unoptimized={isBlobImage}
               className="object-cover"
             />
           </div>
@@ -202,17 +207,19 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
       {/* ARTICLE BODY CONTENT */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div
-          className="prose prose-zinc prose-lg max-w-none text-zinc-800 leading-relaxed
+          className={`prose prose-zinc prose-lg max-w-none text-zinc-800 leading-relaxed
             [&>p]:mb-6 [&>p]:leading-relaxed
             [&>h2]:font-heading [&>h2]:font-black [&>h2]:text-2xl [&>h2]:sm:text-3xl [&>h2]:text-zinc-900 [&>h2]:mt-10 [&>h2]:mb-4
-            [&>h3]:font-heading [&>h3]:font-bold [&>h3]:text-xl [&>h3]:text-zinc-900 [&>h3]:mt-8 [&>h3]:mb-3
+            ${template !== 'listicle' ? '[&>h3]:font-heading [&>h3]:font-bold [&>h3]:text-xl [&>h3]:text-zinc-900 [&>h3]:mt-8 [&>h3]:mb-3' : ''}
             [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:my-6 [&>ul>li]:mb-2
             [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:my-6 [&>ol>li]:mb-2
             [&>blockquote]:border-l-4 [&>blockquote]:border-[#FF4F00] [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:my-6 [&>blockquote]:text-zinc-700
             [&>strong]:font-bold [&>strong]:text-zinc-900
             [&_a]:text-[#FF4F00] [&_a]:underline [&_a]:decoration-[#FF4F00]/50 hover:[&_a]:text-[#E04500] hover:[&_a]:decoration-[#E04500]
-            [&>figure]:my-8 [&>figure>img]:rounded-2xl [&>figure>figcaption]:text-xs [&>figure>figcaption]:text-zinc-500 [&>figure>figcaption]:mt-2"
-          dangerouslySetInnerHTML={{ __html: formatRichContent(article.content, article.title) }}
+            [&>figure]:my-8 [&>figure>img]:max-w-full [&>figure>img]:w-auto [&>figure>img]:max-h-[560px] [&>figure>img]:mx-auto [&>figure>img]:rounded-2xl [&>figure>figcaption]:text-xs [&>figure>figcaption]:text-zinc-500 [&>figure>figcaption]:mt-2.5`}
+          dangerouslySetInnerHTML={{
+            __html: formatRichContent(article.content, article.title, { layoutTemplate: template }),
+          }}
         />
 
         {/* Visual Gallery if template is visual_gallery or has gallery images */}

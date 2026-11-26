@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { getArticles, getAllEventsForAdmin, getLocations } from '@/lib/supabase/api';
+import { getAnalyticsOverview } from '@/lib/analytics';
+import { MigrationPendingNotice } from '@/components/admin/analytics/MigrationPendingNotice';
 import {
   FileText,
   Calendar,
@@ -8,16 +10,22 @@ import {
   Clock,
   MapPin,
   Star,
+  BarChart3,
+  Eye,
+  Users,
+  Activity,
+  ExternalLink,
 } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 
 export const revalidate = 0;
 
 export default async function AdminDashboardPage() {
-  const [articles, allEvents, locations] = await Promise.all([
+  const [articles, allEvents, locations, analytics] = await Promise.all([
     getArticles(),
     getAllEventsForAdmin(),
     getLocations(),
+    getAnalyticsOverview('30d'),
   ]);
 
   const draftArticles = articles.filter((a) => a.status === 'draft');
@@ -62,6 +70,52 @@ export default async function AdminDashboardPage() {
       color: 'text-zinc-700',
       bg: 'bg-zinc-100',
       href: '/admin/locaties',
+    },
+  ];
+
+  const topEvent = analytics.topEvents[0] || null;
+  const topArticle = analytics.topArticles[0] || null;
+
+  const analyticsStats = [
+    {
+      label: 'Paginaweergaven (30d)',
+      value: analytics.totalViews.toLocaleString('nl-NL'),
+      sub: 'Totaal gemeten op publieke site',
+      icon: Eye,
+      color: 'text-[#FF4F00]',
+      bg: 'bg-[#FFF3ED]',
+      href: '/admin/statistieken',
+    },
+    {
+      label: 'Unieke bezoekers vandaag',
+      value: analytics.uniqueVisitorsToday.toLocaleString('nl-NL'),
+      sub: 'Cookieloos gemeten per dag',
+      icon: Users,
+      color: 'text-zinc-700',
+      bg: 'bg-zinc-100',
+      href: '/admin/statistieken?period=today',
+    },
+    {
+      label: 'Unieke dagbezoekers (30d)',
+      value: analytics.uniqueVisitorsPeriod.toLocaleString('nl-NL'),
+      sub: 'Som van unieke dagbezoekers',
+      icon: Activity,
+      color: 'text-emerald-600',
+      bg: 'bg-emerald-50',
+      href: '/admin/statistieken?period=30d',
+    },
+    {
+      label: 'Meest bekeken (30d)',
+      value: topEvent
+        ? `${topEvent.views.toLocaleString('nl-NL')} views`
+        : topArticle
+        ? `${topArticle.views.toLocaleString('nl-NL')} views`
+        : '0 views',
+      sub: topEvent?.title || topArticle?.title || 'Nog geen bezoekersdata',
+      icon: BarChart3,
+      color: 'text-zinc-700',
+      bg: 'bg-zinc-100',
+      href: '/admin/statistieken',
     },
   ];
 
@@ -142,6 +196,49 @@ export default async function AdminDashboardPage() {
           </Link>
         ))}
       </div>
+
+      {/* Analytics KPI Row (30d) */}
+      <section className="space-y-4">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-[#FF4F00]" />
+            <h2 className="font-heading font-black text-lg text-zinc-900">
+              Bezoekersstatistieken (30 dagen)
+            </h2>
+          </div>
+          <Link
+            href="/admin/statistieken"
+            className="text-xs font-bold text-[#FF4F00] hover:underline"
+          >
+            Volledig overzicht →
+          </Link>
+        </div>
+
+        {analytics.migrationPending && <MigrationPendingNotice compact />}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {analyticsStats.map((s, idx) => (
+            <Link
+              key={idx}
+              href={s.href}
+              className="bg-white p-5 rounded-2xl border border-zinc-200/90 hover:border-zinc-300 hover:shadow-sm shadow-xs flex items-center gap-4 transition-all"
+            >
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${s.bg}`}>
+                <s.icon className={`w-6 h-6 ${s.color}`} />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider truncate">
+                  {s.label}
+                </div>
+                <div className="text-2xl font-extrabold text-zinc-900 mt-0.5 tabular-nums truncate">
+                  {s.value}
+                </div>
+                <div className="text-[11px] text-zinc-500 mt-0.5 truncate">{s.sub}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       {/* Two Column Section: Recent Articles & Events */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -247,6 +344,119 @@ export default async function AdminDashboardPage() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Top 5 Agenda Items & Top 5 Articles (30d) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Top 5 Agenda Items */}
+        <div className="bg-white rounded-3xl p-6 border border-zinc-200/90 shadow-xs space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
+            <div className="flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-[#FF4F00]" />
+              <h2 className="font-heading font-black text-lg text-zinc-900">
+                Top 5 Agenda-items (30d)
+              </h2>
+            </div>
+            <Link
+              href="/admin/statistieken"
+              className="text-xs font-bold text-[#FF4F00] hover:underline"
+            >
+              Alle cijfers →
+            </Link>
+          </div>
+
+          {analytics.topEvents.length === 0 ? (
+            <p className="text-xs text-zinc-500 py-6 text-center">
+              Nog geen bezoekersdata voor agenda-items in de afgelopen 30 dagen.
+            </p>
+          ) : (
+            <div className="divide-y divide-zinc-100">
+              {analytics.topEvents.slice(0, 5).map((item, idx) => (
+                <div key={item.path} className="py-3 flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="w-6 h-6 rounded-lg bg-zinc-100 text-zinc-600 text-xs font-bold flex items-center justify-center shrink-0 tabular-nums">
+                      {idx + 1}
+                    </span>
+                    <div className="min-w-0">
+                      <div className="font-bold text-sm text-zinc-900 truncate">{item.title}</div>
+                      <div className="text-[11px] text-zinc-400 truncate">
+                        {item.uniqueVisitors.toLocaleString('nl-NL')} unieke dagbezoekers
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <span className="text-xs font-extrabold text-zinc-900 tabular-nums">
+                      {item.views.toLocaleString('nl-NL')} views
+                    </span>
+                    <Link
+                      href={item.path}
+                      target="_blank"
+                      title="Bekijk live pagina"
+                      className="p-1.5 rounded-lg text-zinc-400 hover:text-[#FF4F00] hover:bg-[#FFF3ED] transition-colors"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Top 5 Articles */}
+        <div className="bg-white rounded-3xl p-6 border border-zinc-200/90 shadow-xs space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
+            <div className="flex items-center gap-2">
+              <FileText className="w-5 h-5 text-[#FF4F00]" />
+              <h2 className="font-heading font-black text-lg text-zinc-900">
+                Top 5 Artikelen (30d)
+              </h2>
+            </div>
+            <Link
+              href="/admin/statistieken"
+              className="text-xs font-bold text-[#FF4F00] hover:underline"
+            >
+              Alle cijfers →
+            </Link>
+          </div>
+
+          {analytics.topArticles.length === 0 ? (
+            <p className="text-xs text-zinc-500 py-6 text-center">
+              Nog geen bezoekersdata voor artikelen in de afgelopen 30 dagen.
+            </p>
+          ) : (
+            <div className="divide-y divide-zinc-100">
+              {analytics.topArticles.slice(0, 5).map((item, idx) => (
+                <div key={item.path} className="py-3 flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="w-6 h-6 rounded-lg bg-zinc-100 text-zinc-600 text-xs font-bold flex items-center justify-center shrink-0 tabular-nums">
+                      {idx + 1}
+                    </span>
+                    <div className="min-w-0">
+                      <div className="font-bold text-sm text-zinc-900 truncate">{item.title}</div>
+                      <div className="text-[11px] text-zinc-400 truncate">
+                        {item.uniqueVisitors.toLocaleString('nl-NL')} unieke dagbezoekers
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <span className="text-xs font-extrabold text-zinc-900 tabular-nums">
+                      {item.views.toLocaleString('nl-NL')} views
+                    </span>
+                    <Link
+                      href={item.path}
+                      target="_blank"
+                      title="Bekijk live pagina"
+                      className="p-1.5 rounded-lg text-zinc-400 hover:text-[#FF4F00] hover:bg-[#FFF3ED] transition-colors"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

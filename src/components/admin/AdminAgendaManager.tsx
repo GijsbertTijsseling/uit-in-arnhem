@@ -29,9 +29,14 @@ import {
 interface AdminAgendaManagerProps {
   initialEvents: AgendaItem[];
   userRole?: string;
+  viewCounts?: Record<string, { views: number; uniqueVisitors: number }>;
 }
 
-export function AdminAgendaManager({ initialEvents, userRole: initialRole }: AdminAgendaManagerProps) {
+export function AdminAgendaManager({
+  initialEvents,
+  userRole: initialRole,
+  viewCounts = {},
+}: AdminAgendaManagerProps) {
   const [userRole, setUserRole] = useState<string>(initialRole || 'editor');
   const [events, setEvents] = useState<AgendaItem[]>(initialEvents);
 
@@ -400,6 +405,7 @@ export function AdminAgendaManager({ initialEvents, userRole: initialRole }: Adm
                   <th className="py-4 px-4">Datum & Tijd</th>
                   <th className="py-4 px-4">Podium / Locatie</th>
                   <th className="py-4 px-4">Entree</th>
+                  <th className="py-4 px-4 text-right">Weergaven (30d)</th>
                   <th className="py-4 px-6 text-right">Acties</th>
                 </tr>
               </thead>
@@ -478,6 +484,26 @@ export function AdminAgendaManager({ initialEvents, userRole: initialRole }: Adm
                         >
                           {isFree ? 'Gratis' : evt.price_from != null ? `€${evt.price_from.toFixed(2)}` : '–'}
                         </span>
+                      </td>
+
+                      <td className="py-4 px-4 text-right">
+                        {(() => {
+                          const stat = viewCounts[evt.slug];
+                          const views = stat?.views ?? 0;
+                          const unique = stat?.uniqueVisitors ?? 0;
+                          return (
+                            <div
+                              title={`${views.toLocaleString('nl-NL')} weergaven, ${unique.toLocaleString('nl-NL')} unieke dagbezoekers (30d)`}
+                            >
+                              <div className="font-bold text-zinc-900 tabular-nums">
+                                {views.toLocaleString('nl-NL')}
+                              </div>
+                              <div className="text-[10px] text-zinc-400 tabular-nums">
+                                {unique.toLocaleString('nl-NL')} uniek/dag
+                              </div>
+                            </div>
+                          );
+                        })()}
                       </td>
 
                       <td className="py-4 px-6 text-right">

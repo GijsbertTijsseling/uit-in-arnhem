@@ -27,7 +27,7 @@ export default async function AgendaPage({ searchParams }: AgendaPageProps) {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 border-b border-zinc-200/80">
         <div>
           <h1 className="font-heading font-black text-3xl sm:text-5xl text-zinc-950 tracking-tight">
-            Wat is er te doen in Arnhem?
+            Wat is er te doen in <span className="text-[#FF4F00]">Arnhem</span>?
           </h1>
           <p className="text-zinc-600 text-base sm:text-lg mt-2 max-w-2xl leading-relaxed">
             Bekijk het actuele overzicht van concerten, voorstellingen, tentoonstellingen en festivals in en rondom de Gelderse hoofdstad.

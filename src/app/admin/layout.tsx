@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
+  BarChart3,
   FileText,
   Calendar,
   Users,
@@ -86,6 +87,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const navItems = [
     { href: '/admin', label: 'Overzicht', icon: LayoutDashboard },
+    { href: '/admin/statistieken', label: 'Statistieken', icon: BarChart3 },
     { href: '/admin/articles', label: 'Artikelen', icon: FileText },
     { href: '/admin/agenda', label: 'Agenda & Inzendingen', icon: Calendar },
     { href: '/admin/locaties', label: 'Vaste Locaties', icon: MapPin },
