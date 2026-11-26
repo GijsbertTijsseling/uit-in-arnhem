@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { getArticles } from '@/lib/supabase/api';
+import { getAllArticlesForAdminServer } from '@/lib/supabase/admin-server';
 import { getEntityViewCounts } from '@/lib/analytics';
 import { PlusCircle } from 'lucide-react';
 import { AdminArticlesTable } from '@/components/admin/AdminArticlesTable';
@@ -9,7 +9,7 @@ export const revalidate = 0;
 
 export default async function AdminArticlesListPage() {
   const [articles, viewCounts] = await Promise.all([
-    getArticles(),
+    getAllArticlesForAdminServer(),
     getEntityViewCounts('article', 30),
   ]);
 

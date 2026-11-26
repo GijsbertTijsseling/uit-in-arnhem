@@ -17,7 +17,7 @@ function resolveMediaImage(url?: string | null): string {
   return url || '/logo.png';
 }
 
-function mapArticleItem(item: any): Article {
+export function mapArticleItem(item: any): Article {
   const resolvedAuthorName =
     item.author_name?.trim() ||
     item.profiles?.full_name?.trim() ||
@@ -179,6 +179,67 @@ export async function getEvents(options: { includePast?: boolean } = {}): Promis
   }
 }
 
+export function mapAdminEventItem(item: any): AgendaItem {
+  const loc = item.locations || (item.venue_name ? getLocationFromCatalog(item.venue_name) : null);
+  let contactInfo: any = {};
+  if (Array.isArray(item.performances)) {
+    const sub = item.performances.find((p: any) => p && p.type === 'submission_contact');
+    if (sub) {
+      contactInfo = sub;
+    }
+  }
+
+  return {
+    id: item.id || `evt-${item.slug}`,
+    slug: item.slug,
+    title: item.title,
+    short_description: cleanHtml(item.short_description) || cleanHtml(item.description).slice(0, 140) + '...',
+    full_description: item.description || '',
+    hero_image_url: resolveMediaImage(
+      item.featured_image ||
+      item.hero_image ||
+      item.hero_image_url ||
+      loc?.featured_image
+    ),
+    category: item.event_categories?.slug || item.category_slug || item.category || 'cultuur',
+    start_date: item.start_date,
+    end_date: item.end_date,
+    is_all_day: !!item.is_all_day,
+    is_recurring: !!item.is_recurring,
+    recurrence_rule: item.recurrence_rule,
+    venue_name: item.venue_name || loc?.name || 'Arnhem',
+    venue_address: item.venue_address || loc?.address || 'Arnhem',
+    venue_city: item.venue_city || loc?.city || 'Arnhem',
+    location_id: item.location_id || loc?.id || null,
+    location_slug: loc?.slug || null,
+    location: loc || null,
+    coordinates: item.coordinates || loc?.coordinates,
+    price_type: item.price_type || (item.price === 0 ? 'free' : 'paid'),
+    price_from: item.price_from ?? item.price ?? null,
+    price_to: item.price_to,
+    ticket_url: item.ticket_url,
+    organizer_name: contactInfo.contact_name || item.organizer_name || undefined,
+    contact_name: contactInfo.contact_name || undefined,
+    contact_email: contactInfo.contact_email || (item.source === 'external_submission' ? item.source_url : undefined),
+    contact_phone: contactInfo.contact_phone || undefined,
+    submission_notes: contactInfo.submission_notes || undefined,
+    status: item.status || 'published',
+    is_highlight: !!item.is_highlight,
+    source: item.source || 'manual',
+    source_id: item.source_id,
+    source_url: item.source_url,
+    production_id: item.production_id,
+    performances: item.performances || [],
+    is_manually_edited: !!item.is_manually_edited,
+    manual_override_fields: item.manual_override_fields || [],
+    missing_count: item.missing_count || 0,
+    missing_since: item.missing_since,
+    last_synced_at: item.last_synced_at,
+    created_at: item.created_at,
+    updated_at: item.updated_at,
+  };
+}
+
 export async function getAllEventsForAdmin(options: { status?: string } = {}): Promise<AgendaItem[]> {
   try {
     const supabase = createClient();
@@ -197,66 +258,7 @@ export async function getAllEventsForAdmin(options: { status?: string } = {}): P
       return [];
     }
 
-    return data.map((item: any) => {
-      const loc = item.locations || (item.venue_name ? getLocationFromCatalog(item.venue_name) : null);
-      let contactInfo: any = {};
-      if (Array.isArray(item.performances)) {
-        const sub = item.performances.find((p: any) => p && p.type === 'submission_contact');
-        if (sub) {
-          contactInfo = sub;
-        }
-      }
-
-      return {
-        id: item.id || `evt-${item.slug}`,
-        slug: item.slug,
-        title: item.title,
-        short_description: cleanHtml(item.short_description) || cleanHtml(item.description).slice(0, 140) + '...',
-        full_description: item.description || '',
-        hero_image_url: resolveMediaImage(
-          item.featured_image ||
-          item.hero_image ||
-          item.hero_image_url ||
-          loc?.featured_image
-        ),
-        category: item.event_categories?.slug || item.category_slug || item.category || 'cultuur',
-        start_date: item.start_date,
-        end_date: item.end_date,
-        is_all_day: !!item.is_all_day,
-        is_recurring: !!item.is_recurring,
-        recurrence_rule: item.recurrence_rule,
-        venue_name: item.venue_name || loc?.name || 'Arnhem',
-        venue_address: item.venue_address || loc?.address || 'Arnhem',
-        venue_city: item.venue_city || loc?.city || 'Arnhem',
-        location_id: item.location_id || loc?.id || null,
-        location_slug: loc?.slug || null,
-        location: loc || null,
-        coordinates: item.coordinates || loc?.coordinates,
-        price_type: item.price_type || (item.price === 0 ? 'free' : 'paid'),
-        price_from: item.price_from ?? item.price ?? null,
-        price_to: item.price_to,
-        ticket_url: item.ticket_url,
-        organizer_name: contactInfo.contact_name || item.organizer_name || undefined,
-        contact_name: contactInfo.contact_name || undefined,
-        contact_email: contactInfo.contact_email || (item.source === 'external_submission' ? item.source_url : undefined),
-        contact_phone: contactInfo.contact_phone || undefined,
-        submission_notes: contactInfo.submission_notes || undefined,
-        status: item.status || 'published',
-        is_highlight: !!item.is_highlight,
-        source: item.source || 'manual',
-        source_id: item.source_id,
-        source_url: item.source_url,
-        production_id: item.production_id,
-        performances: item.performances || [],
-        is_manually_edited: !!item.is_manually_edited,
-        manual_override_fields: item.manual_override_fields || [],
-        missing_count: item.missing_count || 0,
-        missing_since: item.missing_since,
-        last_synced_at: item.last_synced_at,
-        created_at: item.created_at,
-        updated_at: item.updated_at,
-      };
-    });
+    return data.map(mapAdminEventItem);
   } catch (err) {
     console.error('Failed to get admin events:', err);
     return [];
@@ -484,6 +486,8 @@ async function getImageDimensions(file: File | Blob, fileName = ''): Promise<{ w
 export interface UploadImageOptions {
   minWidth?: number;
   minHeight?: number;
+  /** Optional subfolder under `uploads/` (e.g. `'submissions'` for public event submissions). */
+  folder?: string;
 }
 
 export async function uploadImageToSupabase(
@@ -524,7 +528,8 @@ export async function uploadImageToSupabase(
 
   const safeExt = fileExt || 'jpg';
   const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${safeExt}`;
-  const filePath = `uploads/${fileName}`;
+  const cleanFolder = options.folder ? options.folder.replace(/^\/+|\/+$/g, '') : '';
+  const filePath = cleanFolder ? `uploads/${cleanFolder}/${fileName}` : `uploads/${fileName}`;
 
   const { error: uploadError } = await supabase.storage
     .from('media')
@@ -710,6 +715,38 @@ export async function setFeaturedArticle(
   }
 }
 
+export async function deleteArticleFromSupabase(
+  articleId: string
+): Promise<{ success: boolean; error?: any }> {
+  try {
+    if (!articleId || articleId.startsWith('art-')) {
+      return { success: false, error: { message: 'Ongeldig artikel-ID.' } };
+    }
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('articles')
+      .delete()
+      .eq('id', articleId)
+      .select('id');
+
+    if (error) {
+      console.error('Failed to delete article:', error);
+      return { success: false, error };
+    }
+
+    if (!data || data.length === 0) {
+      return {
+        success: false,
+        error: { message: 'Artikel niet gevonden of onvoldoende rechten om te verwijderen.' },
+      };
+    }
+
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: { message: err?.message || 'Kon artikel niet verwijderen.' } };
+  }
+}
+
 export async function saveEventToSupabase(event: Partial<AgendaItem>): Promise<{ data: any; error: any }> {
   const supabase = createClient();
   const categoryId = await resolveEventCategoryId(supabase, event.category);
@@ -825,12 +862,12 @@ export async function submitPublicEvent(event: {
     is_manually_edited: true,
   };
 
-  const { data, error } = await supabase
+  // Omit .select() so anonymous visitors can submit without needing SELECT RLS access on 'submitted' rows
+  const { error } = await supabase
     .from('events')
-    .insert([payload])
-    .select();
+    .insert([payload]);
 
-  return { data, error };
+  return { data: null, error };
 }
 
 export async function updateEventStatus(
@@ -854,6 +891,38 @@ export async function updateEventStatus(
     return { success: true };
   } catch (err: any) {
     return { success: false, error: err.message || err };
+  }
+}
+
+export async function deleteEventFromSupabase(
+  eventId: string
+): Promise<{ success: boolean; error?: any }> {
+  try {
+    if (!eventId || eventId.startsWith('evt-')) {
+      return { success: false, error: { message: 'Ongeldig evenement-ID.' } };
+    }
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('events')
+      .delete()
+      .eq('id', eventId)
+      .select('id');
+
+    if (error) {
+      console.error('Failed to delete event:', error);
+      return { success: false, error };
+    }
+
+    if (!data || data.length === 0) {
+      return {
+        success: false,
+        error: { message: 'Evenement niet gevonden of onvoldoende rechten om te verwijderen.' },
+      };
+    }
+
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: { message: err?.message || 'Kon evenement niet verwijderen.' } };
   }
 }
 

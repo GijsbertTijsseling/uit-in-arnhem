@@ -105,7 +105,7 @@ export function PublicEventSubmissionForm() {
     setErrorMessage('');
 
     try {
-      const publicUrl = await uploadImageToSupabase(file);
+      const publicUrl = await uploadImageToSupabase(file, { folder: 'submissions' });
       if (publicUrl) {
         setHeroImage(publicUrl);
       } else {

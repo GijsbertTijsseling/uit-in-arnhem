@@ -5,9 +5,16 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { AgendaItem, Location } from '@/types';
 import { EVENT_CATEGORIES } from '@/data/mockData';
-import { uploadImageToSupabase, saveEventToSupabase, saveLocationToSupabase, getLocations } from '@/lib/supabase/api';
+import {
+  uploadImageToSupabase,
+  saveEventToSupabase,
+  deleteEventFromSupabase,
+  saveLocationToSupabase,
+  getLocations,
+} from '@/lib/supabase/api';
 import { LOCATIONS_CATALOG } from '@/data/locationsData';
 import { LocationCombobox } from '@/components/admin/LocationCombobox';
+import { ConfirmDeleteModal } from '@/components/admin/ConfirmDeleteModal';
 import {
   Save,
   Upload,
@@ -99,8 +106,30 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
   // State
   const [uploadingImage, setUploadingImage] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [saveAsNewLocation, setSaveAsNewLocation] = useState(false);
+
+  const canDelete = Boolean(!isNew && initialEvent?.id && !initialEvent.id.startsWith('evt-'));
+
+  const handleConfirmDelete = async () => {
+    if (!initialEvent?.id) return;
+    setDeleting(true);
+    setFeedback(null);
+    const { success, error } = await deleteEventFromSupabase(initialEvent.id);
+    if (!success) {
+      setFeedback({
+        type: 'error',
+        message: error?.message || 'Kon evenement niet verwijderen.',
+      });
+      setDeleting(false);
+      setDeleteModalOpen(false);
+      return;
+    }
+    router.push('/admin/agenda');
+    router.refresh();
+  };
 
   const handleLocationSelect = (loc: Location | null) => {
     if (!loc) {
@@ -232,11 +261,23 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          {canDelete && (
+            <button
+              type="button"
+              disabled={saving || deleting}
+              onClick={() => setDeleteModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-rose-200 text-xs font-semibold text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer disabled:opacity-50"
+              title="Evenement verwijderen"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>Verwijderen</span>
+            </button>
+          )}
           <button
             type="button"
             onClick={() => router.push('/admin/agenda')}
-            className="px-4 py-2.5 rounded-xl border border-zinc-300 text-xs font-semibold text-zinc-700 hover:bg-zinc-50 transition-colors"
+            className="px-4 py-2.5 rounded-xl border border-zinc-300 text-xs font-semibold text-zinc-700 hover:bg-zinc-50 transition-colors cursor-pointer"
           >
             Annuleren
           </button>
@@ -635,6 +676,16 @@ export function AgendaEditorForm({ initialEvent, isNew = false }: AgendaEditorFo
           </div>
         </div>
       </div>
+
+      <ConfirmDeleteModal
+        open={deleteModalOpen}
+        title="Evenement verwijderen"
+        itemName={title || initialEvent?.title || 'Dit evenement'}
+        description="Het evenement wordt definitief verwijderd uit het CMS en de agenda."
+        loading={deleting}
+        onCancel={() => setDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+      />
     </form>
   );
 }

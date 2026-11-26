@@ -3,11 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { AgendaItem } from '@/types';
-import { updateEventStatus } from '@/lib/supabase/api';
+import { updateEventStatus, deleteEventFromSupabase } from '@/lib/supabase/api';
 import { getCurrentEditorUser } from '@/lib/auth';
 import { formatDate, formatTime } from '@/lib/utils';
 import { getEventCategoryLabel } from '@/data/mockData';
+import { ConfirmDeleteModal } from '@/components/admin/ConfirmDeleteModal';
 import {
   Calendar,
   Sparkles,
@@ -25,6 +27,7 @@ import {
   AlertCircle,
   PlusCircle,
   Search,
+  Trash2,
 } from 'lucide-react';
 
 interface AdminAgendaManagerProps {
@@ -38,8 +41,15 @@ export function AdminAgendaManager({
   userRole: initialRole,
   viewCounts = {},
 }: AdminAgendaManagerProps) {
+  const router = useRouter();
   const [userRole, setUserRole] = useState<string>(initialRole || 'editor');
   const [events, setEvents] = useState<AgendaItem[]>(initialEvents);
+  const [deleteTarget, setDeleteTarget] = useState<AgendaItem | null>(null);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    setEvents(initialEvents);
+  }, [initialEvents]);
 
   useEffect(() => {
     if (initialRole) return;
@@ -75,6 +85,7 @@ export function AdminAgendaManager({
             : 'Evenement afgewezen.',
           'success'
         );
+        router.refresh();
       } else {
         showToast('Fout bij het bijwerken van de status.', 'error');
       }
@@ -82,6 +93,27 @@ export function AdminAgendaManager({
       showToast('Er is een onverwachte fout opgetreden.', 'error');
     } finally {
       setLoadingId(null);
+    }
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
+    try {
+      const res = await deleteEventFromSupabase(deleteTarget.id);
+      if (res.success) {
+        const removedTitle = deleteTarget.title;
+        setEvents((prev) => prev.filter((e) => e.id !== deleteTarget.id));
+        showToast(`"${removedTitle}" is definitief verwijderd.`, 'success');
+        router.refresh();
+      } else {
+        showToast(res.error?.message || 'Kon evenement niet verwijderen.', 'error');
+      }
+    } catch {
+      showToast('Er is een onverwachte fout opgetreden bij het verwijderen.', 'error');
+    } finally {
+      setDeleting(false);
+      setDeleteTarget(null);
     }
   };
 
@@ -115,11 +147,10 @@ export function AdminAgendaManager({
       {/* Toast Alert */}
       {toastMessage && (
         <div
-          className={`p-4 rounded-2xl border text-sm font-medium flex items-center gap-3 transition-all animate-in fade-in shadow-md ${
-            toastMessage.type === 'success'
+          className={`p-4 rounded-2xl border text-sm font-medium flex items-center gap-3 transition-all animate-in fade-in shadow-md ${toastMessage.type === 'success'
               ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
               : 'bg-rose-50 border-rose-300 text-rose-900'
-          }`}
+            }`}
         >
           {toastMessage.type === 'success' ? (
             <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
@@ -168,11 +199,10 @@ export function AdminAgendaManager({
           <button
             type="button"
             onClick={() => setActiveTab('submitted')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer ${
-              activeTab === 'submitted'
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer ${activeTab === 'submitted'
                 ? 'bg-zinc-900 text-white shadow-xs'
                 : 'text-zinc-600 hover:text-zinc-900'
-            }`}
+              }`}
           >
             <span>Inzendingen ter Goedkeuring</span>
             {submittedCount > 0 ? (
@@ -181,9 +211,8 @@ export function AdminAgendaManager({
               </span>
             ) : (
               <span
-                className={`px-2 py-0.5 rounded-full text-[10px] ${
-                  activeTab === 'submitted' ? 'bg-white/15 text-zinc-200' : 'bg-zinc-200 text-zinc-600'
-                }`}
+                className={`px-2 py-0.5 rounded-full text-[10px] ${activeTab === 'submitted' ? 'bg-white/15 text-zinc-200' : 'bg-zinc-200 text-zinc-600'
+                  }`}
               >
                 0
               </span>
@@ -193,11 +222,10 @@ export function AdminAgendaManager({
           <button
             type="button"
             onClick={() => setActiveTab('all')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
-              activeTab === 'all'
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${activeTab === 'all'
                 ? 'bg-zinc-900 text-white shadow-xs'
                 : 'text-zinc-600 hover:text-zinc-900'
-            }`}
+              }`}
           >
             Alle Evenementen ({events.length})
           </button>
@@ -205,11 +233,10 @@ export function AdminAgendaManager({
           <button
             type="button"
             onClick={() => setActiveTab('published')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
-              activeTab === 'published'
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${activeTab === 'published'
                 ? 'bg-zinc-900 text-white shadow-xs'
                 : 'text-zinc-600 hover:text-zinc-900'
-            }`}
+              }`}
           >
             Live Gepubliceerd ({publishedCount})
           </button>
@@ -217,11 +244,10 @@ export function AdminAgendaManager({
           <button
             type="button"
             onClick={() => setActiveTab('other')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
-              activeTab === 'other'
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${activeTab === 'other'
                 ? 'bg-zinc-900 text-white shadow-xs'
                 : 'text-zinc-600 hover:text-zinc-900'
-            }`}
+              }`}
           >
             Concept / Afgewezen ({otherCount})
           </button>
@@ -342,12 +368,23 @@ export function AdminAgendaManager({
 
                     <button
                       type="button"
-                      disabled={loadingId === evt.id}
+                      disabled={loadingId === evt.id || deleting}
                       onClick={() => handleStatusChange(evt.id, 'rejected')}
                       className="p-2.5 text-zinc-400 hover:text-rose-600 rounded-xl hover:bg-rose-50 transition-colors border border-zinc-200 cursor-pointer disabled:opacity-50"
                       title="Afwijzen"
                     >
                       <XCircle className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      type="button"
+                      disabled={loadingId === evt.id || deleting}
+                      onClick={() => setDeleteTarget(evt)}
+                      className="p-2.5 text-zinc-400 hover:text-rose-600 rounded-xl hover:bg-rose-50 transition-colors border border-zinc-200 cursor-pointer disabled:opacity-50"
+                      title="Definitief verwijderen"
+                      aria-label={`Verwijder evenement ${evt.title}`}
+                    >
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -395,147 +432,283 @@ export function AdminAgendaManager({
           </div>
         </div>
       ) : (
-        /* Regular Table View for All / Published / Other */
-        <div className="bg-white rounded-3xl border border-zinc-200/90 shadow-xs overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-zinc-50 border-b border-zinc-200 text-[11px] font-bold uppercase tracking-wider text-zinc-500">
-                  <th className="py-4 px-6">Evenement</th>
-                  <th className="py-4 px-4">Status</th>
-                  <th className="py-4 px-4">Datum & Tijd</th>
-                  <th className="py-4 px-4">Podium / Locatie</th>
-                  <th className="py-4 px-4">Entree</th>
-                  <th className="py-4 px-4 text-right">Weergaven (30d)</th>
-                  <th className="py-4 px-6 text-right">Acties</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-zinc-100 text-xs">
-                {filteredEvents.map((evt) => {
-                  const isFree = evt.price_type === 'free' || evt.price_from === 0;
-                  return (
-                    <tr key={evt.id} className="hover:bg-zinc-50/80 transition-colors">
-                      <td className="py-4 px-6">
-                        <div className="flex items-center gap-3">
-                          <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-zinc-100 shrink-0 border border-zinc-200">
-                            <Image
-                              src={evt.hero_image_url || '/logo.png'}
-                              alt={evt.title}
-                              fill
-                              sizes="48px"
-                              className="object-cover"
-                            />
-                          </div>
-                          <div className="max-w-xs sm:max-w-sm">
-                            <div className="font-bold text-zinc-900 line-clamp-1 text-sm">
-                              {evt.title}
-                            </div>
-                            <div className="text-zinc-500 line-clamp-1 mt-0.5 text-xs">
-                              {evt.short_description}
-                            </div>
-                            {evt.is_highlight && (
-                              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#FF4F00] mt-1">
-                                <Sparkles className="w-3 h-3" />
-                                Redactietip
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </td>
+        /* Regular View for All / Published / Other */
+        <>
+          {/* Mobile Card View (< md) */}
+          <div className="md:hidden space-y-3">
+            {filteredEvents.map((evt) => {
+              const isFree = evt.price_type === 'free' || evt.price_from === 0;
+              const stat = viewCounts[evt.slug];
+              const views = stat?.views ?? 0;
 
-                      <td className="py-4 px-4">
-                        {evt.status === 'published' ? (
-                          <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-bold uppercase text-[10px] tracking-wider">
-                            Live
-                          </span>
-                        ) : evt.status === 'submitted' ? (
-                          <span className="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 font-bold uppercase text-[10px] tracking-wider">
-                            Inzending
-                          </span>
-                        ) : evt.status === 'rejected' ? (
-                          <span className="px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 font-bold uppercase text-[10px] tracking-wider">
-                            Afgewezen
-                          </span>
-                        ) : (
-                          <span className="px-2.5 py-1 rounded-full bg-zinc-100 text-zinc-700 font-semibold uppercase text-[10px] tracking-wider">
-                            {evt.status}
-                          </span>
-                        )}
-                      </td>
-
-                      <td className="py-4 px-4">
-                        <div className="font-semibold text-zinc-800">
-                          {formatDate(evt.start_date)}
-                        </div>
-                        <div className="text-zinc-400 text-[11px]">
-                          {formatTime(evt.start_date)} uur
-                        </div>
-                      </td>
-
-                      <td className="py-4 px-4">
-                        <div className="font-semibold text-zinc-900">{evt.venue_name}</div>
-                        <div className="text-zinc-400 text-[11px] truncate max-w-36">{evt.venue_address}</div>
-                      </td>
-
-                      <td className="py-4 px-4">
-                        <span
-                          className={`px-2.5 py-1 rounded-full font-bold text-[10px] uppercase tracking-wider ${
-                            isFree ? 'bg-emerald-50 text-emerald-700' : 'bg-zinc-100 text-zinc-800'
-                          }`}
-                        >
-                          {isFree ? 'Gratis' : evt.price_from != null ? `€${evt.price_from.toFixed(2)}` : '–'}
+              return (
+                <div
+                  key={evt.id}
+                  className="bg-white rounded-2xl border border-zinc-200/90 p-4 shadow-xs space-y-3"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-zinc-100 shrink-0 border border-zinc-200">
+                      <Image
+                        src={evt.hero_image_url || '/logo.png'}
+                        alt={evt.title}
+                        fill
+                        sizes="48px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-bold text-zinc-900 text-sm leading-snug line-clamp-2">
+                        {evt.title}
+                      </div>
+                      {evt.is_highlight && (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#FF4F00] mt-0.5">
+                          <Sparkles className="w-3 h-3" />
+                          Redactietip
                         </span>
-                      </td>
+                      )}
+                    </div>
+                  </div>
 
-                      <td className="py-4 px-4 text-right">
-                        {(() => {
-                          const stat = viewCounts[evt.slug];
-                          const views = stat?.views ?? 0;
-                          const unique = stat?.uniqueVisitors ?? 0;
-                          return (
-                            <div
-                              title={`${views.toLocaleString('nl-NL')} weergaven, ${unique.toLocaleString('nl-NL')} unieke dagbezoekers (30d)`}
-                            >
-                              <div className="font-bold text-zinc-900 tabular-nums">
-                                {views.toLocaleString('nl-NL')}
-                              </div>
-                              <div className="text-[10px] text-zinc-400 tabular-nums">
-                                {unique.toLocaleString('nl-NL')} uniek/dag
-                              </div>
-                            </div>
-                          );
-                        })()}
-                      </td>
+                  <div className="flex flex-wrap items-center gap-2 text-[11px] text-zinc-500">
+                    {evt.status === 'published' ? (
+                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold uppercase text-[10px] tracking-wider">
+                        Live
+                      </span>
+                    ) : evt.status === 'submitted' ? (
+                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-bold uppercase text-[10px] tracking-wider">
+                        Inzending
+                      </span>
+                    ) : evt.status === 'rejected' ? (
+                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-700 font-bold uppercase text-[10px] tracking-wider">
+                        Afgewezen
+                      </span>
+                    ) : (
+                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-700 font-semibold uppercase text-[10px] tracking-wider">
+                        {evt.status}
+                      </span>
+                    )}
 
-                      <td className="py-4 px-6 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          {evt.status === 'published' && (
-                            <Link
-                              href={`/agenda/${evt.slug}`}
-                              target="_blank"
-                              className="p-2 text-zinc-400 hover:text-zinc-700 rounded-lg hover:bg-zinc-100"
-                              title="Bekijk live in agenda"
-                            >
-                              <Eye className="w-4 h-4" />
-                            </Link>
-                          )}
-                          <Link
-                            href={`/admin/agenda/${evt.id}`}
-                            className="p-2 text-zinc-600 hover:text-[#FF4F00] rounded-lg hover:bg-[#FFF3ED] transition-colors"
-                            title="Bewerken"
-                          >
-                            <Edit3 className="w-4 h-4" />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                    <span
+                      className={`inline-block px-2.5 py-0.5 rounded-full font-bold text-[10px] uppercase tracking-wider ${isFree ? 'bg-emerald-50 text-emerald-700' : 'bg-zinc-100 text-zinc-800'
+                        }`}
+                    >
+                      {isFree ? 'Gratis' : evt.price_from != null ? `€${evt.price_from.toFixed(2)}` : '–'}
+                    </span>
+
+                    <span className="tabular-nums">· {views.toLocaleString('nl-NL')} weergaven</span>
+                  </div>
+
+                  <div className="space-y-1 text-xs text-zinc-600">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                      <span className="font-medium text-zinc-800">{formatDate(evt.start_date)}</span>
+                      <span className="text-zinc-400">om {formatTime(evt.start_date)} uur</span>
+                    </div>
+                    {evt.venue_name && (
+                      <div className="flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                        <span className="truncate">{evt.venue_name}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="pt-3 border-t border-zinc-100 flex items-center justify-end gap-1">
+                    {evt.status === 'published' && (
+                      <Link
+                        href={`/agenda/${evt.slug}`}
+                        target="_blank"
+                        className="p-2 text-zinc-500 hover:text-zinc-800 rounded-lg hover:bg-zinc-100 transition-colors"
+                        title="Bekijk live in agenda"
+                        aria-label={`Bekijk evenement ${evt.title}`}
+                      >
+                        <Eye className="w-4 h-4" />
+                      </Link>
+                    )}
+                    <Link
+                      href={`/admin/agenda/${evt.id}`}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-zinc-700 hover:text-[#FF4F00] rounded-lg hover:bg-[#FFF3ED] border border-zinc-200 transition-colors"
+                      title="Bewerken"
+                    >
+                      <Edit3 className="w-3.5 h-3.5" />
+                      <span>Bewerken</span>
+                    </Link>
+                    <button
+                      type="button"
+                      disabled={deleting}
+                      onClick={() => setDeleteTarget(evt)}
+                      className="p-2 text-zinc-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors cursor-pointer disabled:opacity-50"
+                      title="Evenement verwijderen"
+                      aria-label={`Verwijder evenement ${evt.title}`}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        </div>
+
+          {/* Tablet & Desktop Table View (>= md) */}
+          <div className="hidden md:block bg-white rounded-3xl border border-zinc-200/90 shadow-xs overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-zinc-50 border-b border-zinc-200 text-[11px] font-bold uppercase tracking-wider text-zinc-500">
+                    <th className="py-3.5 pl-5 pr-3 w-full min-w-[180px]">Evenement</th>
+                    <th className="py-3.5 px-3 whitespace-nowrap">Status</th>
+                    <th className="py-3.5 px-3 whitespace-nowrap">Datum &amp; Tijd</th>
+                    <th className="hidden lg:table-cell py-3.5 px-3 whitespace-nowrap">Locatie</th>
+                    <th className="hidden lg:table-cell py-3.5 px-3 whitespace-nowrap">Entree</th>
+                    <th className="hidden xl:table-cell py-3.5 px-3 text-right whitespace-nowrap">Weergaven</th>
+                    <th className="py-3.5 pl-3 pr-5 text-right whitespace-nowrap">Acties</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-100 text-xs">
+                  {filteredEvents.map((evt) => {
+                    const isFree = evt.price_type === 'free' || evt.price_from === 0;
+                    return (
+                      <tr key={evt.id} className="hover:bg-zinc-50/80 transition-colors">
+                        <td className="py-3.5 pl-5 pr-3 max-w-0">
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-zinc-100 shrink-0 border border-zinc-200">
+                              <Image
+                                src={evt.hero_image_url || '/logo.png'}
+                                alt={evt.title}
+                                fill
+                                sizes="40px"
+                                className="object-cover"
+                              />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="font-bold text-zinc-900 truncate text-sm">
+                                {evt.title}
+                              </div>
+                              <div className="text-zinc-500 truncate mt-0.5 text-xs">
+                                {evt.short_description}
+                              </div>
+                              {evt.is_highlight && (
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#FF4F00] mt-1">
+                                  <Sparkles className="w-3 h-3" />
+                                  Redactietip
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </td>
+
+                        <td className="py-3.5 px-3 whitespace-nowrap">
+                          {evt.status === 'published' ? (
+                            <span className="inline-block px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-bold uppercase text-[10px] tracking-wider">
+                              Live
+                            </span>
+                          ) : evt.status === 'submitted' ? (
+                            <span className="inline-block px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 font-bold uppercase text-[10px] tracking-wider">
+                              Inzending
+                            </span>
+                          ) : evt.status === 'rejected' ? (
+                            <span className="inline-block px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 font-bold uppercase text-[10px] tracking-wider">
+                              Afgewezen
+                            </span>
+                          ) : (
+                            <span className="inline-block px-2.5 py-1 rounded-full bg-zinc-100 text-zinc-700 font-semibold uppercase text-[10px] tracking-wider">
+                              {evt.status}
+                            </span>
+                          )}
+                        </td>
+
+                        <td className="py-3.5 px-3 whitespace-nowrap">
+                          <div className="font-semibold text-zinc-800">
+                            {formatDate(evt.start_date)}
+                          </div>
+                          <div className="text-zinc-400 text-[11px]">
+                            {formatTime(evt.start_date)} uur
+                          </div>
+                        </td>
+
+                        <td className="hidden lg:table-cell py-3.5 px-3 whitespace-nowrap">
+                          <div className="font-semibold text-zinc-900 truncate max-w-36">{evt.venue_name}</div>
+                          <div className="text-zinc-400 text-[11px] truncate max-w-36">{evt.venue_address}</div>
+                        </td>
+
+                        <td className="hidden lg:table-cell py-3.5 px-3 whitespace-nowrap">
+                          <span
+                            className={`inline-block px-2.5 py-1 rounded-full font-bold text-[10px] uppercase tracking-wider ${isFree ? 'bg-emerald-50 text-emerald-700' : 'bg-zinc-100 text-zinc-800'
+                              }`}
+                          >
+                            {isFree ? 'Gratis' : evt.price_from != null ? `€${evt.price_from.toFixed(2)}` : '–'}
+                          </span>
+                        </td>
+
+                        <td className="hidden xl:table-cell py-3.5 px-3 text-right whitespace-nowrap">
+                          {(() => {
+                            const stat = viewCounts[evt.slug];
+                            const views = stat?.views ?? 0;
+                            const unique = stat?.uniqueVisitors ?? 0;
+                            return (
+                              <div
+                                title={`${views.toLocaleString('nl-NL')} weergaven, ${unique.toLocaleString('nl-NL')} unieke dagbezoekers (30d)`}
+                              >
+                                <div className="font-bold text-zinc-900 tabular-nums">
+                                  {views.toLocaleString('nl-NL')}
+                                </div>
+                                <div className="text-[10px] text-zinc-400 tabular-nums">
+                                  {unique.toLocaleString('nl-NL')} uniek/dag
+                                </div>
+                              </div>
+                            );
+                          })()}
+                        </td>
+
+                        <td className="py-3.5 pl-3 pr-5 text-right whitespace-nowrap">
+                          <div className="flex items-center justify-end gap-1">
+                            {evt.status === 'published' && (
+                              <Link
+                                href={`/agenda/${evt.slug}`}
+                                target="_blank"
+                                className="p-1.5 text-zinc-400 hover:text-zinc-700 rounded-lg hover:bg-zinc-100 transition-colors"
+                                title="Bekijk live in agenda"
+                              >
+                                <Eye className="w-4 h-4" />
+                              </Link>
+                            )}
+                            <Link
+                              href={`/admin/agenda/${evt.id}`}
+                              className="p-1.5 text-zinc-600 hover:text-[#FF4F00] rounded-lg hover:bg-[#FFF3ED] transition-colors"
+                              title="Bewerken"
+                            >
+                              <Edit3 className="w-4 h-4" />
+                            </Link>
+                            <button
+                              type="button"
+                              disabled={deleting}
+                              onClick={() => setDeleteTarget(evt)}
+                              className="p-1.5 text-zinc-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors cursor-pointer disabled:opacity-50"
+                              title="Evenement verwijderen"
+                              aria-label={`Verwijder evenement ${evt.title}`}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
       )}
+
+      <ConfirmDeleteModal
+        open={Boolean(deleteTarget)}
+        title="Evenement verwijderen"
+        itemName={deleteTarget?.title || ''}
+        description="Het evenement wordt definitief verwijderd uit het CMS en de agenda."
+        loading={deleting}
+        onCancel={() => setDeleteTarget(null)}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 }

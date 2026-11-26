@@ -8,10 +8,16 @@ import {
   SUGGESTED_ARTICLE_TAGS,
   normalizeArticleCategorySlug,
 } from '@/data/mockData';
-import { uploadImageToSupabase, saveArticleToSupabase, getLocations } from '@/lib/supabase/api';
+import {
+  uploadImageToSupabase,
+  saveArticleToSupabase,
+  deleteArticleFromSupabase,
+  getLocations,
+} from '@/lib/supabase/api';
 import { getCurrentEditorUser, DEFAULT_AUTHOR_NAME } from '@/lib/auth';
 import { LOCATIONS_CATALOG } from '@/data/locationsData';
 import { LocationCombobox } from '@/components/admin/LocationCombobox';
+import { ConfirmDeleteModal } from '@/components/admin/ConfirmDeleteModal';
 import { LayoutTemplateView } from '@/components/articles/LayoutTemplateView';
 import {
   Save,
@@ -121,7 +127,29 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
   // Loading & notification states
   const [uploadingImage, setUploadingImage] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
+  const canDelete = Boolean(!isNew && initialArticle?.id && !initialArticle.id.startsWith('art-'));
+
+  const handleConfirmDelete = async () => {
+    if (!initialArticle?.id) return;
+    setDeleting(true);
+    setFeedback(null);
+    const { success, error } = await deleteArticleFromSupabase(initialArticle.id);
+    if (!success) {
+      setFeedback({
+        type: 'error',
+        message: error?.message || 'Kon artikel niet verwijderen.',
+      });
+      setDeleting(false);
+      setDeleteModalOpen(false);
+      return;
+    }
+    router.push('/admin/articles');
+    router.refresh();
+  };
 
   // Preview & inline photo states
   const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit');
@@ -470,6 +498,18 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
             </button>
           </div>
 
+          {canDelete && (
+            <button
+              type="button"
+              disabled={saving || deleting}
+              onClick={() => setDeleteModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-rose-200 text-xs font-semibold text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer disabled:opacity-50"
+              title="Artikel verwijderen"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>Verwijderen</span>
+            </button>
+          )}
           <button
             type="button"
             onClick={() => router.push('/admin/articles')}
@@ -1305,6 +1345,16 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
           </div>
         </div>
       )}
+
+      <ConfirmDeleteModal
+        open={deleteModalOpen}
+        title="Artikel verwijderen"
+        itemName={title || initialArticle?.title || 'Dit artikel'}
+        description="Het artikel wordt definitief verwijderd uit het CMS en de website."
+        loading={deleting}
+        onCancel={() => setDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+      />
     </form>
   );
 }

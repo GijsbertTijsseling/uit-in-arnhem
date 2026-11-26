@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { getArticles, getAllEventsForAdmin, getLocations } from '@/lib/supabase/api';
+import { getLocations } from '@/lib/supabase/api';
+import { getAllArticlesForAdminServer, getAllEventsForAdminServer } from '@/lib/supabase/admin-server';
 import { getAnalyticsOverview } from '@/lib/analytics';
 import { MigrationPendingNotice } from '@/components/admin/analytics/MigrationPendingNotice';
 import {
@@ -23,8 +24,8 @@ export const revalidate = 0;
 
 export default async function AdminDashboardPage() {
   const [articles, allEvents, locations, analytics] = await Promise.all([
-    getArticles(),
-    getAllEventsForAdmin(),
+    getAllArticlesForAdminServer(),
+    getAllEventsForAdminServer(),
     getLocations(),
     getAnalyticsOverview('30d'),
   ]);
