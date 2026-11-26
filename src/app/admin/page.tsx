@@ -17,6 +17,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
+import { getArticleCategoryLabel, getEventCategoryLabel } from '@/data/mockData';
 
 export const revalidate = 0;
 
@@ -265,7 +266,7 @@ export default async function AdminDashboardPage() {
                 <div className="truncate">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-zinc-100 text-zinc-600">
-                      {art.category}
+                      {getArticleCategoryLabel(art.category)}
                     </span>
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                       art.status === 'published' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'
@@ -315,7 +316,7 @@ export default async function AdminDashboardPage() {
                 <div className="truncate">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-zinc-100 text-zinc-600">
-                      {evt.category}
+                      {getEventCategoryLabel(evt.category)}
                     </span>
                     {evt.is_highlight && (
                       <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FFF3ED] text-[#FF4F00]">

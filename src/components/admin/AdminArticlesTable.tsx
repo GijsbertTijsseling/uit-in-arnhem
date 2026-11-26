@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Edit3, Eye, Flame, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { Article } from '@/types';
 import { formatDate } from '@/lib/utils';
+import { getArticleCategoryLabel } from '@/data/mockData';
 import { setFeaturedArticle } from '@/lib/supabase/api';
 
 interface AdminArticlesTableProps {
@@ -150,7 +151,7 @@ export function AdminArticlesTable({
 
                     <td className="py-4 px-4">
                       <span className="px-2.5 py-1 rounded-full bg-zinc-100 text-zinc-700 font-semibold uppercase text-[10px] tracking-wider">
-                        {article.category}
+                        {getArticleCategoryLabel(article.category)}
                       </span>
                     </td>
 

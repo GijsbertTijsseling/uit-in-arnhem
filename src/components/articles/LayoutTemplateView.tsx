@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Article } from '@/types';
 import { ModularCtaBlock } from './ModularCtaBlock';
 import { formatDate } from '@/lib/utils';
 import { formatRichContent } from '@/lib/contentRenderer';
+import { getArticleCategoryLabel } from '@/data/mockData';
 
 interface LayoutTemplateViewProps {
   article: Article;
@@ -70,7 +72,7 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
 
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mt-6 pt-6 border-t border-white/20 text-xs text-zinc-300">
               <span className="uppercase tracking-wider font-bold text-[#FF4F00]">
-                {article.category}
+                {getArticleCategoryLabel(article.category)}
               </span>
               <span aria-hidden="true">•</span>
               <span className="font-bold text-white">Door {article.author_name || 'Redactie'}</span>
@@ -117,7 +119,7 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
 
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-xs text-zinc-500 font-medium">
                 <span className="uppercase tracking-wider font-bold text-[#FF4F00]">
-                  {article.category}
+                  {getArticleCategoryLabel(article.category)}
                 </span>
                 <span className="text-zinc-300" aria-hidden="true">•</span>
                 <span>Gepubliceerd op {formatDate(article.published_at)}</span>
@@ -160,7 +162,7 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
 
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-xs text-zinc-500 font-medium">
             <span className="uppercase tracking-wider font-bold text-[#FF4F00]">
-              {article.category}
+              {getArticleCategoryLabel(article.category)}
             </span>
             <span className="text-zinc-300" aria-hidden="true">•</span>
             <span>Gepubliceerd op {formatDate(article.published_at)}</span>
@@ -249,12 +251,13 @@ export function LayoutTemplateView({ article }: LayoutTemplateViewProps) {
           <div className="pt-8 border-t border-zinc-200 flex flex-wrap items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 mr-2">Tags:</span>
             {article.tags.map((tag) => (
-              <span
+              <Link
                 key={tag}
+                href={`/artikelen?tag=${encodeURIComponent(tag)}`}
                 className="px-3 py-1 rounded-full bg-zinc-100 text-zinc-700 text-xs font-semibold hover:bg-zinc-200 transition-colors"
               >
                 #{tag}
-              </span>
+              </Link>
             ))}
           </div>
         )}

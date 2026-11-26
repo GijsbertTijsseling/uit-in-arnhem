@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { getArticles } from '@/lib/supabase/api';
+import { getArticleBySlug } from '@/lib/supabase/api';
 import { ArticleEditorForm } from '@/components/admin/ArticleEditorForm';
 
 interface EditArticlePageProps {
@@ -9,8 +9,7 @@ interface EditArticlePageProps {
 
 export default async function EditArticlePage({ params }: EditArticlePageProps) {
   const { id } = await params;
-  const articles = await getArticles();
-  const article = articles.find((a) => a.id === id || a.slug === id);
+  const article = await getArticleBySlug(id);
 
   if (!article) {
     notFound();

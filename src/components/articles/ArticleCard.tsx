@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Clock, ArrowRight } from 'lucide-react';
 import { Article } from '@/types';
 import { formatDate } from '@/lib/utils';
+import { getArticleCategoryLabel } from '@/data/mockData';
 
 interface ArticleCardProps {
   article: Article;
@@ -62,7 +63,7 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <span className="bg-[#FF4F00] text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                {article.category}
+                {getArticleCategoryLabel(article.category)}
               </span>
               <span className="text-xs text-zinc-400 font-medium">
                 {formatDate(article.published_at)}
@@ -143,7 +144,7 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
         />
         <div className="absolute top-3 left-3 z-20">
           <span className="bg-white/90 backdrop-blur-sm text-zinc-900 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-zinc-100 shadow-xs">
-            {article.category}
+            {getArticleCategoryLabel(article.category)}
           </span>
         </div>
       </Link>

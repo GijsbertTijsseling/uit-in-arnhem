@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Clock, ArrowRight } from 'lucide-react';
 import { Article } from '@/types';
 import { formatDate } from '@/lib/utils';
+import { getArticleCategoryLabel } from '@/data/mockData';
 import { ButtonLink } from '@/components/ui/Button';
 
 interface FeaturedStorySectionProps {
@@ -79,7 +80,7 @@ export function FeaturedStorySection({ article }: FeaturedStorySectionProps) {
         <div className="lg:col-span-5 space-y-5">
           <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs font-medium text-ink-muted">
             <span className="uppercase tracking-wider font-bold text-[#FF4F00]">
-              {article.category}
+              {getArticleCategoryLabel(article.category)}
             </span>
             <span aria-hidden="true">•</span>
             <span>{formatDate(article.published_at)}</span>

@@ -10,6 +10,7 @@ import { FeaturedStorySection } from '@/components/home/FeaturedStorySection';
 import { SocialMediaBlock } from '@/components/home/SocialMediaBlock';
 import { ButtonLink } from '@/components/ui/Button';
 import { formatDate } from '@/lib/utils';
+import { getArticleCategoryLabel } from '@/data/mockData';
 import { Calendar, ArrowRight, ArrowUpRight } from 'lucide-react';
 
 export const revalidate = 60; // Revalidate every minute
@@ -148,7 +149,7 @@ export default async function HomePage() {
                   <div className="pt-4 space-y-2">
                     <div className="flex items-center gap-2 text-xs text-ink-muted font-medium">
                       <span className="uppercase tracking-wider font-bold text-[#FF4F00]">
-                        {leadArticle.category}
+                        {getArticleCategoryLabel(leadArticle.category)}
                       </span>
                       <span aria-hidden="true">•</span>
                       <span>{formatDate(leadArticle.published_at)}</span>
@@ -192,7 +193,7 @@ export default async function HomePage() {
                       <div className="flex-1 min-w-0 space-y-1.5 pt-0.5">
                         <div className="flex items-center gap-2 text-[11px] text-ink-muted font-medium">
                           <span className="uppercase tracking-wider font-bold text-[#FF4F00]">
-                            {art.category}
+                            {getArticleCategoryLabel(art.category)}
                           </span>
                           <span aria-hidden="true">•</span>
                           <span>{formatDate(art.published_at)}</span>

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { MapPin, Clock, Sparkles, Calendar, AlertCircle } from 'lucide-react';
 import { AgendaItem } from '@/types';
 import { formatTime, formatPrice } from '@/lib/utils';
+import { getEventCategoryLabel } from '@/data/mockData';
 
 interface EventCardProps {
   event: AgendaItem;
@@ -104,7 +105,7 @@ export function EventCard({ event }: EventCardProps) {
         {/* Price & Category tags bottom - High z-index so tags never disappear behind image */}
         <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between gap-2 pointer-events-none">
           <span className="bg-black/80 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
-            {event.category}
+            {getEventCategoryLabel(event.category)}
           </span>
 
           <span

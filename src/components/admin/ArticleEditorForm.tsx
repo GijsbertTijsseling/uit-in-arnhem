@@ -3,7 +3,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Article, LayoutTemplate, CtaBlock, Location } from '@/types';
-import { ARTICLE_CATEGORIES } from '@/data/mockData';
+import {
+  ARTICLE_CATEGORIES,
+  SUGGESTED_ARTICLE_TAGS,
+  normalizeArticleCategorySlug,
+} from '@/data/mockData';
 import { uploadImageToSupabase, saveArticleToSupabase, getLocations } from '@/lib/supabase/api';
 import { getCurrentEditorUser, DEFAULT_AUTHOR_NAME } from '@/lib/auth';
 import { LOCATIONS_CATALOG } from '@/data/locationsData';
@@ -75,7 +79,15 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
   const [title, setTitle] = useState(initialArticle?.title || '');
   const [slug, setSlug] = useState(initialArticle?.slug || '');
   const [autoSlug, setAutoSlug] = useState(isNew);
-  const [category, setCategory] = useState(initialArticle?.category || 'eten-drinken');
+  const [category, setCategory] = useState(
+    initialArticle?.category
+      ? normalizeArticleCategorySlug(initialArticle.category)
+      : 'eten-drinken'
+  );
+  const [tags, setTags] = useState<string[]>(
+    Array.isArray(initialArticle?.tags) ? initialArticle.tags : []
+  );
+  const [tagInput, setTagInput] = useState('');
   const [template, setTemplate] = useState<LayoutTemplate>(
     initialArticle?.layout_template && initialArticle.layout_template !== 'visual_gallery'
       ? initialArticle.layout_template
@@ -340,7 +352,7 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
     gallery_image_urls: initialArticle?.gallery_image_urls,
     author_name: authorName.trim() || accountAuthorName || DEFAULT_AUTHOR_NAME,
     category,
-    tags: initialArticle?.tags,
+    tags,
     status,
     is_featured: isFeatured,
     layout_template: template,
@@ -376,6 +388,7 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
       title,
       slug,
       category,
+      tags,
       layout_template: template,
       excerpt,
       content,
@@ -390,12 +403,18 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
     try {
       const { error } = await saveArticleToSupabase(articleData);
       if (error) {
-        console.warn('Supabase save error, fallback to local state:', error);
+        console.warn('Supabase save error:', error);
+        setFeedback({
+          type: 'error',
+          message: error.message || 'Opslaan in database is mislukt.',
+        });
+        return;
       }
       setFeedback({ type: 'success', message: 'Artikel succesvol opgeslagen en bijgewerkt!' });
       setTimeout(() => {
         router.push('/admin/articles');
-      }, 1000);
+        router.refresh();
+      }, 800);
     } catch (err: any) {
       setFeedback({ type: 'error', message: err.message || 'Fout bij opslaan.' });
     } finally {
@@ -1081,22 +1100,127 @@ export function ArticleEditorForm({ initialArticle, isNew = false }: ArticleEdit
               </p>
             </div>
 
-            {/* Category */}
-            <div className="bg-white p-6 rounded-3xl border border-zinc-200/90 shadow-xs space-y-3">
-              <h3 className="font-heading font-black text-sm uppercase tracking-wider text-zinc-800">
-                Categorie
-              </h3>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-bold"
-              >
-                {ARTICLE_CATEGORIES.filter((c) => c.id !== 'all').map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.label}
-                  </option>
-                ))}
-              </select>
+            {/* Category & Tags */}
+            <div className="bg-white p-6 rounded-3xl border border-zinc-200/90 shadow-xs space-y-5">
+              <div className="space-y-2.5">
+                <h3 className="font-heading font-black text-sm uppercase tracking-wider text-zinc-800">
+                  Hoofdcategorie
+                </h3>
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="w-full px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#FF4F00] focus:bg-white"
+                >
+                  {ARTICLE_CATEGORIES.filter((c) => c.id !== 'all').map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.label}
+                    </option>
+                  ))}
+                </select>
+                {(() => {
+                  const activeCat = ARTICLE_CATEGORIES.find((c) => c.id === category);
+                  return activeCat?.description ? (
+                    <p className="text-[11px] text-zinc-500 leading-relaxed">
+                      {activeCat.description}
+                    </p>
+                  ) : null;
+                })()}
+              </div>
+
+              <div className="pt-4 border-t border-zinc-100 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                    Tags (Optioneel)
+                  </h4>
+                  <span className="text-[11px] text-zinc-400">Format of wijk</span>
+                </div>
+
+                {/* Selected tags */}
+                {tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-zinc-900 text-white text-[11px] font-semibold"
+                      >
+                        <span>#{tag}</span>
+                        <button
+                          type="button"
+                          onClick={() => setTags((prev) => prev.filter((t) => t !== tag))}
+                          aria-label={`Verwijder tag ${tag}`}
+                          className="text-zinc-300 hover:text-white cursor-pointer"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Free tag input */}
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={tagInput}
+                    onChange={(e) => setTagInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ',') {
+                        e.preventDefault();
+                        const cleaned = tagInput.trim().toLowerCase().replace(/^#+/, '').replace(/,+$/, '');
+                        if (cleaned && !tags.includes(cleaned)) {
+                          setTags((prev) => [...prev, cleaned]);
+                        }
+                        setTagInput('');
+                      }
+                    }}
+                    placeholder="Voeg tag toe en druk op Enter..."
+                    className="flex-1 px-3 py-2 bg-zinc-50 border border-zinc-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#FF4F00] focus:bg-white"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const cleaned = tagInput.trim().toLowerCase().replace(/^#+/, '');
+                      if (cleaned && !tags.includes(cleaned)) {
+                        setTags((prev) => [...prev, cleaned]);
+                      }
+                      setTagInput('');
+                    }}
+                    className="px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    Toevoegen
+                  </button>
+                </div>
+
+                {/* Quick suggested tags */}
+                <div className="space-y-1.5">
+                  <p className="text-[11px] text-zinc-500">Snelle suggesties:</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {SUGGESTED_ARTICLE_TAGS.map((suggested) => {
+                      const isSelected = tags.includes(suggested);
+                      return (
+                        <button
+                          key={suggested}
+                          type="button"
+                          onClick={() =>
+                            setTags((prev) =>
+                              isSelected
+                                ? prev.filter((t) => t !== suggested)
+                                : [...prev, suggested]
+                            )
+                          }
+                          className={`px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-colors cursor-pointer ${
+                            isSelected
+                              ? 'bg-zinc-900 border-zinc-900 text-white'
+                              : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100'
+                          }`}
+                        >
+                          #{suggested}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Location / Spot linking */}

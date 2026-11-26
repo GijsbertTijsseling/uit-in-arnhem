@@ -7,6 +7,7 @@ import { AgendaItem } from '@/types';
 import { updateEventStatus } from '@/lib/supabase/api';
 import { getCurrentEditorUser } from '@/lib/auth';
 import { formatDate, formatTime } from '@/lib/utils';
+import { getEventCategoryLabel } from '@/data/mockData';
 import {
   Calendar,
   Sparkles,
@@ -289,7 +290,7 @@ export function AdminAgendaManager({
                           In afwachting van review
                         </span>
                         <span className="px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-700 font-semibold text-[10px] uppercase tracking-wider">
-                          {evt.category}
+                          {getEventCategoryLabel(evt.category)}
                         </span>
                         <span className="text-zinc-400 text-xs">
                           {formatDate(evt.start_date)} om {formatTime(evt.start_date)} uur

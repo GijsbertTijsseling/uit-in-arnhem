@@ -180,7 +180,7 @@ export const NAVIGATION_MENU: NavMenuSection[] = [
           { label: 'Eten & Drinken recensies', href: '/artikelen?category=eten-drinken' },
           { label: 'Kunst, Theater & Muziek', href: '/artikelen?category=cultuur' },
           { label: 'Nieuwe hotspots in de stad', href: '/artikelen?category=ontdekken' },
-          { label: 'Lijstjes & weekendtips', href: '/artikelen?category=tips' },
+          { label: 'Lijstjes & weekendtips', href: '/artikelen?category=nieuws-tips' },
         ],
       },
       {

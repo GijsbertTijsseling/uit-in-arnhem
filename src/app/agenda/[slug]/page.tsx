@@ -7,6 +7,7 @@ import { CalendarExport } from '@/components/agenda/CalendarExport';
 import { EventCard } from '@/components/agenda/EventCard';
 import { EventHeroImage } from '@/components/agenda/EventHeroImage';
 import { ButtonLink } from '@/components/ui/Button';
+import { getEventCategoryLabel } from '@/data/mockData';
 import {
   Calendar,
   Clock,
@@ -134,7 +135,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-semibold text-zinc-600">
               <span className="uppercase tracking-wider font-bold text-[#FF4F00]">
-                {event.category}
+                {getEventCategoryLabel(event.category)}
               </span>
               <span className="text-zinc-300" aria-hidden="true">•</span>
               <span

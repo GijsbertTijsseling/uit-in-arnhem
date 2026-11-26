@@ -5,7 +5,7 @@ import { Article } from '@/types';
 import { ArticleCard } from '@/components/articles/ArticleCard';
 import { Pagination } from '@/components/common/Pagination';
 import { Button } from '@/components/ui/Button';
-import { ARTICLE_CATEGORIES } from '@/data/mockData';
+import { ARTICLE_CATEGORIES, normalizeArticleCategorySlug } from '@/data/mockData';
 import { Search, X, BookOpen } from 'lucide-react';
 
 const ARTICLES_PER_PAGE = 12;
@@ -23,16 +23,38 @@ export function ArticlesPageClient({
   defaultTag,
   defaultPage = 1,
 }: ArticlesPageClientProps) {
-  const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
+  const resolveCategory = (cat?: string) =>
+    !cat || cat === 'all' ? 'all' : normalizeArticleCategorySlug(cat);
+
+  const [selectedCategory, setSelectedCategory] = useState(() => resolveCategory(defaultCategory));
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTag, setActiveTag] = useState(defaultTag || '');
   const [currentPage, setCurrentPage] = useState(defaultPage);
   const resultsTopRef = useRef<HTMLDivElement>(null);
 
+  // Sync when navigating between /artikelen?category=... links from the navbar
+  useEffect(() => {
+    setSelectedCategory(resolveCategory(defaultCategory));
+    setActiveTag(defaultTag || '');
+    setCurrentPage(defaultPage);
+  }, [defaultCategory, defaultTag, defaultPage]);
+
+  // Hide empty categories in the public filter bar (unless currently selected)
+  const visibleCategories = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const item of initialArticles) {
+      const cat = normalizeArticleCategorySlug(item.category);
+      counts.set(cat, (counts.get(cat) || 0) + 1);
+    }
+    return ARTICLE_CATEGORIES.filter(
+      (cat) => cat.id === 'all' || (counts.get(cat.id) || 0) > 0 || selectedCategory === cat.id
+    );
+  }, [initialArticles, selectedCategory]);
+
   const filteredArticles = useMemo(() => {
     return initialArticles.filter((item) => {
       // Category filter
-      if (selectedCategory !== 'all' && item.category !== selectedCategory) {
+      if (selectedCategory !== 'all' && normalizeArticleCategorySlug(item.category) !== selectedCategory) {
         return false;
       }
 
@@ -65,13 +87,23 @@ export function ArticlesPageClient({
 
   useEffect(() => {
     const url = new URL(window.location.href);
+    if (selectedCategory && selectedCategory !== 'all') {
+      url.searchParams.set('category', selectedCategory);
+    } else {
+      url.searchParams.delete('category');
+    }
+    if (activeTag) {
+      url.searchParams.set('tag', activeTag);
+    } else {
+      url.searchParams.delete('tag');
+    }
     if (safePage > 1) {
       url.searchParams.set('page', String(safePage));
     } else {
       url.searchParams.delete('page');
     }
     window.history.replaceState(null, '', url.toString());
-  }, [safePage]);
+  }, [selectedCategory, activeTag, safePage]);
 
   const handlePageChange = (page: number) => {
     const clamped = Math.min(Math.max(1, page), totalPages);
@@ -93,7 +125,7 @@ export function ArticlesPageClient({
         <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
           {/* Category Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar w-full md:w-auto">
-            {ARTICLE_CATEGORIES.map((cat) => {
+            {visibleCategories.map((cat) => {
               const active = selectedCategory === cat.id;
               return (
                 <button

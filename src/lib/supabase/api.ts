@@ -1,6 +1,11 @@
 import { createClient } from './client';
 import { Article, AgendaItem, UserProfile, Location, AgendaSource, AgendaSyncLog } from '@/types';
 import { LOCATIONS_CATALOG, getLocationFromCatalog } from '@/data/locationsData';
+import {
+  ARTICLE_CATEGORIES,
+  EVENT_CATEGORIES,
+  normalizeArticleCategorySlug,
+} from '@/data/mockData';
 
 // Helper to sanitize html string to plain text for excerpts
 function cleanHtml(html: string): string {
@@ -31,8 +36,10 @@ function mapArticleItem(item: any): Article {
     gallery_image_urls: item.gallery_image_urls || [],
     author_id: item.author_id,
     author_name: resolvedAuthorName,
-    category: item.categories?.slug || item.category_slug || item.category || 'nieuws',
-    tags: item.tags || [],
+    category: normalizeArticleCategorySlug(
+      item.categories?.slug || item.category_slug || item.category || 'nieuws-tips'
+    ),
+    tags: Array.isArray(item.tags) ? item.tags : [],
     status: item.status || 'published',
     is_featured: !!item.is_featured,
     layout_template: item.layout_template || 'standard',
@@ -535,8 +542,79 @@ export async function uploadImageToSupabase(
   return data.publicUrl;
 }
 
+async function resolveArticleCategoryId(
+  supabase: ReturnType<typeof createClient>,
+  categorySlug?: string | null
+): Promise<string | null> {
+  const normalizedSlug = normalizeArticleCategorySlug(categorySlug);
+  const { data: existing } = await supabase
+    .from('categories')
+    .select('id')
+    .eq('slug', normalizedSlug)
+    .maybeSingle();
+
+  if (existing?.id) return existing.id;
+
+  const def = ARTICLE_CATEGORIES.find((c) => c.id === normalizedSlug);
+  const { data: created } = await supabase
+    .from('categories')
+    .upsert(
+      {
+        slug: normalizedSlug,
+        name: def?.label || normalizedSlug,
+        description: def?.description || null,
+      },
+      { onConflict: 'slug' }
+    )
+    .select('id')
+    .maybeSingle();
+
+  return created?.id || null;
+}
+
+async function resolveEventCategoryId(
+  supabase: ReturnType<typeof createClient>,
+  categorySlug?: string | null
+): Promise<string | null> {
+  if (!categorySlug) return null;
+  const cleanedSlug = categorySlug.trim().toLowerCase();
+  const { data: existing } = await supabase
+    .from('event_categories')
+    .select('id')
+    .eq('slug', cleanedSlug)
+    .maybeSingle();
+
+  if (existing?.id) return existing.id;
+
+  const def = EVENT_CATEGORIES.find((c) => c.id === cleanedSlug);
+  const { data: created } = await supabase
+    .from('event_categories')
+    .upsert(
+      {
+        slug: cleanedSlug,
+        name: def?.label || cleanedSlug,
+      },
+      { onConflict: 'slug' }
+    )
+    .select('id')
+    .maybeSingle();
+
+  return created?.id || null;
+}
+
 export async function saveArticleToSupabase(article: Partial<Article>): Promise<{ data: any; error: any }> {
   const supabase = createClient();
+  const categoryId = await resolveArticleCategoryId(supabase, article.category);
+  const cleanedTags = Array.isArray(article.tags)
+    ? Array.from(
+        new Set(
+          article.tags
+            .map((t) => t.trim().toLowerCase().replace(/^#+/, ''))
+            .filter(Boolean)
+        )
+      )
+    : undefined;
+
   const payload: Record<string, any> = {
     title: article.title,
     slug: article.slug,
@@ -550,6 +628,14 @@ export async function saveArticleToSupabase(article: Partial<Article>): Promise<
     published_at: article.published_at || new Date().toISOString(),
     author_name: article.author_name?.trim() || null,
   };
+
+  if (categoryId) {
+    payload.category_id = categoryId;
+  }
+
+  if (cleanedTags !== undefined) {
+    payload.tags = cleanedTags;
+  }
 
   if (article.author_id) {
     payload.author_id = article.author_id;
@@ -626,6 +712,7 @@ export async function setFeaturedArticle(
 
 export async function saveEventToSupabase(event: Partial<AgendaItem>): Promise<{ data: any; error: any }> {
   const supabase = createClient();
+  const categoryId = await resolveEventCategoryId(supabase, event.category);
   const payload: any = {
     title: event.title,
     slug: event.slug,
@@ -647,6 +734,10 @@ export async function saveEventToSupabase(event: Partial<AgendaItem>): Promise<{
     is_manually_edited: true,
     manual_override_fields: ['title', 'description', 'short_description', 'featured_image'],
   };
+
+  if (categoryId) {
+    payload.category_id = categoryId;
+  }
 
   if (event.id && !event.id.startsWith('evt-') && isNaN(Number(event.id))) {
     const { data, error } = await supabase
@@ -708,6 +799,8 @@ export async function submitPublicEvent(event: {
     }
   ];
 
+  const categoryId = await resolveEventCategoryId(supabase, event.category);
+
   const payload: any = {
     title: event.title,
     slug,
@@ -720,6 +813,7 @@ export async function submitPublicEvent(event: {
     venue_address: event.venue_address || 'Arnhem',
     venue_city: event.venue_city || 'Arnhem',
     location_id: event.location_id || null,
+    ...(categoryId ? { category_id: categoryId } : {}),
     price_type: event.price_type,
     price: event.price_from || 0,
     ticket_url: event.ticket_url || null,
