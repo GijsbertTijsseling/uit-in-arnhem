@@ -8,9 +8,10 @@ import { PageViewTracker } from '@/components/analytics/PageViewTracker';
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isAdminRoute = pathname?.startsWith('/admin');
+  const isStandaloneRoute =
+    pathname?.startsWith('/admin') || pathname === '/toegang';
 
-  if (isAdminRoute) {
+  if (isStandaloneRoute) {
     return <>{children}</>;
   }
 

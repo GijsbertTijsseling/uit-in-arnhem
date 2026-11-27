@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google';
 import './globals.css';
 import { SiteChrome } from '@/components/layout/SiteChrome';
+import { isIndexingAllowed } from '@/lib/site-access';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -22,6 +23,18 @@ export const metadata: Metadata = {
   description:
     'Ontdek wat er te doen is in Arnhem. De complete culturele agenda, tips voor eten & drinken, vintage winkelen en verborgen parels in de Rijnstad.',
   keywords: ['Arnhem', 'Agenda', 'Cultuur', 'Hotspots', 'Nachtleven', 'Sonsbeek', 'Modekwartier', 'Uit in Arnhem'],
+  robots: isIndexingAllowed()
+    ? { index: true, follow: true }
+    : {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: {
+          index: false,
+          follow: false,
+          noimageindex: true,
+        },
+      },
   openGraph: {
     title: 'Uit in Arnhem | De officiële cultuur- en uitgaansgids',
     description: 'Ontdek de beste evenementen, exposities, concerten en culinaire hotspots van Arnhem.',
